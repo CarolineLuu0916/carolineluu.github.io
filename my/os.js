@@ -78,6 +78,40 @@ const LIFE = {
       { name: "手持洗车水枪 高压便携",   price: "¥129", sold: "浏览过 3 次",     color: "linear-gradient(135deg,#00B578,#00935F)", ic: "bubbles" },
     ],
   },
+  /* 车与车服务(保养闭环的基础数据) */
+  car: {
+    plate: "沪A·D9527", model: "SUP C", odo: "17,260",
+    lastService: { date: "2026-03-12", km: "12,800", item: "标准保养" },
+    nextDue: { date: "7月10日", km: "20,000", in: "约 3 周后" },
+    shop: "MY 授权服务中心 · 前滩店",
+    packages: [
+      { name: "标准保养 · 机油机滤 + 全车检查", price: 680, dur: "约 90 分钟" },
+      { name: "深度保养 · 含空调/刹车油更换",   price: 1280, dur: "约 150 分钟" },
+    ],
+  },
+  /* 日历(MY 安排/预约的落点) */
+  calendar: {
+    events: [
+      { date: "今天", time: "15:30", title: "接小桃放学", tag: "daily",  color: "#F2A93B" },
+      { date: "今天", time: "19:00", title: "婆婆家晚饭 · 酱鸭", tag: "family", color: "#E0567B" },
+      { date: "周四", time: "14:00", title: "空闲时段 14:00–16:30", tag: "free", color: "#00B578" },
+      { date: "周五", time: "09:00", title: "小桃幼儿园春游 · 备水壶/零食", tag: "kid", color: "#7C6CF0" },
+      { date: "7月10日", time: "10:00", title: "SUP C 保养到期 · 20,000km", tag: "car", color: "#1677FF" },
+    ],
+  },
+  /* 短信(验证码 / 4S 提醒 / 银行 / 运营商) */
+  messages: {
+    threads: [
+      { id: "service", name: "MY 服务中心", num: "1065-7558-xxxx", time: "昨天 09:12", unread: 1,
+        msgs: [{ who: "them", text: "【MY服务】尊敬的车主，您的 SUP C 将于 7月10日 达到 20,000km 保养周期。回复 1 即可让 MY 为您预约「前滩店」。" }] },
+      { id: "verify", name: "验证码", num: "1069-0457-xxxx", time: "周一 14:03", unread: 0,
+        msgs: [{ who: "them", text: "【大众点评】您的验证码为 8246，5 分钟内有效，用于预约/下单确认，请勿泄露。" }] },
+      { id: "bank", name: "95588", num: "工商银行", time: "6月10日", unread: 0,
+        msgs: [{ who: "them", text: "您尾号 6688 卡 6月10日 工资入账 ¥28,500.00。【工商银行】" }] },
+      { id: "carrier", name: "10086", num: "中国移动", time: "6月1日", unread: 0,
+        msgs: [{ who: "them", text: "【中国移动】您本月已用流量 18.6GB，套餐内剩余 11.4GB，余额 ¥86.30。" }] },
+    ],
+  },
 };
 
 /* ---------- OS 内核 ---------- */
@@ -232,6 +266,30 @@ const OS = {
     });
     if (OS.current === "dianping") MAPP_RENDER.dianping();
   },
+  /* MY 把一件事写进日历 */
+  addCalendar(ev) {
+    const e = { date: ev.date || "今天", time: ev.time || "", title: ev.title || "新日程", tag: ev.tag || "my", color: ev.color || "#7C6CF0", fresh: true, byMY: true };
+    LIFE.calendar.events.push(e);
+    OS.notify({
+      app: "日历", color: "linear-gradient(135deg,#E0567B,#C23B61)", icon: I("check"),
+      text: `已加入日历 · ${e.date}${e.time ? " " + e.time : ""} ${e.title}`, ntype: "life",
+    });
+    if (OS.current === "calendar") MAPP_RENDER.calendar();
+    return e;
+  },
+  /* 收到一条短信(验证码 / 4S / 银行 …) */
+  sms(from, text, name) {
+    let th = LIFE.messages.threads.find(t => t.id === from);
+    if (!th) { th = { id: from, name: name || from, num: from, time: "刚刚", unread: 0, msgs: [] }; LIFE.messages.threads.unshift(th); }
+    th.msgs.push({ who: "them", text }); th.time = "刚刚"; th.unread = (th.unread || 0) + 1; th.fresh = true;
+    OS.badges.messages = (OS.badges.messages || 0) + 1; renderSpringboard();
+    OS.notify({
+      app: "信息", color: "linear-gradient(135deg,#43D673,#2BB956)", icon: I("check"),
+      text: `${th.name}：${text.replace(/【[^】]*】/g, "").slice(0, 30)}…`, ntype: "life",
+    });
+    if (OS.current === "messages") MAPP_RENDER.messages(smView);
+    return th;
+  },
   toastOS(msg) {
     let t = $("#os-toast");
     if (!t) {
@@ -244,6 +302,7 @@ const OS = {
   },
 };
 window.OS = OS;
+window.LIFE = LIFE;   // 暴露生活数据,供 MY 的工具读取(search_carwash / book_maintenance 等)
 
 /* ---------- 桌面 ---------- */
 const TILE = {
@@ -261,7 +320,7 @@ const TILE = {
   photos:   { name: "照片",     color: "linear-gradient(135deg,#FFFFFF,#EDEFF6)", glyph: () => `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><g stroke="#F2A93B"><circle cx="12" cy="7" r="3"/></g><g stroke="#E0567B"><circle cx="16.3" cy="9.5" r="3"/></g><g stroke="#A78BFA"><circle cx="16.3" cy="14.5" r="3"/></g><g stroke="#1677FF"><circle cx="12" cy="17" r="3"/></g><g stroke="#00B578"><circle cx="7.7" cy="14.5" r="3"/></g><g stroke="#43D673"><circle cx="7.7" cy="9.5" r="3"/></g></svg>` },
   settings: { name: "设置",     color: "linear-gradient(135deg,#9BA3B8,#6E7790)", glyph: () => I("gear") },
   clock:    { name: "时钟",     color: "linear-gradient(135deg,#1C2033,#0B0E1F)", glyph: () => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 6.5V12l3.5 2.5"/></svg>` },
-  calendar: { name: "日历",     color: "linear-gradient(135deg,#FFFFFF,#EDEFF6)", glyph: () => `<span class="tile-char" style="color:#E0567B;font-size:22px">11</span>` },
+  calendar: { name: "日历",     color: "linear-gradient(135deg,#FFFFFF,#EDEFF6)", glyph: () => `<span class="tile-cal"><i>${"周日周一周二周三周四周五周六".substr(new Date().getDay()*2,2)}</i><b>${new Date().getDate()}</b></span>` },
   jianying: { name: "剪映",     color: "linear-gradient(135deg,#16181F,#000)",    glyph: () => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 17.5 18.5 5M5 6.5 18.5 19"/><circle cx="5.5" cy="17.5" r="2.3"/><circle cx="5.5" cy="6.5" r="2.3"/></svg>`, bdg: "536" },
   baidu:    { name: "百度",     color: "linear-gradient(135deg,#2932E1,#5A8DEE)", glyph: () => `<span class="tile-char" style="font-size:22px">du</span>`, bdg: "9" },
 };
@@ -286,9 +345,9 @@ const SB_FOLDERS = [
   { emoji: "🌞", badge: "192",   n: 8, s: 9 },
   { emoji: "🤡", badge: "25",    n: 5, s: 4 },
 ];
-const GRID_APPS = ["wechat", "alipay", "dianping", "amap", "meituan", "taobao", "jianying", "baidu"];
+const GRID_APPS = ["wechat", "alipay", "dianping", "amap", "calendar", "meituan", "taobao", "jianying", "baidu"];
 const DOCK_APPS = ["phone", "messages", "my", "safari"];
-const REAL_APPS = ["my", "wechat", "alipay", "dianping", "amap", "meituan", "taobao"];
+const REAL_APPS = ["my", "wechat", "alipay", "dianping", "amap", "meituan", "taobao", "calendar", "messages"];
 
 function appBtn(id) {
   const t = TILE[id];
@@ -329,6 +388,7 @@ setInterval(tickWidget, 20_000);
 
 /* ---------- 模拟 APP 渲染 ---------- */
 let wxView = null;   // null=列表, chatId=会话
+let smView = null;   // 短信:null=列表, threadId=会话
 
 function maHead(cls, title, extra = "") {
   return `<div class="ma-head ${cls}"><button class="ma-back" data-home>‹</button><h1>${title}</h1>${extra}</div>`;
@@ -923,6 +983,85 @@ const MAPP_RENDER = {
       MAPP_RENDER.taobao(t);
     });
   },
+};
+
+/* ----- 日历(MY 安排/预约的落点) ----- */
+const CAL_TAGCN = { daily: "日常", family: "家庭", free: "空闲", kid: "小桃", car: "车务", my: "MY 安排" };
+MAPP_RENDER.calendar = function () {
+  const evs = LIFE.calendar.events;
+  const order = [], groups = {};
+  evs.forEach(e => { if (!groups[e.date]) { groups[e.date] = []; order.push(e.date); } groups[e.date].push(e); });
+  const d = new Date();
+  const dStr = `${d.getMonth() + 1}月${d.getDate()}日 周${"日一二三四五六"[d.getDay()]}`;
+  const todayN = evs.filter(e => e.date === "今天").length;
+  const body = order.map(label => `
+    <div class="cal-group">
+      <div class="cal-date">${label === "今天" ? "今天 · " + dStr : label}</div>
+      ${groups[label].map(e => `
+        <div class="cal-ev${e.fresh ? " fresh" : ""}" style="border-left-color:${e.color}">
+          <span class="cal-time">${(e.time || "全天").replace("全天", "<i>全天</i>")}</span>
+          <span class="cal-main">
+            <span class="cal-title">${e.title}</span>
+            <span class="cal-tags"><i class="cal-tag" style="color:${e.color};background:${e.color}1c">${CAL_TAGCN[e.tag] || "日程"}</i>${e.byMY ? '<i class="cal-by">✦ MY 安排</i>' : ""}</span>
+          </span>
+        </div>`).join("")}
+    </div>`).join("");
+  $("#app-calendar").innerHTML = `<div class="ma cal-wrap">
+    ${maHead("cal-head", "日历")}
+    <div class="ma-body cal-body">
+      <div class="cal-hero"><b>${dStr}</b><span>今天 ${todayN} 件事 · MY 在帮你盯着日程</span></div>
+      ${body}
+    </div>
+  </div>`;
+  bindHome("#app-calendar");
+};
+
+/* ----- 信息(短信:验证码 / 4S / 银行) ----- */
+const SMS_THEME = {
+  service: { c: "linear-gradient(135deg,#A78BFA,#7C6CF0)", ch: "M" },
+  verify:  { c: "linear-gradient(135deg,#54A8FF,#1677FF)", ch: "码" },
+  bank:    { c: "linear-gradient(135deg,#1677FF,#0D5BD8)", ch: "工" },
+  carrier: { c: "linear-gradient(135deg,#00B578,#00935F)", ch: "移" },
+};
+function smsBubbleHtml(th, m) {
+  let txt = m.text;
+  if (th.id === "verify") txt = txt.replace(/(\d{4,6})/, '<b class="sms-code">$1</b>');   // 验证码加粗
+  return `<div class="sms-bubble${m.who === "me" ? " me" : ""}">${txt}</div>`;
+}
+MAPP_RENDER.messages = function (view = null) {
+  smView = view;
+  const f = $("#app-messages");
+  if (!smView) {
+    f.innerHTML = `<div class="ma">
+      ${maHead("sms-head", "信息")}
+      <div class="ma-body" style="padding-bottom:40px">
+        ${LIFE.messages.threads.map(t => {
+          const th = SMS_THEME[t.id] || { c: "linear-gradient(135deg,#43D673,#2BB956)", ch: (t.name || "?").slice(0, 1) };
+          return `
+          <div class="sms-row${t.fresh ? " fresh" : ""}" data-sms="${t.id}">
+            <span class="sms-ava" style="background:${th.c}">${th.ch}</span>
+            <span class="sms-meta"><b>${t.name}<i>${t.time}</i></b><p>${(t.msgs[t.msgs.length - 1] || {}).text || ""}</p></span>
+            ${t.unread ? `<span class="sb-badge sms-badge">${t.unread}</span>` : ""}
+          </div>`;
+        }).join("")}
+      </div>
+    </div>`;
+    f.querySelectorAll(".sms-row").forEach(r => r.onclick = () => MAPP_RENDER.messages(r.dataset.sms));
+  } else {
+    const t = LIFE.messages.threads.find(x => x.id === smView) || { id: smView, name: smView, num: "", msgs: [] };
+    t.unread = 0; t.fresh = false;
+    f.innerHTML = `<div class="ma sms-app">
+      ${maHead("sms-head", t.name)}
+      <div class="ma-body sms-thread">
+        <div class="sms-num">${t.num || ""}</div>
+        ${t.msgs.map(m => smsBubbleHtml(t, m)).join("")}
+      </div>
+      <div class="sms-inputbar"><span class="sms-input">短信/彩信</span><button class="sms-send">↑</button></div>
+    </div>`;
+  }
+  // 回退键:会话内→回列表;列表→回桌面(仿微信)
+  const home = f.querySelector("[data-home]");
+  if (home) home.onclick = () => (smView ? MAPP_RENDER.messages(null) : OS.goHome());
 };
 
 function TILE_IC(n) { return n; }

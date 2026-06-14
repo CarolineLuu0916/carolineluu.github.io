@@ -696,3 +696,50 @@
 .call-tag{
   margin-top:14px;font-size:10px;color:#8A91B8;letter-spacing:.18em;font-family:var(--mono);
 }
+
+/* ===== 日历 App ===== */
+.tile-cal{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.tile-cal i{font-style:normal;font-size:8px;font-weight:700;color:#FF3B30;letter-spacing:.04em}
+.tile-cal b{font-size:21px;font-weight:600;color:#1d1d2e;margin-top:1px}
+.cal-wrap{background:#F6F7FB;display:flex;flex-direction:column}
+.cal-head h1{color:#1d1d2e}
+.cal-body{padding:0 0 50px}
+.cal-hero{padding:16px 18px 13px;background:linear-gradient(135deg,#FDF2F6,#EEF1FB)}
+.cal-hero b{display:block;font-size:18px;color:#2b2940;font-weight:700}
+.cal-hero span{font-size:11px;color:#9a93b0}
+.cal-group{padding:4px 0 2px}
+.cal-date{font-size:11px;font-weight:700;color:#8C84A6;letter-spacing:.04em;padding:11px 18px 5px}
+.cal-ev{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;margin:0 12px 7px;border-radius:13px;
+  border-left:3px solid #ccc;box-shadow:0 2px 8px rgba(120,110,160,.07)}
+.cal-ev.fresh{animation:calpop .5s ease;box-shadow:0 0 0 2px rgba(124,108,236,.3),0 4px 12px rgba(124,108,236,.18)}
+@keyframes calpop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.cal-time{font-size:13px;font-weight:700;color:#3b3650;font-family:var(--mono,monospace);min-width:42px;text-align:center}
+.cal-time i{font-style:normal;font-size:10px;color:#9a93b0;font-family:inherit}
+.cal-main{flex:1;min-width:0}
+.cal-title{display:block;font-size:13.5px;color:#2b2940;font-weight:500}
+.cal-tags{display:flex;align-items:center;gap:6px;margin-top:4px}
+.cal-tag{font-style:normal;font-size:9px;font-weight:700;border-radius:7px;padding:1px 7px}
+.cal-by{font-style:normal;font-size:9px;color:#7C6CF0;background:#EEEBFC;border-radius:7px;padding:1px 7px}
+
+/* ===== 信息 App(短信) ===== */
+.sms-app{display:flex;flex-direction:column;height:100%}
+.sms-head h1{color:#1d1d2e}
+.sms-row{display:flex;align-items:center;gap:11px;padding:13px 16px;border-bottom:1px solid #f0f0f4;cursor:pointer}
+.sms-row.fresh{background:#F3FBF5}
+.sms-ava{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700;color:#fff;background:linear-gradient(135deg,#43D673,#2BB956)}
+.sms-meta{flex:1;min-width:0}
+.sms-meta b{display:flex;justify-content:space-between;font-size:14px;color:#1d1d2e;font-weight:600}
+.sms-meta b i{font-size:11px;color:#b3b3bd;font-weight:400;font-style:normal}
+.sms-meta p{font-size:12px;color:#8a8a96;margin:2px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sms-badge{position:static;margin-left:auto;flex-shrink:0}
+.sms-thread{flex:1;padding:14px 16px 16px;background:#F6F7FB;overflow-y:auto}
+.sms-num{text-align:center;font-size:10px;color:#b3b3bd;margin-bottom:14px;font-family:var(--mono,monospace)}
+.sms-bubble{max-width:80%;width:fit-content;padding:9px 13px;border-radius:18px;font-size:13px;line-height:1.55;margin-bottom:9px;
+  background:#E9E9EB;color:#111;border-bottom-left-radius:5px}
+.sms-bubble.me{margin-left:auto;background:linear-gradient(135deg,#43D673,#2BB956);color:#fff;border-bottom-left-radius:18px;border-bottom-right-radius:5px}
+.sms-code{font-weight:800;letter-spacing:.06em}
+.sms-inputbar{display:flex;align-items:center;gap:8px;padding:9px 14px;border-top:1px solid #e6e6ec;background:#fff}
+.sms-input{flex:1;font-size:12px;color:#b3b3bd;border:1px solid #dcdce4;border-radius:16px;padding:7px 13px}
+.sms-send{width:28px;height:28px;border:none;border-radius:50%;flex-shrink:0;color:#fff;font-size:15px;font-weight:800;
+  background:#C9CDD6;cursor:default}

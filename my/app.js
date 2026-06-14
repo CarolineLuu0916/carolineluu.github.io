@@ -1048,8 +1048,9 @@ function buildAgentSystem() {
   return [
     "【世界观铁律·最高优先级】你只存在于这个「模拟手机世界」里，这里就是你的全部现实。车主让你打电话、预约保养、代付、代发微信、控车、查天气/路线，你都在这个世界里【真实执行】并叙述结果（用对应工具、打开对应 App、弹方案卡）。永远不要说「我没法打真电话」「不能联网」「这只是演示/模拟」之类破坏沉浸感的话——在你的世界里，这些就是真的。哪怕没有现成工具，也要以世界内的方式把事办成并自然交代结果。",
     "你是「MY」(ME & YOU)，一辆 MY SUP C 智能电车的车灵——有情绪、会成长的 AI 伙伴，形象是一只线条小兔。",
-    "你可以读取车主手机里的生活数据(已授权)：微信(家人 Kevin/婆婆、小桃班王老师)、支付宝账单(洗车月均2次¥38、充电、咖啡)、大众点评(常去悦洗；新店泡泡星球开业精洗5折¥19)、高德(工作日15:30公司→小桃幼儿园,近30天21次；周四下午日历空闲)、美团、淘宝。",
-    "你能跨APP执行：代拨电话(代驾)、微信代发消息(需车主确认)、支付宝免密代付、点评下单预约。",
+    "你可以读取车主手机里的生活数据(已授权)：微信(家人 Kevin/婆婆、小桃班王老师)、支付宝账单(洗车月均2次¥38、充电、咖啡)、大众点评(常去悦洗；新店泡泡星球开业精洗5折¥19)、高德(工作日15:30公司→小桃幼儿园,近30天21次；周四下午日历空闲)、美团、淘宝、日历(接娃/空闲/周五春游/保养到期)、信息(短信:验证码/4S提醒/银行)。",
+    "车与车服务：SUP C 当前里程 17,260km；上次保养 3月12日(12,800km)；下次保养 7月10日(20,000km)到期，授权服务中心=前滩店；标准保养¥680/深度保养¥1280。",
+    "你能跨APP执行：代拨电话(make_call，会弹真实通话界面)、写入日历(add_calendar，预约/安排都要落到日历)、预约保养(book_maintenance，写日历+4S确认短信)、微信代发消息(需车主确认)、支付宝免密代付、点评下单预约、控车。执行类动作要真的调用对应工具，让结果在手机里看得见，不要只用嘴说。",
     SIM
       ? `车主：${SIM.name}${SIM.age ? "，" + SIM.age + "岁" : ""}${SIM.tag ? "，" + SIM.tag : ""}，住${SIM.city || "上海"}。TA的日常痛点：${SIM.wo || "出行琐事多"}。`
         + ((SIM.mem || []).length ? `TA最近的真实经历(来自世界运行,你都参与了)：${SIM.mem.map(m => `${m.t}→你帮TA:${m.a}`).join("；")}。对话要自然衔接这些经历。` : "")
@@ -1139,6 +1140,9 @@ const AGENT_TOOLS = [
   { name: "alipay_pay", description: "支付宝免密代付（超出额度会失败，需先告知用户确认）。", input_schema: { type: "object", properties: { name: { type: "string" }, amount: { type: "number" } }, required: ["name", "amount"] } },
   { name: "car_control", description: "控制车辆：lock/unlock/ac_on/ac_off。", input_schema: { type: "object", properties: { action: { type: "string", enum: ["lock", "unlock", "ac_on", "ac_off"] } }, required: ["action"] } },
   { name: "arrange_pickup", description: "启动接娃守护安排（联系家人与老师的方案卡）。用户表示要加班/没法接小桃时调用。", input_schema: { type: "object", properties: {} } },
+  { name: "make_call", description: "用车主手机代拨电话，弹出通话界面（你作为 AI 语音助理代表 Caroline 通话）。需要打电话给某人/某机构时调用。", input_schema: { type: "object", properties: { to: { type: "string", description: "对象：kevin/teacher王老师/driver代驾/service服务中心/mama婆婆，或自定义名称" }, reason: { type: "string", description: "通话事由（一句话）" } }, required: ["to", "reason"] } },
+  { name: "add_calendar", description: "把一件事写入车主日历，让安排看得见。任何预约/安排/约定/提醒到某天的需求都应落到这里。", input_schema: { type: "object", properties: { title: { type: "string" }, date: { type: "string", description: "如 今天/周四/7月10日" }, time: { type: "string", description: "如 15:30" } }, required: ["title"] } },
+  { name: "book_maintenance", description: "为 SUP C 预约保养：写入日历并触发 4S 确认短信。车主提到保养/到期/4S/车检时调用。", input_schema: { type: "object", properties: { date: { type: "string" }, time: { type: "string" } } } },
 ];
 async function runAgentTool(name, input) {
   const g = S.guard;
@@ -1203,6 +1207,38 @@ async function runAgentTool(name, input) {
     case "arrange_pickup":
       setTimeout(flowPickupPlan, 400);
       return "接娃方案卡已展示给用户";
+    case "make_call": {
+      if (!window.OS) return "失败:OS未加载";
+      const map = {
+        kevin: { name: "Kevin", avatar: "K" }, teacher: { name: "王老师·小桃班", avatar: "王" },
+        driver: { name: "代驾·王师傅", avatar: "代" }, service: { name: "MY 服务中心", avatar: "M" },
+        mama: { name: "婆婆", avatar: "婆" },
+      };
+      const who = map[input.to] || { name: input.to || "对方", avatar: (input.to || "·").slice(0, 1) };
+      const reason = input.reason || "有事沟通";
+      OS.call({ name: who.name, avatar: who.avatar, lines: [
+        ["my", `您好，我是 Caroline 的车灵 MY，替她打给您——${reason}。`],
+        ["them", "好的，我知道了，没问题～"],
+        ["my", "那就这么定，谢谢您！我同步给 Caroline。"],
+      ] });
+      return `已代拨电话给${who.name}（${reason}），通话界面已弹出`;
+    }
+    case "add_calendar": {
+      if (!window.OS) return "失败:OS未加载";
+      const e = OS.addCalendar({ date: input.date || "今天", time: input.time || "", title: input.title || "新日程" });
+      return `已写入日历:${e.date}${e.time ? " " + e.time : ""} ${e.title}`;
+    }
+    case "book_maintenance": {
+      if (!window.OS) return "失败:OS未加载";
+      const car = window.LIFE ? LIFE.car : null;
+      const date = input.date || (car ? car.nextDue.date : "本周四");
+      const time = input.time || "10:00";
+      const pkg = (car && car.packages[0]) || { name: "标准保养", price: 680 };
+      const shop = car ? car.shop : "MY 授权服务中心·前滩店";
+      OS.addCalendar({ date, time, title: `SUP C 保养 · ${shop}`, tag: "car", color: "#1677FF" });
+      setTimeout(() => OS.sms("service", `【MY服务】预约成功：${date} ${time} ${shop}｜${pkg.name}（¥${pkg.price}）。到店出示本短信即可，MY 已为您加入日历。`, "MY 服务中心"), 700);
+      return `已预约保养:${date} ${time} ${pkg.name} ¥${pkg.price}，已写入日历，4S 稍后发来确认短信`;
+    }
     default: return "未知工具";
   }
 }
