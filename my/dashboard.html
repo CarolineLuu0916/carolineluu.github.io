@@ -403,6 +403,14 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
 .rev-tag.keep{background:#EEF7F2;color:#059669;}
 .rev-tag.churn{background:#FAF0F0;color:#DC2626;}
 .rev-empty{font-size:10px;color:var(--t4);line-height:1.7;padding:4px;}
+/* ── LOCK / MEET BUTTONS ── */
+.btn-lock{box-shadow:var(--nm-sm);background:rgba(109,40,217,.10);border:none;border-radius:14px;
+  padding:6px 13px;font-size:11px;color:#6D28D9;cursor:pointer;font-weight:700;transition:.15s;}
+.btn-lock:hover{box-shadow:var(--nm-in);}
+.btn-lock.on{background:rgba(16,185,129,.12);color:#059669;}
+.btn-meet{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:14px;
+  padding:6px 13px;font-size:11px;color:var(--t3);cursor:pointer;font-weight:700;transition:.15s;}
+.btn-meet:hover{box-shadow:var(--nm-in);}
 </style>
 </head>
 <body>
@@ -420,7 +428,9 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
     <button class="api-chip" id="api-chip" onclick="openKeyModal()"><span class="api-dot"></span>AI引擎</button>
     <button class="btn-run" id="btn-run" onclick="toggleWorld()"><span class="run-dot"></span><span id="run-label">▶ 启动世界</span></button>
     <button class="btn-day" id="btn-day" onclick="endDay()">🌙 结束今天</button>
+    <button class="btn-meet" id="btn-meet" onclick="doMeeting()">📊 团队复盘</button>
     <button class="btn-ev" id="btn-ev" onclick="toggleEvPanel()">＋ 投入事件</button>
+    <button class="btn-lock" id="btn-lock" onclick="openAuthModal()">🔒 锁定</button>
   </div>
 </div>
 
@@ -533,6 +543,21 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
       <iframe id="phone-iframe" src="about:blank"></iframe>
     </div>
     <button class="modal-close" onclick="closePhone()">✕</button>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal" onclick="if(event.target===this)closeAuthModal()" style="display:none">
+  <div class="key-box">
+    <b>🔐 Caroline 专属入口</b>
+    <p>输入密码解锁私人控制台，token 本地保存 30 天。</p>
+    <input class="key-input" id="auth-pwd" type="password" placeholder="••••••••" autocomplete="current-password"
+           onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="key-row">
+      <button class="key-btn ghost" onclick="closeAuthModal()">取消</button>
+      <button class="key-btn" id="auth-submit" onclick="doLogin()">解锁</button>
+    </div>
+    <span class="key-hint" id="auth-hint"></span>
   </div>
 </div>
 
@@ -1204,6 +1229,115 @@ function handleModalClick(e) {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhone(); });
 
+/* ═══════════ WORKER API · D1 持久化 ═══════════ */
+const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
+function worldToken() { return localStorage.getItem('my-world-token') || ''; }
+function worldAuthed() { return !!worldToken(); }
+
+function updateLockUI() {
+  const authed = worldAuthed();
+  const btn = document.getElementById('btn-lock');
+  if (btn) { btn.textContent = authed ? '🔓 已解锁' : '🔒 锁定'; btn.classList.toggle('on', authed); }
+  const btnM = document.getElementById('btn-meet');
+  if (btnM) btnM.style.display = authed ? '' : 'none';
+}
+
+function openAuthModal() {
+  if (worldAuthed()) { worldLogout(); return; }
+  document.getElementById('auth-modal').style.display = 'flex';
+  document.getElementById('auth-pwd').value = '';
+  document.getElementById('auth-hint').textContent = '';
+  document.getElementById('auth-hint').className = 'key-hint';
+  setTimeout(() => document.getElementById('auth-pwd').focus(), 50);
+}
+function closeAuthModal() { document.getElementById('auth-modal').style.display = 'none'; }
+
+async function doLogin() {
+  const pwd = document.getElementById('auth-pwd').value.trim();
+  if (!pwd) return;
+  const hint = document.getElementById('auth-hint');
+  hint.textContent = '验证中…'; hint.className = 'key-hint';
+  document.getElementById('auth-submit').disabled = true;
+  try {
+    const res = await fetch(WORKER_URL + '/api/auth', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({password: pwd})
+    });
+    const data = await res.json();
+    if (data.ok && data.token) {
+      localStorage.setItem('my-world-token', data.token);
+      hint.textContent = '✓ 已解锁'; hint.className = 'key-hint ok';
+      updateLockUI();
+      setTimeout(closeAuthModal, 600);
+    } else {
+      hint.textContent = '✕ 密码错误'; hint.className = 'key-hint err';
+    }
+  } catch (e) {
+    hint.textContent = '✕ 无法连接'; hint.className = 'key-hint err';
+  } finally {
+    document.getElementById('auth-submit').disabled = false;
+  }
+}
+
+function worldLogout() {
+  localStorage.removeItem('my-world-token');
+  updateLockUI();
+}
+
+async function syncWorldDay() {
+  try {
+    const res = await fetch(WORKER_URL + '/api/world');
+    if (!res.ok) return;
+    const w = await res.json();
+    if (w && w.day && w.day > WORLD.day) {
+      WORLD.day = w.day;
+      localStorage.setItem('my-world-day', String(WORLD.day));
+      document.getElementById('day-num').textContent = WORLD.day;
+    }
+  } catch (e) { /* offline – keep localStorage value */ }
+}
+
+async function doMeeting() {
+  if (!worldAuthed()) return;
+  const btn = document.getElementById('btn-meet');
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = '📊 复盘中…';
+  try {
+    const res = await fetch(WORKER_URL + '/api/world/meeting', {
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + worldToken()}
+    });
+    const data = await res.json();
+    if (!data.ok || !data.minutes) { alert('❌ 复盘未产出纪要'); return; }
+    // 展示纪要 → 一键发版
+    const go = confirm('📊 团队会议纪要\n\n' + data.minutes
+      + '\n\n———\n是否据此发布新版本？（点「确定」填写版本号）');
+    if (!go) return;
+    // 取当前全局版本，提议下一个小版本号
+    let cur = 'v1.0';
+    try { const w = await (await fetch(WORKER_URL + '/api/world')).json(); if (w && w.version) cur = w.version; } catch(e) {}
+    const m = cur.match(/v(\d+)\.(\d+)/);
+    const suggest = m ? `v${m[1]}.${(+m[2]) + 1}` : 'v1.1';
+    const v = (prompt('新版本号：', suggest) || '').trim();
+    if (!v) return;
+    const changelog = (prompt('本次更新要点（changelog，可留空）：', '') || '').trim();
+    btn.textContent = '🚀 发布中…';
+    const rel = await fetch(WORKER_URL + '/api/world/release', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + worldToken()},
+      body: JSON.stringify({ v, changelog, minutes: data.minutes })
+    });
+    const rd = await rel.json();
+    if (rd.ok) { alert('🚀 已发布 ' + rd.v + '（已写入全局版本，所有访客同步）'); }
+    else { alert('❌ 发版失败: ' + (rd.error || '未知错误')); }
+  } catch (e) {
+    alert('❌ 团队复盘失败: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = orig;
+  }
+}
+
 /* ═══════════ WORLD ENGINE · DeepSeek 真实驱动 ═══════════ */
 const WORLD = {
   key: localStorage.getItem('my-world-key') || 'sk-56bd2dbc7f3945f083a20d785941cb03',
@@ -1450,6 +1584,12 @@ APP当前版本:${verLabel()}${feats0 ? '，本周期已上线改进:' + feats0 
     // 翻天
     WORLD.day++;
     localStorage.setItem('my-world-day', String(WORLD.day));
+    // 同步到 D1（后台非阻塞）
+    if (worldAuthed()) {
+      fetch(WORKER_URL + '/api/world/endday', {
+        method: 'POST', headers: {'Authorization': 'Bearer ' + worldToken()}
+      }).catch(() => {});
+    }
     document.getElementById('day-num').textContent = WORLD.day;
     WORLD.clockMin = 0;   // 新的一天从 00:00 开始
     localStorage.setItem('my-world-clock', '0');
@@ -1822,6 +1962,8 @@ document.getElementById('day-num').textContent = WORLD.day;
 document.getElementById('st-users').textContent = USERS.length;
 updateStats();
 updateTimePill();
+updateLockUI();
+syncWorldDay();
 applyPanelW(panelW);
 updateBotText();
 requestAnimationFrame(() => { document.querySelector('.ugwrap').scrollTop = 0; });

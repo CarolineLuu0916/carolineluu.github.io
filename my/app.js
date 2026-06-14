@@ -888,12 +888,46 @@ function bootChat() {
   if (chatBooted) return;
   chatBooted = true;
   chatBody().innerHTML = "";
+  /* Caroline 本人 + 已解锁:先回放 D1 持久记忆,让「记得之前聊过的一切」可见 */
+  if (!SIM && worldAuthed()) { replayAgentMemory(); return; }
   addMsg("sys", `<div class="bubble">MY 已苏醒 · 它会随着对话成长出自己的性格</div>`);
   setTimeout(async () => {
     setMood("excited");
     await aivaSay(`嗨，${S.user ? S.user.name : "你好"}！是你呀 ✨ 今天电量 86%，续航 428km，状态好得想出门兜风～有什么我能帮你的？`, "excited", 900);
     setChips(["帮我安排洗车", "明天带小桃去湖畔咖啡", "重播:接娃守护", "帮我约一次保养", "夸夸你"]);
   }, 350);
+}
+
+/* 从 Worker 拉取持久对话记忆并回放（仅 Caroline 本人手机） */
+async function replayAgentMemory() {
+  addMsg("sys", `<div class="bubble">🔓 私人模式 · 正在唤醒持久记忆…</div>`);
+  try {
+    const res = await fetch(WORKER_URL + "/api/agent/memory", {
+      headers: { Authorization: "Bearer " + worldToken() },
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const history = await res.json();
+    const turns = Array.isArray(history) ? history.slice(-20) : [];
+    if (turns.length) {
+      for (const m of turns) {
+        addMsg(m.role === "user" ? "user" : "aiva", escapeHtml(m.content));
+      }
+      addMsg("sys", `<div class="bubble">— 以上是之前的对话 · MY 都记得 —</div>`);
+      setMood("happy");
+    } else {
+      setMood("excited");
+      await aivaSay(`嗨 Caroline ✨ 这是我们第一次在私人模式见面，从现在起我会记住我们聊的每一句话——换设备、刷新页面都不会忘。`, "excited", 700);
+    }
+    setChips(["我们上次聊到哪了？", "帮我梳理一下今天要做的事", "记一下:周四下午有空"]);
+  } catch (e) {
+    addMsg("sys", `<div class="bubble">⚠️ 记忆服务暂不可达，已回退到本地模式</div>`);
+    setMood("happy");
+    setChips(["帮我安排洗车", "夸夸你"]);
+  }
+  chatScrollEnd();
+}
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
 /* ----- 用户输入 ----- */
@@ -919,6 +953,10 @@ const AGENT_MODELS = [
   ["claude-haiku-4-5",  "Claude Haiku 4.5 · 极速"],
 ];
 let agentHistory = [];   // 仅智能体模式的多轮上下文（不落盘）
+
+/* Worker 持久记忆（优先于本地 agentHistory）*/
+const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
+function worldToken() { try { return localStorage.getItem('my-world-token') || ''; } catch(e) { return ''; } }
 
 /* DeepSeek key 与看板同源共享(my-world-key):没配 Claude key 时 MY 大脑自动落到 DeepSeek */
 function dsKey() { try { return localStorage.getItem("my-world-key") || ""; } catch (e) { return ""; } }
@@ -1134,6 +1172,29 @@ async function dsAgentRespond(text) {
   }
 }
 
+async function workerAgentRespond(text) {
+  setMood("thinking");
+  let tp = addMsg("aiva", `<span class="typing"><span></span><span></span><span></span></span>`);
+  try {
+    const res = await fetch(WORKER_URL + '/api/agent/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + worldToken()},
+      body: JSON.stringify({message: text})
+    });
+    if (!res.ok) throw new Error('Worker ' + res.status);
+    const data = await res.json();
+    const reply = (data.reply || '').trim();
+    const mood = (reply.match(/\[\[MOOD:(\w+)\]\]/) || [])[1];
+    tp.querySelector(".bubble").textContent = reply.replace(/\[\[MOOD:\w+\]\]/g, '').trim() || '✓ 好的';
+    setMood(MOODS && MOODS[mood] ? mood : 'happy');
+    chatScrollEnd();
+  } catch (e) {
+    tp.remove();
+    // 降级：Worker 不可用时回落到本地 DeepSeek
+    return agentRespond(text);
+  }
+}
+
 async function agentRespond(text) {
   if (!(S.agent && S.agent.key)) return dsAgentRespond(text);   // 没有 Claude key → DeepSeek 大脑
   agentHistory.push({ role: "user", content: text });
@@ -1318,6 +1379,8 @@ async function respond(text) {
     const btn = $$("#chat-body #wp-ok, #chat-body #m-ok, #chat-body #pk-all").reverse().find(b => !b.disabled);
     if (btn) { const fn = btn.onclick; btn.disabled = true; btn.textContent = "已确认 ✓"; fn && fn.call(btn); return; }
   }
+  /* Caroline 本人手机 + 已解锁 → 走 Worker 持久记忆大脑（跨设备/刷新不忘） */
+  if (!SIM && worldAuthed()) return workerAgentRespond(text);
   if (agentOn()) return agentRespond(text);
   return respondScripted(text);
 }
