@@ -428,9 +428,8 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
     <button class="api-chip" id="api-chip" onclick="openKeyModal()"><span class="api-dot"></span>AI引擎</button>
     <button class="btn-run" id="btn-run" onclick="toggleWorld()"><span class="run-dot"></span><span id="run-label">▶ 启动世界</span></button>
     <button class="btn-day" id="btn-day" onclick="endDay()">🌙 结束今天</button>
-    <button class="btn-meet" id="btn-meet" onclick="doMeeting()">📊 团队复盘</button>
+    <button class="btn-meet" id="btn-meet" onclick="doMeeting()">📊 团队复盘 · 发版</button>
     <button class="btn-ev" id="btn-ev" onclick="toggleEvPanel()">＋ 投入事件</button>
-    <button class="btn-lock" id="btn-lock" onclick="openAuthModal()">🔒 锁定</button>
   </div>
 </div>
 
@@ -1234,16 +1233,9 @@ const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
 function worldToken() { return localStorage.getItem('my-world-token') || ''; }
 function worldAuthed() { return !!worldToken(); }
 
-function updateLockUI() {
-  const authed = worldAuthed();
-  const btn = document.getElementById('btn-lock');
-  if (btn) { btn.textContent = authed ? '🔓 已解锁' : '🔒 锁定'; btn.classList.toggle('on', authed); }
-  const btnM = document.getElementById('btn-meet');
-  if (btnM) btnM.style.display = authed ? '' : 'none';
-}
+function updateLockUI() { /* 团队复盘按钮常驻;点击时按需校验密码 */ }
 
 function openAuthModal() {
-  if (worldAuthed()) { worldLogout(); return; }
   document.getElementById('auth-modal').style.display = 'flex';
   document.getElementById('auth-pwd').value = '';
   document.getElementById('auth-hint').textContent = '';
@@ -1299,7 +1291,7 @@ async function syncWorldDay() {
 }
 
 async function doMeeting() {
-  if (!worldAuthed()) return;
+  if (!worldAuthed()) { openAuthModal(); return; }   // 未解锁:先输密码,再点一次
   const btn = document.getElementById('btn-meet');
   const orig = btn.textContent;
   btn.disabled = true; btn.textContent = '📊 复盘中…';

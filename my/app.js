@@ -957,6 +957,71 @@ let agentHistory = [];   // 仅智能体模式的多轮上下文（不落盘）
 /* Worker 持久记忆（优先于本地 agentHistory）*/
 const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
 function worldToken() { try { return localStorage.getItem('my-world-token') || ''; } catch(e) { return ''; } }
+function worldAuthed() { return !!worldToken(); }
+
+/* ───── 进入「我的手机」的真实锁屏（仅 Caroline 本人手机 · 服务端校验密码）─────
+   解锁后 token 存本机 30 天:此后 MY 走 Worker 持久大脑,记忆跨刷新/设备不丢。
+   沙盘 NPC 手机(?sim=)不加锁。 */
+function mountWorldLock() {
+  if (SIM || worldAuthed() || document.getElementById('mylock')) return;
+  const wrap = document.createElement('div');
+  wrap.id = 'mylock';
+  wrap.innerHTML = `
+    <style>
+      #mylock{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;
+        align-items:center;justify-content:center;gap:13px;padding:30px;
+        background:linear-gradient(160deg,#ECE9FB 0%,#E6EEFB 55%,#F3EEFC 100%);
+        font-family:-apple-system,'PingFang SC',system-ui,sans-serif;animation:mlfade .4s ease}
+      @keyframes mlfade{from{opacity:0}to{opacity:1}}
+      #mylock .ml-lock{width:60px;height:60px;border-radius:20px;display:flex;align-items:center;
+        justify-content:center;font-size:29px;background:rgba(255,255,255,.7);
+        box-shadow:0 10px 30px rgba(124,108,200,.28)}
+      #mylock h2{font-size:18px;color:#3B355C;margin:4px 0 0;font-weight:700}
+      #mylock p{font-size:12px;color:#7B749E;margin:0;text-align:center;line-height:1.65}
+      #mylock input{width:196px;text-align:center;letter-spacing:.3em;font-size:15px;padding:11px 14px;
+        border:none;border-radius:14px;outline:none;color:#3B355C;background:rgba(255,255,255,.85);
+        box-shadow:inset 2px 2px 6px rgba(150,140,200,.2),inset -2px -2px 6px rgba(255,255,255,.9)}
+      #mylock button{margin-top:3px;padding:10px 32px;border:none;border-radius:14px;font-size:13px;
+        font-weight:700;color:#fff;cursor:pointer;background:linear-gradient(135deg,#9B8CEC,#7AA0EE);
+        box-shadow:0 8px 20px rgba(124,108,200,.35)}
+      #mylock button:disabled{opacity:.55;cursor:wait}
+      #mylock .ml-hint{font-size:11px;min-height:15px}
+    </style>
+    <div class="ml-lock">🔒</div>
+    <h2>进入我的手机</h2>
+    <p>Caroline 的私人空间<br>输入密码，唤醒有记忆的 MY</p>
+    <input id="ml-pwd" type="password" placeholder="••••••" autocomplete="current-password">
+    <button id="ml-go">解锁</button>
+    <span class="ml-hint" id="ml-hint"></span>`;
+  document.body.appendChild(wrap);
+  const pwd = wrap.querySelector('#ml-pwd'), go = wrap.querySelector('#ml-go'), hint = wrap.querySelector('#ml-hint');
+  setTimeout(() => pwd.focus(), 80);
+  const submit = async () => {
+    const v = pwd.value.trim();
+    if (!v) return;
+    go.disabled = true; hint.style.color = '#7B749E'; hint.textContent = '验证中…';
+    try {
+      const res = await fetch(WORKER_URL + '/api/auth', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: v }),
+      });
+      const data = await res.json();
+      if (data.ok && data.token) {
+        localStorage.setItem('my-world-token', data.token);
+        wrap.style.transition = 'opacity .4s'; wrap.style.opacity = '0';
+        setTimeout(() => wrap.remove(), 420);
+      } else {
+        hint.style.color = '#C2410C'; hint.textContent = '密码不对，再试试';
+        pwd.value = ''; go.disabled = false; pwd.focus();
+      }
+    } catch (e) {
+      hint.style.color = '#C2410C'; hint.textContent = '连不上服务器，检查网络';
+      go.disabled = false;
+    }
+  };
+  go.addEventListener('click', submit);
+  pwd.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+}
 
 /* DeepSeek key 与看板同源共享(my-world-key):没配 Claude key 时 MY 大脑自动落到 DeepSeek */
 function dsKey() { try { return localStorage.getItem("my-world-key") || ""; } catch (e) { return ""; } }
@@ -1871,3 +1936,4 @@ if (S.user) { bindUser(); renderFortune(); }
 else showAuth(1);
 REAL.initReminders();   // 恢复未到期的真实提醒(跨刷新存活)
 renderNotifyBadge();    // R2 通知管理入口状态
+mountWorldLock();       // Caroline 本人手机:未解锁则弹出真实锁屏
