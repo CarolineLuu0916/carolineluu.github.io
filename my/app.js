@@ -82,36 +82,16 @@ window.sleep = sleep;
 
 /* ---------- MY 车灵形象 ----------
    线条勾勒的灵动小兔：一只耳朵俏皮地弯着，圆头短身小圆尾 */
-function mascotSVG() {
-  return `
-  <svg class="mascot" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"
-       fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M82 78 C66 46 64 22 76 17 C88 13 97 35 100 68"/>
-    <path d="M120 76 C128 40 140 18 153 23 C165 28 156 58 136 82"/>
-    <circle cx="100" cy="112" r="45"/>
-    <circle cx="85" cy="108" r="4" fill="currentColor" stroke="none"/>
-    <circle cx="115" cy="108" r="4" fill="currentColor" stroke="none"/>
-    <path d="M93 123 C96 127 99 127 100 124 C101 127 104 127 107 123" stroke-width="5.5"/>
-    <ellipse cx="73" cy="120" rx="5.5" ry="2.8" fill="currentColor" stroke="none" opacity=".4"/>
-    <ellipse cx="127" cy="120" rx="5.5" ry="2.8" fill="currentColor" stroke="none" opacity=".4"/>
-    <path d="M66 150 C52 176 62 198 100 198 C138 198 148 176 134 150"/>
-    <circle cx="141" cy="189" r="8" stroke-width="6"/>
-  </svg>`;
+/* MY 形象：边界模糊的光球 / 星云。
+   情绪→颜色(setMood 给 .orb-wrap 加情绪类，CSS 切 --c1/--c2)；活跃度→跃动频率(--spd)。
+   纯 CSS 分层(外晕/星云旋臂/核心球/高光)，随容器尺寸自适应，所有场景统一复用。 */
+function orbHTML() {
+  return `<span class="myorb"><i class="o-glow"></i><i class="o-wisp"></i><i class="o-core"></i><i class="o-hi"></i></span>`;
 }
-/* 头像版小兔（APP图标 / 桌面小组件 / 通知） */
-function bunnyHeadSVG() {
-  return `
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%"
-       fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M40 38 C32 21 32 9 39 7 C46 5 50 18 51 33"/>
-    <path d="M61 37 C65 19 72 7 79 10 C85 13 79 29 68 42"/>
-    <circle cx="50" cy="62" r="26"/>
-    <circle cx="42" cy="59" r="2.6" fill="currentColor" stroke="none"/>
-    <circle cx="58" cy="59" r="2.6" fill="currentColor" stroke="none"/>
-    <path d="M46 68 C48 71 52 71 54 68" stroke-width="4.5"/>
-  </svg>`;
-}
+function mascotSVG()   { return orbHTML(); }   // 对话主体 / 登录 / 人格页
+function bunnyHeadSVG(){ return orbHTML(); }   // APP图标 / 桌面小组件 / 通知 / 高德车灵卡
 window.bunnyHeadSVG = bunnyHeadSVG;
+window.orbHTML = orbHTML;
 /* ---------- 线性图标系统（统一 24 viewBox / stroke 1.7 / 圆角线帽） ---------- */
 const ICON_PATHS = {
   car:      `<path d="M4 16.2v-2.4l1.8-1 2.3-4.2c.4-.8 1-1.1 1.9-1.1h4c.9 0 1.5.3 2 1l2.9 4.3 1.6.9v2.5"/><path d="M4 16.2h3.2M10 16.2h4.4M17.2 16.2H20"/><circle cx="8.4" cy="16.6" r="1.6"/><circle cx="15.8" cy="16.6" r="1.6"/>`,
@@ -639,7 +619,7 @@ function renderGrowth() {
 function showLevelUp() {
   const div = document.createElement("div");
   div.className = "levelup";
-  div.innerHTML = `<div class="levelup-card"><span class="lvl-ic">${I("sparkle")}</span><b>MY 升级到 Lv${S.level} · ${LV_NAMES[S.level - 1]}</b><span>它更懂你了，人格也在悄悄生长…</span></div>`;
+  div.innerHTML = `<div class="levelup-card"><span class="lvl-ic">${I("sparkle")}</span><div class="lvl-tx"><b>MY 升级到 Lv${S.level} · ${LV_NAMES[S.level - 1]}</b><span>它更懂你了，人格也在悄悄生长…</span></div></div>`;
   $(".phone").appendChild(div);
   setTimeout(() => div.remove(), 2600);
 }
@@ -931,6 +911,19 @@ async function replayAgentMemory() {
 function escapeHtml(s) {
   return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
+/* 轻量 markdown → HTML：先转义防注入，再支持 **粗体** / *斜体* / `代码` / 列表 / 标题 / 换行。
+   模型常爱输出 markdown，气泡直接显示会冒出 ** ## 等符号，这里把它渲染成真正的排版。 */
+function mdLite(s) {
+  s = escapeHtml(s).trim();
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/__([^_]+)__/g, "<b>$1</b>");
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<i>$2</i>");
+  s = s.replace(/^\s{0,3}#{1,6}\s*(.+)$/gm, "<b>$1</b>");          // 标题→粗体行
+  s = s.replace(/^\s*[-*•]\s+/gm, "· ");                            // 无序列表→·
+  s = s.replace(/^\s*(\d+)\.\s+/gm, "$1. ");                        // 有序列表保留
+  s = s.replace(/\n/g, "<br>");
+  return s;
+}
 
 /* ----- 用户输入 ----- */
 function userSay(text) {
@@ -1050,7 +1043,7 @@ function buildAgentSystem() {
     "你是「MY」(ME & YOU)，一辆 MY SUP C 智能电车的车灵——有情绪、会成长的 AI 伙伴，形象是一只线条小兔。",
     "你可以读取车主手机里的生活数据(已授权)：微信(家人 Kevin/婆婆、小桃班王老师)、支付宝账单(洗车月均2次¥38、充电、咖啡)、大众点评(常去悦洗；新店泡泡星球开业精洗5折¥19)、高德(工作日15:30公司→小桃幼儿园,近30天21次；周四下午日历空闲)、美团、淘宝、日历(接娃/空闲/周五春游/保养到期)、信息(短信:验证码/4S提醒/银行)。",
     "车与车服务：SUP C 当前里程 17,260km；上次保养 3月12日(12,800km)；下次保养 7月10日(20,000km)到期，授权服务中心=前滩店；标准保养¥680/深度保养¥1280。",
-    "你能跨APP执行：代拨电话(make_call，会弹真实通话界面)、写入日历(add_calendar，预约/安排都要落到日历)、预约保养(book_maintenance，写日历+4S确认短信)、微信代发消息(需车主确认)、支付宝免密代付、点评下单预约、控车。执行类动作要真的调用对应工具，让结果在手机里看得见，不要只用嘴说。",
+    "你能跨APP执行：打开任意App跳转(open_app，用户说去/看/打开 支付宝/微信/点评/高德/日历/短信 就真的跳过去)、代拨电话(make_call，会弹真实通话界面)、写入日历(add_calendar，预约/安排都要落到日历)、预约保养(book_maintenance，写日历+4S确认短信)、微信代发消息(需车主确认)、支付宝免密代付、点评下单预约、控车。执行类动作要真的调用对应工具，让结果在手机里看得见，不要只用嘴说——例如车主说「去支付宝看账单」就调 open_app 打开支付宝。",
     SIM
       ? `车主：${SIM.name}${SIM.age ? "，" + SIM.age + "岁" : ""}${SIM.tag ? "，" + SIM.tag : ""}，住${SIM.city || "上海"}。TA的日常痛点：${SIM.wo || "出行琐事多"}。`
         + ((SIM.mem || []).length ? `TA最近的真实经历(来自世界运行,你都参与了)：${SIM.mem.map(m => `${m.t}→你帮TA:${m.a}`).join("；")}。对话要自然衔接这些经历。` : "")
@@ -1140,6 +1133,7 @@ const AGENT_TOOLS = [
   { name: "alipay_pay", description: "支付宝免密代付（超出额度会失败，需先告知用户确认）。", input_schema: { type: "object", properties: { name: { type: "string" }, amount: { type: "number" } }, required: ["name", "amount"] } },
   { name: "car_control", description: "控制车辆：lock/unlock/ac_on/ac_off。", input_schema: { type: "object", properties: { action: { type: "string", enum: ["lock", "unlock", "ac_on", "ac_off"] } }, required: ["action"] } },
   { name: "arrange_pickup", description: "启动接娃守护安排（联系家人与老师的方案卡）。用户表示要加班/没法接小桃时调用。", input_schema: { type: "object", properties: {} } },
+  { name: "open_app", description: "打开车主手机里的某个 App 并跳到对应页面。用户说「去/看/打开 支付宝/微信/点评/高德/日历/短信/美团/淘宝」时调用，让界面真的跳过去，而不是只用嘴说。", input_schema: { type: "object", properties: { app: { type: "string", description: "应用：支付宝/微信/大众点评/高德/日历/短信/美团/淘宝" } }, required: ["app"] } },
   { name: "make_call", description: "用车主手机代拨电话，弹出通话界面（你作为 AI 语音助理代表 Caroline 通话）。需要打电话给某人/某机构时调用。", input_schema: { type: "object", properties: { to: { type: "string", description: "对象：kevin/teacher王老师/driver代驾/service服务中心/mama婆婆，或自定义名称" }, reason: { type: "string", description: "通话事由（一句话）" } }, required: ["to", "reason"] } },
   { name: "add_calendar", description: "把一件事写入车主日历，让安排看得见。任何预约/安排/约定/提醒到某天的需求都应落到这里。", input_schema: { type: "object", properties: { title: { type: "string" }, date: { type: "string", description: "如 今天/周四/7月10日" }, time: { type: "string", description: "如 15:30" } }, required: ["title"] } },
   { name: "book_maintenance", description: "为 SUP C 预约保养：写入日历并触发 4S 确认短信。车主提到保养/到期/4S/车检时调用。", input_schema: { type: "object", properties: { date: { type: "string" }, time: { type: "string" } } } },
@@ -1207,6 +1201,15 @@ async function runAgentTool(name, input) {
     case "arrange_pickup":
       setTimeout(flowPickupPlan, 400);
       return "接娃方案卡已展示给用户";
+    case "open_app": {
+      if (!window.OS) return "失败:OS未加载";
+      const A = { "支付宝": "alipay", "账单": "alipay", alipay: "alipay", "微信": "wechat", wechat: "wechat", "大众点评": "dianping", "点评": "dianping", dianping: "dianping", "高德": "amap", "地图": "amap", "导航": "amap", amap: "amap", "美团": "meituan", meituan: "meituan", "淘宝": "taobao", taobao: "taobao", "日历": "calendar", calendar: "calendar", "短信": "messages", "信息": "messages", messages: "messages" };
+      const raw = String(input.app || "").trim();
+      const id = A[raw] || A[raw.toLowerCase()];
+      if (!id) return "未知应用:" + raw;
+      setTimeout(() => OS.openApp(id), 450);   // openApp 内部会自动渲染该 App
+      return `已打开${raw}，界面已跳转`;
+    }
     case "make_call": {
       if (!window.OS) return "失败:OS未加载";
       const map = {
@@ -1279,7 +1282,7 @@ async function dsAgentRespond(text) {
     agentHistory.push({ role: "assistant", content: finalRaw || "(已通过工具完成操作)" });
     const mood = (finalRaw.match(/\[\[MOOD:(\w+)\]\]/) || [])[1];
     const reply = finalRaw.replace(/\[\[MOOD:\w+\]\]/g, "").trim();
-    tp.querySelector(".bubble").textContent = reply || "✓ 办好了";
+    tp.querySelector(".bubble").innerHTML = reply ? mdLite(reply) : "✓ 办好了";
     setMood(MOODS[mood] ? mood : "happy", mood === "down" ? "任务受挫(模型判断)" : null);
     persistTurn(text, reply || "(已通过工具完成操作)");
     chatScrollEnd();
@@ -1353,7 +1356,7 @@ async function agentRespond(text) {
     agentHistory.push({ role: "assistant", content: finalRaw || "(已通过工具完成操作)" });
     const mood = (finalRaw.match(/\[\[MOOD:(\w+)\]\]/) || [])[1];
     const reply = finalRaw.replace(/\[\[MOOD:\w+\]\]/g, "").trim();
-    tp.querySelector(".bubble").textContent = reply || "✓ 办好了";
+    tp.querySelector(".bubble").innerHTML = reply ? mdLite(reply) : "✓ 办好了";
     setMood(MOODS[mood] ? mood : "happy", mood === "down" ? "任务受挫(模型判断)" : null);
     persistTurn(text, reply || "(已通过工具完成操作)");
     chatScrollEnd();

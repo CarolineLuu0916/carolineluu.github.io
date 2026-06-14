@@ -306,7 +306,7 @@ window.LIFE = LIFE;   // 暴露生活数据,供 MY 的工具读取(search_carwas
 
 /* ---------- 桌面 ---------- */
 const TILE = {
-  my:       { name: "MY",      color: "linear-gradient(135deg,#A78BFA,#60A5FA)", glyph: () => bunnyHeadSVG() },
+  my:       { name: "MY",      color: "radial-gradient(circle at 50% 38%,#2A2455,#100C28 78%)", glyph: () => bunnyHeadSVG() },
   wechat:   { name: "微信",     color: "linear-gradient(135deg,#3ECC5F,#28A745)", glyph: () => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4.5c-3.6 0-6.5 2.3-6.5 5.2 0 1.7 1 3.1 2.5 4.1l-.7 2.2 2.5-1.3c.7.2 1.4.3 2.2.3"/><path d="M10 13.7c0-2.6 2.5-4.7 5.5-4.7s5.5 2.1 5.5 4.7-2.5 4.7-5.5 4.7c-.7 0-1.3-.1-1.9-.3L11.5 19l.6-1.9c-1.3-.8-2.1-2-2.1-3.4z"/></svg>` },
   alipay:   { name: "支付宝",   color: "linear-gradient(135deg,#1677FF,#3D8BFF)", glyph: () => `<span class="tile-char">支</span>` },
   dianping: { name: "大众点评", color: "linear-gradient(135deg,#FF6633,#FF8F4D)", glyph: () => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.5 5.3 5.8.7-4.3 4 1.1 5.7-5.1-2.8-5.1 2.8 1.1-5.7-4.3-4 5.8-.7z"/></svg>` },

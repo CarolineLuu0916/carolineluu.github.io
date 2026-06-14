@@ -642,11 +642,15 @@ body{
 }
 .toast.hidden{opacity:0;transform:translateX(-50%) translateY(10px);pointer-events:none}
 
-.levelup{position:absolute;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.levelup-card{background:rgba(241,243,250,.96);backdrop-filter:blur(10px);border-radius:24px;padding:26px 34px;text-align:center;box-shadow:0 20px 60px rgba(124,108,240,.45);animation:popIn .5s cubic-bezier(.2,.9,.3,1.4)}
+.levelup{position:absolute;inset:0;z-index:95;display:flex;align-items:flex-start;justify-content:center;pointer-events:none}
+.levelup-card{display:flex;align-items:center;gap:10px;margin-top:54px;max-width:80%;background:rgba(252,251,255,.95);backdrop-filter:blur(14px);border:1px solid rgba(167,139,250,.5);border-radius:15px;padding:9px 15px;text-align:left;box-shadow:0 16px 38px rgba(124,108,240,.34);animation:luIn .45s cubic-bezier(.2,.9,.3,1.4)}
 @keyframes popIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
-.levelup-card b{font-size:18px;color:var(--ink);display:block;margin:8px 0 4px}
-.levelup-card span{font-size:12px;color:var(--ink-3)}
+@keyframes luIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+.levelup-card .lvl-ic{flex-shrink:0;display:flex;color:#7C6CF0}
+.levelup-card .lvl-ic svg{width:18px;height:18px}
+.lvl-tx{display:flex;flex-direction:column;gap:1px;min-width:0}
+.levelup-card b{font-size:12.5px;color:#2b2545;display:block;margin:0;font-weight:700}
+.levelup-card span{font-size:10px;color:#8b84a6}
 
 /* ===========================================================
    v10 助理内核升级
@@ -812,3 +816,28 @@ body{
 .agent-real b{font-size:12px;color:var(--ink)}
 .agent-real p{font-size:10.5px;color:var(--ink-3);margin:6px 0 9px;line-height:1.7}
 .agent-real .btn-ghost{width:100%;font-size:12px}
+
+/* ===== MY 光球 / 星云形象（统一形象：情绪=色相，活跃=跃动频率） ===== */
+.myorb{position:relative;display:block;width:100%;height:100%;
+  --c1:#A78BFA;--c2:#60A5FA;--spd:4.2s}
+.myorb i{position:absolute;left:0;top:0;right:0;bottom:0;margin:auto;border-radius:50%;display:block;will-change:transform,opacity}
+.myorb .o-glow{width:98%;height:98%;background:radial-gradient(circle,var(--c1) 0%,transparent 60%);
+  filter:blur(7px);opacity:.7;animation:orbBreath var(--spd) ease-in-out infinite}
+.myorb .o-wisp{width:76%;height:76%;
+  background:conic-gradient(from 0deg,transparent 0deg,var(--c2) 60deg,transparent 140deg,var(--c1) 240deg,transparent 320deg);
+  filter:blur(5px);opacity:.5;mix-blend-mode:screen;animation:orbSpin calc(var(--spd)*2.6) linear infinite}
+.myorb .o-core{width:60%;height:60%;
+  background:radial-gradient(circle at 38% 32%,#fff 0%,var(--c1) 40%,var(--c2) 84%);
+  box-shadow:0 0 16px 1px var(--c1);animation:orbBreath var(--spd) ease-in-out infinite}
+.myorb .o-hi{width:20%;height:20%;left:28%;top:24%;right:auto;bottom:auto;margin:0;
+  background:radial-gradient(circle,rgba(255,255,255,.95),transparent 70%);filter:blur(.6px)}
+@keyframes orbBreath{0%,100%{transform:scale(.92);opacity:.88}50%{transform:scale(1.06);opacity:1}}
+@keyframes orbSpin{to{transform:rotate(360deg)}}
+/* 情绪 → 配色 ＋ 活跃度 → 频率（spd 越小越跃动） */
+.orb-wrap.happy    .myorb{--c1:#A78BFA;--c2:#60A5FA;--spd:4.2s}
+.orb-wrap.excited  .myorb{--c1:#C4B5FD;--c2:#7DD3FC;--spd:1.6s}
+.orb-wrap.thinking .myorb{--c1:#93A4D8;--c2:#60A5FA;--spd:2.1s}
+.orb-wrap.shy      .myorb{--c1:#FBA8C8;--c2:#C4B5FD;--spd:3.6s}
+.orb-wrap.proud    .myorb{--c1:#FBCFE8;--c2:#A78BFA;--spd:2.4s}
+.orb-wrap.care     .myorb{--c1:#7DD3FC;--c2:#A78BFA;--spd:3.2s}
+.orb-wrap.down     .myorb{--c1:#9AA6BE;--c2:#5B6577;--spd:6.5s}
