@@ -2,6 +2,48 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-14", vol: "VOL.004", weekday: "周日",
+    headline: "AI Agent 行业迎来市场化与监管新阶段（6.14）",
+    tldr: "过去24小时，AI Agent 行业动态聚焦于市场化与监管两大主题。<b>AWS 推出 Agent 市场</b>，Anthropic 合作上线，标志着 Agent 技术商业化迈出重要一步。同时，<b>Anthropic 顶级 AI 模型遭美全面禁用</b>，凸显 AI 监管重心从硬件转向模型本身，可能重塑全球 AI 研发协作。",
+    vane: [
+      { label: "Agent 市场化", dir: "up", note: "AWS 推出 Agent 市场，企业可通过 AWS 直接部署、交易 Agent，Agent 技术从实验室迈入商业应用生态。" },
+      { label: "AI 监管", dir: "up", note: "Anthropic 顶级 AI 模型遭美全面禁用，AI 监管重心从硬件转向模型本身，影响全球 AI 研发协作。" },
+      { label: "AI 基础设施", dir: "up", note: "Meta 承诺数千亿美元投入超算集群，加速 Superintelligence Labs 部署，AI 基础设施极速扩展。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AWS 推出 Agent 市场，Anthropic 合作上线（6.14）",
+        what: "亚马逊 AWS 宣布将在纽约 Summit 发布 Agent 市场，Anthropic 为首批合作伙伴。企业可通过 AWS 直接部署、交易 Agent，标志着 Agent 技术从实验室迈入商业应用生态。",
+        why: "此举意味着 AI Agent 正进入'商店经济'，未来的 AI 是可组合、可交易的服务模块，将加速 AI 技术的市场化进程和应用普及。"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Anthropic顶级AI模型遭美全面禁用（6.14）",
+        what: "美国政府以国家安全为由，对Anthropic新发布的Fable 5和Mythos 5模型实施出口管制，禁止所有非美国公民访问，系全球首次针对已商用AI模型的强制性下架行动。Anthropic为满足合规要求，被迫全面暂停两款模型对所有用户（含美国公民）的访问权限，而非仅限外籍用户，主因是无法快速精准区分国籍身份。",
+        why: "此次禁令标志AI监管重心从硬件（如GPU）转向模型本身，凸显前沿AI能力被纳入高敏感技术管控范畴，或将重塑全球AI研发协作、供应链与IPO进程。"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Meta承诺数千亿美元投入超算集群：Prometheus + Hyperion（6.14）",
+        what: "Zuckerberg宣布投资数千亿美元建5GW超级智能数据中心群，加速Superintelligence Labs部署。",
+        why: "AI不仅是模型体，更是'能源+硅+管理'的三位一体系统工程。Meta的大规模投资将进一步加速AI基础设施的建设，推动AI技术的快速发展和应用。"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "美团LongCat开源General 365推理评测基准（6.14）",
+        what: "美团LongCat团队发布General 365开源评测基准，专注评估LLM的通用逻辑推理能力（而非领域知识）。",
+        why: "该基准的发布有助于更准确地评估和提升LLM的推理能力，推动AI技术在更广泛领域的应用和发展。"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "LLMhop — 面向大语言模型的微型无状态路由器开源（6.14）",
+        what: "LLMhop是一个用Go编写的极简HTTP反向代理，可根据请求体中的model字段将OpenAI兼容的API请求路由到正确的推理后端。",
+        why: "LLMhop的开源为开发者提供了一个轻量级、灵活的工具，以更高效地管理和部署多模型AI应用，降低运维复杂度。"
+      }
+    ]
+  },
+  {
     date: "2026-06-12", vol: "VOL.003", weekday: "周五",
     headline: "Fable 5 上线、Scout 入场：个人 Agent 的「操作系统之争」开打",
     tldr: "本周关键词是<b>收编</b>：Anthropic 把新旗舰 Fable 5 直接装进编程工具，微软把开源黑马 OpenClaw 收进 365 全家桶。当一个个人开发者的开源项目能逼微软跟进，说明个人 Agent 已从极客玩具升格为平台级入口——大厂都在抢「Agent 时代的浏览器」。",
