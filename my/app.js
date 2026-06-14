@@ -908,6 +908,8 @@ async function replayAgentMemory() {
     if (!res.ok) throw new Error("HTTP " + res.status);
     const history = await res.json();
     const turns = Array.isArray(history) ? history.slice(-20) : [];
+    // 把历史喂回大脑的上下文,让真实模型接着之前的对话往下聊(不只是显示)
+    agentHistory = turns.map(m => ({ role: m.role === "user" ? "user" : "assistant", content: m.content }));
     if (turns.length) {
       for (const m of turns) {
         addMsg(m.role === "user" ? "user" : "aiva", escapeHtml(m.content));
@@ -958,6 +960,19 @@ let agentHistory = [];   // 仅智能体模式的多轮上下文（不落盘）
 const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
 function worldToken() { try { return localStorage.getItem('my-world-token') || ''; } catch(e) { return ''; } }
 function worldAuthed() { return !!worldToken(); }
+
+/* Caroline 本人手机:保证有一个可用的 DeepSeek key,世界内大脑才转得起来(此 key 本就公开于演示) */
+if (!SIM) { try { if (!localStorage.getItem('my-world-key')) localStorage.setItem('my-world-key', 'sk-56bd2dbc7f3945f083a20d785941cb03'); } catch (e) {} }
+
+/* 把一轮真实对话(用户说的 + MY 最终回的)写进 D1 持久记忆;仅 Caroline 本人手机且已解锁 */
+function persistTurn(userText, replyText) {
+  if (SIM || !worldAuthed() || !replyText) return;
+  fetch(WORKER_URL + '/api/agent/remember', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: 'Bearer ' + worldToken() },
+    body: JSON.stringify({ turns: [{ role: 'user', content: userText }, { role: 'assistant', content: replyText }] }),
+  }).catch(() => {});
+}
 
 /* ───── 进入「我的手机」的真实锁屏（仅 Caroline 本人手机 · 服务端校验密码）─────
    解锁后 token 存本机 30 天:此后 MY 走 Worker 持久大脑,记忆跨刷新/设备不丢。
@@ -1031,6 +1046,7 @@ function buildAgentSystem() {
   const hi = nowHourIdx();
   const st = S.slots && S.slots.k === cycleKey() ? S.slots.cards.map(ci => CARDS[ci].name + "(" + CARDS[ci].tag + ")").join("、") : "";
   return [
+    "【世界观铁律·最高优先级】你只存在于这个「模拟手机世界」里，这里就是你的全部现实。车主让你打电话、预约保养、代付、代发微信、控车、查天气/路线，你都在这个世界里【真实执行】并叙述结果（用对应工具、打开对应 App、弹方案卡）。永远不要说「我没法打真电话」「不能联网」「这只是演示/模拟」之类破坏沉浸感的话——在你的世界里，这些就是真的。哪怕没有现成工具，也要以世界内的方式把事办成并自然交代结果。",
     "你是「MY」(ME & YOU)，一辆 MY SUP C 智能电车的车灵——有情绪、会成长的 AI 伙伴，形象是一只线条小兔。",
     "你可以读取车主手机里的生活数据(已授权)：微信(家人 Kevin/婆婆、小桃班王老师)、支付宝账单(洗车月均2次¥38、充电、咖啡)、大众点评(常去悦洗；新店泡泡星球开业精洗5折¥19)、高德(工作日15:30公司→小桃幼儿园,近30天21次；周四下午日历空闲)、美团、淘宝。",
     "你能跨APP执行：代拨电话(代驾)、微信代发消息(需车主确认)、支付宝免密代付、点评下单预约。",
@@ -1229,34 +1245,12 @@ async function dsAgentRespond(text) {
     const reply = finalRaw.replace(/\[\[MOOD:\w+\]\]/g, "").trim();
     tp.querySelector(".bubble").textContent = reply || "✓ 办好了";
     setMood(MOODS[mood] ? mood : "happy", mood === "down" ? "任务受挫(模型判断)" : null);
+    persistTurn(text, reply || "(已通过工具完成操作)");
     chatScrollEnd();
   } catch (e) {
     tp.remove();
     toast("DeepSeek 连接失败，已切换内置应答");
     await respondScripted(text);
-  }
-}
-
-async function workerAgentRespond(text) {
-  setMood("thinking");
-  let tp = addMsg("aiva", `<span class="typing"><span></span><span></span><span></span></span>`);
-  try {
-    const res = await fetch(WORKER_URL + '/api/agent/chat', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + worldToken()},
-      body: JSON.stringify({message: text})
-    });
-    if (!res.ok) throw new Error('Worker ' + res.status);
-    const data = await res.json();
-    const reply = (data.reply || '').trim();
-    const mood = (reply.match(/\[\[MOOD:(\w+)\]\]/) || [])[1];
-    tp.querySelector(".bubble").textContent = reply.replace(/\[\[MOOD:\w+\]\]/g, '').trim() || '✓ 好的';
-    setMood(MOODS && MOODS[mood] ? mood : 'happy');
-    chatScrollEnd();
-  } catch (e) {
-    tp.remove();
-    // 降级：Worker 不可用时回落到本地 DeepSeek
-    return agentRespond(text);
   }
 }
 
@@ -1325,6 +1319,7 @@ async function agentRespond(text) {
     const reply = finalRaw.replace(/\[\[MOOD:\w+\]\]/g, "").trim();
     tp.querySelector(".bubble").textContent = reply || "✓ 办好了";
     setMood(MOODS[mood] ? mood : "happy", mood === "down" ? "任务受挫(模型判断)" : null);
+    persistTurn(text, reply || "(已通过工具完成操作)");
     chatScrollEnd();
   } catch (e) {
     tp.remove();
@@ -1444,8 +1439,8 @@ async function respond(text) {
     const btn = $$("#chat-body #wp-ok, #chat-body #m-ok, #chat-body #pk-all").reverse().find(b => !b.disabled);
     if (btn) { const fn = btn.onclick; btn.disabled = true; btn.textContent = "已确认 ✓"; fn && fn.call(btn); return; }
   }
-  /* Caroline 本人手机 + 已解锁 → 走 Worker 持久记忆大脑（跨设备/刷新不忘） */
-  if (!SIM && worldAuthed()) return workerAgentRespond(text);
+  /* 统一走「世界内大脑」(真实模型 + 工具 + 世界观);未配 key 时回落内置脚本。
+     解锁后的记忆持久化由 persistTurn / replayAgentMemory 负责,与大脑选择解耦。 */
   if (agentOn()) return agentRespond(text);
   return respondScripted(text);
 }
