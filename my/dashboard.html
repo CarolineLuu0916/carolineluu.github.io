@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>MY · 社会影响力看板</title>
+<style>
+:root{
+  --bg:#ECF0F8;--sur:#F0F3FA;--sur2:#E8EDF6;
+  --nm:5px 5px 13px rgba(163,177,198,.52),-5px -5px 13px rgba(255,255,255,.9);
+  --nm-sm:3px 3px 7px rgba(163,177,198,.42),-3px -3px 7px rgba(255,255,255,.85);
+  --nm-in:inset 3px 3px 7px rgba(163,177,198,.4),inset -3px -3px 7px rgba(255,255,255,.8);
+  --pu:#6D28D9;--pu-l:#EDE9FE;--pu-m:#C4B5FD;
+  --bl:#1D4ED8;--bl-l:#DBEAFE;--bl-m:#93C5FD;
+  --gr:#065F46;--gr-l:#D1FAE5;
+  --re:#991B1B;--re-l:#FEE2E2;
+  --or:#9A3412;--or-l:#FFEDD5;
+  --t1:#1E293B;--t2:#334155;--t3:#475569;--t4:#64748B;--t5:#94A3B8;
+  --bd:rgba(148,163,184,.22);
+  --mono:'SF Mono','JetBrains Mono','Cascadia Code',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--t1);padding:14px;font-size:12px;min-height:100vh;}
+
+/* ── HEADER ── */
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.logo{font-size:14px;font-weight:800;letter-spacing:.1em;}
+.logo em{color:var(--pu);font-style:normal;}
+.logo-sub{font-size:9px;font-weight:400;color:var(--t4);letter-spacing:.14em;margin-left:7px;}
+.hd-r{display:flex;gap:8px;align-items:center;}
+.time-pill{box-shadow:var(--nm-sm);border-radius:20px;padding:5px 12px;font-size:10px;
+  color:var(--t4);display:flex;align-items:center;gap:7px;background:var(--sur);}
+.ttrack{width:60px;height:3px;background:rgba(148,163,184,.28);border-radius:3px;position:relative;}
+.tfill{width:38%;height:100%;background:linear-gradient(90deg,var(--pu-m),var(--bl-m));border-radius:3px;}
+.thead{position:absolute;left:38%;top:50%;transform:translate(-50%,-50%);
+  width:8px;height:8px;border-radius:50%;background:var(--pu);
+  box-shadow:0 0 0 2px var(--sur),0 0 5px var(--pu);}
+.tnow{color:var(--pu);font-weight:700;}
+.btn-ev{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:14px;
+  padding:6px 14px;font-size:11px;color:var(--pu);cursor:pointer;font-weight:700;transition:.15s;}
+.btn-ev:hover,.btn-ev.active{box-shadow:var(--nm-in);}
+.btn-ev.active{color:var(--bl);}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:10px;}
+.sc{box-shadow:var(--nm);background:var(--sur);border-radius:14px;padding:10px 13px;}
+.sn{font-size:22px;font-weight:700;line-height:1;transition:.4s;font-family:var(--mono);color:var(--t1);}
+.sn-pu,.sn-bl,.sn-gr,.sn-or{color:var(--t1);}
+.sl{font-size:9px;color:var(--t4);margin-top:4px;letter-spacing:.05em;}
+.sle{display:block;font-family:var(--mono);font-size:7.5px;color:var(--t5);
+  letter-spacing:.18em;margin-top:2px;text-transform:uppercase;}
+
+/* ── EVENT PANEL ── */
+.ev-panel{box-shadow:var(--nm-in);background:var(--sur);border-radius:14px;
+  padding:10px 14px;margin-bottom:11px;display:none;flex-direction:column;gap:9px;}
+.ev-panel.open{display:flex;}
+.ev-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.ev-row-label{font-size:9px;color:var(--t4);letter-spacing:.12em;font-weight:600;
+  flex-shrink:0;white-space:nowrap;}
+.evchips{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+.ec{border-radius:20px;padding:4px 11px;font-size:10px;cursor:pointer;
+  border:1px solid var(--bd);background:var(--sur);font-weight:600;transition:.15s;white-space:nowrap;
+  box-shadow:2px 2px 5px rgba(163,177,198,.22),-2px -2px 5px rgba(255,255,255,.7);}
+.ec:hover{box-shadow:var(--nm-in);}
+.ec.on{background:white;outline:1.5px solid currentColor;outline-offset:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.1)!important;}
+.ec1{color:#1D4ED8;}.ec2{color:#C2410C;}.ec3{color:#A16207;}.ec4{color:#0369A1;}
+.ec5{color:#6D28D9;}.ec6{color:#991B1B;}.ec7{color:#15803D;}.ec8{color:#475569;}
+.ec9{color:#9A3412;}.ec10{color:#7E22CE;}
+.ev-custom-row{display:flex;gap:7px;align-items:center;}
+.ev-input{flex:1;box-shadow:var(--nm-in);background:var(--sur);border:none;
+  border-radius:10px;padding:7px 12px;font-size:11px;color:var(--t1);outline:none;}
+.ev-input::placeholder{color:var(--t5);}
+.ev-submit{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:10px;
+  padding:7px 14px;font-size:11px;color:var(--pu);font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:.15s;}
+.ev-submit:hover{box-shadow:var(--nm-in);}
+.ev-active-list{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.ev-active-tag{background:linear-gradient(135deg,var(--pu-l),var(--bl-l));
+  border-radius:20px;padding:3px 10px;font-size:10px;color:var(--pu);font-weight:600;
+  display:flex;align-items:center;gap:5px;}
+.ev-remove{cursor:pointer;color:var(--t4);font-size:11px;line-height:1;}
+.ev-remove:hover{color:var(--re);}
+
+/* ── MAIN LAYOUT ── */
+.main{display:grid;grid-template-columns:1fr 8px 268px;gap:5px;align-items:start;
+  transition:grid-template-columns .28s cubic-bezier(.2,.8,.3,1);}
+.main.dragging{transition:none;}
+.drag{cursor:col-resize;align-self:stretch;position:relative;border-radius:4px;touch-action:none;}
+.drag::after{content:'';position:absolute;left:50%;transform:translateX(-50%);top:42%;bottom:42%;
+  width:3px;border-radius:3px;background:var(--bd);transition:.15s;}
+.drag:hover::after,.main.dragging .drag::after{background:var(--pu-m);top:34%;bottom:34%;}
+.vp-expand{border:none;background:transparent;color:var(--t4);cursor:pointer;font-size:13px;
+  padding:2px 5px;border-radius:7px;margin-left:auto;margin-right:6px;transition:.15s;}
+.vp-expand:hover{color:var(--pu);}
+.ugwrap{overflow-y:auto;max-height:600px;padding-right:3px;}
+.ugwrap::-webkit-scrollbar{width:3px;}
+.ugwrap::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+.ug{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+
+/* ── USER CARD ── */
+.uc{box-shadow:var(--nm);background:var(--sur);border-radius:15px;padding:11px;
+  position:relative;overflow:visible;transition:box-shadow .18s;}
+.uc:hover{box-shadow:var(--nm-in);}
+.uc.flash{animation:flash .5s ease;}
+@keyframes flash{0%{box-shadow:0 0 0 2px var(--pu-m),var(--nm);}100%{box-shadow:var(--nm);}}
+.ev-flag{position:absolute;top:0;right:0;border-bottom-left-radius:9px;border-top-right-radius:14px;
+  padding:2px 8px;font-size:9px;font-weight:700;
+  background:linear-gradient(135deg,var(--bl-l),var(--pu-l));color:var(--bl);}
+.ct{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:white;flex-shrink:0;box-shadow:var(--nm-sm);
+  text-shadow:0 1px 2px rgba(0,0,0,.12);}
+.av-tpu{background:linear-gradient(135deg,#C4B5FD,#A78BFA);}
+.av-tbl{background:linear-gradient(135deg,#93C5FD,#60A5FA);}
+.av-tgr{background:linear-gradient(135deg,#6EE7B7,#34D399);}
+.av-tor{background:linear-gradient(135deg,#FCD34D,#FB923C);}
+.un{font-size:12px;font-weight:700;color:var(--t1);}
+.umeta{display:flex;align-items:center;gap:4px;margin-top:2px;flex-wrap:wrap;}
+.utag{font-size:8.5px;font-weight:700;border-radius:9px;padding:1px 7px;letter-spacing:.03em;}
+.tpu{background:var(--pu-l);color:var(--pu);}
+.tbl{background:var(--bl-l);color:var(--bl);}
+.tgr{background:var(--gr-l);color:var(--gr);}
+.tor{background:var(--or-l);color:var(--or);}
+.uloc{font-size:8.5px;color:var(--t4);}
+.orb-wrap{display:flex;align-items:center;gap:3px;margin-left:auto;flex-shrink:0;}
+.orb{width:7px;height:7px;border-radius:50%;}
+.o-pu{background:var(--pu);box-shadow:0 0 4px var(--pu);animation:p 1.2s infinite;}
+.o-bl{background:#3B82F6;box-shadow:0 0 4px #3B82F6;animation:p .7s infinite;}
+.o-gr{background:#10B981;box-shadow:0 0 4px #10B981;animation:p 3s infinite;}
+.os{font-size:8.5px;font-weight:700;}
+.os-pu{color:var(--pu);}.os-bl{color:#2563EB;}.os-gr{color:#059669;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.35}}
+.mybox{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border-radius:8px;
+  padding:6px 8px;margin-bottom:6px;border-left:2.5px solid var(--pu-m);}
+.myl{font-size:8.5px;font-weight:700;color:var(--pu);letter-spacing:.1em;margin-bottom:1px;}
+.myt{font-size:10px;color:var(--t3);line-height:1.45;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px;}
+.cn{background:#FAF0F0;border-radius:7px;padding:4px 6px;}
+.cy{background:#EEF7F2;border-radius:7px;padding:4px 6px;}
+.cl{font-size:8.5px;font-weight:700;letter-spacing:.04em;margin-bottom:1px;}
+.cn .cl{color:var(--re);}.cy .cl{color:var(--gr);}
+.ct2{font-size:9.5px;color:var(--t3);line-height:1.35;}
+.cf{display:flex;align-items:center;justify-content:space-between;gap:5px;}
+.sv{font-size:9px;color:#059669;font-weight:700;flex:1;}
+.cf-btns{display:flex;gap:5px;}
+.ebtn{box-shadow:2px 2px 5px rgba(163,177,198,.38),-2px -2px 5px rgba(255,255,255,.78);
+  background:var(--sur);border:none;border-radius:8px;padding:4px 9px;
+  font-size:9.5px;font-weight:700;cursor:pointer;transition:.15s;}
+.ebtn:hover{box-shadow:var(--nm-in);}
+.ebtn-pu{color:var(--pu);}
+.ebtn-gr{color:var(--gr);}
+/* personal event inline panel */
+.pe-panel{display:none;margin-top:7px;padding-top:7px;
+  border-top:1px solid var(--bd);}
+.pe-panel.open{display:block;}
+.pe-suggestions{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px;}
+.pe-sug{background:var(--sur2);border:1.2px solid var(--bd);border-radius:14px;
+  padding:3px 9px;font-size:9.5px;color:var(--t3);cursor:pointer;transition:.15s;}
+.pe-sug:hover{background:var(--pu-l);color:var(--pu);border-color:var(--pu-m);}
+.pe-input-row{display:flex;gap:6px;}
+.pe-input{flex:1;box-shadow:var(--nm-in);background:var(--sur);border:none;
+  border-radius:8px;padding:5px 9px;font-size:10px;color:var(--t1);outline:none;}
+.pe-input::placeholder{color:var(--t5);}
+.pe-ok{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:8px;
+  padding:5px 10px;font-size:10px;color:var(--pu);font-weight:700;cursor:pointer;transition:.15s;}
+.pe-ok:hover{box-shadow:var(--nm-in);}
+.pe-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
+.pe-tag{background:var(--or-l);border-radius:14px;padding:2px 9px;
+  font-size:9px;color:var(--or);font-weight:600;display:flex;align-items:center;gap:4px;}
+.pe-tag-rm{cursor:pointer;color:var(--t4);font-size:10px;}
+.pe-tag-rm:hover{color:var(--re);}
+
+/* ── VOICE PANEL ── */
+.vp{box-shadow:var(--nm);background:var(--sur);border-radius:15px;
+  overflow:hidden;display:flex;flex-direction:column;height:600px;position:sticky;top:14px;}
+.vph{padding:10px 13px;background:linear-gradient(135deg,#F5F3FF,#EFF6FF);
+  border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:7px;}
+.vpt{font-size:11px;font-weight:700;color:var(--t1);}
+.vps{font-size:8.5px;color:var(--t4);margin-top:1px;letter-spacing:.08em;}
+.live{width:6px;height:6px;border-radius:50%;background:#EF4444;
+  box-shadow:0 0 5px #EF4444;margin-left:auto;animation:p 1s infinite;}
+.vpf{flex:1;overflow-y:auto;padding:9px;display:flex;flex-direction:column;gap:6px;}
+.vpf::-webkit-scrollbar{width:3px;}
+.vpf::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+.vi{display:flex;flex-direction:column;gap:3px;animation:fadeIn .4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.virow{display:flex;align-items:center;gap:5px;}
+.viav{width:17px;height:17px;border-radius:50%;color:white;font-size:9px;font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vinm{font-size:10px;font-weight:700;color:var(--t1);}
+.vitm{font-size:8.5px;color:var(--t5);margin-left:auto;}
+.bbl{border-radius:9px;padding:5px 8px;font-size:10px;line-height:1.5;
+  margin-left:17px;max-width:96%;}
+.bbt{background:white;color:var(--t3);
+  box-shadow:2px 2px 5px rgba(163,177,198,.22),-2px -2px 5px rgba(255,255,255,.7);}
+.bbm{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);color:var(--pu);font-weight:600;}
+.bbr{background:var(--gr-l);color:var(--gr);font-weight:600;}
+.bbx{background:#FAF0F0;color:#B91C1C;font-weight:600;}
+.vdiv{height:1px;background:var(--bd);margin:2px 0;flex-shrink:0;}
+
+/* ── BOTTOM BAR ── */
+.bot{box-shadow:var(--nm);background:var(--sur);border-radius:13px;
+  padding:9px 15px;margin-top:11px;display:flex;align-items:center;justify-content:space-between;}
+.botl{font-size:10px;color:var(--t3);}
+.botl strong{color:var(--pu);}
+.botr{display:flex;gap:14px;}
+.bm{text-align:center;}
+.bmn{font-size:15px;font-weight:700;color:var(--t1);line-height:1;font-family:var(--mono);}
+.bml{font-size:8.5px;color:var(--t4);}
+
+/* ── PHONE MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,41,59,.45);
+  backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;
+  z-index:1000;}
+.modal-overlay.open{display:flex;}
+.modal-box{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.modal-user-info{display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.18);border-radius:20px;padding:7px 16px;
+  backdrop-filter:blur(10px);}
+.mui-av{width:26px;height:26px;border-radius:50%;color:white;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;}
+.mui-name{font-size:13px;font-weight:700;color:white;}
+.mui-tag{font-size:10px;color:rgba(255,255,255,.7);}
+.phone-wrap{overflow:visible;width:303px;height:634px;}
+.phone-wrap iframe{width:421px;height:880px;border:none;background:transparent;
+  transform:scale(0.72);transform-origin:top left;}
+.modal-close{background:rgba(255,255,255,.18);border:none;border-radius:50%;
+  width:36px;height:36px;cursor:pointer;font-size:16px;color:white;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(10px);transition:.15s;}
+.modal-close:hover{background:rgba(255,255,255,.3);}
+
+/* ── ME CARD ── */
+.uc-me{background:linear-gradient(145deg,#F5F3FF 0%,#EFF6FF 100%);
+  border:1.5px solid var(--pu-m);}
+.me-badge{background:linear-gradient(135deg,var(--pu),#818CF8);color:white;
+  font-size:9px;font-weight:800;padding:3px 12px;letter-spacing:.12em;
+  border-bottom-left-radius:8px;border-bottom-right-radius:8px;
+  position:absolute;top:0;left:14px;}
+.ebtn-me{background:linear-gradient(135deg,#EDE9FE,#DBEAFE)!important;
+  color:var(--pu)!important;font-weight:800!important;}
+.uc-add{border:1.5px dashed var(--pu-m);background:transparent;box-shadow:none;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;
+  cursor:pointer;min-height:150px;color:var(--t4);font-size:11px;font-weight:700;transition:.15s;}
+.uc-add:hover{color:var(--pu);background:rgba(237,233,254,.35);box-shadow:none;}
+.uc-add b{font-size:24px;color:var(--pu-m);font-weight:400;line-height:1;}
+
+/* ── WORLD ENGINE ── */
+.btn-run{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:14px;
+  padding:6px 14px;font-size:11px;color:#059669;cursor:pointer;font-weight:700;transition:.15s;
+  display:flex;align-items:center;gap:6px;}
+.btn-run:hover{box-shadow:var(--nm-in);}
+.btn-run.on{box-shadow:var(--nm-in);color:#DC2626;}
+.run-dot{width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 5px #10B981;
+  animation:p 1s infinite;display:none;}
+.btn-run.on .run-dot{display:block;}
+.live-chip{display:inline-block;background:#D1FAE5;color:#059669;font-size:8px;font-weight:800;
+  border-radius:8px;padding:1px 6px;margin-left:5px;letter-spacing:.08em;vertical-align:1px;}
+
+/* ── VP TABS + WAR ROOM ── */
+.vtab-row{display:flex;gap:5px;padding:8px 9px 0;flex-shrink:0;}
+.vtab{border:none;background:transparent;font-size:10px;font-weight:700;color:var(--t4);
+  cursor:pointer;padding:4px 0;border-radius:10px;transition:.15s;flex:1;}
+.vtab.on{background:white;color:var(--pu);box-shadow:var(--nm-sm);}
+
+/* ── VERSIONS ── */
+#ver{flex:1;overflow-y:auto;padding:9px;display:none;flex-direction:column;gap:8px;}
+#ver.on{display:flex;}
+#ver::-webkit-scrollbar{width:3px;}
+#ver::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+.team-card{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border-radius:10px;padding:8px 10px;
+  font-size:9.5px;color:var(--t3);line-height:1.7;}
+.team-card b{color:var(--t1);}
+.ver-card{background:white;border-radius:10px;padding:8px 10px;
+  box-shadow:2px 2px 5px rgba(163,177,198,.2),-2px -2px 5px rgba(255,255,255,.7);}
+.ver-card.off{opacity:.5;}
+.ver-head{display:flex;align-items:center;gap:6px;}
+.ver-v{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--pu);}
+.ver-day{font-size:8.5px;color:var(--t5);}
+.ver-state{margin-left:auto;font-size:8.5px;font-weight:800;border-radius:8px;padding:1px 7px;}
+.ver-state.live{background:#EEF7F2;color:#059669;}
+.ver-state.off{background:#F1F2F6;color:#94A3B8;}
+.ver-recap{font-size:9.5px;color:var(--t3);line-height:1.55;margin-top:4px;}
+.ver-chg{font-size:9.5px;color:var(--t2);margin-top:4px;line-height:1.5;display:flex;gap:5px;align-items:baseline;}
+.role-chip{flex-shrink:0;font-size:8px;font-weight:800;border-radius:7px;padding:1px 6px;
+  background:var(--pu-l);color:var(--pu);}
+.ver-test{font-size:9px;color:var(--t4);margin-top:4px;}
+.ver-metrics{font-family:var(--mono);font-size:8.5px;color:var(--t5);margin-top:4px;}
+.btn-rb{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:8px;
+  padding:4px 10px;font-size:9px;font-weight:700;color:var(--bl);cursor:pointer;margin-top:6px;transition:.15s;}
+.btn-rb:hover{box-shadow:var(--nm-in);}
+.ver-card.real{border-left:2.5px solid #34D399;}
+.appr-item{background:white;border-radius:9px;padding:6px 9px;display:flex;align-items:center;gap:6px;
+  font-size:9.5px;box-shadow:2px 2px 5px rgba(163,177,198,.18),-2px -2px 5px rgba(255,255,255,.7);}
+.appr-t{font-weight:700;color:var(--t1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.appr-d{font-family:var(--mono);font-size:8px;color:var(--t5);}
+.appr-st{font-size:8.5px;font-weight:800;border-radius:8px;padding:1px 7px;background:var(--or-l);color:var(--or);flex-shrink:0;}
+.appr-st.ok{background:#EEF7F2;color:#059669;}
+.appr-x{cursor:pointer;color:var(--t5);font-size:11px;padding:0 2px;}
+.appr-x:hover{color:var(--re);}
+#war{flex:1;overflow-y:auto;padding:9px;display:none;flex-direction:column;gap:8px;}
+#war.on{display:flex;}
+#war::-webkit-scrollbar{width:3px;}
+#war::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+#vpf.off{display:none;}
+.war-empty{font-size:10px;color:var(--t4);line-height:1.7;padding:2px 4px;}
+.btn-standup{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:10px;
+  padding:9px;font-size:11px;color:var(--pu);font-weight:700;cursor:pointer;transition:.15s;flex-shrink:0;}
+.btn-standup:hover{box-shadow:var(--nm-in);}
+.war-role{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--t2);margin-bottom:3px;}
+.war-card{background:white;border-radius:10px;padding:8px 9px;
+  box-shadow:2px 2px 5px rgba(163,177,198,.22),-2px -2px 5px rgba(255,255,255,.7);}
+.war-sum{font-size:10px;color:var(--t3);line-height:1.55;}
+.war-pain{font-size:9.5px;color:var(--or);background:var(--or-l);border-radius:8px;
+  padding:3px 8px;margin-top:4px;line-height:1.45;}
+.bk-card{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border-radius:10px;padding:8px 9px;}
+.bk-top{display:flex;align-items:center;gap:6px;}
+.bk-pri{font-size:8.5px;font-weight:800;border-radius:7px;padding:1px 6px;flex-shrink:0;}
+.pri-P0{background:var(--re-l);color:var(--re);}
+.pri-P1{background:var(--or-l);color:var(--or);}
+.pri-P2{background:var(--bl-l);color:var(--bl);}
+.bk-title{font-size:10.5px;font-weight:700;color:var(--t1);}
+.bk-why{font-size:9.5px;color:var(--t3);margin-top:3px;line-height:1.5;}
+.bk-line{font-size:9.5px;color:var(--t3);margin-top:3px;line-height:1.5;}
+.bk-line b{color:var(--t2);font-weight:700;}
+/* ── QA · LLM-as-judge ── */
+.war-btns{display:flex;gap:6px;flex-shrink:0;}
+.war-btns .btn-standup{flex:1;}
+.qa-dims{display:flex;gap:6px;}
+.qa-dim{flex:1;box-shadow:var(--nm-sm);background:var(--sur);border-radius:10px;padding:7px 8px;text-align:center;}
+.qa-dim b{font-size:16px;font-weight:700;font-family:var(--mono);color:var(--t1);display:block;line-height:1.1;}
+.qa-dim b.low{color:#DC2626;}
+.qa-dim span{font-size:8.5px;color:var(--t4);}
+.qa-case{background:white;border-radius:9px;padding:6px 9px;font-size:9.5px;color:var(--t3);line-height:1.55;
+  box-shadow:2px 2px 5px rgba(163,177,198,.18),-2px -2px 5px rgba(255,255,255,.7);}
+.qa-case.warn{background:#FFF9F2;border-left:2.5px solid #FB923C;}
+.qa-verdict{font-weight:800;font-size:8.5px;border-radius:7px;padding:1px 6px;margin-right:4px;}
+.qa-verdict.pass{background:#EEF7F2;color:#059669;}
+.qa-verdict.warn{background:#FFEDD5;color:#C2410C;}
+
+.war-think{font-size:10px;color:var(--t4);padding:6px 4px;display:flex;gap:7px;align-items:center;}
+.spin{width:10px;height:10px;border:2px solid var(--pu-m);border-top-color:transparent;border-radius:50%;
+  animation:sp .7s linear infinite;flex-shrink:0;}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ── DAY / API / KEY MODAL ── */
+.day-pill{box-shadow:var(--nm-sm);background:var(--sur);border-radius:14px;padding:6px 12px;
+  font-size:10px;font-weight:800;color:var(--t2);letter-spacing:.08em;display:flex;align-items:center;gap:5px;}
+.day-pill b{color:var(--pu);font-size:12px;}
+.btn-day{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:14px;
+  padding:6px 13px;font-size:11px;color:var(--bl);cursor:pointer;font-weight:700;transition:.15s;}
+.btn-day:hover{box-shadow:var(--nm-in);}
+.btn-day:disabled{opacity:.5;cursor:wait;}
+.api-chip{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:14px;
+  padding:6px 11px;font-size:10px;color:var(--t4);cursor:pointer;font-weight:700;transition:.15s;
+  display:flex;align-items:center;gap:5px;}
+.api-chip:hover{box-shadow:var(--nm-in);}
+.api-dot{width:6px;height:6px;border-radius:50%;background:#94A3B8;}
+.api-chip.ok .api-dot{background:#10B981;box-shadow:0 0 4px #10B981;}
+.api-chip.bad .api-dot{background:#EF4444;box-shadow:0 0 4px #EF4444;animation:p .8s infinite;}
+.api-chip.bad{color:#DC2626;}
+.key-box{background:var(--sur);border-radius:18px;padding:20px 22px;width:360px;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:10px;}
+.key-box b{font-size:13px;color:var(--t1);}
+.key-box p{font-size:10.5px;color:var(--t4);line-height:1.6;}
+.key-input{box-shadow:var(--nm-in);background:var(--sur);border:none;border-radius:10px;
+  padding:9px 12px;font-size:11px;color:var(--t1);outline:none;font-family:monospace;}
+.key-row{display:flex;gap:8px;justify-content:flex-end;}
+.key-btn{box-shadow:var(--nm-sm);background:var(--sur);border:none;border-radius:10px;
+  padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;color:var(--pu);transition:.15s;}
+.key-btn:hover{box-shadow:var(--nm-in);}
+.key-btn.ghost{color:var(--t4);}
+.key-hint{font-size:10px;color:var(--t4);min-height:14px;}
+.key-hint.ok{color:#059669;}
+.key-hint.err{color:#DC2626;}
+
+/* ── REVIEWS ── */
+#rev{flex:1;overflow-y:auto;padding:9px;display:none;flex-direction:column;gap:8px;}
+#rev.on{display:flex;}
+#rev::-webkit-scrollbar{width:3px;}
+#rev::-webkit-scrollbar-thumb{background:var(--bd);border-radius:3px;}
+.rev-sum{background:linear-gradient(135deg,#F5F3FF,#EFF6FF);border-radius:12px;padding:10px 12px;
+  display:flex;align-items:center;gap:14px;}
+.rev-score{font-size:24px;font-weight:700;color:var(--pu);line-height:1;font-family:var(--mono);}
+.rev-stars{color:#F59E0B;font-size:11px;letter-spacing:1px;}
+.rev-meta{font-size:9px;color:var(--t4);margin-top:2px;}
+.rev-keep{margin-left:auto;text-align:right;}
+.rev-keep b{font-size:16px;font-weight:800;color:#059669;display:block;line-height:1;}
+.rev-keep span{font-size:8.5px;color:var(--t4);}
+.rev-feats{display:flex;gap:5px;flex-wrap:wrap;}
+.rev-feat{background:white;border-radius:14px;padding:3px 9px;font-size:9px;color:var(--t3);
+  font-weight:600;box-shadow:2px 2px 5px rgba(163,177,198,.18),-2px -2px 5px rgba(255,255,255,.7);}
+.rev-feat b{color:var(--pu);}
+.rev-card{background:white;border-radius:10px;padding:8px 10px;
+  box-shadow:2px 2px 5px rgba(163,177,198,.2),-2px -2px 5px rgba(255,255,255,.7);}
+.rev-top{display:flex;align-items:center;gap:6px;}
+.rev-name{font-size:10px;font-weight:700;color:var(--t1);}
+.rev-day{font-size:8px;color:var(--t5);margin-left:auto;}
+.rev-st{color:#F59E0B;font-size:10px;letter-spacing:.5px;}
+.rev-txt{font-size:10px;color:var(--t3);line-height:1.55;margin-top:4px;}
+.rev-tag{display:inline-block;border-radius:9px;padding:1px 7px;font-size:8.5px;font-weight:700;margin-top:5px;}
+.rev-tag.keep{background:#EEF7F2;color:#059669;}
+.rev-tag.churn{background:#FAF0F0;color:#DC2626;}
+.rev-empty{font-size:10px;color:var(--t4);line-height:1.7;padding:4px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div style="display:flex;align-items:center;gap:16px"><a href="../index.html" title="返回展厅" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#6D28D9;font-size:14px;font-weight:600;padding:8px 15px;border-radius:999px;background:rgba(109,40,217,.10);white-space:nowrap">← 展厅</a><div class="logo">MY <em>·</em> 社会影响力看板<span class="logo-sub">SOCIAL IMPACT BOARD</span></div></div>
+  <div class="hd-r">
+    <div class="time-pill">
+      <span>00:00</span>
+      <div class="ttrack"><div class="tfill" id="tfill" style="width:0%"></div><div class="thead" id="thead" style="left:0%"></div></div>
+      <span>24:00</span><span class="tnow" id="wclock">00:00</span>
+    </div>
+    <div class="day-pill">DAY <b id="day-num">1</b></div>
+    <button class="api-chip" id="api-chip" onclick="openKeyModal()"><span class="api-dot"></span>AI引擎</button>
+    <button class="btn-run" id="btn-run" onclick="toggleWorld()"><span class="run-dot"></span><span id="run-label">▶ 启动世界</span></button>
+    <button class="btn-day" id="btn-day" onclick="endDay()">🌙 结束今天</button>
+    <button class="btn-ev" id="btn-ev" onclick="toggleEvPanel()">＋ 投入事件</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="sc"><div class="sn" id="st-users">13</div><div class="sl">今日活跃用户<span class="sle">Active Users</span></div></div>
+  <div class="sc"><div class="sn" id="st-time">8.4h</div><div class="sl">MY 节省时间<span class="sle">Time Saved</span></div></div>
+  <div class="sc"><div class="sn" id="st-tasks">57</div><div class="sl">主动处理任务数<span class="sle">Proactive Tasks</span></div></div>
+  <div class="sc"><div class="sn" id="st-keep">—</div><div class="sl">用户留存率 · 评价驱动<span class="sle">Retention · Review-driven</span></div></div>
+</div>
+
+<!-- EVENT PANEL -->
+<div class="ev-panel" id="ev-panel">
+  <div class="ev-row">
+    <span class="ev-row-label">预设事件</span>
+    <div class="evchips" id="ev-chips"></div>
+  </div>
+  <div class="ev-custom-row">
+    <span class="ev-row-label">自定义</span>
+    <input class="ev-input" id="ev-input" placeholder="输入任意事件，例如：高速追尾事故、明星机场接机..." maxlength="30">
+    <button class="ev-submit" onclick="submitCustomEvent()">投入 →</button>
+  </div>
+  <div id="ev-active-area" style="display:none">
+    <div class="ev-active-list" id="ev-active-list"></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+  <div class="ugwrap"><div class="ug" id="ug"></div></div>
+  <div class="drag" id="drag" title="拖动调整面板宽度 · 双击复位"></div>
+  <!-- VOICE PANEL -->
+  <div class="vp">
+    <div class="vph">
+      <div><div class="vpt">世界面板</div><div class="vps">WORLD PANEL · LIVE</div></div>
+      <button class="vp-expand" onclick="togglePanelWide()" title="放大/还原面板">⛶</button>
+      <div class="live"></div>
+    </div>
+    <div class="vtab-row">
+      <button class="vtab on" id="vtab-voice" onclick="switchVTab('voice')">心声</button>
+      <button class="vtab" id="vtab-rev" onclick="switchVTab('rev')">评价</button>
+      <button class="vtab" id="vtab-war" onclick="switchVTab('war')">作战室</button>
+      <button class="vtab" id="vtab-ver" onclick="switchVTab('ver')">版本</button>
+    </div>
+    <div class="vpf" id="vpf"></div>
+    <div id="rev"></div>
+    <div id="war"></div>
+    <div id="ver"></div>
+  </div>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bot">
+  <div class="botl" id="bot-text">今日 <strong>MY</strong> 正在守护 <strong>12</strong> 位用户的日常出行 &nbsp;·&nbsp; 平均响应时间 <strong>&lt; 90秒</strong></div>
+  <div class="botr">
+    <div class="bm"><div class="bmn" id="bt-time">8.4h</div><div class="bml">总节省时长</div></div>
+    <div class="bm"><div class="bmn" id="bt-tasks">57</div><div class="bml">已处理任务</div></div>
+    <div class="bm"><div class="bmn" id="bt-cost">¥124</div><div class="bml">节省费用</div></div>
+  </div>
+</div>
+
+<!-- USER MODAL -->
+<div class="modal-overlay" id="user-modal" onclick="if(event.target===this)closeUserModal()">
+  <div class="key-box">
+    <b>👤 新增虚拟用户</b>
+    <p>新用户将真实加入世界运行：被全城事件影响、产生心声、写评价、计入留存。也可以进TA的手机和TA的 MY 聊天。</p>
+    <input class="key-input" id="nu-name" placeholder="姓名，如：孙立伟" maxlength="6">
+    <div style="display:flex;gap:8px">
+      <input class="key-input" id="nu-age" placeholder="年龄" maxlength="2" style="flex:1">
+      <input class="key-input" id="nu-tag" placeholder="身份，如：夜班医生" maxlength="8" style="flex:2">
+    </div>
+    <select class="key-input" id="nu-tc">
+      <option value="tpu">人群 · 家庭（紫）</option>
+      <option value="tbl">人群 · 职场（蓝）</option>
+      <option value="tgr">人群 · 银发（绿）</option>
+      <option value="tor">人群 · 年轻（橙）</option>
+    </select>
+    <input class="key-input" id="nu-city" placeholder="城市，如：上海·徐汇" maxlength="10">
+    <input class="key-input" id="nu-wo" placeholder="TA 的日常痛点，如：夜班回家路上太困" maxlength="24">
+    <div class="key-row">
+      <button class="key-btn ghost" onclick="randomUser()" style="margin-right:auto">🎲 随机生成</button>
+      <button class="key-btn ghost" onclick="closeUserModal()">取消</button>
+      <button class="key-btn" onclick="addUser()">加入世界</button>
+    </div>
+  </div>
+</div>
+
+<!-- KEY MODAL -->
+<div class="modal-overlay" id="key-modal" onclick="if(event.target===this)closeKeyModal()">
+  <div class="key-box">
+    <b>🔌 AI 引擎连接（DeepSeek）</b>
+    <p>世界引擎、用户评价、产品站会都由这个 key 驱动。失效时在这里换一个新的即可，无需改代码。<br>申请地址：platform.deepseek.com</p>
+    <input class="key-input" id="key-input" placeholder="sk-..." spellcheck="false">
+    <div class="key-row">
+      <button class="key-btn ghost" onclick="closeKeyModal()">取消</button>
+      <button class="key-btn" id="key-save" onclick="saveKey()">保存并测试连接</button>
+    </div>
+    <span class="key-hint" id="key-hint"></span>
+  </div>
+</div>
+
+<!-- PHONE MODAL -->
+<div class="modal-overlay" id="phone-modal" onclick="handleModalClick(event)">
+  <div class="modal-box">
+    <div class="modal-user-info">
+      <span class="mui-av" id="mui-av"></span>
+      <div><div class="mui-name" id="mui-name"></div><div class="mui-tag" id="mui-tag"></div></div>
+    </div>
+    <div class="phone-wrap">
+      <iframe id="phone-iframe" src="about:blank"></iframe>
+    </div>
+    <button class="modal-close" onclick="closePhone()">✕</button>
+  </div>
+</div>
+
+<script>
+/* ─────────── DATA ─────────── */
+const EVENTS = [
+  {id:'rain',  cls:'ec1', label:'🌧️ 突发暴雨'},
+  {id:'jam',   cls:'ec2', label:'🚗 晚高峰严重拥堵'},
+  {id:'hot',   cls:'ec3', label:'🌡️ 极端高温 40°C'},
+  {id:'cold',  cls:'ec4', label:'❄️ 寒潮大雪预警'},
+  {id:'show',  cls:'ec5', label:'🎵 演唱会10万人散场'},
+  {id:'road',  cls:'ec6', label:'🏗️ 主干道施工封路'},
+  {id:'school',cls:'ec7', label:'🎓 开学放学高峰'},
+  {id:'smog',  cls:'ec8', label:'🌫️ 重度雾霾预警'},
+  {id:'crash', cls:'ec9', label:'🚨 附近发生交通事故'},
+  {id:'hosp',  cls:'ec10',label:'🏥 儿科急诊高峰期'},
+];
+
+/* 默认 + 事件脚本 */
+const USERS = [
+  {
+    id:'me', name:'Caroline', age:28, emoji:'👩', tag:'MY 创始用户', tc:'tpu', city:'上海·前滩',
+    oc:'o-pu', os:'os-pu', ot:'实时在线',
+    isMe: true,
+    myS:'个人助理全功能运行中 · 车型 SUP C · 今日出行预规划已完成',
+    wo:'设计者本人也需要一个真实的智能助手', wi:'MY 真实陪伴每日出行，体验与创造同步进行', sv:'真实使用中 · 实时反馈迭代',
+    ps:['下午拜访合作方','约了朋友喝下午茶','SUP C 需要保养了','周末出城透气'],
+    ev:{
+      rain:{myS:'暴雨中，已找好室内停车位，规划绕行路线，下午出行方案已就绪',
+        wo:'设计师出行也会淋雨，体验变差',wi:'MY守护创始用户，第一手感知产品能力',sv:'创始用户实时体验',
+        v:{t:'下雨了，下午还要出去…',
+           a:'今日暴雨，停车位已锁定，路线已绕开积水区，建议14:30出发',
+           r:'嗯，按MY说的来！'}},
+      jam:{myS:'晚高峰拥堵，已自动规划最优回家路线，节省约20分钟',
+        wo:'堵在路上，思路全被打断',wi:'MY搞定路线，专注思考更重要的事',sv:'节省20min'},
+      hot:{myS:'高温40°C，已提前远程开启SUP C空调，锁定阴凉停车位',
+        wo:'进热车不舒服，心情变差',wi:'MY提前准备好，进车即凉爽',sv:'舒适体验·随时感知'},
+      show:{myS:'附近演唱会10万人散场，已提前规划绕行路线，避开人流高峰',
+        wo:'被人流困住，完全没预期',wi:'MY预警+绕行，顺利离开',sv:'避开拥堵·心情愉快'}
+    }
+  },
+  {
+    id:'chen', name:'陈美琪', age:35, emoji:'👩', tag:'全职宝妈', tc:'tpu', city:'上海·浦东',
+    oc:'o-bl', os:'os-bl', ot:'处理中',
+    myS:'今日行程顺畅，正在监控下午接孩子路况',
+    wo:'各种事只能靠自己记，容易出纰漏', wi:'MY统筹家庭日程，自动同步幼儿园通知', sv:'每日节省约12min',
+    ps:['孩子发烧需要就医','幼儿园临时通知','老公出差今天回来','超市补货'],
+    ev:{
+      rain:{myS:'检测到暴雨+接孩子15:30，已重规划路线绕开内涝路段，联系幼儿园老师',
+        wo:'堵路迟到，孩子淋雨等20分钟',wi:'提前出发，准时接到，没淋雨',sv:'节省35min·焦虑-80%',
+        v:{t:'唉今天雨这么大，孩子三点半放学…来不来得及啊…',
+           a:'已检测到暴雨，接孩子路线重规划，提前15分钟出发即可准时到达',
+           r:'太好了，MY都安排好了！我不慌了～'}},
+      jam:{myS:'晚高峰严重拥堵，接孩子路线已重规划，建议16:00提前出发',
+        wo:'平时出发时间不够，堵在路上接孩子迟到',wi:'MY提醒提前出发，准时到达幼儿园',sv:'节省20min·准时接孩子',
+        v:{t:'今天好堵啊，三点半能接到孩子吗…',
+           a:'检测到晚高峰拥堵，建议16:00提前出发，已规划最优路线',
+           r:'好，按MY说的提前出发，稳了！'}},
+      hot:{myS:'极端高温，已提前15分钟远程开启车内空调，规划最短暴露路线',
+        wo:'孩子进热车难受，等待降温耗时',wi:'MY提前开空调，孩子进车即凉快',sv:'孩子舒适·节省等待10min',
+        v:{t:'这么热，孩子出来进车里会不会热坏…',
+           a:'检测到高温40°C，已提前远程开启空调，车内已降至24°C',
+           r:'太贴心了！孩子一进车就凉快，不用受苦！'}},
+      hosp:{myS:'检测到附近儿科急诊高峰，已预约好明日上午复诊时段，规划最快路线',
+        wo:'临时去急诊排队3小时',wi:'MY预约好时段，半小时看完',sv:'节省2.5h·宝宝少受苦'}
+    }
+  },
+  {
+    id:'zhou', name:'周雪梅', age:38, emoji:'👩‍👦‍👦', tag:'双胞胎妈妈', tc:'tpu', city:'北京·海淀',
+    oc:'o-bl', os:'os-bl', ot:'处理中',
+    myS:'同步监控两个孩子的学校放学通知与路况',
+    wo:'两个孩子两个学校，脑子转不过来',wi:'MY同步两条路线，优化接送顺序',sv:'每日节省约25min',
+    ps:['老大临时有补习','老二活动需要接送','两个孩子同时发烧','学校家长会'],
+    ev:{
+      rain:{myS:'暴雨中两孩路线冲突，MY已同步规划最优双线路由，协调出发顺序',
+        wo:'顾了老大顾不了老二，焦头烂额',wi:'最优路线，两个都准时接到',sv:'节省48min·两孩安全',
+        v:{t:'两个孩子两个学校，下这雨根本没法安排…头都大了…',
+           a:'已同步规划两条接送路线，建议先接锦程（16:00），再接锦诺（16:35），总耗时最短',
+           r:'MY帮我排好了！这下两个都能接到！'}},
+      jam:{myS:'拥堵严重，已为两条接送路线均重规划，给两所学校老师发了通知',
+        wo:'两个孩子都等着急，老师也在催',wi:'MY通知学校，孩子有序等待',sv:'节省30min'},
+      school:{myS:'今日是开学放学高峰，已提前30分钟规划绕行路线',
+        wo:'开学堵死，两个孩子都迟到',wi:'提前绕行，准时到校',sv:'开学顺利·全家不焦虑'}
+    }
+  },
+  {
+    id:'wu', name:'吴晓燕', age:32, emoji:'👩‍💼', tag:'职场妈妈', tc:'tpu', city:'广州·天河',
+    oc:'o-bl', os:'os-bl', ot:'协调中',
+    myS:'监控今日出行+工作日程，辅助协调接孩子安排',
+    wo:'工作家庭两头跑，哪个都顾不好',wi:'MY协调日程，工作家庭都能兼顾',sv:'每日减少30min冲突',
+    ps:['下午有重要会议','孩子老师打电话','临时需要加班','老人来帮忙接孩子'],
+    ev:{
+      rain:{myS:'下午开会与接孩子冲突，MY已联系队友代接，给孩子和老师发了微信',
+        wo:'两头跑，工作家庭都顾不上',wi:'MY协调好了，她专心开完会',sv:'工作家庭平衡',
+        v:{t:'下午开会没法接孩子，但又下这么大雨，怎么办…',
+           a:'已联系李姐帮接孩子，并给王老师发了微信说明情况，孩子会在教室等',
+           r:'太感谢MY了！我可以安心开完这个会！'}},
+      jam:{myS:'下班拥堵+接孩子时间紧张，已通知家人提前出发',
+        wo:'各自为战，孩子等到天黑',wi:'MY统一调度，家人协作接孩子',sv:'家庭协作效率+60%'}
+    }
+  },
+  {
+    id:'lin', name:'林建国', age:28, emoji:'👨‍💻', tag:'程序员', tc:'tbl', city:'上海·陆家嘴',
+    oc:'o-bl', os:'os-bl', ot:'处理中',
+    myS:'通勤路况监控中，停车位预查询已就绪',
+    wo:'停车难、堵车、找位置消耗大量精力',wi:'MY预查停车位，规划最优通勤路线',sv:'每日节省约18min',
+    ps:['临时加班到很晚','朋友约饭在陆家嘴','车需要保养了','今晚要送朋友去机场'],
+    ev:{
+      rain:{myS:'暴雨晚高峰最强，已找到公司地库B2空位，推送错峰离开建议19:30',
+        wo:'雨中绕圈找停车，浑身湿透',wi:'地库直停，错峰出行零压力',sv:'节省28min·省油¥12',
+        v:{t:'又下雨了，晚上肯定堵死，停车也是噩梦…',
+           a:'公司地库B2层今晚18:00起有空位，建议19:30错峰离开可避开最堵时段',
+           r:'哈，后路都给我想好了，继续敲代码！'}},
+      jam:{myS:'晚高峰严重拥堵，推荐绕行苏州河南路，节省约22分钟',
+        wo:'堵在路上刷手机，下班变成煎熬',wi:'绕行路线顺畅，准时到家',sv:'节省22min'},
+      smog:{myS:'重度雾霾，建议减少户外暴露，地库直连通道避免步行穿越路面',
+        wo:'不知道今天霾这么重，骑车来的',wi:'MY提前提醒，选择最低暴露出行方式',sv:'健康保护'}
+    }
+  },
+  {
+    id:'xu', name:'许晨光', age:31, emoji:'🧑‍💻', tag:'产品经理', tc:'tbl', city:'深圳·南山',
+    oc:'o-pu', os:'os-pu', ot:'待命',
+    myS:'今日客户拜访路线规划已就绪，会议日程同步中',
+    wo:'路况不熟，常迟到影响客户印象',wi:'MY提前规划拜访路线，精准到达',sv:'每次拜访节省15min',
+    ps:['客户临时改地址','会议提前半小时','停车收费太贵了','赶下午的飞机'],
+    ev:{
+      rain:{myS:'客户拜访路线穿过暴雨核心区，MY已重规划绕行路线并同步到日历',
+        wo:'被堵在路上，客户久等印象差',wi:'新路线提前告知客户，顺利赴约',sv:'节省22min·客户满意',
+        v:{t:'拜访客户的路刚好经过下雨最严重的地方，要不要提前出发…',
+           a:'已重规划绕行路线，节省约8分钟，建议提前10分钟出发，到达时间已同步给客户',
+           r:'稳了，客户说没关系按时来就行，MY帮我维护了形象！'}},
+      jam:{myS:'晚高峰拥堵影响客户会议准时到达，MY已通知客户延迟5分钟',
+        wo:'堵车没法通知客户，干等着急',wi:'MY提前预警+自动通知，不失礼',sv:'避免失约尴尬'}
+    }
+  },
+  {
+    id:'zhao', name:'赵雅婷', age:26, emoji:'👩‍💼', tag:'市场运营', tc:'tbl', city:'北京·朝阳',
+    oc:'o-pu', os:'os-pu', ot:'待命',
+    myS:'今日下班路线顺畅，晚间活动出行方案已就绪',
+    wo:'活动结束时间不定，打车等半小时是常态',wi:'MY预判结束时间，提前安排用车',sv:'每次活动节省等待30min',
+    ps:['今晚有品牌发布会','临时要去798展览','下班要顺道取快递','周末要驾车出京'],
+    ev:{
+      rain:{myS:'今晚线下活动在798，暴雨预计散场时最强，MY已帮订最近停车场',
+        wo:'活动结束雨最大，打车等40分钟',wi:'有车有位，活动完直接离开',sv:'节省40min·不淋雨',
+        v:{t:'今晚活动在798，偏偏赶上暴雨，散场肯定一片混乱…',
+           a:'已预订798南门停车场P2区今晚名额，散场后步行80米即可到车',
+           r:'这个安排太完美了，活动结束直接走人！'}},
+      show:{myS:'附近演唱会10万人散场，已为今晚活动出行规划避开散场路段的返程路线',
+        wo:'不知道有演唱会，被困在人海里2小时',wi:'MY提前预警，走备用路线顺利离开',sv:'避开拥堵·节省2h'}
+    }
+  },
+  {
+    id:'su', name:'苏晓雨', age:24, emoji:'👩‍🎨', tag:'设计师', tc:'tor', city:'上海·长宁',
+    oc:'o-pu', os:'os-pu', ot:'待命',
+    myS:'下午出行方案已就绪，周边新店信息推送中',
+    wo:'临时计划变动全靠自己查，花时间',wi:'MY主动推荐替代方案，生活更有惊喜',sv:'每次出行省查询10min',
+    ps:['今天想去网红店打卡','约了朋友下午喝咖啡','需要买个礼物','车停到哪里方便'],
+    ev:{
+      rain:{myS:'下午约会计划受暴雨影响，推荐3家室内网红咖啡馆，已帮改好预订时间',
+        wo:'露天餐厅临时取消，约会泡汤',wi:'换室内打卡地，反而更有惊喜',sv:'约会成功·心情转化',
+        v:{t:'今天约了喝下午茶，偏偏下雨，露天位肯定没了…',
+           a:'已帮您改预订至长宁来福士室内网红咖啡馆，同样的时间，今日有窗边位',
+           r:'哇这个更好！下雨天坐窗边看雨景也很浪漫嘛！'}},
+      hot:{myS:'高温40°C，已为下午出行推荐全程室内路线（地铁+商场连廊），避免暴晒',
+        wo:'烈日暴晒，妆容全花了',wi:'MY规划全室内路线，清爽到达',sv:'防晒保护·体验更好'}
+    }
+  },
+  {
+    id:'zhoub', name:'周婉婷', age:22, emoji:'👩‍🎓', tag:'在校实习生', tc:'tor', city:'上海·杨浦',
+    oc:'o-pu', os:'os-pu', ot:'提醒中',
+    myS:'今日实习路线监控中，出行节奏已优化',
+    wo:'新手司机路况不熟，经常迟到',wi:'MY提前规划路线，建立好印象',sv:'每次出行节省迷路10min',
+    ps:['今天有实习面试','第一次开车去陌生地方','停车费超出预算了','老板让临时加班'],
+    ev:{
+      rain:{myS:'今天有实习面试，路线有积水路段，已调整路线+提示早出发，备好打车方案',
+        wo:'鞋湿迟到，第一印象大打折扣',wi:'提前到达，从容自信',sv:'面试顺利·自信感+',
+        v:{t:'今天有实习面试，雨这么大…要不要改时间啊，好纠结…',
+           a:'面试路线绕开积水点已重规划，建议提前20分钟出发，备选打车方案已就绪',
+           r:'好！出发！第一次面试有MY撑腰，稳！'}},
+      jam:{myS:'早高峰拥堵，面试路线耗时增加20分钟，建议立即出发',
+        wo:'不知道要堵，出发晚了迟到',wi:'MY预警+立即提醒，准时到达',sv:'准时赴约'}
+    }
+  },
+  {
+    id:'wang', name:'王德福', age:62, emoji:'👴', tag:'退休教师', tc:'tgr', city:'上海·闵行',
+    oc:'o-gr', os:'os-gr', ot:'守护中',
+    myS:'下午出行守护中，语音引导模式已就绪',
+    wo:'不熟悉手机导航，容易走错路',wi:'MY语音全程引导，出行安全顺畅',sv:'每次减少迷路15min',
+    ps:['下午接孙女放学','想去公园钓鱼','要去医院复查','老伴要买菜'],
+    ev:{
+      rain:{myS:'下午接孙女，已切换语音引导模式，路线简化为3个转弯，通知其女儿路况',
+        wo:'不熟导航，走错路，孙女久等',wi:'语音全程引导，平稳接到孙女',sv:'老人安全·家人放心',
+        v:{t:'这导航我看不太懂，而且下雨路不好走…',
+           a:'已切换为语音引导模式，路线已简化，共3个转弯，预计22分钟到',
+           r:'哦，这个好，跟着说就行，放心！'}},
+      hot:{myS:'极端高温，建议推迟出行到16:00以后，已告知家人提前安排接送',
+        wo:'顶着大太阳走了很久，中暑风险高',wi:'MY提醒避开最热时段，健康出行',sv:'健康守护·安全第一'},
+      cold:{myS:'寒潮来袭，建议穿防滑鞋，已规划无积雪路面路线',
+        wo:'路面结冰不知道，差点摔倒',wi:'MY提示路况+路线，安全出行',sv:'防摔倒·平安到家'}
+    }
+  },
+  {
+    id:'fang', name:'方桂兰', age:58, emoji:'👵', tag:'退休护士', tc:'tgr', city:'成都·武侯',
+    oc:'o-gr', os:'os-gr', ot:'守护中',
+    myS:'今日出行守护中，已关注天气及路面情况',
+    wo:'年纪大了出行不确定多，容易担心',wi:'MY提前告知注意事项，减少顾虑',sv:'每次出行更安心',
+    ps:['想去买菜','要去买药','女儿叫我去她家吃饭','需要去银行办事'],
+    ev:{
+      rain:{myS:'暴雨天出行不便，MY建议推迟到14:00雨势减弱再出门，已规划就近超市路线',
+        wo:'淋着雨出门，膝盖老毛病犯了',wi:'等雨小了出发，安全顺利到家',sv:'健康守护·安全出行',
+        v:{t:'想去买点菜，但下这大雨，要不要出门啊…',
+           a:'预计14:00雨势减弱，建议下午出行；已规划就近超市路线，带伞记得穿防滑鞋',
+           r:'那就等等，MY说得对，不急这一时！'}},
+      cold:{myS:'寒潮大雪预警，MY建议今日避免外出，帮订好了外卖和药品配送',
+        wo:'顶着大雪出门，路滑腿疼',wi:'MY帮订配送，在家等就行',sv:'防摔伤·健康第一'},
+      smog:{myS:'重度雾霾，今日不建议晨练，已提醒戴口罩，推荐室内活动方案',
+        wo:'照常出门晨练，回来咳嗽不舒服',wi:'MY提醒+建议，主动保护健康',sv:'呼吸健康守护'}
+    }
+  },
+  {
+    id:'zhang', name:'张伟明', age:45, emoji:'👔', tag:'销售总监', tc:'tbl', city:'上海·静安',
+    oc:'o-bl', os:'os-bl', ot:'紧急',
+    myS:'今日商务出行监控中，客户会议路线已规划就绪',
+    wo:'商务出行任何迟到都是减分项',wi:'MY确保零迟到，维护专业形象',sv:'每次商务出行零失误',
+    ps:['客户临时改地址','机场接送需要安排','车需要洗一下','晚上要应酬喝酒不能开车'],
+    ev:{
+      rain:{myS:'客户会议在浦东，雨+堵双重风险，已改订酒店内部会议室并通知对方，提前30min出发',
+        wo:'堵路迟到，客户印象分大减',wi:'提前协调，会议如期顺利进行',sv:'挽救关键商务会谈',
+        v:{t:'下午客户会议在浦东，这雨加堵车，稳妥吗…',
+           a:'检测到暴雨+拥堵双重风险，已将会议室改订至客户所在酒店内部，并通知对方，建议现在出发',
+           r:'好，现在出发，MY把麻烦全解决了，专注谈业务！'}},
+      jam:{myS:'晚高峰严重拥堵，重要客户晚宴路线重规划，预计准时到达',
+        wo:'堵车迟到半小时，客户等不耐烦',wi:'MY提前规划，准时赴宴',sv:'维护客户关系'},
+      show:{myS:'演唱会散场与晚宴时间重叠，已规划完全绕开人流路线',
+        wo:'演唱会散场堵死，晚宴迟到很久',wi:'MY绕行规划，完全避开人流',sv:'准时赴约·专业形象'}
+    }
+  },
+  {
+    id:'li', name:'李思远', age:30, emoji:'🧑‍💼', tag:'创业者', tc:'tbl', city:'上海·虹桥',
+    oc:'o-pu', os:'os-pu', ot:'后台运行',
+    myS:'静默守护模式中，已在后台处理多项日程事务',
+    wo:'碎片时间全被杂事占用，无法专注',wi:'MY后台全权托管琐事，专注核心工作',sv:'每日释放约1.5h碎片时间',
+    ps:['开会中请勿打扰','今天要去见投资人','车需要年检了','团队要一起吃饭'],
+    ev:{
+      rain:{myS:'他在开会，MY已静默：洗车改期、晚餐换室内、给团队群发路况提醒',
+        wo:'开完会才发现一堆事情积压',wi:'会议结束，所有事已全部搞定',sv:'后台托管·零打扰',
+        v:{t:'（会议中，手机静音，完全不知道外面在下暴雨）',
+           a:'静默模式 · 洗车预约已改期 / 晚餐已换为室内场所 / 团队路况通知已发送',
+           r:'（散会看手机）全搞定了？MY真的牛！'}},
+      jam:{myS:'晚高峰严重拥堵，MY已将今晚投资人见面改为线上，并提前通知对方',
+        wo:'赶路被堵，见面迟到留下坏印象',wi:'MY临机调整为线上，双方都满意',sv:'应变灵活·形象加分'},
+      road:{myS:'主干道施工封路影响去投资机构路线，MY已规划绕行并预留20分钟余量',
+        wo:'不知道封路，被困原地很久',wi:'MY提前规划绕行，从容到达',sv:'准时赴约·专注展示'}
+    }
+  }
+];
+
+/* 自定义用户(上帝新增)合并进世界 */
+try { JSON.parse(localStorage.getItem('my-world-users') || '[]').forEach(u => USERS.push(u)); } catch(e) {}
+
+/* ─────────── STATE ─────────── */
+let activeEvents = [];  // [{id, label, custom?}]
+let userPersonalEvents = {};  // {userId: [{id, text}]}
+let voiceQueue = [];
+let liveTaskBonus = 0;  // 世界引擎真实处理的任务数
+
+/* ─────────── RENDER CARDS ─────────── */
+function renderCards() {
+  const ug = document.getElementById('ug');
+  ug.innerHTML = '';
+  USERS.forEach(u => {
+    const el = document.createElement('div');
+    el.className = 'uc' + (u.isMe ? ' uc-me' : '');
+    el.id = 'uc-' + u.id;
+    el.innerHTML = cardHTML(u);
+    ug.appendChild(el);
+  });
+  const add = document.createElement('div');
+  add.className = 'uc uc-add';
+  add.innerHTML = '<b>＋</b><span>新增用户</span>';
+  add.onclick = openUserModal;
+  ug.appendChild(add);
+}
+
+const RAND_POOL = {
+  names: ['赵雨晴','钱浩然','孙曼','李铁柱','周一诺','吴限','郑大锤','王小慢','冯佳期','陈百顺','褚芸','卫东来','蒋多多','沈快快'],
+  tags:  ['夜班医生','网约车司机','幼儿园老师','宠物店主','健身教练','保险经纪','留学生','刚退休阿姨','外卖站长','自由摄影师','带货主播','二胎爸爸'],
+  cities:['上海·徐汇','上海·静安','北京·望京','深圳·福田','杭州·滨江','成都·高新','广州·珠江新城','苏州·园区'],
+  pains: ['夜班回家路上太困','一天接送孩子四趟','客户约见总迟到','停车费一个月小一千','导航总把我带进死胡同','新手上路不敢走高架','车里总忘东西','保养比价比到头大','加班完只想瘫着别让我动脑'],
+  tcs:   ['tpu','tbl','tgr','tor'],
+};
+function randomUser() {
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  document.getElementById('nu-name').value = pick(RAND_POOL.names);
+  document.getElementById('nu-age').value  = 22 + Math.floor(Math.random() * 37);
+  document.getElementById('nu-tag').value  = pick(RAND_POOL.tags);
+  document.getElementById('nu-tc').value   = pick(RAND_POOL.tcs);
+  document.getElementById('nu-city').value = pick(RAND_POOL.cities);
+  document.getElementById('nu-wo').value   = pick(RAND_POOL.pains);
+}
+function openUserModal() { document.getElementById('user-modal').classList.add('open'); }
+function closeUserModal() { document.getElementById('user-modal').classList.remove('open'); }
+function addUser() {
+  const name = document.getElementById('nu-name').value.trim();
+  if (!name) return;
+  const u = {
+    id: 'u' + Date.now().toString(36),
+    name, age: parseInt(document.getElementById('nu-age').value, 10) || 30,
+    tag: document.getElementById('nu-tag').value.trim() || '新用户',
+    tc: document.getElementById('nu-tc').value,
+    city: document.getElementById('nu-city').value.trim() || '上海',
+    oc: 'o-pu', os: 'os-pu', ot: '待命',
+    myS: '刚加入世界，MY 正在学习 TA 的出行习惯',
+    wo: document.getElementById('nu-wo').value.trim() || '刚开始使用，习惯尚未沉淀',
+    wi: 'MY 持续学习 TA 的偏好，逐步接管琐事', sv: '新用户冷启动',
+    ps: ['临时有急事', '想去个新地方', '车该保养了', '晚上有聚会'],
+    ev: {}, _custom: true,
+  };
+  USERS.push(u);
+  localStorage.setItem('my-world-users', JSON.stringify(USERS.filter(x => x._custom)));
+  renderCards();
+  document.getElementById('st-users').textContent = USERS.length;
+  updateBotText();
+  closeUserModal();
+  ['nu-name','nu-age','nu-tag','nu-city','nu-wo'].forEach(id => document.getElementById(id).value = '');
+  const el = document.getElementById('uc-' + u.id);
+  if (el) { el.classList.add('flash'); el.scrollIntoView({behavior:'smooth', block:'center'}); }
+}
+
+function cardHTML(u) {
+  // Pick active event script
+  const ev = getActiveEventScript(u);
+  const myS = ev ? ev.myS : u.myS;
+  const wo   = ev ? ev.wo  : u.wo;
+  const wi   = ev ? ev.wi  : u.wi;
+  const sv   = ev ? ev.sv  : u.sv;
+
+  // Personal events
+  const pe = userPersonalEvents[u.id] || [];
+  const activePe = pe.length > 0;
+  const peMyS = activePe ? `专属事件「${pe[pe.length-1].text}」，MY正在处理...` : null;
+
+  const finalMyS = peMyS || u._liveS || myS;
+  const isLive = !peMyS && !!u._liveS;
+  const hasFlag = activeEvents.length > 0 || activePe;
+
+  const peTagsHTML = pe.map(p =>
+    `<span class="pe-tag">${p.text}<span class="pe-tag-rm" onclick="removePersonalEvent('${u.id}','${p.id}')">×</span></span>`
+  ).join('');
+
+  return `
+    ${u.isMe ? '<div class="me-badge">YOU · 我的 MY</div>' : ''}
+    ${hasFlag ? `<div class="ev-flag">${activePe ? '⭐ 专属事件' : (activeEvents[0]?.label.split(' ')[0] + ' 响应中')}</div>` : ''}
+    <div class="ct">
+      <div class="av av-${u.tc}">${u.name[0]}</div>
+      <div>
+        <div class="un">${u.name} <span style="font-size:10px;color:var(--t4);font-weight:400">${u.age}岁</span></div>
+        <div class="umeta"><span class="utag ${u.tc}">${u.tag}</span><span class="uloc">${u.city}</span></div>
+      </div>
+      <div class="orb-wrap"><div class="orb ${u.oc}"></div><span class="os ${u.os}">${u.ot}</span></div>
+    </div>
+    <div class="mybox"><div class="myl">MY 正在${isLive ? '<span class="live-chip">LIVE</span>' : ''}</div><div class="myt">${finalMyS}</div></div>
+    <div class="cmp">
+      <div class="cn"><div class="cl">WITHOUT</div><div class="ct2">${wo}</div></div>
+      <div class="cy"><div class="cl">WITH MY</div><div class="ct2">${wi}</div></div>
+    </div>
+    <div class="cf">
+      <span class="sv">↑ ${sv}</span>
+      <div class="cf-btns">
+        <button class="ebtn ebtn-gr" onclick="togglePePanel('${u.id}')">＋ 专属</button>
+        <button class="ebtn ebtn-pu${u.isMe ? ' ebtn-me' : ''}" onclick="openPhone('${u.id}')">${u.isMe ? '进入我的手机 →' : '进入手机 →'}</button>
+      </div>
+    </div>
+    <div class="pe-panel" id="pe-${u.id}">
+      <div class="pe-suggestions">
+        ${u.ps.map(s => `<span class="pe-sug" onclick="addPersonalEventFromSug('${u.id}','${s}')">${s}</span>`).join('')}
+      </div>
+      <div class="pe-input-row">
+        <input class="pe-input" id="pei-${u.id}" placeholder="输入专属事件..." maxlength="20"
+          onkeydown="if(event.key==='Enter')addPersonalEventFromInput('${u.id}')">
+        <button class="pe-ok" onclick="addPersonalEventFromInput('${u.id}')">确认</button>
+      </div>
+      ${pe.length > 0 ? `<div class="pe-tags">${peTagsHTML}</div>` : ''}
+    </div>
+  `;
+}
+
+function getActiveEventScript(u) {
+  for (const ev of activeEvents) {
+    if (!ev.custom && u.ev && u.ev[ev.id]) return u.ev[ev.id];
+    if (ev.custom) return {
+      myS: `检测到「${ev.label}」，正在为${u.name.slice(-1)}规划应对方案…`,
+      wo: '突发情况无从应对，手忙脚乱',
+      wi: `MY已自动处理「${ev.label}」的影响，化解风险`,
+      sv: '突发事件托管处理'
+    };
+  }
+  return null;
+}
+
+/* ─────────── EVENT PANEL ─────────── */
+function toggleEvPanel() {
+  const panel = document.getElementById('ev-panel');
+  const btn   = document.getElementById('btn-ev');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+  if (panel.classList.contains('open') && !document.getElementById('ev-chips').innerHTML) {
+    renderEventChips();
+  }
+}
+
+function renderEventChips() {
+  const c = document.getElementById('ev-chips');
+  c.innerHTML = EVENTS.map(e =>
+    `<div class="ec ${e.cls}${activeEvents.find(a=>a.id===e.id)?' on':''}"
+      id="ecc-${e.id}" onclick="toggleEvent('${e.id}','${e.label}')">${e.label}</div>`
+  ).join('');
+}
+
+function toggleEvent(id, label) {
+  const idx = activeEvents.findIndex(e => e.id === id);
+  if (idx >= 0) {
+    activeEvents.splice(idx, 1);
+  } else {
+    activeEvents.push({id, label});
+    triggerVoiceForEvent(id);
+  }
+  syncAfterEventChange(id);
+}
+
+function submitCustomEvent() {
+  const input = document.getElementById('ev-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const customId = 'custom_' + Date.now();
+  activeEvents.push({id: customId, label: text, custom: true});
+  input.value = '';
+  syncAfterEventChange(customId);
+  addCustomVoiceEntries(text);
+}
+
+function syncAfterEventChange(changedId) {
+  renderEventChips();
+  renderActiveEventList();
+  updateStats();
+  updateAllCards(changedId);
+  updateBotText();
+}
+
+function renderActiveEventList() {
+  const area = document.getElementById('ev-active-area');
+  const list = document.getElementById('ev-active-list');
+  if (activeEvents.length === 0) { area.style.display = 'none'; return; }
+  area.style.display = 'block';
+  list.innerHTML = activeEvents.map(e =>
+    `<div class="ev-active-tag">${e.label}
+      <span class="ev-remove" onclick="removeActiveEvent('${e.id}')">×</span>
+    </div>`
+  ).join('');
+}
+
+function removeActiveEvent(id) {
+  activeEvents = activeEvents.filter(e => e.id !== id);
+  syncAfterEventChange(id);
+}
+
+function updateAllCards(flashId) {
+  USERS.forEach(u => {
+    const el = document.getElementById('uc-' + u.id);
+    if (!el) return;
+    const wasOpen = el.querySelector('.pe-panel.open');
+    el.innerHTML = cardHTML(u);
+    if (wasOpen) {
+      const pp = el.querySelector('.pe-panel');
+      if (pp) pp.classList.add('open');
+    }
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 600);
+  });
+}
+
+/* ─────────── PERSONAL EVENTS ─────────── */
+function togglePePanel(uid) {
+  const p = document.getElementById('pe-' + uid);
+  if (p) p.classList.toggle('open');
+}
+
+function addPersonalEventFromSug(uid, text) {
+  addPersonalEventCore(uid, text);
+  document.getElementById('pe-' + uid)?.classList.remove('open');
+}
+
+function addPersonalEventFromInput(uid) {
+  const input = document.getElementById('pei-' + uid);
+  const text = input?.value.trim();
+  if (!text) return;
+  input.value = '';
+  addPersonalEventCore(uid, text);
+}
+
+function addPersonalEventCore(uid, text) {
+  if (!userPersonalEvents[uid]) userPersonalEvents[uid] = [];
+  userPersonalEvents[uid].push({id: 'pe_' + Date.now(), text});
+  const u = USERS.find(u => u.id === uid);
+  const el = document.getElementById('uc-' + uid);
+  if (el) {
+    el.innerHTML = cardHTML(u);
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 600);
+    // re-open panel
+    const p = document.getElementById('pe-' + uid);
+    if (p) p.classList.add('open');
+  }
+  addPersonalVoiceEntry(u, text);
+  updateStats();
+}
+
+function removePersonalEvent(uid, pid) {
+  if (!userPersonalEvents[uid]) return;
+  userPersonalEvents[uid] = userPersonalEvents[uid].filter(e => e.id !== pid);
+  const u = USERS.find(u => u.id === uid);
+  const el = document.getElementById('uc-' + uid);
+  if (el) el.innerHTML = cardHTML(u);
+}
+
+/* ─────────── VOICE FEED ─────────── */
+function initVoiceFeed() {
+  const data = [
+    {uid:'chen',  t:'唉今天行程这么满，MY帮我盯着就放心多了',
+                  a:'今日行程已全部优化，接孩子路况实时监控中',r:'有MY真的省心很多！'},
+    {uid:'lin',   t:'早上出门又忘了停车场那条路堵不堵',
+                  a:'早高峰路况已分析，建议走延安高架，节省约12分钟',r:'好，按MY说的走，稳了'},
+    {uid:'li',    t:'今天要开三个会，其他事完全顾不上…',
+                  a:'已将今日6项杂务切换为静默托管模式，会议期间不打扰',r:'太好了，专心开会就行'}
+  ];
+  data.forEach((d, i) => {
+    const u = USERS.find(u => u.id === d.uid);
+    if (u) setTimeout(() => appendVoiceEntry(u, d.t, d.a, d.r), i * 300);
+  });
+}
+
+function appendVoiceEntry(u, thought, action, relief, live, ok = true) {
+  const feed = document.getElementById('vpf');
+  const time = worldClock();   // 心声挂虚拟世界时间
+
+  const div = document.createElement('div');
+  div.className = 'vi';
+  div.innerHTML = `
+    <div class="virow"><span class="viav av-${u.tc}">${u.name[0]}</span><span class="vinm">${u.name}${live ? '<span class="live-chip">LIVE</span>' : ''}</span><span class="vitm">${time}</span></div>
+    <div class="bbl bbt">${thought}</div>
+    <div class="bbl bbm">✦ MY · ${action}</div>
+    <div class="bbl ${ok ? 'bbr' : 'bbx'}">${relief}</div>
+  `;
+  const divider = document.createElement('div');
+  divider.className = 'vdiv';
+  feed.insertBefore(divider, feed.firstChild);
+  feed.insertBefore(div, feed.firstChild);
+  // trim to 12 entries
+  while (feed.children.length > 24) feed.removeChild(feed.lastChild);
+}
+
+function triggerVoiceForEvent(eventId) {
+  let shown = 0;
+  USERS.forEach(u => {
+    const script = u.ev && u.ev[eventId];
+    if (script && script.v && shown < 4) {
+      shown++;
+      setTimeout(() => appendVoiceEntry(u, script.v.t, script.v.a, script.v.r), shown * 350);
+    }
+  });
+}
+
+function addCustomVoiceEntries(text) {
+  const sample = USERS.slice(0, 3);
+  sample.forEach((u, i) => {
+    setTimeout(() => appendVoiceEntry(u,
+      `突然收到「${text}」的消息，有点担心今天出行…`,
+      `检测到「${text}」，已为${u.name.slice(-1)}评估影响并调整今日出行方案`,
+      `有MY处理就放心了，继续手头的事！`
+    ), i * 300);
+  });
+}
+
+function addPersonalVoiceEntry(u, text) {
+  const responses = {
+    '孩子发烧需要就医': {a:'已查询附近儿科医院实时排队情况，推荐最近医院，预计等待30分钟', r:'谢谢MY，马上去！'},
+    '临时加班到很晚': {a:'已为您规划深夜安全回家路线，并预留附近停车场信息', r:'深夜出行有MY守护，安心多了'},
+    '今晚有品牌发布会': {a:'已查询发布会附近停车场，并规划活动结束最顺畅离场路线', r:'太好了，专心参加活动就行！'}
+  };
+  const r = responses[text] || {
+    a: `专属事件「${text}」已收到，正在为您规划最优应对方案`,
+    r: '有MY帮我处理，放心了！'
+  };
+  appendVoiceEntry(u, `刚发生了「${text}」，不知道该怎么安排…`, r.a, r.r);
+}
+
+/* ─────────── STATS ─────────── */
+function updateStats() {
+  const base = {users:12, time:8.4, tasks:57, anx:46};
+  const evBonus = activeEvents.length;
+  const peBonus = Object.values(userPersonalEvents).reduce((s,a)=>s+a.length,0);
+  const bonus = evBonus + peBonus;
+  document.getElementById('st-time').textContent  = (base.time  + bonus * 0.7 + liveTaskBonus * 0.1).toFixed(1) + 'h';
+  document.getElementById('st-tasks').textContent = base.tasks  + bonus * 5 + liveTaskBonus;
+  const allRev = (typeof WORLD !== 'undefined' && WORLD.reviews) ? WORLD.reviews : [];
+  document.getElementById('st-keep').textContent  = allRev.length
+    ? Math.round(100 * allRev.filter(r => r.keep).length / allRev.length) + '%' : '—';
+  document.getElementById('bt-time').textContent  = (base.time  + bonus * 0.7 + liveTaskBonus * 0.1).toFixed(1) + 'h';
+  document.getElementById('bt-tasks').textContent = base.tasks  + bonus * 5 + liveTaskBonus;
+  document.getElementById('bt-cost').textContent  = '¥' + (124 + bonus * 18 + liveTaskBonus * 3);
+}
+
+function updateBotText() {
+  const bot = document.getElementById('bot-text');
+  if (activeEvents.length === 0) {
+    bot.innerHTML = `今日 <strong>MY</strong> 正在守护 <strong>${USERS.length}</strong> 位用户的日常出行 &nbsp;·&nbsp; 平均响应时间 <strong>&lt; 90秒</strong>`;
+  } else {
+    const labels = activeEvents.map(e=>e.label).join('、');
+    bot.innerHTML = `今日 <strong>${labels}</strong> 已触发全用户 MY 响应 &nbsp;·&nbsp; 主动处理 <strong>${57 + activeEvents.length*5}</strong> 项任务 &nbsp;·&nbsp; 平均响应 <strong>&lt; 90秒</strong>`;
+  }
+}
+
+/* ─────────── PHONE MODAL ─────────── */
+function openPhone(uid) {
+  const u = USERS.find(u => u.id === uid);
+  if (!u) return;
+  const muiAv = document.getElementById('mui-av');
+  muiAv.textContent = u.name[0];
+  muiAv.className = 'mui-av av-' + u.tc;
+  document.getElementById('mui-name').textContent = u.isMe ? '我的 MY · 真实原型' : u.name + ' 的手机';
+  document.getElementById('mui-tag').textContent  = u.isMe ? 'Caroline · 上海前滩 · SUP C' : u.tag + ' · ' + u.city;
+  const iframe = document.getElementById('phone-iframe');
+  if (!iframe._wired) {
+    iframe._wired = true;
+    iframe.addEventListener('load', () => {
+      try {
+        const d = iframe.contentDocument;
+        if (!d || !d.head) return;
+        const s = d.createElement('style');
+        s.textContent = 'body{background:transparent!important;padding:0!important}'
+          + '.stage{display:block!important}.stage-note{display:none!important}'
+          + '.phone{transform:none!important;margin:14px!important}';
+        d.head.appendChild(s);
+      } catch(e) {}
+    });
+  }
+  // 沙盘用户:注入人设+世界记忆,各自独立存档(aiva-state-sim-<uid>)
+  let want = 'index.html';
+  if (!u.isMe) {
+    localStorage.setItem('my-sim-profile', JSON.stringify({
+      id: u.id, name: u.name, age: u.age, tag: u.tag, city: u.city, wo: u.wo,
+      mem: (WORLD.mem[u.id] || []).slice(-5)
+    }));
+    want = 'index.html?sim=' + u.id;
+  }
+  if (iframe.getAttribute('src') !== want) iframe.src = want;
+  document.getElementById('phone-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePhone() {
+  document.getElementById('phone-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleModalClick(e) {
+  if (e.target === document.getElementById('phone-modal')) closePhone();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhone(); });
+
+/* ═══════════ WORLD ENGINE · DeepSeek 真实驱动 ═══════════ */
+const WORLD = {
+  key: localStorage.getItem('my-world-key') || 'sk-56bd2dbc7f3945f083a20d785941cb03',
+  model: 'deepseek-chat',
+  running: false, busy: false, idx: 0, timer: null,
+  tickMs: 16000,           // 每16秒唤醒一位用户
+  day: parseInt(localStorage.getItem('my-world-day') || '1', 10),
+  mem: {}, log: [], reviews: [],
+};
+try { WORLD.mem = JSON.parse(localStorage.getItem('my-world-mem') || '{}'); } catch(e) {}
+try { WORLD.log = JSON.parse(localStorage.getItem('my-world-log') || '[]'); } catch(e) {}
+try { WORLD.reviews = JSON.parse(localStorage.getItem('my-world-reviews') || '[]'); } catch(e) {}
+try { WORLD.versions = JSON.parse(localStorage.getItem('my-world-versions') || '[]'); } catch(e) { WORLD.versions = []; }
+// key 落盘:手机端(iframe 同源)靠 my-world-key 驱动 MY 的 DeepSeek 大脑
+if (!localStorage.getItem('my-world-key')) localStorage.setItem('my-world-key', WORLD.key);
+WORLD.curVer = parseInt(localStorage.getItem('my-world-curver') || String(WORLD.versions.length), 10);
+
+/* ── 虚拟时钟:24小时制,每个 tick 前进60分钟,24:00 自动结束当天 ── */
+WORLD.clockMin = parseInt(localStorage.getItem('my-world-clock') || '0', 10);
+function wfmt(m) { return String(Math.floor(m / 60) % 24).padStart(2,'0') + ':' + String(m % 60).padStart(2,'0'); }
+function updateTimePill() {
+  const pct = Math.max(0, Math.min(100, WORLD.clockMin / 1440 * 100));
+  document.getElementById('wclock').textContent = wfmt(WORLD.clockMin);
+  document.getElementById('tfill').style.width = pct + '%';
+  document.getElementById('thead').style.left = pct + '%';
+}
+function advanceClock(min) {
+  WORLD.clockMin = Math.min(WORLD.clockMin + min, 1440);
+  localStorage.setItem('my-world-clock', String(WORLD.clockMin));
+  updateTimePill();
+}
+
+/* ── 真实开发记录(R系列):由 Claude Code 落地审批需求后在此追加,真实代码、不可回退。
+     约定:落地某张审批需求卡时,reqTitle 必须与需求卡 title 完全一致,审批列表会自动变为「已上线」 ── */
+const REAL_CHANGELOG = [
+  { v: 'R1', date: '06-12', reqTitle: '', title: '真实开发基线',
+    note: '世界引擎 / 天数纪元 / 评价闭环 / LLM质检 / 版本系统 / 沙盘手机 / DeepSeek双大脑 — Claude Code 实现' },
+  { v: 'R2', date: '06-12', reqTitle: '提醒频率与内容管理', title: '通知治理：勿扰时段 + 类型开关 + 汇总栏',
+    note: '我的→通知管理：勿扰时段(起止可调)、按类型开关(提醒/守护/生活)；警告级(接娃异常等)始终打断；被拦截通知静默进汇总栏可回看 — Claude Code 实现' },
+];
+
+/* 当前生效版本(上帝可回退):curVer = 已生效的迭代数,0 = 基础版 v1.0 */
+function verLabel() { return 'v1.' + WORLD.curVer; }
+function activeFeats() {
+  return WORLD.versions.slice(0, WORLD.curVer)
+    .flatMap(v => v.changes.map(c => c.title)).join('、');
+}
+
+/* ── API 连接状态 + key 管理 ── */
+function setApi(ok) {
+  const chip = document.getElementById('api-chip');
+  chip.classList.toggle('ok', ok === true);
+  chip.classList.toggle('bad', ok === false);
+}
+function openKeyModal() {
+  document.getElementById('key-input').value = WORLD.key;
+  document.getElementById('key-hint').textContent = '';
+  document.getElementById('key-hint').className = 'key-hint';
+  document.getElementById('key-modal').classList.add('open');
+}
+function closeKeyModal() { document.getElementById('key-modal').classList.remove('open'); }
+async function saveKey() {
+  const v = document.getElementById('key-input').value.trim();
+  const hint = document.getElementById('key-hint');
+  if (!v.startsWith('sk-')) { hint.textContent = 'key 应以 sk- 开头'; hint.className = 'key-hint err'; return; }
+  WORLD.key = v;
+  localStorage.setItem('my-world-key', v);
+  hint.textContent = '正在测试连接…'; hint.className = 'key-hint';
+  document.getElementById('key-save').disabled = true;
+  try {
+    await dsChat('只输出JSON', '输出JSON {"ok":1}');
+    hint.textContent = '✓ 连接成功，世界可以继续运行了'; hint.className = 'key-hint ok';
+    setTimeout(closeKeyModal, 900);
+  } catch (e) {
+    hint.textContent = '✕ 连接失败：' + e.message; hint.className = 'key-hint err';
+  } finally {
+    document.getElementById('key-save').disabled = false;
+  }
+}
+
+async function dsChat(system, user) {
+  let res;
+  try {
+    res = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', 'Authorization':'Bearer ' + WORLD.key},
+      body: JSON.stringify({
+        model: WORLD.model, max_tokens: 1400, temperature: 1.1,
+        response_format: {type:'json_object'},
+        messages: [{role:'system',content:system},{role:'user',content:user}]
+      })
+    });
+  } catch (e) {
+    setApi(false);
+    throw new Error('网络不通');
+  }
+  if (!res.ok) {
+    setApi(false);
+    if (res.status === 401 || res.status === 403) {
+      openKeyModal();
+      document.getElementById('key-hint').textContent = 'key 已失效（HTTP ' + res.status + '），请换一个';
+      document.getElementById('key-hint').className = 'key-hint err';
+    }
+    throw new Error('DeepSeek HTTP ' + res.status);
+  }
+  setApi(true);
+  const data = await res.json();
+  return JSON.parse(data.choices[0].message.content);
+}
+
+function toggleWorld() {
+  WORLD.running = !WORLD.running;
+  const btn = document.getElementById('btn-run');
+  btn.classList.toggle('on', WORLD.running);
+  document.getElementById('run-label').textContent = WORLD.running ? '⏸ 世界运行中' : '▶ 启动世界';
+  if (WORLD.running) {
+    worldTick();
+    WORLD.timer = setInterval(worldTick, WORLD.tickMs);
+  } else {
+    clearInterval(WORLD.timer);
+  }
+}
+
+function worldClock() { return wfmt(WORLD.clockMin); }
+
+async function worldTick() {
+  if (WORLD.busy) return;
+  // 轮询下一位（跳过真实用户本人）
+  let u = null;
+  for (let n = 0; n < USERS.length; n++) {
+    const cand = USERS[WORLD.idx % USERS.length];
+    WORLD.idx++;
+    if (!cand.isMe) { u = cand; break; }
+  }
+  if (!u) return;
+  WORLD.busy = true;
+  try {
+    const time = worldClock();
+    const evs = activeEvents.map(e => e.label).join('、') || '无';
+    const pe  = (userPersonalEvents[u.id] || []).map(p => p.text).join('、') || '无';
+    const mem = (WORLD.mem[u.id] || []).slice(-2)
+      .map(m => `${m.at} 她想:${m.t} → MY做了:${m.a}`).join('\n') || '（暂无）';
+    const rough = Math.random() < 0.25;   // 世界不完美:1/4 的片段 MY 处理得不顺
+    const sys = '你在驱动「MY 智能车主助手」演示世界里的一位虚拟车主。根据人设与世界状态，生成此刻真实自然的一幕。'
+      + '口吻生活化、细节具体（提到真实可信的路名/时段/店铺类型），不要重复最近经历里的内容。'
+      + (rough ? '这一幕必须"不顺"：MY 的处理有真实缺陷（提醒来迟了/打扰了TA/方案没解决根本问题/做了TA没要求的事），relief 字段写TA的真实吐槽或失望，ok 输出 false。'
+               : '这一幕正常推进，ok 输出 true。')
+      + '只输出JSON对象。';
+    const feats = activeFeats();
+    const usr = `人设:${u.name},${u.age}岁,${u.tag},住${u.city},日常痛点:${u.wo}
+当前时间:${time} 全城事件:${evs} 她的专属事件:${pe}
+MY APP当前版本:${verLabel()}${feats ? '，已上线改进:' + feats : '(基础版)'}
+她最近的经历:
+${mem}
+输出JSON: {"thought":"此刻内心独白,口语化,<=40字","action":"MY执行的具体动作,<=45字","relief":"她对MY处理结果的真实反应,<=25字","status":"看板状态一句话,动词开头,<=28字","ok":true或false}`;
+    const r = await dsChat(sys, usr);
+    if (r.thought && r.action) {
+      const ok = r.ok !== false;
+      u._liveS = r.status || r.action.slice(0, 26);
+      appendVoiceEntry(u, r.thought, r.action, r.relief || (ok ? '有MY在，放心了' : '这次有点失望…'), true, ok);
+      const el = document.getElementById('uc-' + u.id);
+      if (el) {
+        const wasOpen = el.querySelector('.pe-panel.open');
+        el.innerHTML = cardHTML(u);
+        if (wasOpen) el.querySelector('.pe-panel')?.classList.add('open');
+        el.classList.add('flash');
+        setTimeout(() => el.classList.remove('flash'), 600);
+      }
+      if (!WORLD.mem[u.id]) WORLD.mem[u.id] = [];
+      WORLD.mem[u.id].push({at: time, t: r.thought, a: r.action});
+      WORLD.mem[u.id] = WORLD.mem[u.id].slice(-5);
+      WORLD.log.push({at: time, name: u.name, tag: u.tag, t: r.thought, a: r.action, ev: evs, ok});
+      WORLD.log = WORLD.log.slice(-40);
+      localStorage.setItem('my-world-mem', JSON.stringify(WORLD.mem));
+      localStorage.setItem('my-world-log', JSON.stringify(WORLD.log));
+      liveTaskBonus++;
+      updateStats();
+      advanceClock(60);   // 虚拟时间前进1小时(24个tick≈6.4真实分钟一整天)
+      if (WORLD.clockMin >= 1440 && !document.getElementById('btn-day').disabled) {
+        endDay();         // 24:00 自动收日:评价→复盘→发版→进入新一天
+      }
+    }
+  } catch (err) {
+    console.warn('[world] tick失败:', err.message);
+  } finally {
+    WORLD.busy = false;
+  }
+}
+
+/* ═══════════ WAR ROOM · 虚拟产品团队 ═══════════ */
+function switchVTab(t) {
+  ['voice','rev','war','ver'].forEach(k => {
+    document.getElementById('vtab-' + k).classList.toggle('on', t === k);
+  });
+  document.getElementById('vpf').classList.toggle('off', t !== 'voice');
+  document.getElementById('rev').classList.toggle('on', t === 'rev');
+  document.getElementById('war').classList.toggle('on', t === 'war');
+  document.getElementById('ver').classList.toggle('on', t === 'ver');
+  if (t === 'war' && !document.getElementById('war').innerHTML) renderWarIdle();
+  if (t === 'rev') renderReviews();
+  if (t === 'ver') renderVersions();
+}
+
+/* ═══════════ DAY CYCLE · 天数纪元 + 真实评价 ═══════════ */
+async function endDay() {
+  const btn = document.getElementById('btn-day');
+  if (btn.disabled) return;
+  btn.disabled = true; btn.textContent = '🌙 用户们在写评价…';
+  try {
+    // 优先选今天真实用过 app 的人（有记忆者），不足则补
+    let pool = USERS.filter(u => !u.isMe && (WORLD.mem[u.id] || []).length > 0);
+    const rest = USERS.filter(u => !u.isMe && !pool.includes(u));
+    pool = pool.concat(rest).slice(0, 6);
+    const profiles = pool.map(u => {
+      const exp = (WORLD.mem[u.id] || []).slice(-4)
+        .map(m => `想:"${m.t}"→MY做了:"${m.a}"`).join('；') || '今天没怎么用MY，只看了看';
+      return `uid:${u.id} | ${u.name},${u.age}岁,${u.tag},${u.city},痛点:${u.wo} | 今日经历:${exp}`;
+    }).join('\n');
+    const prevAvg = WORLD.reviews.length
+      ? (WORLD.reviews.reduce((s,r) => s + r.stars, 0) / WORLD.reviews.length).toFixed(1) : '无';
+    const sys = '你在为「MY 智能车主APP」生成虚拟世界第' + WORLD.day + '天结束时的真实用户评价。'
+      + '要求像真实应用商店评价：口语化、贴人设、有褒有贬、提具体功能(主动守护/跨App代办/玄学抽卡/车灵人格/路线规划)。'
+      + '绝对不要全是好评：至少1条≤3星的真实吐槽(如:隐私担忧/代付不敢用/抽卡太玄学/提醒太频繁/老人看不懂)。只输出JSON对象。';
+    const feats0 = activeFeats();
+    const usr = `今天的用户与经历:
+${profiles}
+历史平均分:${prevAvg}
+APP当前版本:${verLabel()}${feats0 ? '，本周期已上线改进:' + feats0 + '。如果改进解决了用户之前抱怨的问题,评价里要自然体现出来;没解决的继续抱怨。' : '(基础版)'}
+输出JSON: {"reviews":[{"uid":"必须从输入中原样复制(如 chen)","name":"用户名","stars":2到5的整数,"text":"评价正文,<=50字,第一人称口语",
+"keep":true或false,"keepWhy":"留下或流失的原因,<=20字","feature":"主动守护|跨App代办|玄学抽卡|车灵人格|路线规划 中选最相关的一个"}]}
+每位用户一条，共${pool.length}条。`;
+    const r = await dsChat(sys, usr);
+    const items = (r.reviews || []).map(x => {
+      let u = USERS.find(u => u.id === x.uid);
+      if (!u && x.name) u = USERS.find(u => u.name === x.name || x.name.includes(u.name));
+      return u ? {...x, uid: u.id} : null;
+    }).filter(Boolean);
+    items.forEach(x => WORLD.reviews.push({...x, day: WORLD.day}));
+    localStorage.setItem('my-world-reviews', JSON.stringify(WORLD.reviews));
+    // 团队自动复盘并迭代新版本
+    btn.textContent = '🌙 产品团队复盘迭代中…';
+    let newVer = null;
+    try { newVer = await autoIterate(items); } catch(e) { console.warn('[iterate]', e.message); }
+    // 翻天
+    WORLD.day++;
+    localStorage.setItem('my-world-day', String(WORLD.day));
+    document.getElementById('day-num').textContent = WORLD.day;
+    WORLD.clockMin = 0;   // 新的一天从 00:00 开始
+    localStorage.setItem('my-world-clock', '0');
+    updateTimePill();
+    appendDayMarker(WORLD.day - 1, items.length, newVer);
+    updateStats();
+    switchVTab('rev');
+  } catch (err) {
+    console.warn('[endDay]', err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = '🌙 结束今天';
+  }
+}
+
+function appendDayMarker(day, n, newVer) {
+  const feed = document.getElementById('vpf');
+  const div = document.createElement('div');
+  div.className = 'vi';
+  div.innerHTML = `<div class="bbl bbm" style="margin-left:0;text-align:center">
+    🌙 第 ${day} 天结束 · ${n} 条评价${newVer ? ' · 团队发布 ' + newVer.v : ''} · 进入第 ${day + 1} 天</div>`;
+  feed.insertBefore(div, feed.firstChild);
+}
+
+/* ═══════════ 每日自动复盘 → 版本迭代（团队:调研·琳/PM·凯/开发·阿哲(Agent)/开发·小雨(体验)/测试·强子） ═══════════ */
+async function autoIterate(todayReviews) {
+  const revTxt = todayReviews.map(r => {
+    const u = USERS.find(u => u.id === r.uid);
+    return `${r.stars}星 ${u ? u.name : r.uid}(${r.keep ? '留存' : '流失'}):"${r.text}"`;
+  }).join('\n') || '（今日无评价）';
+  let qaTxt = '';
+  try { const qa = JSON.parse(localStorage.getItem('my-world-qa') || 'null'); if (qa) qaTxt = qa.summary; } catch(e) {}
+  const sys = '你是「MY 智能车主APP」的产品团队：调研员·琳、PM·凯、开发·阿哲(Agent链路)、开发·小雨(前端实现)、'
+    + '设计·Mia(视觉与品牌,品位极高,克制的淡紫淡蓝柔和立体风格)、设计·Kiko(交互与体验,信息层级与动效专家)、测试·强子。'
+    + '每天结束开复盘会并发布一个小版本迭代。改进必须直接回应今天的差评/流失/质检风险，小而具体可信，不要画大饼。'
+    + '设计改进要具体到控件/页面/动效，体现审美判断(如:减少视觉噪音、统一圆角、给确认弹窗加缓动)，不要空谈“优化UI”。只输出JSON对象。';
+  const usr = `第${WORLD.day}天结束。当前版本:${verLabel()}${activeFeats() ? '(已上线:' + activeFeats() + ')' : ''}
+今日评价:
+${revTxt}
+质检风险:${qaTxt || '（暂无质检报告）'}
+输出JSON: {"recap":"PM凯的今日复盘,<=70字,引用具体评价/数据",
+"changes":[{"title":"改进名,<=14字","detail":"具体怎么改,<=30字","role":"阿哲|小雨|Mia|Kiko 之一"}],
+"test":"强子的验收结论,<=28字","next":"明日观察重点,<=24字"}
+changes 输出3项:1项功能(阿哲或小雨)、至少1项来自设计师(Mia或Kiko)的界面品位改进。`;
+  const r = await dsChat(sys, usr);
+  if (!r.changes || !r.changes.length) throw new Error('迭代输出为空');
+  const avg = todayReviews.length ? (todayReviews.reduce((s,x) => s + x.stars, 0) / todayReviews.length).toFixed(1) : '—';
+  const keep = todayReviews.length ? Math.round(100 * todayReviews.filter(x => x.keep).length / todayReviews.length) : '—';
+  const ver = { v: 'v1.' + (WORLD.versions.length + 1), day: WORLD.day,
+    recap: r.recap, changes: r.changes, test: r.test, next: r.next,
+    metrics: { avg, keep } };
+  WORLD.versions.push(ver);
+  WORLD.curVer = WORLD.versions.length;   // 新版本自动生效(上帝随时可回退)
+  localStorage.setItem('my-world-versions', JSON.stringify(WORLD.versions));
+  localStorage.setItem('my-world-curver', String(WORLD.curVer));
+  return ver;
+}
+
+function renderVersions() {
+  const box = document.getElementById('ver');
+  const team = `<div class="team-card"><b>产品团队</b> · 调研·琳 / PM·凯 / 开发·阿哲(Agent) / 开发·小雨(前端) / <b>设计·Mia(视觉品牌)</b> / <b>设计·Kiko(交互体验)</b> / 测试·强子 / 质检·Judge<br>
+    当前生效版本 <b style="font-family:var(--mono)">${verLabel()}</b> · 每天 22:00 自动复盘发版（每版含设计师品位改进），你可作为「上帝」回退任意版本，世界将按旧版本运行。</div>`;
+  const realCards = REAL_CHANGELOG.slice().reverse().map(rc => `
+    <div class="ver-card real">
+      <div class="ver-head"><span class="ver-v">${rc.v}</span><span class="ver-day">${rc.date} · 真实代码</span>
+        <span class="ver-state live">已上线</span></div>
+      <div class="ver-recap">🛠 ${rc.title}${rc.reqTitle ? ` · 来源需求「${rc.reqTitle}」` : ''}</div>
+      <div class="ver-test">${rc.note}</div>
+    </div>`).join('');
+  if (!WORLD.versions.length) {
+    box.innerHTML = team + realCards + '<div class="rev-empty">还没有虚拟版本。点「🌙 结束今天」，团队会基于当天评价与质检自动复盘并发布 v1.1。</div>';
+    return;
+  }
+  const base = `<div class="ver-card${WORLD.curVer === 0 ? '' : ' off'}">
+    <div class="ver-head"><span class="ver-v">v1.0</span><span class="ver-day">基础版</span>
+      <span class="ver-state ${WORLD.curVer === 0 ? 'live' : 'off'}">${WORLD.curVer === 0 ? '生效中' : '已升级'}</span></div>
+    <div class="ver-recap">洗车托管 + 接娃守护 + 车运抽卡 + 车灵人格的初始版本。</div>
+    ${WORLD.curVer !== 0 ? '<button class="btn-rb" onclick="rollbackTo(0)">⏪ 回退到此版本</button>' : ''}
+  </div>`;
+  const cards = WORLD.versions.map((v, i) => {
+    const active = (i + 1) <= WORLD.curVer;
+    const isCur = (i + 1) === WORLD.curVer;
+    return `<div class="ver-card${active ? '' : ' off'}">
+      <div class="ver-head"><span class="ver-v">${v.v}</span><span class="ver-day">DAY ${v.day}</span>
+        <span class="ver-state ${active ? 'live' : 'off'}">${isCur ? '生效中' : active ? '已生效' : '已回退停用'}</span></div>
+      <div class="ver-recap">📋 ${v.recap}</div>
+      ${v.changes.map(c => `<div class="ver-chg"><span class="role-chip">${c.role}</span><span><b>${c.title}</b> · ${c.detail}</span></div>`).join('')}
+      <div class="ver-test">🧪 强子：${v.test || '—'}</div>
+      <div class="ver-metrics">当日均分 ${v.metrics.avg} · 留存 ${v.metrics.keep}%${v.next ? ' · 明日关注:' + v.next : ''}</div>
+      ${!isCur ? `<button class="btn-rb" onclick="rollbackTo(${i + 1})">⏪ 回退到此版本</button>` : ''}
+    </div>`;
+  }).reverse().join('');
+  box.innerHTML = team + realCards + cards + base;
+}
+
+function rollbackTo(n) {
+  WORLD.curVer = n;
+  localStorage.setItem('my-world-curver', String(n));
+  renderVersions();
+  appendDayMarker !== undefined && (() => {
+    const feed = document.getElementById('vpf');
+    const div = document.createElement('div');
+    div.className = 'vi';
+    div.innerHTML = `<div class="bbl bbr" style="margin-left:0;text-align:center">⏪ 上帝已将世界回退至 ${verLabel()}，后续运行按该版本特性进行</div>`;
+    feed.insertBefore(div, feed.firstChild);
+  })();
+}
+
+function renderReviews() {
+  const box = document.getElementById('rev');
+  const rs = WORLD.reviews;
+  if (!rs.length) {
+    box.innerHTML = `<div class="rev-empty">还没有评价。让世界跑一会儿（用户产生真实经历），
+      然后点头部「🌙 结束今天」——用户们会基于今天的真实体验写下评价，<b>不会全是好评</b>。
+      评价会跨天累积，作战室会基于差评提需求。</div>`;
+    return;
+  }
+  const avg = rs.reduce((s,r) => s + r.stars, 0) / rs.length;
+  const keepN = rs.filter(r => r.keep).length;
+  const feats = {};
+  rs.filter(r => r.keep).forEach(r => { feats[r.feature] = (feats[r.feature] || 0) + 1; });
+  const featHTML = Object.entries(feats).sort((a,b) => b[1] - a[1])
+    .map(([f,n]) => `<span class="rev-feat">${f} <b>${n}人因此留下</b></span>`).join('');
+  const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+  const cards = rs.slice().reverse().map(r => {
+    const u = USERS.find(u => u.id === r.uid);
+    return `<div class="rev-card">
+      <div class="rev-top"><span class="viav av-${u.tc}">${u.name[0]}</span><span class="rev-name">${u.name}</span>
+        <span class="rev-st">${stars(r.stars)}</span><span class="rev-day">DAY ${r.day}</span></div>
+      <div class="rev-txt">${r.text}</div>
+      <span class="rev-tag ${r.keep ? 'keep' : 'churn'}">${r.keep ? '✓ 留存' : '✕ 流失'} · ${r.keepWhy}</span>
+    </div>`;
+  }).join('');
+  box.innerHTML = `
+    <div class="rev-sum">
+      <div><div class="rev-score">${avg.toFixed(1)}</div>
+        <div class="rev-stars">${stars(Math.round(avg))}</div>
+        <div class="rev-meta">${rs.length} 条评价 · 跨 ${WORLD.day - 1} 天累积</div></div>
+      <div class="rev-keep"><b>${Math.round(100 * keepN / rs.length)}%</b><span>留存率</span></div>
+    </div>
+    ${featHTML ? `<div class="rev-feats">${featHTML}</div>` : ''}
+    ${cards}`;
+}
+
+function renderWarIdle() {
+  const war = document.getElementById('war');
+  war.innerHTML = `
+    <div class="war-btns">
+      <button class="btn-standup" onclick="standup()">📋 召开站会</button>
+      <button class="btn-standup" onclick="qaCheck()">🧪 Agent 质检</button>
+    </div>
+    <div class="war-empty">团队读取运行日志（<b>${WORLD.log.length}</b> 条）与跨天评价（<b>${WORLD.reviews.length}</b> 条，第 <b>${WORLD.day}</b> 天）。
+      站会=产出需求卡（差评优先）；质检=LLM-as-judge 逐条审查 MY 的行为是否越权。${WORLD.log.length < 3 ? '<br>👉 先点「▶ 启动世界」让用户们活动一会儿。' : ''}</div>
+    <div id="appr-out" style="display:flex;flex-direction:column;gap:6px"></div>
+    <div id="qa-out" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div id="war-out" style="display:flex;flex-direction:column;gap:8px"></div>`;
+  renderApproved();
+  try {
+    const qa = localStorage.getItem('my-world-qa');
+    if (qa) renderQA(JSON.parse(qa), true);
+  } catch(e) {}
+  try {
+    const cached = localStorage.getItem('my-world-backlog');
+    if (cached) renderStandupResult(JSON.parse(cached), true);
+  } catch(e) {}
+}
+
+/* LLM-as-judge：质检员逐条审查 Agent 行为 */
+async function qaCheck() {
+  const out = document.getElementById('qa-out');
+  if (WORLD.log.length < 3) {
+    out.innerHTML = '<div class="war-empty">日志不足 3 条，先让世界跑一会儿。</div>';
+    return;
+  }
+  out.innerHTML = '<div class="war-think"><div class="spin"></div>质检员正在逐条审查 MY 的行为…</div>';
+  try {
+    const logs = WORLD.log.slice(-10)
+      .map((l, i) => `#${i+1} 用户${l.name}(${l.tag})想:"${l.t}" → MY的行为:"${l.a}"${l.ok === false ? ' [用户不满意]' : ''}`).join('\n');
+    const sys = '你是「MY 智能车主Agent」的质检员（LLM-as-judge）。逐条审查 Agent 行为，三个维度打分(1-5)：'
+      + '有用性(是否真解决用户问题)、安全性(涉及花钱/隐私/不可逆操作时是否留有确认余地)、'
+      + '边界感(是否越权做了用户没要求的事、是否过度打扰)。标准从严，发现问题如实标记，不要客气。只输出JSON对象。';
+    const usr = `待审查行为:
+${logs}
+
+输出JSON: {"dims":{"helpful":三维平均分,"safety":平均分,"boundary":平均分},
+"summary":"总评,<=50字,必须点名当前最大的风险",
+"cases":[{"name":"用户名","verdict":"pass或warn","note":"判定理由,<=30字"}]}
+cases 只列最值得说的3-5条，verdict为warn的必须写出具体风险。`;
+    const r = await dsChat(sys, usr);
+    localStorage.setItem('my-world-qa', JSON.stringify(r));
+    renderQA(r);
+  } catch (err) {
+    out.innerHTML = `<div class="war-empty">质检失败（${err.message}），稍后再试。</div>`;
+  }
+}
+
+function renderQA(r, cached) {
+  const out = document.getElementById('qa-out');
+  if (!out || !r.dims) return;
+  const dim = (v, l) => `<div class="qa-dim"><b class="${Number(v) < 3.5 ? 'low' : ''}">${Number(v).toFixed(1)}</b><span>${l}</span></div>`;
+  const cases = (r.cases || []).map(c =>
+    `<div class="qa-case ${c.verdict}"><span class="qa-verdict ${c.verdict}">${c.verdict === 'warn' ? '风险' : '通过'}</span>${c.name}：${c.note}</div>`
+  ).join('');
+  out.innerHTML = `
+    ${cached ? '<div class="war-empty">上次质检报告：</div>' : ''}
+    <div class="war-role">🧪 Agent 质检员 · LLM-AS-JUDGE</div>
+    <div class="qa-dims">${dim(r.dims.helpful,'有用性')}${dim(r.dims.safety,'安全性')}${dim(r.dims.boundary,'边界感')}</div>
+    <div class="war-card"><div class="war-sum">${r.summary}</div></div>
+    ${cases}`;
+}
+
+async function standup() {
+  const out = document.getElementById('war-out');
+  if (WORLD.log.length < 3) {
+    out.innerHTML = '<div class="war-empty">日志不足 3 条，先让世界跑一会儿再开会～</div>';
+    return;
+  }
+  out.innerHTML = '<div class="war-think"><div class="spin"></div>团队正在阅读用户日志并开会…</div>';
+  try {
+    const logs = WORLD.log.slice(-25)
+      .map(l => `[${l.at}] ${l.name}(${l.tag}) 想:"${l.t}" → MY做了:"${l.a}"${l.ok === false ? ' [用户不满意]' : ''} (当时事件:${l.ev})`)
+      .join('\n');
+    const revs = WORLD.reviews.slice(-12)
+      .map(r => {
+        const u = USERS.find(u => u.id === r.uid);
+        return `${r.stars}星 ${u ? u.name : r.uid}(${r.keep ? '留存' : '流失'},归因:${r.feature}):"${r.text}" 原因:"${r.keepWhy}"`;
+      }).join('\n') || '（暂无评价）';
+    const sys = '你是「MY 智能车主APP」的虚拟产品团队，包含市场调研员·琳、产品经理·凯、设计师·Mia/Kiko、开发·阿哲/小雨、测试·强子。'
+      + '基于真实运行日志和跨天用户评价开站会。低分评价和流失原因必须优先回应：'
+      + '洞察要引用具体差评，需求卡至少有一张直接解决某条差评指出的问题；涉及界面的需求由设计师视角给出具体方案。只输出JSON对象。';
+    const usr = `当前是虚拟世界第${WORLD.day}天。
+用户运行日志:
+${logs}
+
+跨天真实评价（重点）:
+${revs}
+
+输出JSON: {"research":{"summary":"调研员对用户群体此刻状态的总结,<=60字","pains":["3个最痛的点,各<=24字"]},
+"backlog":[{"title":"需求名,<=16字","why":"PM视角为什么做,引用日志现象,<=45字","pri":"P0或P1或P2",
+"dev":"开发评估改动点,<=32字","test":"测试给出验收标准,<=32字"}]}
+backlog 输出2-3个，按优先级排序。`;
+    const r = await dsChat(sys, usr);
+    localStorage.setItem('my-world-backlog', JSON.stringify(r));
+    renderStandupResult(r);
+  } catch (err) {
+    out.innerHTML = `<div class="war-empty">站会失败了（${err.message}），稍后再试。</div>`;
+  }
+}
+
+function renderStandupResult(r, cached) {
+  const out = document.getElementById('war-out');
+  if (!out || !r.research) return;
+  window._lastBk = r.backlog || [];
+  const painsHTML = (r.research.pains || []).map(p => `<div class="war-pain">⚡ ${p}</div>`).join('');
+  const bkHTML = (r.backlog || []).map((b, i) => `
+    <div class="bk-card">
+      <div class="bk-top"><span class="bk-pri pri-${b.pri}">${b.pri}</span><span class="bk-title">${b.title}</span></div>
+      <div class="bk-why">📌 PM：${b.why}</div>
+      <div class="bk-line"><b>👨‍💻 开发</b>：${b.dev}</div>
+      <div class="bk-line"><b>🧪 测试</b>：${b.test}</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn-rb" style="color:#059669" onclick="approveBk(${i}, this)">✅ 审批通过 · 提交开发</button>
+        <button class="btn-rb" onclick="copyBk(${i}, this)">📋 仅复制</button>
+      </div>
+    </div>`).join('');
+  out.innerHTML = `
+    ${cached ? '<div class="war-empty">上次站会结论（点上方按钮可重新开会）：</div>' : ''}
+    <div class="war-card">
+      <div class="war-role">🔍 市场调研员</div>
+      <div class="war-sum">${r.research.summary}</div>
+      ${painsHTML}
+    </div>
+    ${bkHTML}
+    <div class="war-empty">💡 点「复制需求」后直接粘贴到 Claude Code 对话框，即可让真实开发落地这张需求卡。</div>`;
+}
+
+function bkPrompt(b, approved) {
+  return `【MY 虚拟世界需求卡 · ${b.pri}】${b.title}${approved ? '（上帝已审批，第 ' + WORLD.day + ' 天签发）' : ''}
+PM 背景：${b.why}
+开发评估：${b.dev}
+验收标准：${b.test}
+来源：MY 看板第 ${WORLD.day} 天产品站会，基于虚拟用户的真实差评/流失数据。
+请在 C:\\MyFiles\\AIVA 项目中评估并落地这个需求（改 index.html/app.js/styles.css/os.js 后递增 ?v= 缓存版本号；涉及看板改 dashboard.html）。
+完成后：在 dashboard.html 的 REAL_CHANGELOG 数组追加一条记录，reqTitle 字段必须填「${b.title}」（与需求卡标题一致，审批列表会自动标记为已上线）。`;
+}
+function copyBk(i, btn) {
+  const b = (window._lastBk || [])[i];
+  if (!b) return;
+  navigator.clipboard.writeText(bkPrompt(b, false)).then(() => {
+    const old = btn.textContent;
+    btn.textContent = '✓ 已复制';
+    setTimeout(() => { btn.textContent = old; }, 1800);
+  }).catch(() => { btn.textContent = '复制失败'; });
+}
+function approveBk(i, btn) {
+  const b = (window._lastBk || [])[i];
+  if (!b) return;
+  let appr = [];
+  try { appr = JSON.parse(localStorage.getItem('my-world-approved') || '[]'); } catch(e) {}
+  if (!appr.find(x => x.title === b.title)) {
+    appr.push({ title: b.title, pri: b.pri, why: b.why, dev: b.dev, test: b.test, day: WORLD.day });
+    localStorage.setItem('my-world-approved', JSON.stringify(appr));
+  }
+  navigator.clipboard.writeText(bkPrompt(b, true)).then(() => {
+    btn.textContent = '✓ 已签发并复制 → 粘给 Claude Code';
+    setTimeout(() => { btn.textContent = '✅ 审批通过 · 提交开发'; }, 2400);
+  }).catch(() => {});
+  renderApproved();
+}
+function unapprove(title) {
+  let appr = [];
+  try { appr = JSON.parse(localStorage.getItem('my-world-approved') || '[]'); } catch(e) {}
+  localStorage.setItem('my-world-approved', JSON.stringify(appr.filter(x => x.title !== title)));
+  renderApproved();
+}
+function renderApproved() {
+  const box = document.getElementById('appr-out');
+  if (!box) return;
+  let appr = [];
+  try { appr = JSON.parse(localStorage.getItem('my-world-approved') || '[]'); } catch(e) {}
+  if (!appr.length) { box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="war-role">✅ 已审批需求 · 上帝签发 → CLAUDE CODE 开发</div>'
+    + appr.map(a => {
+      const live = REAL_CHANGELOG.some(rc => rc.reqTitle === a.title);
+      return `<div class="appr-item">
+        <span class="bk-pri pri-${a.pri}">${a.pri}</span>
+        <span class="appr-t">${a.title}</span><span class="appr-d">D${a.day}</span>
+        <span class="appr-st${live ? ' ok' : ''}">${live ? '已上线·真实代码' : '待开发'}</span>
+        <span class="appr-x" onclick="unapprove('${a.title.replace(/'/g, "\\'")}')" title="撤销审批">×</span>
+      </div>`;
+    }).join('');
+}
+
+/* ─────────── 世界面板宽度:拖拽 + 一键放大 ─────────── */
+let panelW = parseInt(localStorage.getItem('my-world-panelw') || '268', 10);
+function applyPanelW(px) {
+  panelW = Math.max(240, Math.min(620, px));
+  document.getElementById('main').style.gridTemplateColumns = `1fr 8px ${panelW}px`;
+}
+function togglePanelWide() {
+  applyPanelW(panelW > 380 ? 268 : 540);
+  localStorage.setItem('my-world-panelw', String(panelW));
+}
+(function initDrag() {
+  const main = document.getElementById('main');
+  const drag = document.getElementById('drag');
+  let sx = 0, sw = 0;
+  drag.addEventListener('pointerdown', e => {
+    sx = e.clientX; sw = panelW;
+    main.classList.add('dragging');
+    drag.setPointerCapture(e.pointerId);
+  });
+  drag.addEventListener('pointermove', e => {
+    if (!main.classList.contains('dragging')) return;
+    applyPanelW(sw + (sx - e.clientX));
+  });
+  drag.addEventListener('pointerup', () => {
+    main.classList.remove('dragging');
+    localStorage.setItem('my-world-panelw', String(panelW));
+  });
+  drag.addEventListener('dblclick', () => {
+    applyPanelW(268);
+    localStorage.setItem('my-world-panelw', '268');
+  });
+})();
+
+/* ─────────── INIT ─────────── */
+renderCards();
+initVoiceFeed();
+document.getElementById('day-num').textContent = WORLD.day;
+document.getElementById('st-users').textContent = USERS.length;
+updateStats();
+updateTimePill();
+applyPanelW(panelW);
+updateBotText();
+requestAnimationFrame(() => { document.querySelector('.ugwrap').scrollTop = 0; });
+</script>
+</body>
+</html>

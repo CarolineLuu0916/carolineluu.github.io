@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XINWEI.LU</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #c8a45c;
+  --gold-light: #e0c878;
+  --olive: #7a8b4e;
+  --terracotta: #c4745a;
+  --cream: #f5efe0;
+  --parchment: #ede1c7;
+  --warm-brown: #3d2b1f;
+  --warm-brown-light: #6b5140;
+  --card-bg: rgba(245, 239, 224, 0.55);
+}
+
+body {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+  background: #f5efe0;
+  color: var(--warm-brown);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Impressionist Background ── */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(196, 164, 92, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 75% 20%, rgba(196, 116, 90, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 70%, rgba(122, 139, 78, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(196, 164, 92, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 10% 80%, rgba(196, 116, 90, 0.08) 0%, transparent 50%);
+  animation: bg-breathe 12s ease-in-out infinite alternate;
+}
+
+@keyframes bg-breathe {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.03); }
+}
+
+/* Noise texture overlay */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ── Main Content ── */
+.main {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+}
+
+.header-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--warm-brown);
+  line-height: 1.1;
+}
+
+.header-name .dot {
+  color: var(--gold);
+}
+
+.header-sub {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--warm-brown-light);
+  letter-spacing: 0.25em;
+  margin-top: 12px;
+  font-weight: 400;
+}
+
+/* Mucha decorative line */
+.mucha-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px auto 0;
+  max-width: 360px;
+}
+.mucha-line::before,
+.mucha-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.mucha-line .gem {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(200, 164, 92, 0.5);
+}
+
+/* ── Gallery Grid ── */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .gallery { grid-template-columns: 1fr; gap: 24px; }
+  .main { padding: 32px 20px 60px; }
+}
+
+/* ── Mucha Frame Card ── */
+.card-wrapper {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+}
+
+/* Outer ornate frame */
+.card-frame {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(200, 164, 92, 0.3);
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
+}
+.card-frame .corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.6;
+  transition: all 0.6s ease;
+}
+.corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* Inner vine ornament SVG */
+.frame-vine {
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  opacity: 0.25;
+  transition: opacity 0.6s ease;
+}
+
+.card-inner {
+  position: absolute;
+  inset: 12px;
+  background: var(--card-bg);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  overflow: hidden;
+}
+
+/* Card ambient color wash */
+.card-wash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.card-wash.w1 { background: radial-gradient(ellipse at 30% 40%, rgba(196, 164, 92, 0.15), transparent 70%); }
+.card-wash.w2 { background: radial-gradient(ellipse at 60% 30%, rgba(122, 139, 78, 0.12), transparent 70%); }
+.card-wash.w3 { background: radial-gradient(ellipse at 40% 60%, rgba(196, 116, 90, 0.12), transparent 70%); }
+.card-wash.w4 { background: radial-gradient(ellipse at 55% 45%, rgba(196, 164, 92, 0.13), transparent 70%); }
+
+/* Card typography */
+.card-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-style: italic;
+  transition: letter-spacing 0.6s ease;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400;
+  color: var(--warm-brown);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  transition: color 0.6s ease;
+}
+
+.card-desc {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(12px, 1.2vw, 14px);
+  color: var(--warm-brown-light);
+  text-align: center;
+  line-height: 1.7;
+  max-width: 280px;
+  transition: color 0.6s ease;
+}
+
+/* Hover magic */
+.card-wrapper:hover .card-frame {
+  border-color: rgba(200, 164, 92, 0.7);
+  box-shadow:
+    0 0 30px rgba(200, 164, 92, 0.08),
+    0 0 60px rgba(200, 164, 92, 0.04);
+}
+.card-wrapper:hover .corner {
+  opacity: 1;
+  border-color: var(--gold-light);
+}
+.card-wrapper:hover .frame-vine { opacity: 0.5; }
+.card-wrapper:hover .card-wash { opacity: 1; }
+.card-wrapper:hover .card-number { letter-spacing: 0.45em; }
+.card-wrapper:hover .card-title { color: #2a1a0f; }
+.card-wrapper:hover .card-inner {
+  background: rgba(245, 239, 224, 0.72);
+}
+
+/* Card entrance stagger */
+.card-wrapper {
+  opacity: 0;
+  animation: card-enter 1s ease-out forwards;
+}
+.card-wrapper:nth-child(1) { animation-delay: 0.15s; }
+.card-wrapper:nth-child(2) { animation-delay: 0.30s; }
+.card-wrapper:nth-child(3) { animation-delay: 0.45s; }
+.card-wrapper:nth-child(4) { animation-delay: 0.60s; }
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Tiny decorative dots ── */
+.dot-cluster {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+.dot-cluster span {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.4;
+  transition: opacity 0.6s ease;
+}
+.card-wrapper:hover .dot-cluster span { opacity: 0.7; }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--warm-brown-light);
+  opacity: 0.5;
+}
+
+/* ── Gold shimmer on click ── */
+@keyframes shimmer {
+  0% { box-shadow: 0 0 0 0 rgba(200, 164, 92, 0.4); }
+  100% { box-shadow: 0 0 0 20px rgba(200, 164, 92, 0); }
+}
+.card-wrapper:active .card-frame {
+  animation: shimmer 0.6s ease-out;
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-noise"></div>
+
+<main class="main">
+
+  <!-- Header -->
+  <header class="header">
+    <h1 class="header-name">XINWEI<span class="dot">.</span>LU</h1>
+    <p class="header-sub">AI 产品设计师 · 作品集</p>
+    <div class="mucha-line">
+      <div class="gem"></div>
+    </div>
+  </header>
+
+  <!-- Gallery -->
+  <section class="gallery">
+
+    <!-- Card 1: AI Trends -->
+    <div class="card-wrapper">
+      <div class="card-frame">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+      </div>
+      <!-- Mucha vine ornament -->
+      <svg class="frame-vine" viewBox="0 0 400 300" preserveAspectRatio="none">
+        <path d="M10,10 Q200,0 390,10" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,290 Q200,300 390,290" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,10 Q0,150 10,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <path d="M390,10 Q400,150 390,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <!-- vine curls -->
+        <path d="M50,10 C50,40 80,60 80,90 C80,30 50,20 50,10Z" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.35"/>
+        <path d="M350,10 C350,40 320,60 320,90 C320,30 350,20 350,10Z" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.35"/>
+        <circle cx="200" cy="8" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.5"/>
+        <circle cx="200" cy="292" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.4"/>
+      </svg>
+      <div class="card-inner">
+        <div class="card-wash w1"></div>
+        <span class="card-number">No. 01</span>
+        <h2 class="card-title">AI Trends</h2>
+        <p class="card-desc">AI Agent 行业全景情报站<br>百科 · GitHub 项目 · 每日报告</p>
+        <div class="dot-cluster"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- Card 2: MY App -->
+    <div class="card-wrapper">
+      <div class="card-frame">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+      </div>
+      <svg class="frame-vine" viewBox="0 0 400 300" preserveAspectRatio="none">
+        <path d="M10,10 Q200,0 390,10" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,290 Q200,300 390,290" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,10 Q0,150 10,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <path d="M390,10 Q400,150 390,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <circle cx="200" cy="8" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.5"/>
+        <circle cx="200" cy="292" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.4"/>
+      </svg>
+      <div class="card-inner">
+        <div class="card-wash w2"></div>
+        <span class="card-number">No. 02</span>
+        <h2 class="card-title">MY App</h2>
+        <p class="card-desc">ME, reflected in YOU<br>沙盒世界 · 虚拟手机 · AI 车灵</p>
+        <div class="dot-cluster"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- Card 3: Design -->
+    <div class="card-wrapper">
+      <div class="card-frame">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+      </div>
+      <svg class="frame-vine" viewBox="0 0 400 300" preserveAspectRatio="none">
+        <path d="M10,10 Q200,0 390,10" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,290 Q200,300 390,290" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,10 Q0,150 10,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <path d="M390,10 Q400,150 390,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <circle cx="200" cy="8" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.5"/>
+        <circle cx="200" cy="292" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.4"/>
+      </svg>
+      <div class="card-inner">
+        <div class="card-wash w3"></div>
+        <span class="card-number">No. 03</span>
+        <h2 class="card-title">Design</h2>
+        <p class="card-desc">个人设计灵感库 & 组件工场<br>收藏 · 提取 · 复用</p>
+        <div class="dot-cluster"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <!-- Card 4: Toy -->
+    <div class="card-wrapper">
+      <div class="card-frame">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+      </div>
+      <svg class="frame-vine" viewBox="0 0 400 300" preserveAspectRatio="none">
+        <path d="M10,10 Q200,0 390,10" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,290 Q200,300 390,290" fill="none" stroke="#c8a45c" stroke-width="0.8" opacity="0.4"/>
+        <path d="M10,10 Q0,150 10,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <path d="M390,10 Q400,150 390,290" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.3"/>
+        <circle cx="200" cy="8" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.5"/>
+        <circle cx="200" cy="292" r="2.5" fill="none" stroke="#c8a45c" stroke-width="0.6" opacity="0.4"/>
+      </svg>
+      <div class="card-inner">
+        <div class="card-wash w4"></div>
+        <span class="card-number">No. 04</span>
+        <h2 class="card-title">Toy</h2>
+        <p class="card-desc">潮玩设计工作台<br>Pop Mart 趋势 · AI 生图</p>
+        <div class="dot-cluster"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p>XINWEI.LU &copy; 2026 &mdash; Portfolio of an AI Product Designer</p>
+  </footer>
+
+</main>
+
+</body>
+</html>

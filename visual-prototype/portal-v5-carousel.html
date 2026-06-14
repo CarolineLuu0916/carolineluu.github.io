@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XINWEI.LU — Gallery for 2026 Programs</title>
+<meta name="description" content="卢欣玮 Xinwei Lu / Caroline Lu — 一座可漫步的新印象派画廊：四幅画即四个入口。Gallery for 2026 Programs.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #c8a45c;
+  --gold-light: #e8d293;
+  --gold-deep: #9c7a2c;
+  --cream: #f3ead6;
+  --cam-ease: cubic-bezier(.22,.61,.36,1);
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+  color: #f0e6d2;
+  overflow: hidden;
+  position: relative;
+  background-color: #141a2e;
+}
+
+/* painted starry-corridor backdrop (swap via --bg on .backdrop) */
+.backdrop {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-color: #141a2e;
+  background-image:
+    var(--bg, none),
+    radial-gradient(ellipse 130% 95% at 50% 48%, #243463 0%, #182146 46%, #0d1226 100%);
+  background-size: var(--bgs, cover), 100% 100%;
+  background-position: center, 0 0;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* moody vignette (no blend-mode -> safe for all renderers) */
+.lighting {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 118% 100% at 50% 46%, transparent 58%, rgba(5,8,20,.46) 100%);
+}
+
+/* ── 3D stage / carousel ── */
+.stage {
+  position: absolute; inset: 0;
+  z-index: 2;
+  perspective: 1400px;
+  perspective-origin: 50% 46%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.corridor {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  opacity: 0;
+  animation: fadeIn 1.2s .15s ease forwards;
+}
+
+/* ── Artwork (a framed painting in the coverflow) ── */
+.art {
+  position: absolute;
+  top: 56%; left: 50%;
+  width: clamp(170px, 19vw, 280px);
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+  transition: transform .6s var(--cam-ease), opacity .6s ease, filter .5s ease;
+  text-decoration: none; color: inherit; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+}
+.art:not(.active) { filter: brightness(.8) saturate(.9); }
+.art .wire { display: none; }
+
+/* gilded frame */
+.frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  padding: clamp(10px, 1.2vw, 16px);
+  background:
+    linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 24%, var(--gold-deep) 50%, var(--gold) 74%, var(--gold-light) 100%);
+  box-shadow:
+    0 2px 2px rgba(255,255,255,.55) inset,
+    0 -2px 3px rgba(120,90,30,.5) inset,
+    18px 26px 44px -20px rgba(0,0,0,.7),
+    0 0 50px -14px rgba(232,210,147,.22);
+  transition: box-shadow .6s ease, filter .6s ease;
+}
+.frame::after {
+  content:''; position:absolute; inset: clamp(10px,1.2vw,16px);
+  border: 2px solid rgba(58,40,24,.30);
+  box-shadow: 0 0 0 3px rgba(255,250,235,.3), inset 0 2px 8px rgba(40,28,16,.35);
+  pointer-events: none; z-index: 5;
+}
+.art.active .frame {
+  box-shadow:
+    0 2px 2px rgba(255,255,255,.6) inset,
+    0 -2px 3px rgba(120,90,30,.5) inset,
+    24px 40px 64px -22px rgba(0,0,0,.72),
+    0 0 100px -8px rgba(232,210,147,.5);
+}
+
+/* painted canvas */
+.canvas {
+  position: relative; width: 100%; height: 100%;
+  overflow: hidden;
+  background-color: #e9dcc0;
+  background-image: var(--p, none);
+  background-size: cover; background-position: center;
+}
+.canvas .zones { position: absolute; inset: -8%; }
+.canvas .dots {
+  position: absolute; inset: 0; opacity: .6;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(200,164,92,.95) 0 1.4px, transparent 1.8px),
+    radial-gradient(circle at 50% 50%, rgba(74,91,122,.85) 0 1.2px, transparent 1.6px),
+    radial-gradient(circle at 50% 50%, rgba(255,250,235,.95) 0 1px, transparent 1.4px);
+  background-size: 9px 9px, 11px 13px, 12px 11px;
+  background-position: 0 0, 4px 6px, 6px 4px;
+}
+.art[data-has-img="1"] .zones, .art[data-has-img="1"] .dots { display: none; }
+.z1 { background: linear-gradient(to top, #8fb0a8, #d9c79a 55%, #ead8b0); }
+.z2 { background: linear-gradient(to top, #88965a, #c9b985 60%, #e6dcb6); }
+.z3 { background: linear-gradient(135deg, #d8b48a, #cf9f86 50%, #c9b08a); }
+.z4 { background: linear-gradient(to top, #d8a878, #e2bd8e 55%, #efd7ab); }
+
+/* caption inside painting (only on the active/centered one) */
+.canvas .caption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  padding: 30% 10% 8%;
+  background: linear-gradient(to top, rgba(26,16,6,.62), rgba(26,16,6,.15) 55%, transparent);
+  color: #f7efdc; text-align: center;
+  opacity: 0; transition: opacity .5s ease;
+}
+.art.active .canvas .caption { opacity: 1; }
+.canvas .caption .no { font-style: italic; font-size: 11px; letter-spacing: .34em; color: var(--gold-light); }
+.canvas .caption .ttl { font-size: clamp(22px, 2.4vw, 32px); font-weight: 500; letter-spacing: .04em; line-height: 1.05; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
+
+.canvas .sheen {
+  position:absolute; inset:0; z-index:4; pointer-events:none;
+  background: linear-gradient(108deg, transparent 38%, rgba(255,255,255,.20) 50%, transparent 64%);
+  opacity:.4; transition: opacity .5s ease;
+}
+.art.active .canvas .sheen { opacity: .7; }
+
+/* frosted-glass intro card (only under the active painting) */
+.plaque {
+  margin: 18px auto 0; width: max-content; max-width: 96%;
+  padding: 11px 24px; text-align: center; border-radius: 16px;
+  background: rgba(255,253,248,.30);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25); backdrop-filter: blur(14px) saturate(1.25);
+  border: 1px solid rgba(255,255,255,.5);
+  box-shadow: 0 10px 30px -12px rgba(0,0,0,.55), 0 1px 0 rgba(255,255,255,.4) inset;
+  opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease;
+  pointer-events: none;
+}
+.art.active .plaque { opacity: 1; transform: translateY(0); }
+.plaque .pt { font-family: 'Noto Serif SC', serif; font-weight: 600; font-size: clamp(12px,1.1vw,14px); letter-spacing: .14em; color: #2c1d10; }
+.plaque .pm { font-style: italic; font-size: clamp(10px,1vw,12.5px); letter-spacing: .04em; color: #5a4630; margin-top: 2px; }
+
+/* coming-soon wax seal */
+.seal {
+  position: absolute; top: -12px; right: -8px; z-index: 12;
+  width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 9px; line-height: 1.05; text-align: center; letter-spacing: .06em;
+  color: #f7efdc; background: radial-gradient(circle at 38% 32%, #b9573f, #8f3a28 70%);
+  box-shadow: 0 6px 14px -5px rgba(80,30,18,.7), 0 1px 2px rgba(255,255,255,.3) inset;
+  transform: rotate(-12deg);
+}
+.art.soon .canvas { filter: saturate(.78) brightness(.97); }
+
+/* ── navigation bubble arrows ── */
+.nav-arrow {
+  position: fixed; top: 54%; z-index: 35;
+  width: 58px; height: 58px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.4);
+  background: rgba(255,252,247,.14);
+  -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px);
+  color: #fbf3df; font-size: 30px; line-height: 1; font-family: Georgia, serif;
+  display: grid; place-items: center; cursor: pointer;
+  box-shadow: 0 8px 22px -8px rgba(0,0,0,.55), 0 1px 0 rgba(255,255,255,.35) inset;
+  animation: bubble 2.6s ease-in-out infinite;
+  transition: background .3s ease, border-color .3s ease;
+}
+.nav-arrow:hover { background: rgba(255,252,247,.3); border-color: rgba(255,255,255,.7); }
+.nav-arrow.left  { left: 30px; }
+.nav-arrow.right { right: 30px; animation-delay: 1.3s; }
+@keyframes bubble {
+  0%,100% { transform: translateY(-50%) scale(1); }
+  50%     { transform: translateY(-58%) scale(1.08); }
+}
+
+/* ── overlays ── */
+.corner-left, .corner-right {
+  position: fixed; top: 36px; z-index: 30;
+  font-style: italic; font-size: clamp(18px, 2vw, 24px); font-weight: 500;
+  letter-spacing: .22em; color: #f3dba2;
+  text-shadow: 0 2px 16px rgba(0,0,0,.8);
+  opacity: 0; animation: fadeUp .9s .3s ease forwards;
+}
+.corner-left { left: 44px; }
+.corner-right { right: 44px; }
+
+.masthead-center {
+  position: fixed; top: 26px; left: 50%; transform: translateX(-50%); z-index: 30;
+  text-align: center; opacity: 0; animation: fadeIn 1s .15s ease forwards;
+}
+.masthead-center .name {
+  font-size: clamp(36px, 5.2vw, 64px); font-weight: 500; letter-spacing: .2em;
+  color: #f5ecd8; text-shadow: 0 2px 22px rgba(0,0,0,.75);
+}
+.masthead-center .name .sep { color: var(--gold-light); }
+.masthead-center .r { display:flex; align-items:center; gap:12px; justify-content:center; margin-top:10px; }
+.masthead-center .r::before, .masthead-center .r::after { content:''; width:48px; height:1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+.masthead-center .r .lz { width:6px; height:6px; background: var(--gold-light); transform: rotate(45deg); box-shadow: 0 0 8px rgba(232,210,147,.6); }
+
+@keyframes fadeUp { from {opacity:0; transform: translateY(12px);} to {opacity:1; transform: translateY(0);} }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+.hint {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 30;
+  font-style: italic; font-size: clamp(13px,1.4vw,16px); letter-spacing: .26em; color: rgba(243,234,214,.9);
+  text-shadow: 0 1px 14px rgba(0,0,0,.7);
+  opacity: 0; animation: fade 1s 1.1s ease forwards; --tx: -50%;
+}
+.hint .s { color: var(--gold-light); }
+.colophon {
+  position: fixed; bottom: 28px; right: 40px; z-index: 30;
+  font-style: italic; font-size: 15px; letter-spacing: .02em; color: var(--gold-light);
+  text-shadow: 0 1px 12px rgba(0,0,0,.7);
+  opacity: 0; animation: fade 1s 1.3s ease forwards;
+}
+@keyframes fade { from { opacity:0; transform: translateY(10px) translateX(var(--tx,0)); } to { opacity:1; } }
+
+/* ── dive-in transition ── */
+#veil { position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0; }
+#veil.on { pointer-events: all; animation: bloom .8s ease-in forwards; }
+@keyframes bloom {
+  0% { opacity:0; background: radial-gradient(circle at var(--ox,50%) var(--oy,50%), rgba(232,210,147,0) 0%, rgba(243,234,214,0) 0%); }
+  40% { opacity:1; background: radial-gradient(circle at var(--ox,50%) var(--oy,50%), rgba(232,210,147,.75) 0%, rgba(243,234,214,.9) 44%, rgba(243,234,214,0) 74%); }
+  100% { opacity:1; background: radial-gradient(circle at var(--ox,50%) var(--oy,50%), rgba(243,234,214,1) 0%, rgba(243,234,214,1) 100%); }
+}
+.art.diving { z-index: 60; animation: dive .8s var(--cam-ease) forwards; }
+@keyframes dive { to { transform: translate(-50%,-50%) translateY(-44px) translateZ(820px) scale(1.5); opacity: 0; } }
+.corridor.receding .art:not(.diving) { transition: opacity .55s ease, filter .55s ease; opacity: .15; filter: blur(3px); }
+
+/* ── responsive (keeps the carousel; tunes sizes) ── */
+@media (max-width: 880px) {
+  .art { width: clamp(150px, 46vw, 250px); }
+  .nav-arrow { width: 46px; height: 46px; font-size: 24px; }
+  .nav-arrow.left { left: 8px; } .nav-arrow.right { right: 8px; }
+  .corner-left, .corner-right { font-size: 15px; top: 18px; }
+  .corner-left { left: 16px; } .corner-right { right: 16px; }
+  .masthead-center { top: 16px; }
+  .masthead-center .name { letter-spacing: .12em; }
+  .hint { bottom: 16px; letter-spacing: .14em; }
+  .colophon { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-arrow { animation: none; }
+  .corridor, .art, .masthead-center, .corner-left, .corner-right, .hint, .colophon { animation-duration: .01ms !important; opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="backdrop" style="--bg:url('assets/bg/corridor.jpg')"></div>
+<div class="lighting"></div>
+
+<div class="corner-left">2026</div>
+<div class="corner-right">Portfolio</div>
+<header class="masthead-center">
+  <div class="name">XINWEI<span class="sep">·</span>LU</div>
+  <div class="r"><span class="lz"></span></div>
+</header>
+
+<main class="stage">
+  <div class="corridor" id="corridor">
+
+    <!-- No.01 AI Trends -->
+    <a class="art" href="./ai-trends/index.html" data-module="AI Trends" data-has-img="1" style="--p:url('assets/paintings/p1.jpg')">
+      <div class="frame"><div class="canvas">
+        <div class="zones z1"></div><div class="dots"></div><div class="sheen"></div>
+        <div class="caption"><div class="no">N&deg; 01</div><div class="ttl">AI Trends</div></div>
+      </div></div>
+      <div class="plaque"><div class="pt">行业全景情报站</div><div class="pm">数据与时间 · 综合媒介 · 2026</div></div>
+    </a>
+
+    <!-- No.02 MY App -->
+    <a class="art" href="./my/index.html" data-module="MY App" data-has-img="1" style="--p:url('assets/paintings/p2.jpg')">
+      <div class="frame"><div class="canvas">
+        <div class="zones z2"></div><div class="dots"></div><div class="sheen"></div>
+        <div class="caption"><div class="no">N&deg; 02</div><div class="ttl">MY App</div></div>
+      </div></div>
+      <div class="plaque"><div class="pt">ME, reflected in YOU</div><div class="pm">代码与情感 · 交互装置 · 2026</div></div>
+    </a>
+
+    <!-- No.03 Design -->
+    <a class="art soon" href="javascript:void(0)" data-module="Design" data-has-img="1" style="--p:url('assets/paintings/p3.jpg')">
+      <span class="seal">Coming<br>Soon</span>
+      <div class="frame"><div class="canvas">
+        <div class="zones z3"></div><div class="dots"></div><div class="sheen"></div>
+        <div class="caption"><div class="no">N&deg; 03</div><div class="ttl">Design</div></div>
+      </div></div>
+      <div class="plaque"><div class="pt">设计灵感库 & 组件工场</div><div class="pm">像素与品味 · 布展中</div></div>
+    </a>
+
+    <!-- No.04 Toy -->
+    <a class="art soon" href="javascript:void(0)" data-module="Toy" data-has-img="1" style="--p:url('assets/paintings/p4.jpg')">
+      <span class="seal">Coming<br>Soon</span>
+      <div class="frame"><div class="canvas">
+        <div class="zones z4"></div><div class="dots"></div><div class="sheen"></div>
+        <div class="caption"><div class="no">N&deg; 04</div><div class="ttl">Toy</div></div>
+      </div></div>
+      <div class="plaque"><div class="pt">潮玩设计工作台</div><div class="pm">树脂与想象 · 布展中</div></div>
+    </a>
+
+  </div>
+</main>
+
+<button class="nav-arrow left" id="navL" aria-label="上一幅">&#8249;</button>
+<button class="nav-arrow right" id="navR" aria-label="下一幅">&#8250;</button>
+
+<p class="hint"><span class="s">◇</span>&nbsp; Gallery for 2026 Programs &nbsp;<span class="s">◇</span></p>
+<footer class="colophon">Xinwei&nbsp;Lu</footer>
+
+<div id="veil"></div>
+
+<script>
+(function () {
+  "use strict";
+  var stage = document.querySelector('.stage');
+  var corridor = document.getElementById('corridor');
+  var veil = document.getElementById('veil');
+  var arts = [].slice.call(document.querySelectorAll('.art'));
+  var N = arts.length;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0, auto = null;
+
+  function layout() {
+    var SP = Math.min(window.innerWidth * 0.30, 340);
+    arts.forEach(function (art, i) {
+      var off = i - current;
+      if (off >  N / 2) off -= N;
+      if (off < -N / 2) off += N;
+      var a = Math.abs(off), back = (a === 2);
+      var x  = back ? 0 : off * SP;
+      var z  = a === 0 ? 90 : (a === 1 ? -150 : -380);
+      var ry = (off === 0 || back) ? 0 : (off > 0 ? -26 : 26);
+      var sc = a === 0 ? 1 : (a === 1 ? 0.74 : 0.5);
+      var y  = a === 0 ? -36 : (back ? 6 : 0);
+      var op = a === 0 ? 1 : (a === 1 ? 0.82 : 0.32);
+      art.style.transform = 'translate(-50%,-50%) translateX(' + x.toFixed(1) + 'px) translateY(' + y + 'px) translateZ(' + z + 'px) rotateY(' + ry + 'deg) scale(' + sc + ')';
+      art.style.opacity = String(op);
+      art.style.zIndex = String(100 - a);
+      art.classList.toggle('active', off === 0);
+    });
+  }
+  function go(dir) { current = (current + dir + N) % N; layout(); }
+  function toIndex(i) { current = ((i % N) + N) % N; layout(); }
+
+  function stopAuto() { if (auto) { clearInterval(auto); auto = null; } }
+  function startAuto() { if (reduce) return; stopAuto(); auto = setInterval(function () { go(1); }, 6000); }
+
+  document.getElementById('navL').addEventListener('click', function () { stopAuto(); go(-1); });
+  document.getElementById('navR').addEventListener('click', function () { stopAuto(); go(1); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { stopAuto(); go(-1); }
+    else if (e.key === 'ArrowRight') { stopAuto(); go(1); }
+  });
+
+  var wheelLock = false;
+  stage.addEventListener('wheel', function (e) {
+    var d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (Math.abs(d) < 6) return;
+    e.preventDefault();
+    if (wheelLock) return;
+    wheelLock = true; stopAuto(); go(d > 0 ? 1 : -1);
+    setTimeout(function () { wheelLock = false; }, 480);
+  }, { passive: false });
+
+  var dragX = null, moved = false;
+  stage.addEventListener('pointerdown', function (e) { dragX = e.clientX; moved = false; });
+  window.addEventListener('pointermove', function (e) { if (dragX !== null && Math.abs(e.clientX - dragX) > 8) moved = true; });
+  window.addEventListener('pointerup', function (e) {
+    if (dragX === null) return;
+    var dx = e.clientX - dragX; dragX = null;
+    if (Math.abs(dx) > 50) { stopAuto(); go(dx < 0 ? 1 : -1); }
+  });
+
+  arts.forEach(function (art, i) {
+    art.addEventListener('click', function (e) {
+      if (moved) { e.preventDefault(); return; }
+      if (!art.classList.contains('active')) { e.preventDefault(); stopAuto(); toIndex(i); return; }
+      if (art.classList.contains('soon')) {
+        e.preventDefault();
+        var seal = art.querySelector('.seal');
+        if (seal) seal.animate(
+          [{ transform: 'rotate(-12deg) scale(1)' }, { transform: 'rotate(-12deg) scale(1.2)' }, { transform: 'rotate(-12deg) scale(1)' }],
+          { duration: 380, easing: 'ease-out' });
+        return;
+      }
+      var href = art.getAttribute('href');
+      if (!href) return;
+      e.preventDefault(); stopAuto();
+      var r = art.getBoundingClientRect();
+      veil.style.setProperty('--ox', (r.left + r.width / 2) + 'px');
+      veil.style.setProperty('--oy', (r.top + r.height / 2) + 'px');
+      corridor.classList.add('receding');
+      art.classList.add('diving');
+      veil.classList.add('on');
+      setTimeout(function () { window.location.href = href; }, reduce ? 0 : 720);
+    });
+  });
+
+  window.addEventListener('resize', layout);
+  layout();
+  startAuto();
+})();
+</script>
+
+</body>
+</html>

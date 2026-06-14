@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toy · 潮玩工作台 — XINWEI.LU</title>
+<meta name="description" content="通用潮玩设计工作台：Pop Mart 趋势追踪 + AI 设计工具（三视图 / 刀版图 / 海报）。">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#2a2018; --ink-soft:#6a5d4e; --line:#ece1cd;
+  --paper:#f8f3e9; --paper-2:#fdfaf2; --card:#fffdf8;
+  --gold:#c8a45c; --gold-deep:#9c7a2c;
+  --coral:#f0876f; --mint:#5fc2a8; --sky:#6aa9e0; --candy:#e58ab0; --grape:#9b86d9;
+  --shadow:0 20px 54px -26px rgba(60,44,24,.5);
+  --shadow-sm:0 8px 24px -14px rgba(60,44,24,.4);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Serif SC',sans-serif;background:#fff5ec;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 88% -4%,rgba(240,135,111,.24),transparent 44%),radial-gradient(circle at 3% 6%,rgba(106,169,224,.17),transparent 42%),radial-gradient(circle at 52% 114%,rgba(229,138,176,.22),transparent 52%),radial-gradient(circle at 24% 46%,rgba(95,194,168,.11),transparent 46%)}
+::selection{background:rgba(240,135,111,.3)}
+
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,56px);backdrop-filter:blur(12px);background:rgba(248,243,233,.78);border-bottom:1px solid var(--line)}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink-soft);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;transition:.3s}
+.back:hover{color:var(--coral);gap:12px}
+.brand{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.14em}
+.brand b{color:var(--coral);font-weight:600}
+.tabs{display:flex;gap:4px;background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tab{border:none;background:none;font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-soft);padding:8px 18px;border-radius:999px;cursor:pointer;transition:.3s}
+.tab.on{background:var(--ink);color:var(--paper-2);box-shadow:var(--shadow-sm)}
+
+.hero{padding:clamp(40px,7vw,84px) clamp(20px,5vw,56px) clamp(16px,2vw,28px);max-width:1240px;margin:0 auto;position:relative}
+.hero .eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;letter-spacing:.3em;color:var(--coral);text-transform:uppercase;margin-bottom:14px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,6vw,72px);line-height:1.02}
+.hero h1 .cn{font-family:'Noto Serif SC',serif;font-weight:500;position:relative}
+.hero h1 .cn::after{content:'';position:absolute;left:-3px;right:-3px;bottom:8px;height:14px;background:rgba(240,135,111,.4);border-radius:4px;transform:rotate(-1.2deg);z-index:-1}
+.hero p{margin-top:18px;max-width:540px;color:var(--ink-soft);font-family:'Noto Serif SC',serif;line-height:1.8;font-size:15px}
+.region{position:absolute;right:clamp(20px,5vw,56px);top:clamp(48px,8vw,96px);display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;box-shadow:var(--shadow-sm)}
+.region button{border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:8px 18px;border-radius:999px;cursor:pointer;transition:.3s}
+.region button.on{background:var(--coral);color:#fff}
+
+main{max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,56px) 80px}
+.panel{display:none;animation:rise .6s ease}.panel.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.sectitle{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-deep);margin:30px 0 16px;display:flex;align-items:center;gap:14px}
+.sectitle::after{content:'';flex:1;height:1px;background:var(--line)}
+
+.tgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:0 14px 34px -20px rgba(196,90,64,.4);padding:24px 26px;transition:transform .35s cubic-bezier(.2,.8,.3,1.25),box-shadow .35s}
+.box:hover{transform:translateY(-6px) rotate(-.5deg);box-shadow:0 26px 56px -26px rgba(196,90,64,.5)}
+.box h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;display:flex;align-items:center;gap:9px}
+.box h3 .dot{width:9px;height:9px;border-radius:50%}
+.box .sub{font-size:11.5px;color:var(--ink-soft);letter-spacing:.06em;margin-top:3px;margin-bottom:16px}
+
+.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
+@media(max-width:820px){.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}}
+
+/* new drops list */
+.drop{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dashed var(--line)}
+.drop:last-child{border-bottom:none}
+.drop .fig{width:46px;height:46px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;font-size:22px;box-shadow:var(--shadow-sm)}
+.drop .info{flex:1;min-width:0}
+.drop .info .n{font-weight:600;font-size:14px}
+.drop .info .d{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
+.drop .price{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink)}
+.drop .tag{font-size:10px;padding:3px 8px;border-radius:6px;font-weight:600;letter-spacing:.05em}
+.tag-new{background:rgba(95,194,168,.16);color:#3d917a}
+.tag-hot{background:rgba(240,135,111,.16);color:#c85a40}
+
+/* IP ranking */
+.rank{display:flex;flex-direction:column;gap:13px}
+.rk{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:12px}
+.rk .pos{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink-soft);text-align:center}
+.rk .barwrap{background:var(--paper);border-radius:8px;overflow:hidden;height:30px;display:flex;align-items:center}
+.rk .bar{height:100%;border-radius:8px;display:flex;align-items:center;padding-left:12px;color:#fff;font-size:12.5px;font-weight:600;white-space:nowrap;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.rk .val{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink-soft)}
+
+/* price chart */
+.chart{width:100%;height:200px}
+.chart .axis{stroke:var(--line);stroke-width:1}
+.legend{display:flex;gap:18px;margin-top:8px;font-size:11.5px;color:var(--ink-soft)}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+/* secondary market stat */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.sbox{background:var(--paper);border-radius:14px;padding:14px 16px}
+.sbox .v{font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1}
+.sbox .v.up{color:#3d917a}.sbox .v.down{color:#c85a40}
+.sbox .l{font-size:11px;color:var(--ink-soft);margin-top:4px;letter-spacing:.04em}
+
+/* design tools */
+.tool{position:relative;overflow:hidden}
+.tool .powered{position:absolute;top:16px;right:18px;font-size:10px;letter-spacing:.08em;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:3px 9px;border-radius:999px}
+.canvas-3v{display:flex;gap:12px;margin:6px 0 16px}
+.v3{flex:1;aspect-ratio:3/4;border-radius:14px;background:linear-gradient(160deg,#fbeede,#f3e0c8);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
+.v3 .ch{width:46px;height:60px;border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:linear-gradient(160deg,var(--coral),#e85f55);box-shadow:var(--shadow-sm);position:relative}
+.v3.side .ch{border-radius:50% 46% 46% 50%/60% 50% 50% 40%;transform:scaleX(.7)}
+.v3.back .ch{background:linear-gradient(160deg,#e07a64,#cf5448)}
+.v3 .lbl{font-size:10.5px;color:var(--ink-soft);letter-spacing:.1em}
+.moodboard{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:54px;gap:8px;margin:6px 0 16px}
+.moodboard i{border-radius:10px}
+.dieline{margin:6px 0 16px;border:1px dashed var(--ink-soft);border-radius:8px;height:150px;position:relative;background:repeating-linear-gradient(45deg,var(--paper),var(--paper) 8px,var(--paper-2) 8px,var(--paper-2) 16px)}
+.dieline::before,.dieline::after{content:'';position:absolute;border:1.5px solid var(--coral)}
+.dieline::before{inset:30px 70px;border-radius:6px}
+.dieline::after{inset:50px 30px 50px auto;width:30px;border-style:dashed;border-color:var(--sky)}
+.poster{margin:6px 0 16px;aspect-ratio:3/4;max-height:180px;border-radius:14px;background:linear-gradient(165deg,#ffd97a,#f0876f 55%,#9b86d9);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:16px}
+.poster .pc{width:64px;height:78px;border-radius:50% 50% 44% 44%/58% 58% 42% 42%;background:#fff;position:absolute;top:24px;left:50%;transform:translateX(-50%);box-shadow:var(--shadow-sm)}
+.poster .pt{color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;text-shadow:0 2px 8px rgba(0,0,0,.25);z-index:2}
+.genbtn{width:100%;padding:12px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--coral),#e85f55);color:#fff;font-family:inherit;font-weight:600;font-size:13.5px;cursor:pointer;transition:.25s;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:8px}
+.genbtn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px var(--coral)}
+.genbtn.ghost{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.genbtn.ghost:hover{box-shadow:var(--shadow-sm);border-color:var(--gold)}
+
+footer{text-align:center;padding:40px 20px;color:var(--ink-soft);font-size:12px;letter-spacing:.2em;border-top:1px solid var(--line)}
+footer .sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--coral)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="back" href="../index.html">← 返回展厅</a>
+  <div class="brand">Toy <b>潮玩工作台</b></div>
+  <div class="tabs">
+    <button class="tab on" data-tab="trend">趋势</button>
+    <button class="tab" data-tab="tools">设计工具</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Trend Radar · Design Lab</div>
+  <h1>潮玩的<span class="cn">手感与风向</span></h1>
+  <p>追踪 Pop Mart 国内外的新品、IP 排行与二级市场，再用 AI 工具把灵感落成三视图、刀版与海报 —— 从趋势到出图的一站式工作台。</p>
+  <div class="region" id="region">
+    <button class="on" data-r="cn">国内</button>
+    <button data-r="global">海外</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 趋势 ============ -->
+  <section class="panel on" id="trend">
+    <div class="tgrid">
+
+      <div class="box col-5">
+        <h3><span class="dot" style="background:var(--mint)"></span>新品发布</h3>
+        <div class="sub" data-cn="本周 · 国内首发" data-global="This week · Global drops">本周 · 国内首发</div>
+        <div id="drops"></div>
+      </div>
+
+      <div class="box col-7">
+        <h3><span class="dot" style="background:var(--coral)"></span>热门 IP 排行</h3>
+        <div class="sub" data-cn="按搜索热度 + 二级溢价综合" data-global="By search heat + resale premium">按搜索热度 + 二级溢价综合</div>
+        <div class="rank" id="rank"></div>
+      </div>
+
+      <div class="box col-7">
+        <h3><span class="dot" style="background:var(--sky)"></span>价格趋势</h3>
+        <div class="sub">隐藏款均价 · 近 6 个月（¥）</div>
+        <svg class="chart" id="chart" viewBox="0 0 560 200" preserveAspectRatio="none"></svg>
+        <div class="legend"><span><i style="background:var(--coral)"></i>Labubu</span><span><i style="background:var(--grape)"></i>Skullpanda</span><span><i style="background:var(--sky)"></i>Molly</span></div>
+      </div>
+
+      <div class="box col-5">
+        <h3><span class="dot" style="background:var(--grape)"></span>二级市场</h3>
+        <div class="sub" data-cn="得物 · 闲鱼 综合" data-global="StockX · eBay aggregate">得物 · 闲鱼 综合</div>
+        <div class="stat-grid" id="stats"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 设计工具 ============ -->
+  <section class="panel" id="tools">
+    <div class="tgrid">
+
+      <div class="box tool col-6">
+        <span class="powered">由 Dreamina 驱动</span>
+        <h3><span class="dot" style="background:var(--candy)"></span>主题概念板</h3>
+        <div class="sub">系列定调 · 色彩 / 材质 / 氛围</div>
+        <div class="moodboard">
+          <i style="background:linear-gradient(135deg,#ffd97a,#f0876f)"></i><i style="background:#9b86d9"></i><i style="background:#5fc2a8"></i>
+          <i style="background:#6aa9e0"></i><i style="background:linear-gradient(135deg,#e58ab0,#f0876f)"></i><i style="background:#f3e0c8"></i>
+        </div>
+        <button class="genbtn ghost">+ 新建概念板</button>
+      </div>
+
+      <div class="box tool col-6">
+        <span class="powered">由 Dreamina 驱动</span>
+        <h3><span class="dot" style="background:var(--coral)"></span>三视图生成</h3>
+        <div class="sub">正 / 侧 / 背 · 高度一致性</div>
+        <div class="canvas-3v">
+          <div class="v3"><div class="ch"></div><span class="lbl">正面</span></div>
+          <div class="v3 side"><div class="ch"></div><span class="lbl">侧面</span></div>
+          <div class="v3 back"><div class="ch"></div><span class="lbl">背面</span></div>
+        </div>
+        <button class="genbtn" id="gen3v">✦ 生成三视图</button>
+      </div>
+
+      <div class="box tool col-6">
+        <span class="powered">导出 AI / PDF</span>
+        <h3><span class="dot" style="background:var(--sky)"></span>刀版图设计</h3>
+        <div class="sub">盒型展开 · 生产可用刀线</div>
+        <div class="dieline"></div>
+        <button class="genbtn ghost">⤓ 导出刀版图</button>
+      </div>
+
+      <div class="box tool col-6">
+        <span class="powered">由 Dreamina 驱动</span>
+        <h3><span class="dot" style="background:var(--grape)"></span>海报生成</h3>
+        <div class="sub">系列宣传 · 多比例输出</div>
+        <div class="poster"><div class="pc"></div><div class="pt">New Series ’26</div></div>
+        <button class="genbtn">✦ 生成宣传海报</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p style="margin-bottom:8px">通用潮玩设计工作台 · 趋势驱动设计</p>
+  <span class="sig">Xinwei Lu</span> &nbsp;·&nbsp; Toy Lab &nbsp;·&nbsp; MMXXVI
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var DATA={
+    cn:{
+      drops:[
+        {e:'🐰',n:'Labubu · 前方高能',d:'POP MART · 6月14',p:'¥99',t:'new',c:'#f0876f'},
+        {e:'🌙',n:'Dimoo · 夜游动物园',d:'盲盒系列 · 6月10',p:'¥79',t:'hot',c:'#9b86d9'},
+        {e:'💀',n:'Skullpanda · 暗夜城',d:'大娃 · 6月8',p:'¥599',t:'hot',c:'#54618a'},
+        {e:'🌸',n:'Hirono · 小野的花房',d:'6月5',p:'¥69',t:'new',c:'#5fc2a8'}
+      ],
+      rank:[['Labubu',96,'#f0876f'],['Skullpanda',88,'#9b86d9'],['Molly',81,'#6aa9e0'],['Dimoo',74,'#5fc2a8'],['Hirono',63,'#e58ab0']],
+      stats:[['+38%','隐藏款平均溢价','up'],['2.4万','在售挂单','down'],['¥1,280','Labubu 隐藏款','up'],['7.2 天','平均成交周期','down']],
+      chart:[[60,80,70,110,150,210],[120,130,115,140,135,160],[70,75,90,85,95,100]]
+    },
+    global:{
+      drops:[
+        {e:'🐰',n:'Labubu · Big Into Energy',d:'POP MART · Jun 14',p:'$21.9',t:'new',c:'#f0876f'},
+        {e:'😭',n:'Crybaby · Crying Again',d:'Blind box · Jun 11',p:'$14.9',t:'hot',c:'#6aa9e0'},
+        {e:'🧸',n:'Hirono · City of Mercy',d:'Jun 7',p:'$16.9',t:'new',c:'#5fc2a8'},
+        {e:'⭐',n:'Twinkle · Star Voyage',d:'Jun 4',p:'$12.9',t:'new',c:'#9b86d9'}
+      ],
+      rank:[['Labubu',99,'#f0876f'],['Crybaby',82,'#6aa9e0'],['Hirono',71,'#5fc2a8'],['Skullpanda',66,'#9b86d9'],['Molly',58,'#e58ab0']],
+      stats:[['+62%','avg. resale premium','up'],['18.5k','active listings','down'],['$340','Labubu secret','up'],['5.1 days','avg. sell-through','down']],
+      chart:[[80,120,140,180,240,300],[110,120,125,150,160,175],[60,70,80,82,90,96]]
+    }
+  };
+  var region='cn';
+
+  function renderDrops(){
+    var d=DATA[region].drops, h='';
+    d.forEach(function(x){
+      h+='<div class="drop"><div class="fig" style="background:'+x.c+'22">'+x.e+'</div>'+
+         '<div class="info"><div class="n">'+x.n+'</div><div class="d">'+x.d+'</div></div>'+
+         '<div style="text-align:right"><div class="price">'+x.p+'</div><span class="tag '+(x.t==='hot'?'tag-hot':'tag-new')+'">'+(x.t==='hot'?'热销':'NEW')+'</span></div></div>';
+    });
+    document.getElementById('drops').innerHTML=h;
+  }
+  function renderRank(){
+    var r=DATA[region].rank, h='';
+    r.forEach(function(x,i){
+      h+='<div class="rk"><div class="pos">'+(i+1)+'</div>'+
+         '<div class="barwrap"><div class="bar" style="width:0;background:linear-gradient(90deg,'+x[2]+','+x[2]+'cc)">'+x[0]+'</div></div>'+
+         '<div class="val">'+x[1]+'</div></div>';
+    });
+    document.getElementById('rank').innerHTML=h;
+    requestAnimationFrame(function(){
+      document.querySelectorAll('#rank .bar').forEach(function(b,i){ b.style.width=r[i][1]+'%'; });
+    });
+  }
+  function renderStats(){
+    var s=DATA[region].stats, h='';
+    s.forEach(function(x){ h+='<div class="sbox"><div class="v '+x[2]+'">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'; });
+    document.getElementById('stats').innerHTML=h;
+  }
+  function renderChart(){
+    var sets=DATA[region].chart, colors=['#f0876f','#9b86d9','#6aa9e0'];
+    var W=560,H=200,pad=14, n=6;
+    var all=sets.flat(), max=Math.max.apply(null,all)*1.1;
+    function pt(i,v){ return [pad+i*((W-2*pad)/(n-1)), H-pad-(v/max)*(H-2*pad)]; }
+    var svg='';
+    // axis
+    svg+='<line class="axis" x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-pad)+'" y2="'+(H-pad)+'"/>';
+    sets.forEach(function(set,si){
+      var dd=set.map(function(v,i){var p=pt(i,v);return (i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');
+      svg+='<path d="'+dd+'" fill="none" stroke="'+colors[si]+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+      set.forEach(function(v,i){var p=pt(i,v);svg+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="'+colors[si]+'"/>';});
+    });
+    document.getElementById('chart').innerHTML=svg;
+  }
+  function renderAll(){ renderDrops();renderRank();renderStats();renderChart();
+    document.querySelectorAll('[data-cn]').forEach(function(el){ el.textContent=el.getAttribute('data-'+region); });
+  }
+
+  // region toggle
+  document.querySelectorAll('#region button').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('#region button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+    region=b.dataset.r; renderAll();
+  })});
+  // tabs
+  var tabs=document.querySelectorAll('.tab'),panels=document.querySelectorAll('.panel');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.classList.remove('on')});t.classList.add('on');
+    panels.forEach(function(p){p.classList.toggle('on',p.id===t.dataset.tab)});
+    window.scrollTo({top:0,behavior:'smooth'});
+  })});
+  // 3v generate flourish
+  var g=document.getElementById('gen3v');
+  g.addEventListener('click',function(){
+    document.querySelectorAll('.v3 .ch').forEach(function(c,i){
+      c.animate([{opacity:.3,transform:c.parentElement.classList.contains('side')?'scaleX(.7) translateY(8px)':'translateY(8px)'},{opacity:1,transform:c.parentElement.classList.contains('side')?'scaleX(.7)':'none'}],{duration:600,delay:i*120,easing:'ease-out'});
+    });
+  });
+
+  renderAll();
+})();
+</script>
+</body>
+</html>

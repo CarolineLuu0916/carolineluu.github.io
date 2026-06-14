@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MY · iPhone 模拟场景 (ME &amp; YOU)</title>
+<link rel="stylesheet" href="styles.css?v=18">
+<link rel="stylesheet" href="os.css?v=18">
+</head>
+<body>
+<div class="stage">
+  <div class="phone">
+    <div class="island"></div>
+
+    <!-- 状态栏（OS 级共享） -->
+    <div class="statusbar" id="statusbar">
+      <span id="sb-time">9:41</span>
+      <span class="sb-right">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="4" width="3" height="7" rx="1"/><rect x="9" y="2" width="3" height="9" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".35"/></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 9.3a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8zM8 5.6c-1.6 0-3 .6-4.1 1.6l1.5 1.5A3.9 3.9 0 0 1 8 7.6c1 0 1.9.4 2.6 1.1l1.5-1.5A5.9 5.9 0 0 0 8 5.6zM8 1.8C5.2 1.8 2.7 2.9.8 4.7l1.5 1.5A7.9 7.9 0 0 1 8 3.8c2.2 0 4.2.9 5.7 2.4l1.5-1.5A9.9 9.9 0 0 0 8 1.8z" transform="translate(0 -1.5)"/></svg>
+        <span class="battery"><span class="battery-fill"></span></span>
+      </span>
+    </div>
+
+    <!-- ============ iOS 桌面 ============ -->
+    <section id="springboard">
+      <div class="sb-widgets">
+        <div class="sbw sbw-clock">
+          <b id="sbw-time">15:42</b>
+          <span id="sbw-date">6月11日 周四</span>
+        </div>
+        <div class="sbw sbw-my" data-open="my">
+          <div class="sbw-my-top"><span class="sbw-bunny" id="sbw-bunny"></span><b>MY · SUP C</b></div>
+          <div class="sbw-my-stat"><i>86%</i> 已上锁 · 续航 428km</div>
+          <div class="sbw-my-tip" id="sbw-tip">车灵在线 · 一切就绪</div>
+        </div>
+      </div>
+      <div class="sb-grid" id="sb-grid"></div>
+      <div class="sb-dots"><i></i><i class="on"></i><i></i></div>
+      <div class="sb-dock" id="sb-dock"></div>
+    </section>
+
+    <!-- ============ MY APP ============ -->
+    <div class="app-frame" id="app-my">
+
+    <!-- 注册 / 登录 -->
+    <section class="auth hidden" id="auth">
+      <div class="auth-screen" id="auth-1">
+        <div class="auth-hero">
+          <p class="auth-over">IT'S TIME FOR</p>
+          <div class="auth-mascot" id="auth-mascot"></div>
+          <div class="logo-word">MY</div>
+          <p class="auth-cn">ME &amp; YOU · 遇见你的 <em>车灵</em></p>
+          <div class="auth-stk">
+            <span class="stk s1">有情绪</span>
+            <span class="stk s2">会成长</span>
+            <span class="stk s3">(\ ﹒ᴗ﹒ )/</span>
+          </div>
+        </div>
+        <div class="auth-form">
+          <label class="afield"><span class="afield-ic" data-ic="phone"></span><input id="lg-phone" type="tel" placeholder="请输入手机号" maxlength="11" value=""></label>
+          <label class="afield"><span class="afield-ic" data-ic="key"></span><input id="lg-code" type="tel" placeholder="验证码" maxlength="4"><button class="code-btn" id="code-btn">获取验证码</button></label>
+          <button class="btn-primary glow-btn" id="lg-next">登录 / 注册</button>
+          <p class="auth-tip">未注册的手机号将自动创建账号<br>登录即代表同意《用户协议》与《隐私政策》</p>
+        </div>
+      </div>
+      <div class="auth-screen hidden" id="auth-2">
+        <div class="auth2-head">
+          <div class="auth-mascot sm" id="auth-mascot-2"></div>
+          <span class="ph-en lite">BIRTH PROFILE</span>
+          <h2>让 MY 认识你</h2>
+          <p>生辰用于推演每日车运牌阵，需精确到<b>时·分</b><br>所有数据仅存于本机，可随时清除</p>
+        </div>
+        <div class="auth-form">
+          <label class="afield lite"><span>昵称</span><input id="rg-name" type="text" placeholder="想让 MY 怎么称呼你" maxlength="12" value="Caroline"></label>
+          <div class="afield lite"><span>命造</span>
+            <div class="gender-seg" id="gender-seg">
+              <button class="gs-btn" data-g="乾">乾造 · 男</button>
+              <button class="gs-btn active" data-g="坤">坤造 · 女</button>
+            </div>
+          </div>
+          <label class="afield lite"><span>出生日期</span><input id="rg-date" type="date" value="1996-04-18"></label>
+          <label class="afield lite"><span>出生时间</span><input id="rg-time" type="time" value="08:32" required></label>
+          <div class="hour-preview" id="hour-preview"></div>
+          <button class="btn-primary glow-btn" id="lg-done">进入 MY 的世界 ✦</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页面容器 -->
+    <main id="view">
+
+      <!-- ===== 首页 · 爱车 / MY 对话 ===== -->
+      <section class="page active" id="page-home">
+
+        <div class="home-hero" id="home-hero">
+          <header class="home-head" data-hide-chat>
+            <div>
+              <div class="hello-en" id="hello-en">GOOD EVENING · MY</div>
+              <div class="hello"><span id="hello-text">晚上好，Caroline</span></div>
+              <div class="weather-line"><span class="hello-ic" id="hello-emoji"></span>上海 · 晴 26° · 空气优 · 明日有雨</div>
+            </div>
+            <button class="avatar-btn" data-go="profile"><span id="me-initial">C</span></button>
+          </header>
+
+          <div class="car-name-row" data-hide-chat>
+            <div>
+              <div class="car-series">MY · SUP SERIES</div>
+              <div class="car-display">SUP C</div>
+              <div class="hero-pills">
+                <span class="hpill">沪A·D9527</span>
+                <span class="hpill on"><span class="dot-online"></span>ONLINE</span>
+              </div>
+            </div>
+            <div class="range-big"><b id="range-num">428</b><span>KM<br>续航</span></div>
+          </div>
+
+          <div class="car-stage" id="car-stage">
+            <span class="hero-ghost">MY</span>
+            <button class="chat-exit" id="chat-exit">‹ 返回爱车</button>
+
+            <svg class="car-svg" id="car-svg" viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#F4F6FC"/>
+                  <stop offset=".45" stop-color="#C3CADF"/>
+                  <stop offset=".8" stop-color="#8A93B4"/>
+                  <stop offset="1" stop-color="#6A7396"/>
+                </linearGradient>
+                <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#39456E"/>
+                  <stop offset="1" stop-color="#10162E"/>
+                </linearGradient>
+                <linearGradient id="accentG" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#60A5FA" stop-opacity=".1"/>
+                  <stop offset=".25" stop-color="#9CD8FF"/>
+                  <stop offset=".6" stop-color="#7DD3FC"/>
+                  <stop offset="1" stop-color="#A78BFA" stop-opacity=".15"/>
+                </linearGradient>
+                <radialGradient id="floorG" cx=".5" cy=".5" r=".5">
+                  <stop offset="0" stop-color="#7C9DF5" stop-opacity=".5"/>
+                  <stop offset="1" stop-color="#7C9DF5" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="blurS"><feGaussianBlur stdDeviation="3"/></filter>
+              </defs>
+
+              <ellipse cx="280" cy="212" rx="235" ry="18" fill="url(#floorG)"/>
+              <ellipse cx="280" cy="210" rx="215" ry="9" fill="#070A18" opacity=".85"/>
+
+              <path d="M64 180
+                C56 172 52 158 56 144 C60 130 74 122 94 117
+                C124 109 148 106 172 103
+                C198 78 234 62 280 60 C324 58 362 68 392 84
+                C422 100 446 114 466 124 C488 132 498 142 500 154
+                C502 168 494 178 478 181 L64 181 Z" fill="url(#bodyG)"/>
+              <path d="M196 102 C220 80 256 68 294 67 C332 68 364 80 390 96
+                C398 101 400 105 392 105 L212 106 C202 106 192 106 196 102 Z" fill="url(#glassG)"/>
+              <path d="M90 128 C190 116 360 118 470 134" stroke="#FFFFFF" stroke-width="1.6" fill="none" opacity=".55"/>
+              <path d="M58 144 L88 138 L86 146 L60 150 Z" fill="#DCEBFF"/>
+              <path d="M58 145 L90 139" stroke="#9CC4FF" stroke-width="2.5" stroke-linecap="round" class="lamp"/>
+              <path d="M496 148 L476 144 L478 154 L496 156 Z" fill="#F3B0CE"/>
+              <path d="M206 170 L368 170" stroke="url(#accentG)" stroke-width="8" stroke-linecap="round" filter="url(#blurS)" opacity=".95"/>
+              <path d="M210 170 L364 170" stroke="url(#accentG)" stroke-width="2.6" stroke-linecap="round"/>
+              <circle cx="152" cy="184" r="47" fill="#0B0F22"/>
+              <circle cx="420" cy="184" r="47" fill="#0B0F22"/>
+              <g>
+                <circle cx="152" cy="184" r="38" fill="#161B30"/>
+                <circle cx="420" cy="184" r="38" fill="#161B30"/>
+                <circle cx="152" cy="184" r="22" fill="#262E4E"/>
+                <circle cx="420" cy="184" r="22" fill="#262E4E"/>
+                <g stroke="#A9B4DC" stroke-width="3.2" stroke-linecap="round">
+                  <path d="M152 166 L152 202 M134 184 L170 184 M139 171 L165 197 M165 171 L139 197"/>
+                  <path d="M420 166 L420 202 M402 184 L438 184 M407 171 L433 197 M433 171 L407 197"/>
+                </g>
+                <circle cx="152" cy="184" r="5.5" fill="#E5EAFB"/>
+                <circle cx="420" cy="184" r="5.5" fill="#E5EAFB"/>
+              </g>
+              <circle cx="468" cy="142" r="4.5" fill="#7DD3FC" class="charge-dot"/>
+            </svg>
+
+            <div class="car-tap-hint" id="car-tap-hint"><i>— 唤醒</i><em>WAKE MY</em></div>
+
+            <div class="aiva-big" id="aiva-big">
+              <div class="orb-shell">
+                <span class="orb-ring"></span>
+                <span class="orb-ring r2"></span>
+                <div class="orb-wrap" id="orb"></div>
+              </div>
+              <div class="aiva-big-meta">
+                <b>MY <span class="mood-tag" id="mood-tag">愉快</span><button class="persona-btn" data-go="community" id="chat-persona-btn">EXFL</button></b>
+                <div class="growth">
+                  <span>Lv<i id="aiva-lv">2</i> · <i id="aiva-lv-name">熟悉</i></span>
+                  <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-rest" data-hide-chat>
+          <div class="stat-blocks">
+            <div class="sb-card lav"><span>BATTERY · 电量</span><b>86<i>%</i></b><div class="sb-bar"><u style="width:86%"></u></div></div>
+            <div class="sb-card blu"><span>TIRE · 胎压</span><b>2.4<i>bar</i></b><p>四轮正常</p></div>
+            <div class="sb-card"><span>DOOR · 车门</span><b id="lock-stat" class="sb-txt">已上锁</b><p>整车闭锁</p></div>
+            <div class="sb-card"><span>CABIN · 车内</span><b>26<i>°C</i></b><p>恒温保持中</p></div>
+          </div>
+
+          <div class="sec"><b>快捷控制</b><span>QUICK CONTROL</span></div>
+          <div class="ctrl-grid">
+            <button class="ctrl" id="ctrl-lock"><span class="ctrl-ic" data-ic="lock"></span><span class="ctrl-name">车锁</span><span class="ctrl-sub" id="lock-sub">已上锁</span></button>
+            <button class="ctrl" id="ctrl-ac"><span class="ctrl-ic" data-ic="snow"></span><span class="ctrl-name">空调</span><span class="ctrl-sub" id="ac-sub">关闭</span></button>
+            <button class="ctrl" id="ctrl-window"><span class="ctrl-ic" data-ic="window"></span><span class="ctrl-name">车窗</span><span class="ctrl-sub" id="win-sub">已关闭</span></button>
+            <button class="ctrl" id="ctrl-find"><span class="ctrl-ic" data-ic="pin"></span><span class="ctrl-name">寻车</span><span class="ctrl-sub">闪灯鸣笛</span></button>
+            <button class="ctrl" id="ctrl-trunk"><span class="ctrl-ic" data-ic="trunk"></span><span class="ctrl-name">后备箱</span><span class="ctrl-sub" id="trunk-sub">已关闭</span></button>
+            <button class="ctrl" id="ctrl-charge"><span class="ctrl-ic" data-ic="bolt"></span><span class="ctrl-name">充电</span><span class="ctrl-sub">附近桩 12</span></button>
+          </div>
+
+          <div class="sec"><b>爱车服务</b><span>SERVICE</span></div>
+          <div class="svc-row">
+            <button class="svc" data-svc="保养预约"><span class="svc-ic" data-ic="gear"></span>保养预约</button>
+            <button class="svc" data-svc="违章查询"><span class="svc-ic" data-ic="doc"></span>违章查询</button>
+            <button class="svc" data-svc="行程回顾"><span class="svc-ic" data-ic="map"></span>行程回顾</button>
+            <button class="svc" data-svc="道路救援"><span class="svc-ic" data-ic="lifebuoy"></span>道路救援</button>
+          </div>
+
+          <button class="fortune-peek" data-go="fortune">
+            <span class="fp-ic" data-ic="crystal"></span>
+            <span class="fp-text"><b>今日车运 <em>FORTUNE</em></b><i id="fp-line">辰时 · 群龙行雨，宜出行通勤 · 牌阵已刷新</i></span>
+            <span class="fp-arrow">›</span>
+          </button>
+        </div>
+
+        <div class="home-chat" id="home-chat">
+          <div class="chat-body" id="chat-body"></div>
+          <div class="chips" id="chips"></div>
+          <div class="chat-input-row">
+            <input id="chat-input" type="text" placeholder="和 MY 说点什么…" autocomplete="off">
+            <button id="chat-send">↑</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 车运抽卡 ===== -->
+      <section class="page" id="page-fortune">
+        <div class="fortune-light">
+          <header class="page-head">
+            <span class="ph-en">FORTUNE · 十二时辰</span>
+            <h1>车运</h1>
+            <p>以生辰为契，以时辰为引，为出行开运</p>
+          </header>
+
+          <div class="card bazi-card">
+            <div class="bazi-head"><span id="bazi-owner">坤造 · 1996-04-18 08:32</span><button class="bazi-edit" id="birth-edit">修改 ›</button></div>
+            <div class="bazi-strip" id="bazi-strip"></div>
+          </div>
+          <div class="hour-now card" id="hour-now"></div>
+
+          <div class="sec"><b>今日牌阵</b><span>SPREAD</span><span class="refresh-count"><b id="refresh-timer">--:--</b> 后刷新</span></div>
+
+          <div class="slots" id="slots"></div>
+          <p class="spread-tip">从下方牌堆抽三张入阵 · 天时地利人和 · 每 2 小时随时辰流转</p>
+        </div>
+
+        <div class="fan-sec">
+          <p class="fan-hint">✦ 缘分牌堆 · DESTINY DECK ✦</p>
+          <p class="fan-sub">左右拖动浏览 · 点击抽取一张 · 收入上方牌阵</p>
+          <div class="fan" id="fan"></div>
+        </div>
+      </section>
+
+      <!-- ===== 社区 ===== -->
+      <section class="page" id="page-community">
+        <header class="page-head">
+          <span class="ph-en">COMMUNITY · 同频共驾</span>
+          <h1>社区</h1>
+          <p>遇见与你的 MY 同频的旅程</p>
+        </header>
+
+        <div class="card persona-card" id="persona-card"></div>
+
+        <div class="seg" id="comm-seg">
+          <button class="seg-btn active" data-seg="route">同型路线</button>
+          <button class="seg-btn" data-seg="place">目的地</button>
+          <button class="seg-btn" data-seg="post">动态</button>
+        </div>
+
+        <div id="comm-list"></div>
+      </section>
+
+      <!-- ===== 我的 ===== -->
+      <section class="page" id="page-profile">
+        <header class="page-head">
+          <span class="ph-en">ACCOUNT · 车主中心</span>
+          <h1>我的</h1>
+        </header>
+
+        <div class="card me-card">
+          <div class="me-ava" id="me-ava">C</div>
+          <div class="me-info"><b id="me-name">Caroline</b><span id="me-sub">SUP C 车主 · 已伴行 412 天</span></div>
+          <div class="me-pts">2,860<span>POINTS</span></div>
+        </div>
+
+        <div class="sec"><b>我的卡包</b><span>COUPONS</span><span class="title-sub" id="coupon-count"></span></div>
+        <div id="coupon-list"></div>
+
+        <div class="sec"><b>出行偏好</b><span>MY LEARNED</span></div>
+        <div class="card pref-card">
+          <div class="pref"><span class="pref-ic" data-ic="bubbles"></span><div><b>洗车偏好</b><span>工作日下午 · 精洗 · 价位 ¥30-50 · 常去「悦洗·精致洗车」</span></div></div>
+          <div class="pref"><span class="pref-ic" data-ic="bolt"></span><div><b>充电习惯</b><span>快充为主 · 偏好商场充电站 · 常在电量 20% 左右补能</span></div></div>
+          <div class="pref"><span class="pref-ic" data-ic="users"></span><div><b>家庭日程</b><span>工作日 15:30 公司出发 → 小桃幼儿园(近30天 21 次) · 周四下午多空闲</span></div></div>
+          <div class="pref"><span class="pref-ic" data-ic="map"></span><div><b>出行风格</b><span>周末爱去山野湖畔 · 避开拥堵 · 喜欢风景优先路线</span></div></div>
+        </div>
+
+        <div class="sec"><b>通用</b><span>GENERAL</span></div>
+        <div class="card list-card">
+          <button class="row-item" id="row-agent"><span><i class="agent-dot" id="agent-dot"></i>智能体接入</span><span id="agent-badge">未接入 ›</span></button>
+          <button class="row-item" id="row-guard">授权与额度<span id="guard-badge">均衡 · ¥100 ›</span></button>
+          <button class="row-item" id="row-notify">通知管理<span id="notify-badge">正常 ›</span></button>
+          <button class="row-item" id="row-tasks">任务中心<span id="order-badge">›</span></button>
+          <button class="row-item" id="row-birth">生辰与隐私<span id="birth-badge">›</span></button>
+          <button class="row-item">关于 MY<span>v4.0.0 ›</span></button>
+          <button class="row-item logout" id="logout-btn">退出登录<span></span></button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 底部悬浮导航 -->
+    <nav class="tabbar" id="tabbar">
+      <button class="tab active" data-go="home"><span class="tab-ic" data-ic="car"></span><span>爱车</span></button>
+      <button class="tab" data-go="fortune"><span class="tab-dot" id="fortune-dot"></span><span class="tab-ic" data-ic="crystal"></span><span>车运</span></button>
+      <button class="tab tab-aiva" data-go="aiva"><span class="tab-orb" id="tab-orb"></span><span>MY</span></button>
+      <button class="tab" data-go="community"><span class="tab-ic" data-ic="planet"></span><span>社区</span></button>
+      <button class="tab" data-go="profile"><span class="tab-ic" data-ic="user"></span><span>我的</span></button>
+    </nav>
+
+    <!-- MY 内部弹层与提示 -->
+    <div class="overlay hidden" id="overlay"><div class="sheet" id="sheet"></div></div>
+    <div class="toast hidden" id="toast"></div>
+
+    </div><!-- /#app-my -->
+
+    <!-- ============ 模拟生活 APP ============ -->
+    <div class="app-frame mapp" id="app-wechat"></div>
+    <div class="app-frame mapp" id="app-alipay"></div>
+    <div class="app-frame mapp" id="app-dianping"></div>
+    <div class="app-frame mapp" id="app-amap"></div>
+    <div class="app-frame mapp" id="app-meituan"></div>
+    <div class="app-frame mapp" id="app-taobao"></div>
+
+    <!-- ============ OS 级浮层 ============ -->
+    <div class="notif hidden" id="notif"></div>
+    <div class="call-overlay hidden" id="call-overlay"></div>
+    <button class="home-pill hidden" id="home-pill" title="回到桌面"></button>
+  </div>
+
+  <aside class="stage-note">
+    <h2>MY · iPhone 模拟场景</h2>
+    <p>ME &amp; YOU · 真实 AI 助理演示：</p>
+    <ol>
+      <li>桌面打开 <b>MY</b>，登录后回桌面等 <b>通知</b>：15:50 接娃守护场景(微信联动)</li>
+      <li>对 MY 说「<b>帮我安排洗车</b>」：点评新店比价 → 代驾来电 → 支付宝代付</li>
+      <li>去 <b>微信/支付宝/大众点评</b> 查看 MY 留下的真实痕迹</li>
+      <li>桌面其他 APP(高德/美团/淘宝)内含模拟生活数据</li>
+    </ol>
+  </aside>
+</div>
+
+<script src="app.js?v=18"></script>
+<script src="os.js?v=18"></script>
+</body>
+</html>

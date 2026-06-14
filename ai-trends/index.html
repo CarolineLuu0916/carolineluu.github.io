@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trends — AI Agent 行业观察 · by Caroline Lu</title>
+<meta name="description" content="AI Agent 行业动态日报、GitHub 高星项目精选、百科与大事件时间线。Curated by Caroline Lu.">
+<link rel="stylesheet" href="css/style.css?v=20260612b">
+<link rel="stylesheet" href="css/sections.css?v=20260612b">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="gallery-home" href="../index.html" title="返回展厅" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-3);font-family:var(--font-display);font-style:italic;font-size:16px;white-space:nowrap;transition:color .3s var(--ease)" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--ink-3)'">← 展厅</a>
+  <a class="brand" href="#/daily">
+    <span class="brand-name">AI&nbsp;Trends</span>
+    <span class="brand-dot"></span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#/daily" data-route="daily">今日简报</a>
+    <a href="#/wiki" data-route="wiki">百科</a>
+    <a href="#/repos" data-route="repos">项目库</a>
+    <a href="#/models" data-route="models">模型图鉴</a>
+    <a href="#/timeline" data-route="timeline">时间线</a>
+    <a href="#/about" data-route="about">关于</a>
+    <span class="nav-ink" id="navInk"></span>
+  </nav>
+  <div class="nav-meta">
+    <span class="nav-date" id="navDate"></span>
+  </div>
+</header>
+
+<div class="ticker-wrap" id="tickerWrap">
+  <div class="ticker-label">LATEST</div>
+  <div class="ticker" id="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<main id="view" class="view"></main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">AI&nbsp;TRENDS</div>
+    <p class="footer-line">An AI Agent industry observatory — curated &amp; maintained by <em>Caroline Lu</em></p>
+    <p class="footer-sub" id="footerDate"></p>
+  </div>
+</footer>
+
+<div class="modal-mask" id="modalMask" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="关闭">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script src="js/data-reports.js?v=20260612b"></script>
+<script src="js/data-wiki.js?v=20260612b"></script>
+<script src="js/data-repos.js?v=20260612b"></script>
+<script src="js/data-models.js?v=20260612b"></script>
+<script src="js/data-timeline.js?v=20260612b"></script>
+<script src="js/app.js?v=20260612b"></script>
+</body>
+</html>

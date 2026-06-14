@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design · 设计工坊 — XINWEI.LU</title>
+<meta name="description" content="收集灵感 → 提炼本质 → 炼成可调用的设计 Skill。一座把品味变成能力的设计实验室。">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#1d2024; --ink-soft:#585b62; --ink-faint:#8b8d94; --line:#e2e0d6;
+  --paper:#f1f0e9; --paper-2:#f8f7f1; --card:#fcfbf6;
+  --sage:#3f7d6e; --sage-deep:#2c5a4f; --sage-soft:#e4efe9; --gold:#b89548;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --shadow:0 22px 60px -30px rgba(28,34,30,.55); --shadow-sm:0 10px 26px -16px rgba(28,34,30,.45);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Serif SC',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:38px 38px;background-position:center;}
+body::before{content:'';position:fixed;inset:0;background:var(--paper);opacity:.86;z-index:-1}
+::selection{background:var(--sage-soft)}
+
+.nav{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,56px);backdrop-filter:blur(12px);background:rgba(241,240,233,.82);border-bottom:1px solid var(--line)}
+.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink-soft);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;transition:.3s}
+.back:hover{color:var(--sage-deep);gap:12px}
+.brand{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.12em}
+.brand b{color:var(--sage-deep);font-weight:600}
+.tabs{display:flex;gap:2px;background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:3px}
+.tab{border:none;background:none;font-family:var(--mono);font-size:12px;color:var(--ink-soft);padding:8px 16px;border-radius:6px;cursor:pointer;transition:.3s;letter-spacing:.02em}
+.tab.on{background:var(--ink);color:var(--paper-2)}
+
+.hero{padding:clamp(44px,7vw,88px) clamp(20px,5vw,56px) clamp(18px,3vw,30px);max-width:1180px;margin:0 auto}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--sage-deep);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.hero .eyebrow::before{content:'';width:30px;height:1px;background:var(--sage)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(42px,6.4vw,78px);line-height:1;letter-spacing:.01em}
+.hero h1 em{font-style:italic;color:var(--sage-deep)}
+.hero h1 .cn{font-family:'Noto Serif SC',serif;font-weight:500}
+.hero p{margin-top:20px;max-width:580px;color:var(--ink-soft);font-family:'Noto Serif SC',serif;line-height:1.85;font-size:15px}
+.pipe{display:flex;align-items:center;gap:10px;margin-top:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft)}
+.pipe b{color:var(--ink);font-weight:500}.pipe .arr{color:var(--sage)}
+.stats{display:flex;gap:38px;margin-top:30px;flex-wrap:wrap}
+.stat b{font-family:'Cormorant Garamond',serif;font-size:34px;display:block;line-height:1}
+.stat span{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase}
+
+main{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,56px) 90px}
+.panel{display:none;animation:rise .55s ease}.panel.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 26px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink-soft);font-family:var(--mono);font-size:11.5px;padding:7px 14px;border-radius:7px;cursor:pointer;transition:.25s}
+.chip:hover{border-color:var(--sage)}
+.chip.on{background:var(--sage);border-color:var(--sage);color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(244px,1fr));gap:20px}
+.icard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s;cursor:pointer;position:relative}
+.icard:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--sage)}
+.pv{height:158px;position:relative}
+.imeta{padding:13px 15px 15px}
+.imeta .t{font-family:'Cormorant Garamond',serif;font-size:19px;letter-spacing:.01em}
+.imeta .row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.src{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage-deep)}
+.imeta .open{font-family:var(--mono);font-size:10px;color:var(--ink-faint);opacity:0;transition:.3s}
+.icard:hover .imeta .open{opacity:1}
+
+/* specimen previews */
+.pv-aurora{background:linear-gradient(135deg,#ffd9a8,#ff9eb0 40%,#9b8cff 75%,#7fd1ff)}
+.pv-aurora .glass{position:absolute;inset:26px 22px;border-radius:12px;background:rgba(255,255,255,.24);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.55)}
+.pv-aurora .glass::before{content:'';position:absolute;top:16px;left:16px;width:44%;height:8px;border-radius:4px;background:rgba(255,255,255,.75)}
+.pv-aurora .glass::after{content:'';position:absolute;top:32px;left:16px;width:66%;height:6px;border-radius:4px;background:rgba(255,255,255,.45)}
+.pv-edit{background:#efe8d6;display:flex;flex-direction:column;justify-content:center;padding:0 22px}
+.pv-edit .big{font-family:'Cormorant Garamond',serif;font-size:46px;font-style:italic;color:#33302a;line-height:.95}
+.pv-edit .sm{font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:var(--sage-deep);margin-top:8px}
+.pv-pal{display:flex}.pv-pal i{flex:1}
+.pv-fin{background:linear-gradient(160deg,#10233f,#2a2f63);padding:20px;color:#fff}
+.pv-fin .bal{font-family:var(--mono);font-size:10px;opacity:.7}.pv-fin .num{font-family:'Cormorant Garamond',serif;font-size:30px;margin-top:2px}
+.pv-fin .bars{display:flex;gap:5px;align-items:flex-end;height:42px;margin-top:14px}
+.pv-fin .bars i{flex:1;background:rgba(255,255,255,.3);border-radius:3px 3px 0 0}.pv-fin .bars i:nth-child(3){background:#7fd1ff}
+.pv-bruta{background:#ffe34d;padding:18px;display:flex;flex-direction:column;gap:9px}
+.pv-bruta .blk{background:#fff;border:2.5px solid #111;padding:6px 11px;font-weight:700;color:#111;box-shadow:4px 4px 0 #111;font-size:12px;width:max-content}
+.pv-bruta .blk.b2{background:#ff5c5c;color:#fff;margin-left:26px}
+.pv-clay{background:#eceaf6;display:grid;place-items:center}.pv-clay .blob{width:80px;height:80px;border-radius:26px;background:linear-gradient(145deg,#cfc6f0,#a99fe0);box-shadow:9px 9px 18px #c4bcd8,-9px -9px 18px #fff}
+.pv-mono{background:#fafafa;position:relative}.pv-mono::before{content:'';position:absolute;inset:20px;border:1px solid #111}.pv-mono::after{content:'';position:absolute;left:50%;top:20px;bottom:20px;width:1px;background:#111}.pv-mono i{position:absolute;left:20px;right:50%;top:50%;height:1px;background:#111}
+.pv-motion{background:#0e1320;display:grid;place-items:center}
+.pv-noir{background:linear-gradient(160deg,#1a1a1a,#2e2e2e);display:flex;align-items:flex-end;padding:18px}.pv-noir .l{height:3px;background:#e8c264;width:60%;border-radius:2px}.pv-noir::after{content:'Aa';position:absolute;top:16px;left:18px;font-family:'Cormorant Garamond',serif;font-size:40px;color:#f3efe6}
+.pv-bento{background:#f0ede4;display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr;gap:8px;padding:16px}.pv-bento i{background:#fff;border:1px solid #e0ded3;border-radius:9px}.pv-bento i:first-child{grid-row:span 2;background:var(--sage-soft)}
+
+/* skill cards */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.skill{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow-sm);transition:transform .35s,box-shadow .35s,border-color .35s;cursor:pointer;position:relative;overflow:hidden}
+.skill:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--sage)}
+.skill.fresh{animation:pop .6s ease}@keyframes pop{0%{transform:scale(.9);opacity:0}60%{transform:scale(1.02)}100%{transform:scale(1);opacity:1}}
+.skill .ic{width:42px;height:42px;border-radius:11px;background:var(--sage-soft);display:grid;place-items:center;font-size:20px;margin-bottom:14px}
+.skill .nm{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--ink)}
+.skill .ds{font-size:12.5px;color:var(--ink-soft);line-height:1.6;margin-top:7px;min-height:38px}
+.skill .foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.skill .prod{font-family:var(--mono);font-size:10px;color:var(--sage-deep);background:var(--sage-soft);padding:3px 8px;border-radius:5px}
+.skill .calls{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+.skill.add{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-style:dashed;background:transparent;color:var(--ink-soft);min-height:180px}
+.skill.add .plus{font-size:30px;color:var(--sage);margin-bottom:8px}
+
+.sectitle{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--sage-deep);margin:6px 0 18px;display:flex;align-items:center;gap:14px}
+.sectitle::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.on{display:flex;animation:fade .3s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal .scrim{position:absolute;inset:0;background:rgba(20,22,20,.5);backdrop-filter:blur(6px)}
+.sheet{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;max-width:720px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 40px 100px -30px rgba(0,0,0,.5);animation:sheetin .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes sheetin{from{transform:translateY(24px) scale(.98);opacity:0}to{transform:none;opacity:1}}
+.sheet .x{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;font-size:16px;color:var(--ink-soft);z-index:3}
+.sheet .x:hover{background:var(--ink);color:#fff}
+.sheet .top{height:200px;position:relative;border-radius:18px 18px 0 0;overflow:hidden}
+.sheet .body{padding:24px 28px 28px}
+.sheet .body .src{margin-bottom:6px}
+.sheet h2{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;letter-spacing:.01em}
+.sheet .styles{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.sheet .styles span{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
+.extract{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.extract .blk h4{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:9px}
+.pal{display:flex;gap:6px}.pal i{flex:1;height:40px;border-radius:7px;position:relative;border:1px solid rgba(0,0,0,.06)}
+.pal i span{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:8px;color:var(--ink-faint)}
+.note{font-size:13px;color:var(--ink-soft);line-height:1.7;font-family:'Noto Serif SC',serif}
+.forge{margin-top:26px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;padding:13px 24px;border-radius:10px;cursor:pointer;border:none;transition:.25s;letter-spacing:.02em;display:inline-flex;align-items:center;gap:9px}
+.btn-forge{background:linear-gradient(135deg,var(--sage),var(--sage-deep));color:#fff}
+.btn-forge:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px var(--sage)}
+.btn-forge:disabled{opacity:.7;cursor:wait}
+.btn-ghost{background:var(--paper);border:1px solid var(--line);color:var(--ink)}.btn-ghost:hover{border-color:var(--ink)}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+
+/* SKILL.md preview */
+.mdcard{background:#16181c;border-radius:12px;overflow:hidden;margin-top:6px;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+.mdcard .mh{display:flex;gap:6px;padding:11px 14px;background:#1f2228;border-bottom:1px solid #2c2f36}
+.mdcard .mh i{width:10px;height:10px;border-radius:50%}.mdcard .mh i:nth-child(1){background:#ef6f6c}.mdcard .mh i:nth-child(2){background:#e8c264}.mdcard .mh i:nth-child(3){background:#7fcaa0}
+.mdcard .mh span{margin-left:8px;color:#7b818c;font-size:11px}
+.mdcard pre{padding:16px 18px;color:#cdd3da;white-space:pre-wrap;overflow:auto}
+.mdcard .k{color:#8fb8a8}.mdcard .v{color:#e8c264}.mdcard .c{color:#6b727c}
+.runout{margin-top:16px;display:none}.runout.on{display:block;animation:rise .4s ease}
+.runrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--sage-deep);margin-bottom:10px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper-2);font-family:var(--mono);font-size:13px;padding:13px 22px;border-radius:12px;box-shadow:var(--shadow);z-index:80;opacity:0;pointer-events:none;transition:.4s cubic-bezier(.2,.7,.2,1)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:#8fd3bd}
+
+footer{text-align:center;padding:40px 20px;color:var(--ink-faint);font-family:var(--mono);font-size:11px;letter-spacing:.16em;border-top:1px solid var(--line)}
+footer .sig{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--sage-deep)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="back" href="../index.html">← BACK TO GALLERY</a>
+  <div class="brand">Design <b>设计工坊</b></div>
+  <div class="tabs">
+    <button class="tab on" data-tab="insp">灵感库</button>
+    <button class="tab" data-tab="skill">Skill 工坊</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Collect · Extract · Forge</div>
+  <h1>把设计，<em>炼成</em><span class="cn">可调用的 Skill</span></h1>
+  <p>收集打动你的设计，提炼出它的配色、布局、字体与动效，再一键「炼成」一个可被反复调用的设计 Skill —— 让审美沉淀为能力，下次开新项目时直接 <code style="font-family:var(--mono);color:var(--sage-deep)">/design</code> 召唤出来。</p>
+  <div class="pipe"><b>灵感</b><span class="arr">→</span><b>提炼</b><span class="arr">→</span><b>Skill</b><span class="arr">→</span><b>一键调用</b></div>
+  <div class="stats">
+    <div class="stat"><b>248</b><span>收藏灵感</span></div>
+    <div class="stat"><b id="skcount">5</b><span>已炼成 Skill</span></div>
+    <div class="stat"><b>1.2k</b><span>累计调用</span></div>
+  </div>
+</header>
+
+<main>
+  <!-- ===== 灵感库 ===== -->
+  <section class="panel on" id="insp">
+    <div class="filters" id="filters">
+      <button class="chip on" data-f="all">全部</button>
+      <button class="chip" data-f="Dribbble">Dribbble</button>
+      <button class="chip" data-f="Mobbin">Mobbin</button>
+      <button class="chip" data-f="Awwwards">Awwwards</button>
+      <button class="chip" data-f="手动">手动收藏</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- ===== Skill 工坊 ===== -->
+  <section class="panel" id="skill">
+    <div class="sectitle">从灵感炼成的可调用设计能力</div>
+    <div class="sgrid" id="sgrid"></div>
+  </section>
+</main>
+
+<!-- inspiration / skill modal -->
+<div class="modal" id="modal"><div class="scrim" data-close></div>
+  <div class="sheet" id="sheet"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<footer>设计 · 灵感 · 可复用能力 &nbsp;·&nbsp; <span class="sig">Xinwei Lu</span> &nbsp;·&nbsp; DESIGN LAB · MMXXVI</footer>
+
+<script>
+(function(){
+"use strict";
+var INSP=[
+ {id:'aurora',t:'Aurora Glass Dashboard',src:'Dribbble',pv:'pv-aurora',inner:'<div class="glass"></div>',styles:['玻璃拟态','渐变','仪表盘'],
+  pal:['#ffd9a8','#ff9eb0','#9b8cff','#7fd1ff','#ffffff'],layout:'卡片悬浮于彩色弥散渐变之上，强对比、强景深。',type:'无衬线 + 大号数字。',motion:'卡片入场 translateY + 模糊渐显。'},
+ {id:'edit',t:'衬线编辑排版',src:'Awwwards',pv:'pv-edit',inner:'<div class="big">Éditorial</div><div class="sm">TYPE-DRIVEN LAYOUT</div>',styles:['编辑感','大字','衬线'],
+  pal:['#efe8d6','#33302a','#b89548','#7a7060','#fff'],layout:'超大衬线标题主导，留白克制，基线网格。',type:'Cormorant / Playfair 斜体。',motion:'字符逐行上浮揭示。'},
+ {id:'sunset',t:'Palette · 黄昏港湾',src:'手动',pv:'pv-pal',inner:'<i style="background:#2d3a55"></i><i style="background:#c4745a"></i><i style="background:#e0c878"></i><i style="background:#7a8b4e"></i><i style="background:#f3ead6"></i>',styles:['配色','暖调'],
+  pal:['#2d3a55','#c4745a','#e0c878','#7a8b4e','#f3ead6'],layout:'五色印象派暖调，深靛蓝压舱、暖橘点睛。',type:'—',motion:'—'},
+ {id:'fin',t:'Banking · 资产卡片',src:'Mobbin',pv:'pv-fin',inner:'<div class="bal">TOTAL BALANCE</div><div class="num">¥ 48,210</div><div class="bars"><i style="height:40%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:80%"></i></div>',styles:['金融','深色','数据'],
+  pal:['#10233f','#2a2f63','#7fd1ff','#ffffff','#9aa6c0'],layout:'深色卡片 + 柱状走势，信息分层清晰。',type:'数字用等宽，强调对齐。',motion:'柱状高度入场生长。'},
+ {id:'bruta',t:'Neo-Brutalist Promo',src:'Dribbble',pv:'pv-bruta',inner:'<div class="blk">NEW DROP</div><div class="blk b2">BUY ↗</div>',styles:['新粗野','高对比'],
+  pal:['#ffe34d','#111111','#ff5c5c','#ffffff','#000'],layout:'硬阴影 + 粗黑描边，块面错位堆叠。',type:'粗体无衬线，全大写。',motion:'按压位移硬切。'},
+ {id:'mono',t:'Swiss Grid System',src:'Awwwards',pv:'pv-mono',inner:'<i></i>',styles:['极简','网格','瑞士风'],
+  pal:['#fafafa','#111111','#e0e0e0','#999','#fff'],layout:'严格栅格 + 细分割线，黑白为主。',type:'Helvetica 紧排，左对齐。',motion:'极少，仅线条绘制。'},
+ {id:'noir',t:'Cinematic Noir Hero',src:'Awwwards',pv:'pv-noir',inner:'<div class="l"></div>',styles:['暗调','电影感','金线'],
+  pal:['#1a1a1a','#2e2e2e','#e8c264','#f3efe6','#000'],layout:'深色满版 + 金色细线点缀，留白沉静。',type:'高瘦衬线，宽字距。',motion:'缓慢视差与微光流动。'},
+ {id:'bento',t:'Bento Grid Layout',src:'手动',pv:'pv-bento',inner:'<i></i><i></i><i></i>',styles:['便当格','模块化'],
+  pal:['#f0ede4','#3f7d6e','#ffffff','#e0ded3','#1d2024'],layout:'不规则便当格，主块 + 小块拼接。',type:'无衬线 + 数据强调。',motion:'卡片错峰缩放入场。'}
+];
+var SKILLS=[
+ {id:'sk1',ic:'🫧',nm:'glassmorphism-card',ds:'生成可定制色调的玻璃拟态卡片组件（含 backdrop-filter 与高光）。',prod:'HTML + CSS',calls:'·调用 312 次',from:'Aurora Glass Dashboard',
+  trig:'玻璃卡 / frosted / 半透明卡片',out:'一个 .glass-card 组件 + 配套 CSS 变量',ex:'/design glass-card --tint=gold --blur=12'},
+ {id:'sk2',ic:'✍︎',nm:'editorial-hero',ds:'超大衬线标题的编辑感首屏，含基线网格与逐行揭示动效。',prod:'Section 模板',calls:'·调用 188 次',from:'衬线编辑排版',
+  trig:'编辑感首屏 / 大字 hero / 杂志排版',out:'一段 <header> + 排版与动效',ex:'/design editorial-hero --font=Cormorant'},
+ {id:'sk3',ic:'🎨',nm:'sunset-palette',ds:'印象派黄昏五色板，导出为 CSS / Tailwind / Figma tokens。',prod:'色彩 Tokens',calls:'·调用 421 次',from:'Palette · 黄昏港湾',
+  trig:'暖调配色 / 印象派色板',out:'5 个语义色变量 + 渐变配方',ex:'/design sunset-palette --format=css'},
+ {id:'sk4',ic:'▦',nm:'swiss-grid',ds:'严格栅格系统与分割线规范，黑白极简版式骨架。',prod:'Layout 骨架',calls:'·调用 96 次',from:'Swiss Grid System',
+  trig:'瑞士风 / 极简栅格 / 网格版式',out:'12 栅格容器 + 分割线 utility',ex:'/design swiss-grid --cols=12'},
+ {id:'sk5',ic:'✦',nm:'expo-easing',ds:'expo.out 缓动曲线与时长规范，供动效统一调用。',prod:'Motion Token',calls:'·调用 254 次',from:'Easing 收藏',
+  trig:'缓动 / 动效曲线 / transition',out:'cubic-bezier 变量 + 时长档位',ex:'/design expo-easing'}
+];
+var SRCMAP={Dribbble:'#ea4c89',Mobbin:'#1c64f2',Awwwards:'#111','手动':'#3f7d6e'};
+
+var grid=document.getElementById('grid'),sgrid=document.getElementById('sgrid'),
+    modal=document.getElementById('modal'),sheet=document.getElementById('sheet'),
+    toast=document.getElementById('toast');
+
+function renderInsp(filter){
+  grid.innerHTML='';
+  INSP.forEach(function(d){
+    if(filter&&filter!=='all'&&d.src!==filter)return;
+    var el=document.createElement('article');el.className='icard';
+    el.innerHTML='<div class="pv '+d.pv+'">'+d.inner+'</div><div class="imeta"><div class="t">'+d.t+'</div><div class="row"><span class="src">'+d.src+'</span><span class="open">点击展开 →</span></div></div>';
+    el.addEventListener('click',function(){openInsp(d)});
+    grid.appendChild(el);
+  });
+}
+function renderSkills(freshId){
+  sgrid.innerHTML='';
+  SKILLS.forEach(function(s){
+    var el=document.createElement('div');el.className='skill'+(s.id===freshId?' fresh':'');
+    el.innerHTML='<div class="ic">'+s.ic+'</div><div class="nm">'+s.nm+'</div><div class="ds">'+s.ds+'</div><div class="foot"><span class="prod">'+s.prod+'</span><span class="calls">'+s.calls+'</span></div>';
+    el.addEventListener('click',function(){openSkill(s)});
+    sgrid.appendChild(el);
+  });
+  var add=document.createElement('div');add.className='skill add';
+  add.innerHTML='<div class="plus">+</div><div style="font-family:var(--mono);font-size:12px">去灵感库炼一个新的</div>';
+  add.addEventListener('click',function(){switchTab('insp')});
+  sgrid.appendChild(add);
+  document.getElementById('skcount').textContent=SKILLS.length;
+}
+
+function openInsp(d){
+  var pal=d.pal.map(function(c){return '<i style="background:'+c+'"><span>'+c+'</span></i>'}).join('');
+  sheet.innerHTML='<button class="x" data-close>×</button>'+
+    '<div class="top '+d.pv+'">'+d.inner+'</div>'+
+    '<div class="body"><div class="src" style="color:'+(SRCMAP[d.src]||'#3f7d6e')+'">'+d.src+'</div>'+
+    '<h2>'+d.t+'</h2><div class="styles">'+d.styles.map(function(s){return '<span>'+s+'</span>'}).join('')+'</div>'+
+    '<div class="extract"><div class="blk"><h4>提取 · 配色</h4><div class="pal">'+pal+'</div></div>'+
+    '<div class="blk"><h4>提取 · 布局</h4><p class="note">'+d.layout+'</p></div>'+
+    '<div class="blk"><h4>提取 · 字体</h4><p class="note">'+d.type+'</p></div>'+
+    '<div class="blk"><h4>提取 · 动效</h4><p class="note">'+d.motion+'</p></div></div>'+
+    '<div class="forge"><button class="btn btn-forge" id="forgeBtn">✦ 炼成设计 Skill</button>'+
+    '<span style="font-family:var(--mono);font-size:11.5px;color:var(--ink-faint)">将以上提炼打包为可调用能力</span></div></div>';
+  document.getElementById('forgeBtn').addEventListener('click',function(){forge(d,this)});
+  open();
+}
+function forge(d,btn){
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span> 提炼中…';
+  setTimeout(function(){
+    var base=d.id, nm=({aurora:'glassmorphism-card',edit:'editorial-hero',sunset:'sunset-palette',fin:'data-card-dark',bruta:'neo-brutalist-kit',mono:'swiss-grid',noir:'cinematic-noir',bento:'bento-grid'})[base]||(base+'-skill');
+    if(SKILLS.some(function(s){return s.nm===nm})){ toastMsg('该灵感已炼成 <b>'+nm+'</b>'); btn.disabled=false;btn.innerHTML='✦ 炼成设计 Skill'; return; }
+    var s={id:'new_'+base,ic:'✦',nm:nm,ds:'由「'+d.t+'」提炼：'+d.layout,prod:d.type==='—'?'色彩 Tokens':'组件 + CSS',calls:'·全新',from:d.t,
+      trig:d.styles.join(' / '),out:'基于该设计的可复用资产',ex:'/design '+nm};
+    SKILLS.push(s);
+    close();switchTab('skill');renderSkills(s.id);
+    toastMsg('✦ 已炼成 Skill：<b>'+nm+'</b>');
+  },1300);
+}
+function openSkill(s){
+  sheet.innerHTML='<button class="x" data-close>×</button><div class="body" style="padding-top:30px">'+
+    '<div style="display:flex;align-items:center;gap:14px"><div class="ic" style="width:52px;height:52px;border-radius:13px;font-size:24px;margin:0">'+s.ic+'</div>'+
+    '<div><h2 style="font-family:var(--mono);font-size:22px;font-weight:500">'+s.nm+'</h2><div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:3px">炼自 · '+s.from+' '+s.calls+'</div></div></div>'+
+    '<p class="note" style="margin-top:16px">'+s.ds+'</p>'+
+    '<div class="mdcard" style="margin-top:18px"><div class="mh"><i></i><i></i><i></i><span>SKILL.md</span></div>'+
+    '<pre><span class="c">---</span>\n<span class="k">name</span>: <span class="v">'+s.nm+'</span>\n<span class="k">description</span>: '+s.ds+'\n<span class="k">triggers</span>: <span class="v">'+s.trig+'</span>\n<span class="k">outputs</span>: '+s.out+'\n<span class="c">---</span>\n\n<span class="c"># 用法</span>\n  '+s.ex+'</pre></div>'+
+    '<div class="forge"><button class="btn btn-forge" id="runBtn">▶ 调用 Skill</button>'+
+    '<button class="btn btn-ghost" data-close>关闭</button></div>'+
+    '<div class="runout" id="runout"><div class="runrow"><span class="spin" style="border-color:rgba(63,125,110,.3);border-top-color:var(--sage)"></span> 正在生成…</div></div></div>';
+  document.getElementById('runBtn').addEventListener('click',function(){runSkill(s,this)});
+  open();
+}
+function runSkill(s,btn){
+  var out=document.getElementById('runout');out.classList.add('on');
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span> 生成中…';
+  setTimeout(function(){
+    out.innerHTML='<div class="runrow" style="color:var(--sage-deep)">✓ 已生成 · '+s.out+'</div>'+
+      '<div class="mdcard"><div class="mh"><i></i><i></i><i></i><span>output · '+s.nm+'</span></div>'+
+      '<pre><span class="c">/* '+s.nm+' — generated */</span>\n<span class="k">.'+s.nm.split('-')[0]+'</span> {\n  <span class="k">/* '+s.out+' */</span>\n}</pre></div>';
+    btn.disabled=false;btn.innerHTML='▶ 再次调用';
+    toastMsg('▶ 已调用 <b>'+s.nm+'</b>');
+  },1100);
+}
+function open(){modal.classList.add('on')}
+function close(){modal.classList.remove('on')}
+function toastMsg(html){toast.innerHTML=html;toast.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(function(){toast.classList.remove('on')},2600)}
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.tab===id)});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){switchTab(t.dataset.tab)})});
+document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){
+  document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on');renderInsp(c.dataset.f);
+})});
+modal.addEventListener('click',function(e){if(e.target.hasAttribute('data-close'))close()});
+window.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+
+renderInsp('all');renderSkills();
+})();
+</script>
+</body>
+</html>
