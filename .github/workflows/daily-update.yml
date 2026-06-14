@@ -1,0 +1,47 @@
+name: AI Trends 每日自动更新
+
+# 每天定时调研并更新日报。提交回 main 后 GitHub Pages 会自动重新部署。
+on:
+  schedule:
+    # cron 用 UTC 时间。00:00 UTC = 北京时间 08:00。
+    # 注意：GitHub Actions 定时任务在高峰期可能延迟几分钟到半小时，属正常现象。
+    - cron: "0 0 * * *"
+  workflow_dispatch: {}   # 也可在 Actions 页面手动点「Run workflow」立即测试
+
+permissions:
+  contents: write          # 允许把更新后的文件提交回仓库
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 调研并更新日报
+        env:
+          KIMI_API_KEY: ${{ secrets.KIMI_API_KEY }}
+          KIMI_MODEL: ${{ vars.KIMI_MODEL }}   # 可选：在仓库 Variables 里设置以覆盖默认模型
+        run: node scripts/update-trends.mjs
+
+      - name: 提交变更
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "trends-bot"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add ai-trends/js/data-reports.js ai-trends/index.html
+            git commit -m "chore(ai-trends): 每日自动更新 $(TZ=Asia/Shanghai date +%F)"
+            git push
+            echo "已提交并推送更新。"
+          else
+            echo "无变化，跳过提交。"
+          fi
