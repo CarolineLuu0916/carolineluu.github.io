@@ -22,7 +22,7 @@ const REPORTS = join(ROOT, "ai-trends", "js", "data-reports.js");
 const INDEX = join(ROOT, "ai-trends", "index.html");
 
 const API_KEY = process.env.KIMI_API_KEY;
-const MODEL = process.env.KIMI_MODEL || "kimi-k2-0711-preview";
+const MODEL = process.env.KIMI_MODEL || "moonshot-v1-32k";
 const BASE = "https://api.moonshot.cn/v1";
 
 if (!API_KEY) {
