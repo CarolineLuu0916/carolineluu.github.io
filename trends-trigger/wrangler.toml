@@ -1,0 +1,12 @@
+# AI Trends 触发器 Worker
+# 作用：① 每天定点稳定触发 GitHub 的 daily-update 工作流（取代 GitHub 自带不靠谱的 cron）
+#       ② 给网页「一键更新」按钮提供一个 HTTP 端点
+# 部署：在本目录运行  wrangler secret put GH_PAT  →  wrangler deploy
+name = "ai-trends-trigger"
+main = "src/worker.js"
+compatibility_date = "2025-06-01"
+
+# Cloudflare 的定时触发（UTC）。0 0 = 00:00 UTC = 北京 08:00。
+# Cloudflare cron 跑在自家边缘、可靠，不像 GitHub schedule 会被丢任务。
+[triggers]
+crons = ["0 0 * * *"]

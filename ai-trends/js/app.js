@@ -61,6 +61,27 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
   /* ============ 今日简报 ============ */
+  // 网页「一键更新」：POST 到触发器 Worker → 由它去触发 GitHub 的 daily-update 工作流。
+  // GitHub 令牌只在 Worker 服务端，不进前端。Worker 名字需为 ai-trends-trigger，URL 才对得上。
+  const TRIGGER_URL = "https://ai-trends-trigger.carolineluu0916.workers.dev";
+  async function triggerDailyUpdate(btn) {
+    const old = btn.textContent;
+    btn.disabled = true; btn.textContent = "⟳ 触发中…";
+    try {
+      const res = await fetch(TRIGGER_URL, { method: "POST" });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        btn.textContent = "✓ 已触发，约 1–2 分钟后刷新本页查看";
+      } else {
+        btn.textContent = "✗ 触发失败，详情见控制台";
+        console.error("[trigger] 失败", res.status, data);
+      }
+    } catch (e) {
+      btn.textContent = "✗ 连不上后端（需开 Clash 全局）";
+      console.error("[trigger]", e);
+    }
+    setTimeout(() => { btn.disabled = false; btn.textContent = old; }, 6000);
+  }
   function renderDaily(idx) {
     idx = idx || 0;
     const r = REPORTS[idx];
@@ -93,6 +114,7 @@
           <span class="daily-vol">${r.date.replace(/-/g, ".")} ${r.weekday}</span>
           ${archive}
         </div>
+        <div class="sec-actions rv"><button class="btn ghost" id="updDaily" title="触发后端立即调研并生成今日日报">⟳ 立即拉取今日日报</button></div>
         <h1 class="daily-headline rv">${r.headline}</h1>
         <p class="daily-tldr rv">${r.tldr}</p>
         <div class="vane-row">${vanes}</div>
@@ -105,6 +127,7 @@
       if (b.disabled) return;
       renderDaily(Math.max(0, Math.min(REPORTS.length - 1, idx + (+b.dataset.step))));
     });
+    $("#updDaily").onclick = () => triggerDailyUpdate($("#updDaily"));
     afterRender();
   }
 
