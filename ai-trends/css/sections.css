@@ -8,8 +8,24 @@
 .daily-vol {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: .25em; color: var(--acc);
 }
-.daily-date-pick { display: flex; gap: 8px; }
-.daily-date-pick .chip { font-family: var(--font-mono); font-size: 12px; padding: 5px 13px; }
+.daily-archive { display: inline-flex; align-items: center; gap: 8px; }
+.daily-pager {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 17px; line-height: 1;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink-2);
+  cursor: pointer; transition: all .3s var(--ease);
+}
+.daily-pager:hover:not(:disabled) { border-color: var(--acc); color: var(--acc); }
+.daily-pager:disabled { opacity: .3; cursor: not-allowed; }
+.daily-select {
+  font-family: var(--font-mono); font-size: 12px; color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; max-width: 230px;
+  border: 1px solid var(--line); background: var(--card); cursor: pointer;
+  transition: all .3s var(--ease);
+}
+.daily-select:hover { border-color: var(--acc); }
+.daily-archive-cnt { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: .05em; }
 .daily-headline {
   font-family: var(--font-display); font-weight: 700;
   font-size: clamp(30px, 4.6vw, 50px); line-height: 1.2; letter-spacing: -.01em;
@@ -92,6 +108,21 @@
 .term-fresh .dot { color: var(--warm); }
 
 /* ---------- 项目库 ---------- */
+.repo-modebar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin: 30px 0 4px; }
+.sec-actions { margin: 18px 0 4px; }
+.repo-seg {
+  display: inline-flex; gap: 4px; padding: 4px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--card);
+}
+.seg-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  padding: 8px 20px; border-radius: 999px; border: 0; background: transparent;
+  color: var(--ink-2); cursor: pointer; transition: all .35s var(--ease);
+}
+.seg-btn:hover { color: var(--acc); }
+.seg-btn.on { background: var(--ink); color: #fff; box-shadow: 0 8px 18px -10px rgba(27, 24, 18, .5); }
+.seg-cnt { font-family: var(--font-mono); font-size: 11px; opacity: .6; }
 .repo-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 34px 0 8px; }
 .repo-meta-line { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); margin: 12px 0 24px; letter-spacing: .05em; }
 .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }

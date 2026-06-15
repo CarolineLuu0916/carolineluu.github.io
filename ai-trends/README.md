@@ -10,7 +10,7 @@ AI Agent 行业观察站 — curated by **Caroline Lu**
 |------|------|----------|
 | 今日简报 | 每日行业日报：要闻 + 「意味着什么」解读 + 风向标，支持翻看历史 | `js/data-reports.js` |
 | 百科 | AI Agent 知识点速查，支持搜索/提问，含产品视角与最新动态 | `js/data-wiki.js` |
-| 项目库 | GitHub 高星项目精选，9 大分区，真实 star 数据 | `js/data-repos.js` |
+| 项目库 | 双模：GitHub 高星**开源项目**（9 大分区，真实 star）+ **Agent Skills 技能库**（8 大分区，可复用专长） | `js/data-repos.js` / `js/data-skills.js` |
 | 模型图鉴 | 主流/非主流模型对比：定位、优缺点、价格、按场景速查 | `js/data-models.js` |
 | 时间线 | 2017→2026 大事件进化节点，分五幕 | `js/data-timeline.js` |
 | 关于 | 作者与站点机制 | `js/app.js` 内 |
@@ -43,7 +43,11 @@ AI Agent 行业观察站 — curated by **Caroline Lu**
    - 顶部 `picks`（按场景速查）随格局变化同步调整。
 5. **时间线** `data-timeline.js`
    - 只收「进化节点」级别的大事件，宁缺毋滥。
-6. 更新任何文件后，把 `index.html` 里静态资源的 `?v=` 版本号改成当天日期，避免浏览器缓存。
+6. **Skill 技能库** `data-skills.js`
+   - 收录标准：真实存在、可被 Agent 调用、来源可考（官方 / 平台 / 社区）。
+   - 每条写明 `tagline`（一句话定位）、`what`（做什么）、`why`（对工作流意味着什么），并标 `source`（来源）与 `cat`（8 大分区之一）；有公开仓库的填 `gh`。
+   - 新 skill 多来自 `github.com/anthropics/skills` 及各平台官方（Cloudflare/GSAP/Figma）；变动不频繁，按需更新即可，不必每日。
+7. 更新任何文件后，把 `index.html` 里静态资源的 `?v=` 版本号改成当天日期，避免浏览器缓存。
 
 ## 备注
 

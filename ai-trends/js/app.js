@@ -7,7 +7,7 @@
   const fmt = n => n.toLocaleString("en-US");
   const REPORTS = window.AIT_REPORTS, WIKI = window.AIT_WIKI,
         REPOS = window.AIT_REPOS, TL = window.AIT_TIMELINE,
-        MODELS = window.AIT_MODELS;
+        MODELS = window.AIT_MODELS, SKILLS = window.AIT_SKILLS;
 
   /* ---------- 顶部日期 ---------- */
   const today = REPORTS[0].date.replace(/-/g, ".");
@@ -64,8 +64,15 @@
   function renderDaily(idx) {
     idx = idx || 0;
     const r = REPORTS[idx];
-    const picks = REPORTS.map((x, i) =>
-      `<button class="chip ${i === idx ? "on" : ""}" data-ri="${i}">${x.date.slice(5).replace("-", ".")}</button>`).join("");
+    const opts = REPORTS.map((x, i) =>
+      `<option value="${i}" ${i === idx ? "selected" : ""}>${x.date.replace(/-/g, ".")} ${x.weekday} · ${x.vol}</option>`).join("");
+    const archive = `
+      <span class="daily-archive">
+        <button class="daily-pager" data-step="1" ${idx >= REPORTS.length - 1 ? "disabled" : ""} title="上一期（更早）" aria-label="上一期">‹</button>
+        <select class="daily-select" id="dailySelect" title="跳转往期">${opts}</select>
+        <button class="daily-pager" data-step="-1" ${idx <= 0 ? "disabled" : ""} title="下一期（更新）" aria-label="下一期">›</button>
+        <span class="daily-archive-cnt">共 ${REPORTS.length} 期</span>
+      </span>`;
     const vanes = r.vane.map(v => {
       const sym = v.dir === "up" ? "↗" : v.dir === "down" ? "↘" : "→";
       return `<div class="vane ${v.dir} rv"><span class="dir">${sym}</span><span>${v.label}</span><span class="note">${v.note}</span></div>`;
@@ -84,7 +91,7 @@
         <div class="daily-kicker rv">
           <span class="eyebrow" style="margin:0">DAILY BRIEFING · ${r.vol}</span>
           <span class="daily-vol">${r.date.replace(/-/g, ".")} ${r.weekday}</span>
-          <span class="daily-date-pick">${picks}</span>
+          ${archive}
         </div>
         <h1 class="daily-headline rv">${r.headline}</h1>
         <p class="daily-tldr rv">${r.tldr}</p>
@@ -92,7 +99,12 @@
         <div class="h-rule rv"><span class="t">今日要闻</span><span class="n">${r.items.length} ITEMS · 每日更新</span></div>
         <div class="news-list">${news}</div>
       </section>`;
-    $$("[data-ri]").forEach(b => b.onclick = () => renderDaily(+b.dataset.ri));
+    const sel = $("#dailySelect");
+    if (sel) sel.onchange = () => renderDaily(+sel.value);
+    $$(".daily-pager").forEach(b => b.onclick = () => {
+      if (b.disabled) return;
+      renderDaily(Math.max(0, Math.min(REPORTS.length - 1, idx + (+b.dataset.step))));
+    });
     afterRender();
   }
 
@@ -127,7 +139,7 @@
     input.oninput = () => { wikiQ = input.value.trim(); drawTerms(); };
     input.onkeydown = e => { if (e.key === "Enter") ask(); };
     $("#askBtn").onclick = ask;
-    $("#updBtn").onclick = showUpdateModal;
+    $("#updBtn").onclick = () => showUpdateModal("wiki");
     afterRender();
   }
   function termMatches(t, q) {
@@ -184,39 +196,66 @@
       if (first) setTimeout(() => first.scrollIntoView({ behavior: "smooth", block: "center" }), 150);
     }
   }
-  function showUpdateModal() {
+  const UPDATE_PROMPTS = {
+    wiki:     { title: "更新百科", body: "请更新 AI Trends 的百科 js/data-wiki.js：联网核对最近动态，刷新相关词条的 fresh 字段与顶部 updated 日期；出现重要新概念则按规范新增词条（含 pm 产品视角）。改完把 index.html 里 data-wiki.js 的 ?v= 改成当天日期。" },
+    repos:    { title: "更新项目库（star / 新项目）", body: "请更新 AI Trends 的项目库 js/data-repos.js：用 GitHub API 抓取各仓库真实 star 数并刷新、更新 updated 字段；有值得收录的新 Agent 项目就按规范新增（写明 review 与 fit）。改完把 index.html 里 data-repos.js 的 ?v= 改成当天日期。" },
+    skills:   { title: "更新技能库", body: "请更新 AI Trends 的技能库 js/data-skills.js：核对各 Skill 是否仍有效、来源有无变化，补充新出现的官方 / 平台 / 社区 Skill（按 8 大分区归类，写明 tagline / what / why / source）。改完把 index.html 里 data-skills.js 的 ?v= 改成当天日期。" },
+    models:   { title: "更新模型图鉴", body: "请更新 AI Trends 的模型图鉴 js/data-models.js：有新模型发布或大版本更新时新增 / 修订条目（价格、上下文、基准须有出处），同步顶部 picks 场景速查。改完把 index.html 里 data-models.js 的 ?v= 改成当天日期。" },
+    timeline: { title: "补充时间线", body: "请检查 AI Trends 的时间线 js/data-timeline.js：只补「进化节点」级别的大事件，宁缺毋滥。改完把 index.html 里 data-timeline.js 的 ?v= 改成当天日期。" },
+  };
+  function showUpdateModal(section) {
+    const p = UPDATE_PROMPTS[section] || { title: "更新本站数据", body: "请更新 AI Trends 网站：联网调研最近动态，按 README 规范重写对应的 js/data-*.js 数据文件，并同步 index.html 的 ?v= 版本号。" };
     openModal(`
-      <h3>↻ 如何更新百科 / 日报 / 项目库</h3>
-      <p>本站是<b>数据驱动</b>的静态网站：所有内容都在 <code>js/data-*.js</code> 四个数据文件里。更新 = 让 Claude Code 重新调研并重写数据文件。</p>
-      <p>在本项目目录打开 Claude Code，粘贴这句话：</p>
-      <pre>请更新 AI Trends 网站：联网调研最近 24 小时的 AI Agent 行业动态，按 README 中的更新规范重写 js/data-reports.js（新增今日日报）、刷新 js/data-repos.js 的 star 数据，并把有变化的知识点同步进 js/data-wiki.js 的 fresh 字段。</pre>
+      <h3>↻ ${p.title}</h3>
+      <p>本站是<b>数据驱动</b>的纯静态网站，<b>页面本身不能联网调研</b>——更新由 <b>Claude Code</b> 实际执行。在本项目目录打开 Claude Code，把下面这句粘进去即可（它会调研并重写数据文件，完成后刷新页面就能看到）：</p>
+      <pre>${p.body}</pre>
       <button class="btn" id="copyPrompt">复制更新指令</button>
-      <p style="margin-top:14px;font-size:13px">提示：星数抓取会自动走你的 Clash 代理（127.0.0.1:7897），无需额外配置。</p>`);
+      <p style="margin-top:14px;font-size:13px;color:var(--ink-3)">想做到「网页上点一下、一分钟后自动更新」？给本站接一个后端触发器（Cloudflare Worker → GitHub Action）即可，跟 Caroline 说一声就能加上。</p>`);
     $("#copyPrompt").onclick = e => {
       navigator.clipboard.writeText($(".modal pre").textContent).then(() => { e.target.textContent = "✓ 已复制"; });
     };
   }
 
-  /* ============ 项目库 ============ */
-  let repoCat = "all";
+  /* ============ 项目库（开源项目 + Agent Skills 双模） ============ */
+  let repoMode = "repos";   // repos | skills
+  let repoCat = "all";      // 开源项目分类
+  let skillCat = "all";     // Skill 分类
   function renderRepos() {
-    const total = REPOS.items.length;
-    const chips = [`<button class="chip ${repoCat === "all" ? "on" : ""}" data-rc="all">全部 <span class="cnt">${total}</span></button>`]
+    const modebar = `
+      <div class="repo-modebar rv">
+        <div class="repo-seg">
+          <button class="seg-btn ${repoMode === "repos" ? "on" : ""}" data-rm="repos">💎 开源项目 <span class="seg-cnt">${REPOS.items.length}</span></button>
+          <button class="seg-btn ${repoMode === "skills" ? "on" : ""}" data-rm="skills">🧩 Agent Skills <span class="seg-cnt">${SKILLS.items.length}</span></button>
+        </div>
+        <button class="btn ghost" id="updData">↻ ${repoMode === "repos" ? "更新 star / 项目" : "更新技能库"}</button>
+      </div>`;
+    view.innerHTML = repoMode === "repos" ? reposMarkup(modebar) : skillsMarkup(modebar);
+    $$("[data-rm]").forEach(b => b.onclick = () => { repoMode = b.dataset.rm; renderRepos(); });
+    $("#updData").onclick = () => showUpdateModal(repoMode === "repos" ? "repos" : "skills");
+    if (repoMode === "repos") {
+      drawRepos();
+      $$("[data-rc]").forEach(b => b.onclick = () => { repoCat = b.dataset.rc; renderRepos(); });
+    } else {
+      drawSkills();
+      $$("[data-sc]").forEach(b => b.onclick = () => { skillCat = b.dataset.sc; renderRepos(); });
+    }
+    afterRender();
+  }
+  function reposMarkup(seg) {
+    const chips = [`<button class="chip ${repoCat === "all" ? "on" : ""}" data-rc="all">全部 <span class="cnt">${REPOS.items.length}</span></button>`]
       .concat(REPOS.cats.map(c =>
         `<button class="chip ${repoCat === c.id ? "on" : ""}" data-rc="${c.id}">${c.icon} ${c.label}
          <span class="cnt">${REPOS.items.filter(r => r.cat === c.id).length}</span></button>`)).join("");
-    view.innerHTML = `
+    return `
       <section class="page">
-        <div class="eyebrow rv">CURATED REPOS · 数据更新于 ${REPOS.updated}</div>
-        <h1 class="page-title rv">GitHub 高星项目库</h1>
-        <p class="page-sub rv">只收录「值得花时间了解」的项目：每个都有一句话定位、入选理由和适用人群。星数为实时抓取的真实数据。</p>
+        <div class="eyebrow rv">CURATED LIBRARY · 数据更新于 ${REPOS.updated}</div>
+        <h1 class="page-title rv">项目库</h1>
+        <p class="page-sub rv">两类「值得花时间了解」的东西：能跑的<b>开源项目</b>，和能调用的 <b>Agent Skill</b>（可复用专长）。各自分门别类，都写明定位与适用人群。</p>
+        ${seg}
         <div class="repo-toolbar rv">${chips}</div>
         <div class="repo-meta-line" id="repoCount"></div>
         <div class="repo-grid" id="repoGrid"></div>
       </section>`;
-    drawRepos();
-    $$("[data-rc]").forEach(b => b.onclick = () => { repoCat = b.dataset.rc; renderRepos(); });
-    afterRender();
   }
   function drawRepos() {
     const cat = REPOS.cats.find(c => c.id === repoCat);
@@ -239,6 +278,44 @@
     observeReveals(); animateStars();
   }
 
+  /* ---------- Agent Skills ---------- */
+  const skillSrcTag = s => s === "Cloudflare" ? "eco" : s === "GSAP" ? "cn" : s === "社区" ? "os" : "gl";
+  function skillsMarkup(seg) {
+    const chips = [`<button class="chip ${skillCat === "all" ? "on" : ""}" data-sc="all">全部 <span class="cnt">${SKILLS.items.length}</span></button>`]
+      .concat(SKILLS.cats.map(c =>
+        `<button class="chip ${skillCat === c.id ? "on" : ""}" data-sc="${c.id}">${c.icon} ${c.label}
+         <span class="cnt">${SKILLS.items.filter(s => s.cat === c.id).length}</span></button>`)).join("");
+    return `
+      <section class="page">
+        <div class="eyebrow rv">AGENT SKILLS · 整理于 ${SKILLS.updated}</div>
+        <h1 class="page-title rv">Skill 技能库</h1>
+        <p class="page-sub rv">${SKILLS.intro}</p>
+        ${seg}
+        <div class="repo-toolbar rv">${chips}</div>
+        <div class="repo-meta-line" id="skillCount"></div>
+        <div class="repo-grid" id="skillGrid"></div>
+      </section>`;
+  }
+  function drawSkills() {
+    const cat = SKILLS.cats.find(c => c.id === skillCat);
+    const list = SKILLS.items.filter(s => skillCat === "all" || s.cat === skillCat);
+    $("#skillCount").textContent = (cat ? cat.icon + " " + cat.label + " — " + cat.blurb : "全部分类 · 按主题排列") + " · " + list.length + " 个 Skill";
+    const catLabel = id => { const c = SKILLS.cats.find(x => x.id === id); return c ? c.icon + " " + c.label : ""; };
+    $("#skillGrid").innerHTML = list.map(s => `
+      <div class="card repo-card rv">
+        <div class="repo-top">
+          <span class="repo-name">${s.name}</span>
+          <span class="tag ${skillSrcTag(s.source)}">${s.source}</span>
+        </div>
+        <div class="repo-cat-tag">${catLabel(s.cat)}${s.gh ? " · " + s.gh : ""}</div>
+        <div class="repo-tagline">${s.tagline}</div>
+        <div class="repo-review">${s.what}</div>
+        <div class="repo-fit"><b>意味着什么：</b>${s.why}</div>
+        ${s.gh ? `<a class="repo-link" href="https://github.com/${s.gh}" target="_blank" rel="noopener">github.com/${s.gh} ↗</a>` : ``}
+      </div>`).join("");
+    observeReveals();
+  }
+
   /* ============ 模型图鉴 ============ */
   let modelGroup = "all";
   function renderModels() {
@@ -257,6 +334,7 @@
         <div class="eyebrow rv">MODEL ATLAS · 数据截至 ${MODELS.updated}</div>
         <h1 class="page-title rv">模型图鉴</h1>
         <p class="page-sub rv">主流与值得关注的「非主流」模型一页看全：定位、优缺点、价格与适用场景。${MODELS.note}</p>
+        <div class="sec-actions rv"><button class="btn ghost" id="updModels">↻ 更新模型图鉴</button></div>
         <div class="h-rule rv"><span class="t">按场景速查</span><span class="n">QUICK PICKS</span></div>
         <div class="pick-grid">${picks}</div>
         <div class="h-rule rv"><span class="t">全部模型</span><span class="n">${MODELS.items.length} MODELS</span></div>
@@ -265,6 +343,7 @@
       </section>`;
     drawModels();
     $$("[data-mg]").forEach(b => b.onclick = () => { modelGroup = b.dataset.mg; renderModels(); });
+    $("#updModels").onclick = () => showUpdateModal("models");
     afterRender();
   }
   function drawModels() {
@@ -310,11 +389,13 @@
         <div class="eyebrow rv">EVOLUTION · 2017 → 2026</div>
         <h1 class="page-title rv">大事件进化时间线</h1>
         <p class="page-sub rv">从 Transformer 到个人 Agent 平台之争——理解现在的最快方式，是看清我们是怎么走到这里的。</p>
+        <div class="sec-actions rv"><button class="btn ghost" id="updTimeline">↻ 补充时间线</button></div>
         <div class="tl-wrap">
           <div class="tl-spine"><div class="tl-spine-fill" id="spineFill"></div></div>
           ${eras}
         </div>
       </section>`;
+    $("#updTimeline").onclick = () => showUpdateModal("timeline");
     afterRender();
     const wrap = $(".tl-wrap"), fill = $("#spineFill");
     function onScroll() {
@@ -344,7 +425,7 @@
           <div class="card about-card rv">
             <h3>站点机制</h3>
             <ul class="mech-list">
-              <li><span class="mech-num">01</span><span><b>数据驱动</b> — 全部内容在 js/data-*.js 四个文件，正文与数据彻底分离</span></li>
+              <li><span class="mech-num">01</span><span><b>数据驱动</b> — 全部内容在 js/data-*.js 五个文件，正文与数据彻底分离</span></li>
               <li><span class="mech-num">02</span><span><b>真实数据</b> — GitHub 星数实时抓取（走本地代理），新闻经多源交叉验证</span></li>
               <li><span class="mech-num">03</span><span><b>每日更新</b> — 对 Claude Code 说一句话，自动调研并重写数据文件</span></li>
               <li><span class="mech-num">04</span><span><b>收录有门槛</b> — 项目库只收「值得花时间」的项目，每个都写明入选理由</span></li>
