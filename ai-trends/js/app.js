@@ -60,25 +60,29 @@
   mask.addEventListener("click", e => { if (e.target === mask) closeModal(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
-  /* ============ 今日简报 ============ */
-  // 网页「一键更新」：POST 到触发器 Worker → 由它去触发 GitHub 的 daily-update 工作流。
+  /* ============ 一键更新（各版块通用） ============ */
+  // 网页按钮 POST 到触发器 Worker → 由它带 section 去触发 GitHub 工作流，后端调研/抓取后自动改数据文件并提交。
   // GitHub 令牌只在 Worker 服务端，不进前端。Worker 名字需为 ai-trends-trigger，URL 才对得上。
   const TRIGGER_URL = "https://ai-trends-trigger.carolineluu0916.workers.dev";
-  async function triggerDailyUpdate(btn) {
+  async function triggerUpdate(section, btn) {
     const old = btn.textContent;
-    btn.disabled = true; btn.textContent = "⟳ 触发中…";
+    btn.disabled = true; btn.textContent = "⟳ 已触发，后台更新中…";
     try {
-      const res = await fetch(TRIGGER_URL, { method: "POST" });
+      const res = await fetch(TRIGGER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ section }),
+      });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.ok) {
         btn.textContent = "✓ 已触发，约 1–2 分钟后刷新本页查看";
       } else {
         btn.textContent = "✗ 触发失败，详情见控制台";
-        console.error("[trigger] 失败", res.status, data);
+        console.error("[trigger] 失败", section, res.status, data);
       }
     } catch (e) {
       btn.textContent = "✗ 连不上后端（需开 Clash 全局）";
-      console.error("[trigger]", e);
+      console.error("[trigger]", section, e);
     }
     setTimeout(() => { btn.disabled = false; btn.textContent = old; }, 6000);
   }
@@ -127,7 +131,7 @@
       if (b.disabled) return;
       renderDaily(Math.max(0, Math.min(REPORTS.length - 1, idx + (+b.dataset.step))));
     });
-    $("#updDaily").onclick = () => triggerDailyUpdate($("#updDaily"));
+    $("#updDaily").onclick = () => triggerUpdate("daily", $("#updDaily"));
     afterRender();
   }
 
@@ -162,7 +166,7 @@
     input.oninput = () => { wikiQ = input.value.trim(); drawTerms(); };
     input.onkeydown = e => { if (e.key === "Enter") ask(); };
     $("#askBtn").onclick = ask;
-    $("#updBtn").onclick = () => showUpdateModal("wiki");
+    $("#updBtn").onclick = () => triggerUpdate("wiki", $("#updBtn"));
     afterRender();
   }
   function termMatches(t, q) {
@@ -219,25 +223,6 @@
       if (first) setTimeout(() => first.scrollIntoView({ behavior: "smooth", block: "center" }), 150);
     }
   }
-  const UPDATE_PROMPTS = {
-    wiki:     { title: "更新百科", body: "请更新 AI Trends 的百科 js/data-wiki.js：联网核对最近动态，刷新相关词条的 fresh 字段与顶部 updated 日期；出现重要新概念则按规范新增词条（含 pm 产品视角）。改完把 index.html 里 data-wiki.js 的 ?v= 改成当天日期。" },
-    repos:    { title: "更新项目库（star / 新项目）", body: "请更新 AI Trends 的项目库 js/data-repos.js：用 GitHub API 抓取各仓库真实 star 数并刷新、更新 updated 字段；有值得收录的新 Agent 项目就按规范新增（写明 review 与 fit）。改完把 index.html 里 data-repos.js 的 ?v= 改成当天日期。" },
-    skills:   { title: "更新技能库", body: "请更新 AI Trends 的技能库 js/data-skills.js：核对各 Skill 是否仍有效、来源有无变化，补充新出现的官方 / 平台 / 社区 Skill（按 8 大分区归类，写明 tagline / what / why / source）。改完把 index.html 里 data-skills.js 的 ?v= 改成当天日期。" },
-    models:   { title: "更新模型图鉴", body: "请更新 AI Trends 的模型图鉴 js/data-models.js：有新模型发布或大版本更新时新增 / 修订条目（价格、上下文、基准须有出处），同步顶部 picks 场景速查。改完把 index.html 里 data-models.js 的 ?v= 改成当天日期。" },
-    timeline: { title: "补充时间线", body: "请检查 AI Trends 的时间线 js/data-timeline.js：只补「进化节点」级别的大事件，宁缺毋滥。改完把 index.html 里 data-timeline.js 的 ?v= 改成当天日期。" },
-  };
-  function showUpdateModal(section) {
-    const p = UPDATE_PROMPTS[section] || { title: "更新本站数据", body: "请更新 AI Trends 网站：联网调研最近动态，按 README 规范重写对应的 js/data-*.js 数据文件，并同步 index.html 的 ?v= 版本号。" };
-    openModal(`
-      <h3>↻ ${p.title}</h3>
-      <p>本站是<b>数据驱动</b>的纯静态网站，<b>页面本身不能联网调研</b>——更新由 <b>Claude Code</b> 实际执行。在本项目目录打开 Claude Code，把下面这句粘进去即可（它会调研并重写数据文件，完成后刷新页面就能看到）：</p>
-      <pre>${p.body}</pre>
-      <button class="btn" id="copyPrompt">复制更新指令</button>
-      <p style="margin-top:14px;font-size:13px;color:var(--ink-3)">📍「今日简报」已支持<b>网页一键更新</b>（那一页的「⟳ 立即拉取今日日报」按钮，由 Cloudflare 定时器 + 后端触发器驱动）。本版块属于<b>慢变量</b>，暂时仍走上面这段指令手动更新；想把它也并进一键，跟 Caroline 说一声扩下脚本即可。</p>`);
-    $("#copyPrompt").onclick = e => {
-      navigator.clipboard.writeText($(".modal pre").textContent).then(() => { e.target.textContent = "✓ 已复制"; });
-    };
-  }
 
   /* ============ 项目库（开源项目 + Agent Skills 双模） ============ */
   let repoMode = "repos";   // repos | skills
@@ -250,11 +235,11 @@
           <button class="seg-btn ${repoMode === "repos" ? "on" : ""}" data-rm="repos">💎 开源项目 <span class="seg-cnt">${REPOS.items.length}</span></button>
           <button class="seg-btn ${repoMode === "skills" ? "on" : ""}" data-rm="skills">🧩 Agent Skills <span class="seg-cnt">${SKILLS.items.length}</span></button>
         </div>
-        <button class="btn ghost" id="updData">↻ ${repoMode === "repos" ? "更新 star / 项目" : "更新技能库"}</button>
+        <button class="btn ghost" id="updData">↻ ${repoMode === "repos" ? "刷新 star 数据" : "更新技能库"}</button>
       </div>`;
     view.innerHTML = repoMode === "repos" ? reposMarkup(modebar) : skillsMarkup(modebar);
     $$("[data-rm]").forEach(b => b.onclick = () => { repoMode = b.dataset.rm; renderRepos(); });
-    $("#updData").onclick = () => showUpdateModal(repoMode === "repos" ? "repos" : "skills");
+    $("#updData").onclick = () => triggerUpdate(repoMode === "repos" ? "repos" : "skills", $("#updData"));
     if (repoMode === "repos") {
       drawRepos();
       $$("[data-rc]").forEach(b => b.onclick = () => { repoCat = b.dataset.rc; renderRepos(); });
@@ -366,7 +351,7 @@
       </section>`;
     drawModels();
     $$("[data-mg]").forEach(b => b.onclick = () => { modelGroup = b.dataset.mg; renderModels(); });
-    $("#updModels").onclick = () => showUpdateModal("models");
+    $("#updModels").onclick = () => triggerUpdate("models", $("#updModels"));
     afterRender();
   }
   function drawModels() {
@@ -418,7 +403,7 @@
           ${eras}
         </div>
       </section>`;
-    $("#updTimeline").onclick = () => showUpdateModal("timeline");
+    $("#updTimeline").onclick = () => triggerUpdate("timeline", $("#updTimeline"));
     afterRender();
     const wrap = $(".tl-wrap"), fill = $("#spineFill");
     function onScroll() {

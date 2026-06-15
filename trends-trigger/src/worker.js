@@ -12,6 +12,7 @@
 const OWNER = "CarolineLuu0916";
 const REPO = "carolineluu.github.io";
 const WORKFLOW = "daily-update.yml";
+const SECTIONS = new Set(["daily", "repos", "wiki", "models", "timeline", "skills"]);
 
 // 允许从这些来源的网页按钮调用（CORS）。其它来源浏览器会拦下。
 const ALLOW_ORIGINS = [
@@ -22,8 +23,9 @@ const ALLOW_ORIGINS = [
   "http://127.0.0.1:4321",
 ];
 
-async function dispatch(env) {
+async function dispatch(env, section) {
   if (!env.GH_PAT) throw new Error("缺少 GH_PAT secret");
+  const sec = SECTIONS.has(section) ? section : "daily";
   const res = await fetch(
     `https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}/dispatches`,
     {
@@ -35,12 +37,13 @@ async function dispatch(env) {
         "User-Agent": "ai-trends-trigger",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ref: "main" }), // 在 main 分支上触发
+      body: JSON.stringify({ ref: "main", inputs: { section: sec } }), // 在 main 分支上触发指定板块
     }
   );
   if (res.status !== 204) {
     throw new Error(`GitHub API ${res.status}: ${await res.text()}`);
   }
+  return sec;
 }
 
 function corsHeaders(origin) {
@@ -54,9 +57,9 @@ function corsHeaders(origin) {
 }
 
 export default {
-  // 定时触发：Cloudflare 每天按 cron 调用
+  // 定时触发：Cloudflare 每天按 cron 调用（只跑日报）
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(dispatch(env));
+    ctx.waitUntil(dispatch(env, "daily"));
   },
 
   // 网页按钮触发
@@ -73,9 +76,14 @@ export default {
         headers: { ...cors, "Content-Type": "text/plain; charset=utf-8" },
       });
     }
+    let section = "daily";
     try {
-      await dispatch(env);
-      return Response.json({ ok: true }, { headers: cors });
+      const body = await request.json();
+      if (body && body.section) section = String(body.section);
+    } catch { /* 无 body 则默认 daily */ }
+    try {
+      const sec = await dispatch(env, section);
+      return Response.json({ ok: true, section: sec }, { headers: cors });
     } catch (e) {
       return Response.json({ ok: false, error: String(e && e.message || e) }, { status: 502, headers: cors });
     }
