@@ -233,7 +233,7 @@
       <p>本站是<b>数据驱动</b>的纯静态网站，<b>页面本身不能联网调研</b>——更新由 <b>Claude Code</b> 实际执行。在本项目目录打开 Claude Code，把下面这句粘进去即可（它会调研并重写数据文件，完成后刷新页面就能看到）：</p>
       <pre>${p.body}</pre>
       <button class="btn" id="copyPrompt">复制更新指令</button>
-      <p style="margin-top:14px;font-size:13px;color:var(--ink-3)">想做到「网页上点一下、一分钟后自动更新」？给本站接一个后端触发器（Cloudflare Worker → GitHub Action）即可，跟 Caroline 说一声就能加上。</p>`);
+      <p style="margin-top:14px;font-size:13px;color:var(--ink-3)">📍「今日简报」已支持<b>网页一键更新</b>（那一页的「⟳ 立即拉取今日日报」按钮，由 Cloudflare 定时器 + 后端触发器驱动）。本版块属于<b>慢变量</b>，暂时仍走上面这段指令手动更新；想把它也并进一键，跟 Caroline 说一声扩下脚本即可。</p>`);
     $("#copyPrompt").onclick = e => {
       navigator.clipboard.writeText($(".modal pre").textContent).then(() => { e.target.textContent = "✓ 已复制"; });
     };
