@@ -17,6 +17,7 @@ const SIM = (() => {
   } catch (e) { return null; }
 })();
 const STATE_KEY = SIM ? "aiva-state-sim-" + SIM.id : "aiva-state";
+window.SIM = SIM;   // 供 os.js 套用该用户的专属手机数据
 
 /* 车主本人(上帝视角)的人设与长期记忆,由 ME.md 维护,启动时注入 system */
 let ME_DOC = "";
@@ -750,13 +751,17 @@ function toolTrace(app, fn, args, real) {
   const badge = real === undefined ? "" : `<i class="tt-badge ${real ? "real" : "sim"}">${real ? "真实" : "演示"}</i>`;
   const msg = addMsg("aiva", `
     <div class="tool-trace">
-      <div class="tt-line"><span class="tt-spin"></span><span class="tt-act">MY ${friendly}</span>${badge}<span class="tt-more" title="查看技术细节">···</span></div>
+      <div class="tt-line"><span class="tt-spin"></span><span class="tt-act">MY ${friendly}</span>${badge}</div>
       <div class="tt-res wait">进行中</div>
-      <div class="tt-tech">${app}.${fn}(${args})</div>
     </div>`, true);
-  msg.querySelector(".tt-more").onclick = () => msg.querySelector(".tool-trace").classList.toggle("tech");
   const res = msg.querySelector(".tt-res"), spin = msg.querySelector(".tt-spin");
-  return { done(text) { res.classList.remove("wait"); res.textContent = text; spin.classList.add("ok"); chatScrollEnd(); } };
+  return { done(text) {
+    res.classList.remove("wait");
+    const t = String(text == null ? "" : text).trim();
+    // 绝不把原始 JSON / 调用参数等技术细节暴露给用户：像数据结构就只显示「✓ 完成」
+    res.textContent = (!t || /^[[{]/.test(t) || /^\s*"?\w+"?\s*:/.test(t)) ? "✓ 完成" : t;
+    spin.classList.add("ok"); chatScrollEnd();
+  } };
 }
 
 /* ----- 执行前撤销窗口（花钱动作的 5 秒反悔权） ----- */
@@ -870,6 +875,8 @@ function bootChat() {
   chatBody().innerHTML = "";
   /* Caroline 本人 + 已解锁:先回放 D1 持久记忆,让「记得之前聊过的一切」可见 */
   if (!SIM && worldAuthed()) { replayAgentMemory(); return; }
+  /* 沙盘用户:回放 TA 在世界里与 MY 的真实互动(= 看板心声同源),对话可连贯接续 */
+  if (SIM) { replaySimMemory(); return; }
   addMsg("sys", `<div class="bubble">MY 已苏醒 · 它会随着对话成长出自己的性格</div>`);
   setTimeout(async () => {
     setMood("excited");
@@ -910,6 +917,35 @@ async function replayAgentMemory() {
 }
 function escapeHtml(s) {
   return String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+/* 沙盘用户:回放 TA 在世界运行中与 MY 的真实互动(D1 world_mem;离线回退到 dashboard 传入的 SIM.mem) */
+async function replaySimMemory() {
+  addMsg("sys", `<div class="bubble">${SIM.name} 的 MY · 正在载入 TA 的经历…</div>`);
+  let recs = [];
+  try {
+    const res = await fetch(WORKER_URL + "/api/world/mem?uid=" + encodeURIComponent(SIM.id) + "&limit=20");
+    if (res.ok) recs = await res.json();
+  } catch (e) { /* 离线则回退 */ }
+  if ((!recs || !recs.length) && SIM.mem && SIM.mem.length) {
+    recs = SIM.mem.map(m => ({ user_msg: m.msg || m.t, my_reply: m.a }));
+  }
+  recs = (recs || []).slice(-12);
+  if (recs.length) {
+    agentHistory = [];
+    for (const r of recs) {
+      if (r.user_msg) { addMsg("user", escapeHtml(r.user_msg)); agentHistory.push({ role: "user", content: r.user_msg }); }
+      if (r.my_reply) { addMsg("aiva", mdLite(r.my_reply)); agentHistory.push({ role: "assistant", content: r.my_reply }); }
+    }
+    if (agentHistory.length > 20) agentHistory = agentHistory.slice(-20);
+    addMsg("sys", `<div class="bubble">— 以上是 ${SIM.name} 与 MY 的经历 · MY 都记得 —</div>`);
+    setMood("happy");
+  } else {
+    setMood("excited");
+    await aivaSay(`嗨 ${SIM.name}！我是你的车灵 MY ✨ 有什么我能帮你的？`, "excited", 700);
+  }
+  setChips(["最近怎么样？", "帮我看看今天的安排", "夸夸你"]);
+  chatScrollEnd();
 }
 /* 轻量 markdown → HTML：先转义防注入，再支持 **粗体** / *斜体* / `代码` / 列表 / 标题 / 换行。
    模型常爱输出 markdown，气泡直接显示会冒出 ** ## 等符号，这里把它渲染成真正的排版。 */
@@ -959,8 +995,15 @@ if (!SIM) { try { if (!localStorage.getItem('my-world-key')) localStorage.setIte
 
 /* 把一轮真实对话(用户说的 + MY 最终回的)写进 D1 持久记忆;仅 Caroline 本人手机且已解锁 */
 function persistTurn(userText, replyText) {
-  if (SIM || !worldAuthed() || !replyText) return;
-  fetch(WORKER_URL + '/api/agent/remember', {
+  if (!worldAuthed() || !replyText) return;
+  if (SIM) {   // 沙盘用户:写入 TA 的 world_mem(与世界运行产生的记忆同源)
+    fetch(WORKER_URL + '/api/world/mem', {
+      method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + worldToken() },
+      body: JSON.stringify({ uid: SIM.id, user_msg: userText, my_reply: replyText, ok: true }),
+    }).catch(() => {});
+    return;
+  }
+  fetch(WORKER_URL + '/api/agent/remember', {   // Caroline 本人 → agent_memory
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: 'Bearer ' + worldToken() },
     body: JSON.stringify({ turns: [{ role: 'user', content: userText }, { role: 'assistant', content: replyText }] }),
@@ -1143,13 +1186,17 @@ async function runAgentTool(name, input) {
   switch (name) {
     case "get_context": {
       const now = new Date();
+      const sd = SIM && SIM.data;   // 沙盘用户:读 TA 自己的专属手机数据,而非 Caroline 的
+      const car = sd && sd.car
+        ? { model: sd.car.model, plate: sd.car.plate, battery: sd.car.battery + "%", range: sd.car.range + "km", odo: sd.car.odo + "km", locked: S.locked }
+        : { model: "SUP C", battery: "86%", range: "428km", locked: S.locked, spot: "公司B2-077" };
       return JSON.stringify({
         now: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")} 周${"日一二三四五六"[now.getDay()]}(真实时间)`,
-        car: { model: "SUP C", battery: "86%", range: "428km", locked: S.locked, spot: "公司B2-077" },
-        user: { name: S.user ? S.user.name : "车主", state: S.userModel.state, concise: S.userModel.concise },
+        car,
+        user: { name: SIM ? SIM.name : (S.user ? S.user.name : "车主"), state: S.userModel.state, concise: S.userModel.concise },
         weather: REAL.weatherCache ? REAL.weatherCache.text + "(真实数据)" : "未获取,需要时调用 get_weather(真实气象)",
-        schedule: "周四14:00-16:30空闲;工作日15:30出发接小桃(近30天21次)",
-        prefs: "洗车:工作日下午/精洗/¥30-50/常去悦洗;充电:快充",
+        schedule: sd ? "见日历App的安排" : "周四14:00-16:30空闲;工作日15:30出发接小桃(近30天21次)",
+        prefs: sd ? (SIM.wo || "见TA的人设") : "洗车:工作日下午/精洗/¥30-50/常去悦洗;充电:快充",
         reminders: (S.reminders || []).map(r => r.text),
         guard: { 免密额度: g.limit, 自主等级: g.auto },
       });
@@ -1955,6 +2002,22 @@ function renderProfile() {
     : (dsKey() ? "DeepSeek 大脑 ›" : "未接入 ›");
 }
 
+/* 沙盘用户:把 TA 的专属手机数据套到界面(车牌/里程/续航/电量/名字/问候),每人各不相同 */
+function applySimIdentity() {
+  if (!SIM || !SIM.data) return;
+  const d = SIM.data, set = (sel, val) => { const el = $(sel); if (el && val != null) el.textContent = val; };
+  if (d.car) {
+    set("#range-num", d.car.range);
+    set(".car-name-row .hpill", d.car.plate);
+    set(".car-display", d.car.model);
+    const cs = $(".car-series"); if (cs) cs.textContent = "MY · " + d.car.model.split(" ")[0] + " SERIES";
+    const wm = $(".sbw-my-stat"); if (wm) wm.innerHTML = `<i>${d.car.battery}%</i> 已上锁 · 续航 ${d.car.range}km`;
+    const wt = $(".sbw-my-top b"); if (wt) wt.textContent = "MY · " + d.car.model;
+  }
+  if (d.sub) set("#me-sub", d.sub);
+  set("#hello-text", "你好，" + (SIM.name || d.name || ""));
+}
+
 /* ---------- 初始化 ---------- */
 applyIcons();
 syncControls();
@@ -1968,6 +2031,7 @@ setStatusbar();
 })();
 if (S.user) { bindUser(); renderFortune(); }
 else showAuth(1);
+applySimIdentity();     // 沙盘用户:套用 TA 的专属手机数据
 REAL.initReminders();   // 恢复未到期的真实提醒(跨刷新存活)
 renderNotifyBadge();    // R2 通知管理入口状态
 mountWorldLock();       // Caroline 本人手机:未解锁则弹出真实锁屏

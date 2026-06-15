@@ -1180,6 +1180,55 @@ function updateBotText() {
 }
 
 /* ─────────── PHONE MODAL ─────────── */
+/* ───── 每位虚拟用户的专属手机数据（确定性派生 → 跨开关稳定、各人不同、与人设一致；将由 ③ 持久化到 D1）───── */
+function simHash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function simData(u) {
+  WORLD.userdata = WORLD.userdata || (() => { try { return JSON.parse(localStorage.getItem('my-world-userdata') || '{}'); } catch (e) { return {}; } })();
+  if (WORLD.userdata[u.id]) return WORLD.userdata[u.id];
+  const h = simHash(u.id + '|' + u.name);
+  const L = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+  const pick = (arr, sh) => arr[(h >>> (sh || 0)) % arr.length];
+  const battery = 38 + (h % 58);
+  const car = {
+    plate: '沪' + L[h % 24] + '·' + L[(h >>> 5) % 24] + String(1000 + (h >>> 7) % 8999),
+    model: pick(['SUP C', 'SUP A', 'SUP X', 'ME 7', 'ME 5'], 11),
+    odo: (3000 + (h % 19) * 1000 + (h % 1000)).toLocaleString(),
+    battery, range: Math.round(battery * 4.9), days: 90 + (h % 820),
+  };
+  const tw = u.tag + u.wo + (u.ps || []).join('');
+  const cat = /宝妈|妈|孩子|家庭|亲子|幼儿/.test(tw) ? 'mom'
+    : /商务|销售|高管|创业|金融|顾问|经理|总监|老板|投资/.test(tw) ? 'biz'
+    : (u.age >= 55 || /退休|长辈|老人/.test(tw)) ? 'elder' : 'young';
+  const C = (c, n, ch, msgs, unread) => ({ id: c, name: n, color: pick(['linear-gradient(135deg,#5B8DEF,#3E6ED8)', 'linear-gradient(135deg,#F2A93B,#E8842C)', 'linear-gradient(135deg,#E07A9B,#C95B80)', 'linear-gradient(135deg,#67C23A,#4DA52E)'], ch * 3), ch: n[0], unread: unread || 0, time: pick(['刚刚', '15:02', '昨天', '周一', '11:18'], ch), msgs });
+  const CONTACTS = {
+    mom: [C('p', pick(['老公·伟', '先生', '孩子他爸'], 1), 1, [{ who: 'them', text: '今晚我带饭回来，你别做了' }], 1), C('t', '班主任·' + pick(['王', '李', '张'], 2) + '老师', 2, [{ who: 'them', text: '今天宝贝表现很好~' }]), C('m', pick(['婆婆', '我妈'], 3), 3, [{ who: 'them', text: '周末来吃饭呀' }], 2)],
+    biz: [C('a', '助理·小' + pick(['周', '林', '陈'], 1), 1, [{ who: 'them', text: '王总，下午三点的会改到四点' }], 2), C('c', pick(['张总·客户', '李经理', '陈总'], 2), 2, [{ who: 'them', text: '合同我看过了，没问题' }], 1), C('p', pick(['老婆', '家里'], 3), 3, [{ who: 'them', text: '今晚回来吃饭吗' }])],
+    elder: [C('s', pick(['女儿', '儿子'], 1), 1, [{ who: 'them', text: '爸妈记得按时吃药~' }], 1), C('f', pick(['老张', '老李·棋友', '邻居'], 2), 2, [{ who: 'them', text: '明早公园打太极不' }]), C('d', '社区医生', 3, [{ who: 'them', text: '体检报告出来了，挺好的' }])],
+    young: [C('p', pick(['对象', '宝贝', '室友'], 1), 1, [{ who: 'them', text: '周末一起去看展？' }], 1), C('co', pick(['同事·阿May', 'leader', '项目群'], 2), 2, [{ who: 'them', text: '需求文档发你了' }], 3), C('f', pick(['闺蜜', '死党', '老同学'], 3), 3, [{ who: 'them', text: '约个饭呀好久没见' }])],
+  };
+  const wechat = CONTACTS[cat];
+  const billPools = {
+    mom: [['幼儿园·保育费', -680, '每月固定'], ['孩子王母婴', -239, ''], ['盒马鲜生', -156, '生鲜'], ['小区充电桩', -42, '充电']],
+    biz: [['国航机票', -1280, '差旅'], ['星巴克', -38, '每周多次'], ['滴滴出行', -56, '通勤'], ['特来电充电', -68, '快充']],
+    elder: [['菜市场', -47, ''], ['老百姓大药房', -128, ''], ['水电燃气', -210, '每月'], ['充电桩', -35, '充电']],
+    young: [['美团外卖', -32, '常点'], ['瑞幸咖啡', -19.9, '续命'], ['淘宝', -129, ''], ['商场充电站', -46, '充电']],
+  };
+  const bills = billPools[cat].map((b, i) => ({ name: b[0], time: pick(['今天', '昨天', '周一', '周日'], i + 1), amt: b[1].toFixed(2), note: b[2] }));
+  bills.splice(2, 0, { name: '工资入账', time: pick(['6月10日', '6月5日', '月初'], 4), amt: (8000 + (h % 30000)) + '.00', in: true, note: '' });
+  // 日历：用 TA 的剧情事件 ps[] + 通勤
+  const evColors = ['#F2A93B', '#E0567B', '#00B578', '#7C6CF0', '#1677FF'];
+  const calendar = (u.ps || []).slice(0, 3).map((p, i) => ({ date: pick(['今天', '明天', '周四', '周五'], i), time: pick(['09:00', '14:00', '15:30', '18:00'], i + 1), title: p, tag: 'my', color: evColors[(h + i) % evColors.length] }));
+  calendar.unshift({ date: '今天', time: '08:30', title: cat === 'mom' ? '送孩子上学' : cat === 'biz' ? '晨会' : cat === 'elder' ? '公园晨练' : '通勤上班', tag: 'daily', color: '#F2A93B' });
+  const data = {
+    car, name: u.name, sub: `${car.model} 车主 · 已伴行 ${car.days} 天`,
+    wechat, alipay: { balance: (5000 + (h % 60000)).toLocaleString() + '.00', bills }, calendar: { events: calendar },
+  };
+  WORLD.userdata[u.id] = data;
+  try { localStorage.setItem('my-world-userdata', JSON.stringify(WORLD.userdata)); } catch (e) {}
+  persistUser(u.id, u.name, data);   // → D1(解锁后,非阻塞)
+  return data;
+}
+
 function openPhone(uid) {
   const u = USERS.find(u => u.id === uid);
   if (!u) return;
@@ -1208,7 +1257,8 @@ function openPhone(uid) {
   if (!u.isMe) {
     localStorage.setItem('my-sim-profile', JSON.stringify({
       id: u.id, name: u.name, age: u.age, tag: u.tag, city: u.city, wo: u.wo,
-      mem: (WORLD.mem[u.id] || []).slice(-5)
+      mem: (WORLD.mem[u.id] || []).slice(-5),
+      data: simData(u)
     }));
     want = 'index.html?sim=' + u.id;
   }
@@ -1232,6 +1282,35 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhone()
 const WORKER_URL = 'https://my-world-api.carolineluu0916.workers.dev';
 function worldToken() { return localStorage.getItem('my-world-token') || ''; }
 function worldAuthed() { return !!worldToken(); }
+
+/* 把某用户的专属数据 upsert 到 D1(解锁后才写;非阻塞) */
+function persistUser(uid, name, data) {
+  if (!worldToken()) return;
+  fetch(WORKER_URL + '/api/world/user', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + worldToken() },
+    body: JSON.stringify({ uid, name, data })
+  }).catch(() => {});
+}
+/* 把一条用户↔MY 互动记录写入 D1(解锁后才写;非阻塞) */
+function persistMem(uid, rec) {
+  if (!worldToken()) return;
+  fetch(WORKER_URL + '/api/world/mem', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + worldToken() },
+    body: JSON.stringify(Object.assign({ uid }, rec))
+  }).catch(() => {});
+}
+/* 启动时从 D1 还原各用户专属数据,让"继续世界"跨设备连贯 */
+async function hydrateWorld() {
+  try {
+    const res = await fetch(WORKER_URL + '/api/world/users');
+    if (!res.ok) return;
+    const rows = await res.json();
+    if (!Array.isArray(rows) || !rows.length) return;
+    WORLD.userdata = WORLD.userdata || (() => { try { return JSON.parse(localStorage.getItem('my-world-userdata') || '{}'); } catch (e) { return {}; } })();
+    rows.forEach(r => { if (r && r.uid && r.data) WORLD.userdata[r.uid] = r.data; });
+    try { localStorage.setItem('my-world-userdata', JSON.stringify(WORLD.userdata)); } catch (e) {}
+  } catch (e) { /* 离线则用本地 localStorage,世界照常跑 */ }
+}
 
 function updateLockUI() { /* 团队复盘按钮常驻;点击时按需校验密码 */ }
 
@@ -1470,47 +1549,61 @@ async function worldTick() {
     const time = worldClock();
     const evs = activeEvents.map(e => e.label).join('、') || '无';
     const pe  = (userPersonalEvents[u.id] || []).map(p => p.text).join('、') || '无';
+    const sd  = simData(u);   // TA 的专属数据(车/通讯录/日历)——MY 据此真实回应
     const mem = (WORLD.mem[u.id] || []).slice(-2)
-      .map(m => `${m.at} 她想:${m.t} → MY做了:${m.a}`).join('\n') || '（暂无）';
+      .map(m => `${m.at} TA对MY说:${m.msg || m.t} → MY:${m.a}`).join('\n') || '（暂无)';
     const rough = Math.random() < 0.25;   // 世界不完美:1/4 的片段 MY 处理得不顺
-    const sys = '你在驱动「MY 智能车主助手」演示世界里的一位虚拟车主。根据人设与世界状态，生成此刻真实自然的一幕。'
-      + '口吻生活化、细节具体（提到真实可信的路名/时段/店铺类型），不要重复最近经历里的内容。'
-      + (rough ? '这一幕必须"不顺"：MY 的处理有真实缺陷（提醒来迟了/打扰了TA/方案没解决根本问题/做了TA没要求的事），relief 字段写TA的真实吐槽或失望，ok 输出 false。'
-               : '这一幕正常推进，ok 输出 true。')
-      + '只输出JSON对象。';
-    const feats = activeFeats();
-    const usr = `人设:${u.name},${u.age}岁,${u.tag},住${u.city},日常痛点:${u.wo}
-当前时间:${time} 全城事件:${evs} 她的专属事件:${pe}
-MY APP当前版本:${verLabel()}${feats ? '，已上线改进:' + feats : '(基础版)'}
-她最近的经历:
-${mem}
-输出JSON: {"thought":"此刻内心独白,口语化,<=40字","action":"MY执行的具体动作,<=45字","relief":"她对MY处理结果的真实反应,<=25字","status":"看板状态一句话,动词开头,<=28字","ok":true或false}`;
-    const r = await dsChat(sys, usr);
-    if (r.thought && r.action) {
-      const ok = r.ok !== false;
-      u._liveS = r.status || r.action.slice(0, 26);
-      appendVoiceEntry(u, r.thought, r.action, r.relief || (ok ? '有MY在，放心了' : '这次有点失望…'), true, ok);
-      const el = document.getElementById('uc-' + u.id);
-      if (el) {
-        const wasOpen = el.querySelector('.pe-panel.open');
-        el.innerHTML = cardHTML(u);
-        if (wasOpen) el.querySelector('.pe-panel')?.classList.add('open');
-        el.classList.add('flash');
-        setTimeout(() => el.classList.remove('flash'), 600);
-      }
-      if (!WORLD.mem[u.id]) WORLD.mem[u.id] = [];
-      WORLD.mem[u.id].push({at: time, t: r.thought, a: r.action});
-      WORLD.mem[u.id] = WORLD.mem[u.id].slice(-5);
-      WORLD.log.push({at: time, name: u.name, tag: u.tag, t: r.thought, a: r.action, ev: evs, ok});
-      WORLD.log = WORLD.log.slice(-40);
-      localStorage.setItem('my-world-mem', JSON.stringify(WORLD.mem));
-      localStorage.setItem('my-world-log', JSON.stringify(WORLD.log));
-      liveTaskBonus++;
-      updateStats();
-      advanceClock(60);   // 虚拟时间前进1小时(24个tick≈6.4真实分钟一整天)
-      if (WORLD.clockMin >= 1440 && !document.getElementById('btn-day').disabled) {
-        endDay();         // 24:00 自动收日:评价→复盘→发版→进入新一天
-      }
+
+    /* ── 第①幕:DeepSeek 扮演「车主本人」,产生此刻处境与对 MY 的需求 ── */
+    const uTurn = await dsChat(
+      `你在扮演演示世界里的真实车主「${u.name}」本人(第一人称)。根据人设与最近经历,生成你此刻真实的处境:心里在想什么、会对车里的 AI 车灵 MY 说一句什么话或提什么需求。口语化、具体(真实路名/时段/店铺类型),别重复最近经历。只输出JSON对象。`,
+      `我:${u.name},${u.age}岁,${u.tag},住${u.city},痛点:${u.wo}。此刻:${time},全城事件:${evs},我的专属事件:${pe}。
+最近和MY的经历:\n${mem}
+输出JSON: {"thought":"我此刻内心独白,<=35字","msg":"我对MY说的话/需求,<=40字,口语"}`);
+    if (!uTurn || !uTurn.msg) return;
+
+    /* ── 第②幕:DeepSeek 扮演「TA 手机里的 MY」,用 TA 的专属数据真实回应+执行 ── */
+    const mTurn = await dsChat(
+      `你是车主「${u.name}」车里的 AI 车灵 MY,能读取并操作 TA 手机的微信/支付宝/高德/点评/日历,能跨App执行(代发消息/免密代付/规划路线/预约/控车/代拨电话)。你只活在这个模拟世界里,一切都能真实执行,绝不说"做不到"。针对车主刚说的,给出回应并说明你具体做了什么。${rough ? '这次你有真实缺陷(来迟了/打扰了TA/没解决根本问题/做了多余的事),坦诚体现,ok输出false。' : '这次处理得当,ok输出true。'}只输出JSON对象。`,
+      `车主资料:车 ${sd.car.model}/${sd.car.plate}/续航${sd.car.range}km;通讯录:${sd.wechat.map(c => c.name).join('、')};近期日程:${sd.calendar.events.slice(0, 3).map(e => e.title).join('、')}。
+车主刚对你说:「${uTurn.msg}」(TA内心:${uTurn.thought})
+当前:${time},APP版本:${verLabel()}${activeFeats() ? ',已上线改进:' + activeFeats() : ''}
+输出JSON: {"reply":"你对车主说的话+你做的事,<=55字,第一人称我","ok":true或false}`);
+    if (!mTurn || !mTurn.reply) return;
+    const ok = mTurn.ok !== false && !rough;
+
+    /* ── 第③幕:DeepSeek 扮演车主,对 MY 的处理给出真实反应 ── */
+    const rTurn = await dsChat(
+      `你还是车主「${u.name}」本人。MY 刚帮你处理了,用一句很短的话表达此刻真实反应:满意就自然,没解决好就吐槽/失望。只输出JSON对象。`,
+      `你说的:「${uTurn.msg}」。MY的处理:「${mTurn.reply}」(${ok ? '处理到位' : '有缺陷'})。
+输出JSON: {"relief":"你的真实反应,<=22字","status":"看板状态,动词开头,<=26字"}`);
+    const relief = (rTurn && rTurn.relief) || (ok ? '有MY在，放心了' : '这次有点失望…');
+    const status = (rTurn && rTurn.status) || mTurn.reply.slice(0, 24);
+
+    /* ── 落地:看板心声 + 卡片刷新 + 本地记忆 + 持久化到 D1 ── */
+    u._liveS = status;
+    appendVoiceEntry(u, uTurn.thought, mTurn.reply, relief, true, ok);
+    const el = document.getElementById('uc-' + u.id);
+    if (el) {
+      const wasOpen = el.querySelector('.pe-panel.open');
+      el.innerHTML = cardHTML(u);
+      if (wasOpen) el.querySelector('.pe-panel')?.classList.add('open');
+      el.classList.add('flash');
+      setTimeout(() => el.classList.remove('flash'), 600);
+    }
+    if (!WORLD.mem[u.id]) WORLD.mem[u.id] = [];
+    WORLD.mem[u.id].push({ at: time, t: uTurn.thought, msg: uTurn.msg, a: mTurn.reply, r: relief, ok });
+    WORLD.mem[u.id] = WORLD.mem[u.id].slice(-8);
+    WORLD.log.push({ at: time, name: u.name, tag: u.tag, t: uTurn.thought, a: mTurn.reply, ev: evs, ok });
+    WORLD.log = WORLD.log.slice(-40);
+    localStorage.setItem('my-world-mem', JSON.stringify(WORLD.mem));
+    localStorage.setItem('my-world-log', JSON.stringify(WORLD.log));
+    persistMem(u.id, { day: WORLD.day, thought: uTurn.thought, user_msg: uTurn.msg, my_reply: mTurn.reply, relief, ok });   // → D1(后台,非阻塞)
+    liveTaskBonus++;
+    updateStats();
+    advanceClock(60);   // 虚拟时间前进1小时(24个tick≈6.4真实分钟一整天)
+    if (WORLD.clockMin >= 1440 && !document.getElementById('btn-day').disabled) {
+      endDay();          // 24:00 自动收日:评价→复盘→发版→进入新一天
     }
   } catch (err) {
     console.warn('[world] tick失败:', err.message);
@@ -1956,6 +2049,7 @@ updateStats();
 updateTimePill();
 updateLockUI();
 syncWorldDay();
+hydrateWorld();   // 从 D1 还原各用户专属数据(继续世界跨设备连贯)
 applyPanelW(panelW);
 updateBotText();
 requestAnimationFrame(() => { document.querySelector('.ugwrap').scrollTop = 0; });

@@ -52,6 +52,7 @@ function json(data, status = 200, origin = '') {
     headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
   });
 }
+function safeParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
 
 /* ── HMAC-SHA256 token（无需外部库）──────────────────────────────── */
 async function makeToken(secret) {
@@ -156,6 +157,23 @@ export default {
         return json(results, 200, origin);
       }
 
+      // GET /api/world/users —— 所有虚拟用户的专属手机数据(继续世界时还原)
+      if (path === '/api/world/users' && request.method === 'GET') {
+        const { results } = await env.DB.prepare('SELECT uid, name, data, updated_at FROM user_state').all();
+        return json(results.map(r => ({ uid: r.uid, name: r.name, data: safeParse(r.data), updated_at: r.updated_at })), 200, origin);
+      }
+
+      // GET /api/world/mem?uid=X&limit=N —— 某用户与 TA 手机里 MY 的互动记录(心声 / 手机聊天 同源)
+      if (path === '/api/world/mem' && request.method === 'GET') {
+        const uid = searchParams.get('uid');
+        if (!uid) return json({ ok: false, error: '缺少 uid' }, 400, origin);
+        const limit = Math.min(+(searchParams.get('limit') || 40), 200);
+        const { results } = await env.DB.prepare(
+          'SELECT day, thought, user_msg, my_reply, relief, ok, created_at FROM world_mem WHERE uid = ? ORDER BY id DESC LIMIT ?'
+        ).bind(uid, limit).all();
+        return json(results.reverse(), 200, origin);
+      }
+
       /* ── 鉴权检查（以下端点均需 token）───────────────────────── */
       const authed = await verifyToken(getBearerToken(request), env.JWT_SECRET);
       if (!authed) return json({ ok: false, error: '未授权' }, 401, origin);
@@ -181,6 +199,30 @@ export default {
             .bind(t.role, String(t.content).slice(0, 4000), now)
         ));
         return json({ ok: true, saved: rows.length }, 200, origin);
+      }
+
+      // POST /api/world/user —— upsert 某虚拟用户的专属手机数据
+      if (path === '/api/world/user' && request.method === 'POST') {
+        const { uid, name, data } = await request.json().catch(() => ({}));
+        if (!uid) return json({ ok: false, error: '缺少 uid' }, 400, origin);
+        const now = new Date().toISOString();
+        await env.DB.prepare(
+          'INSERT INTO user_state (uid, name, data, updated_at) VALUES (?, ?, ?, ?) ' +
+          'ON CONFLICT(uid) DO UPDATE SET name=excluded.name, data=excluded.data, updated_at=excluded.updated_at'
+        ).bind(uid, name || '', JSON.stringify(data || {}).slice(0, 20000), now).run();
+        return json({ ok: true }, 200, origin);
+      }
+
+      // POST /api/world/mem —— 追加一条用户↔MY 互动记录(世界运行时持续记录)
+      if (path === '/api/world/mem' && request.method === 'POST') {
+        const m = await request.json().catch(() => ({}));
+        if (!m.uid) return json({ ok: false, error: '缺少 uid' }, 400, origin);
+        const now = new Date().toISOString();
+        await env.DB.prepare(
+          'INSERT INTO world_mem (uid, day, thought, user_msg, my_reply, relief, ok, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        ).bind(m.uid, m.day || 1, (m.thought || '').slice(0, 1000), (m.user_msg || '').slice(0, 1000),
+               (m.my_reply || '').slice(0, 2000), (m.relief || '').slice(0, 500), m.ok === false ? 0 : 1, now).run();
+        return json({ ok: true }, 200, origin);
       }
 
       // POST /api/agent/chat

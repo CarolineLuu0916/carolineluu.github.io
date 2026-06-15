@@ -1,0 +1,9 @@
+name = "my-world-api"
+main = "src/index.js"
+compatibility_date = "2025-06-14"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "my-world-db"
+database_id = "6607f672-7510-4b24-814f-ad28385b0449"
+migrations_dir = "migrations"

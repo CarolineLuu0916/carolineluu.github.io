@@ -304,6 +304,16 @@ const OS = {
 window.OS = OS;
 window.LIFE = LIFE;   // 暴露生活数据,供 MY 的工具读取(search_carwash / book_maintenance 等)
 
+/* 沙盘用户:用 TA 的专属数据覆盖默认 LIFE(通讯录/账单/日历各人不同,与人设&心声一致) */
+(function applySimLife() {
+  const sim = window.SIM;
+  if (!sim || !sim.data) return;
+  const d = sim.data;
+  if (Array.isArray(d.wechat)) LIFE.wechat.chats = d.wechat;
+  if (d.alipay) { if (d.alipay.balance) LIFE.alipay.balance = d.alipay.balance; if (Array.isArray(d.alipay.bills)) LIFE.alipay.bills = d.alipay.bills; }
+  if (d.calendar && Array.isArray(d.calendar.events)) LIFE.calendar.events = d.calendar.events;
+})();
+
 /* ---------- 桌面 ---------- */
 const TILE = {
   my:       { name: "MY",      color: "radial-gradient(circle at 50% 38%,#2A2455,#100C28 78%)", glyph: () => bunnyHeadSVG() },
