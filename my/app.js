@@ -318,6 +318,7 @@ function exitChatMode(silent = false) {
   if (!home.classList.contains("chat-mode")) return;
   home.classList.remove("chat-mode");
   if (!silent) markTab("home");
+  renderMomentsHero();
 }
 $("#car-stage").addEventListener("click", e => {
   if (homeEl().classList.contains("chat-mode")) return;
@@ -924,6 +925,7 @@ function recordMoment(id, line) {
   S.moments.story = S.moments.story.slice(0, 50);
   save();
   gainXP(8);   // 心意时刻加深关系
+  renderMomentsHero();
 }
 
 function momentCard(id) {
@@ -961,7 +963,26 @@ function maybeFireMoment() {
   const todayKey = new Date().toDateString();
   if (S.moments.lastFire === todayKey) return;
   S.moments.lastFire = todayKey; save();
-  setTimeout(() => momentCard("birthday"), 1500);   // demo:车的生日为旗舰,进门即送惊喜
+  setTimeout(() => { momentCard("birthday"); renderMomentsHero(); }, 1500);   // demo:车的生日为旗舰,进门即送惊喜
+}
+
+/* 今天是否还有未送达的心意(旗舰惊喜未触发) */
+function momentPending() {
+  if (SIM || !S.moments || !S.moments.surprise) return false;
+  return S.moments.lastFire !== new Date().toDateString();
+}
+/* 首页 MY Moments 入口:有新心意则高亮+角标,否则显示最近一条 */
+function renderMomentsHero() {
+  const orb = $("#mh-orb"); if (orb && !orb.querySelector(".myorb")) orb.innerHTML = orbHTML();
+  const line = $("#mh-line"), badge = $("#mh-badge"), hero = $("#moments-hero");
+  if (!line) return;
+  const story = (S.moments && S.moments.story) || [];
+  const pending = momentPending();
+  line.textContent = pending ? "今天有一个心意时刻在等你 ✦"
+    : story.length ? "最近 · " + story[0].line
+    : "MY 会在合适的日子，主动给你惊喜";
+  if (badge) badge.hidden = !pending;
+  if (hero) hero.classList.toggle("glow", pending);
 }
 
 function storySheet() {
@@ -1647,6 +1668,10 @@ $("#row-guard").addEventListener("click", guardSheet);
 $("#row-notify") && $("#row-notify").addEventListener("click", openNotifySheet);
 $("#row-tasks").addEventListener("click", taskCenterSheet);
 $("#row-moments") && $("#row-moments").addEventListener("click", storySheet);
+$("#moments-hero") && ($("#moments-hero").onclick = () => {
+  if (momentPending() && !homeEl().classList.contains("chat-mode")) go("aiva");   // 有新心意 → 进对话即送惊喜
+  else storySheet();                                                              // 否则 → 我们的故事
+});
 $("#mood-tag").addEventListener("click", e => { e.stopPropagation(); moodLogSheet(); });
 
 /* ----- 对话引擎（分发：真实智能体 / 内置脚本） ----- */
@@ -2165,4 +2190,5 @@ else showAuth(1);
 applySimIdentity();     // 沙盘用户:套用 TA 的专属手机数据
 REAL.initReminders();   // 恢复未到期的真实提醒(跨刷新存活)
 renderNotifyBadge();    // R2 通知管理入口状态
+renderMomentsHero();    // 首页 MY Moments 入口(显眼)
 mountWorldLock();       // Caroline 本人手机:未解锁则弹出真实锁屏
