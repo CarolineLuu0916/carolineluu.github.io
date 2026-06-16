@@ -1,17 +1,14 @@
-# 原始大图备份（保留本地，不推送）
 assets/paintings/_full/
 assets/bg/corridor_orig.png
-
-# Claude Code 本地配置（不推送）
 .claude/
 .agents/
-
-# OS / 编辑器
 .DS_Store
 Thumbs.db
 desktop.ini
 *.log
-
-# Python
 __pycache__/
 *.py[cod]
+
+# Cloudflare wrangler 本地缓存
+.wrangler/
+**/.wrangler/
