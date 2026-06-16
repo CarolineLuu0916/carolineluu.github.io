@@ -108,8 +108,20 @@
         <div class="card news-card">
           <div class="news-title">${it.title}</div>
           <div class="news-what">${it.what}</div>
+          ${it.detail ? `
+          <div class="news-detail-toggle"><span class="arrow">▾</span>展开详情</div>
+          <div class="news-detail"><div class="news-detail-in"><div class="news-detail-text">${it.detail}</div></div></div>` : ""}
           <div class="news-why"><b>意味着什么</b>${it.why}</div>
+          ${it.url ? `<a class="news-src" href="${it.url}" target="_blank" rel="noopener noreferrer">原文 ↗</a>` : ""}
         </div>
+      </div>`).join("");
+    const papers = (r.papers || []).map(p => `
+      <div class="card paper-card rv">
+        <div class="paper-title">${p.title}</div>
+        <div class="paper-meta">${[p.authors, p.venue, p.date].filter(Boolean).join(" · ")}</div>
+        <div class="paper-summary">${p.summary}</div>
+        <div class="paper-why"><b>意味着什么</b>${p.why}</div>
+        ${p.url ? `<a class="news-src" href="${p.url}" target="_blank" rel="noopener noreferrer">论文原文 ↗</a>` : ""}
       </div>`).join("");
     view.innerHTML = `
       <section class="page daily-hero">
@@ -124,9 +136,13 @@
         <div class="vane-row">${vanes}</div>
         <div class="h-rule rv"><span class="t">今日要闻</span><span class="n">${r.items.length} ITEMS · 每日更新</span></div>
         <div class="news-list">${news}</div>
+        ${papers ? `
+        <div class="h-rule rv"><span class="t">学术速递</span><span class="n">${(r.papers || []).length} PAPERS · 宁缺毋滥</span></div>
+        <div class="paper-list">${papers}</div>` : ""}
       </section>`;
     const sel = $("#dailySelect");
     if (sel) sel.onchange = () => renderDaily(+sel.value);
+    $$(".news-detail-toggle").forEach(t => t.onclick = () => t.closest(".news-card").classList.toggle("open"));
     $$(".daily-pager").forEach(b => b.onclick = () => {
       if (b.disabled) return;
       renderDaily(Math.max(0, Math.min(REPORTS.length - 1, idx + (+b.dataset.step))));

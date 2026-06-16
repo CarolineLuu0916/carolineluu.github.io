@@ -35,7 +35,9 @@ const F = {
 
 const SECTION = (process.argv[2] || "daily").toLowerCase();
 const API_KEY = process.env.KIMI_API_KEY;
-const MODEL = process.env.KIMI_MODEL || "moonshot-v1-32k";
+// kimi-k2.6：当前旗舰多模态推理模型，256k 上下文（moonshot-v1-32k 是旧代classic生成模型，
+// 检索整合能力弱很多）。官方文档明确推荐 k2.6 搭配 $web_search（上下文够大，扛得住搜索结果注入）。
+const MODEL = process.env.KIMI_MODEL || "kimi-k2.6";
 const BASE = "https://api.moonshot.cn/v1";
 
 /* ---------- 通用工具 ---------- */
@@ -91,7 +93,11 @@ async function kimi(messages, tools) {
   const res = await fetch(`${BASE}/chat/completions`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
-    body: JSON.stringify({ model: MODEL, temperature: 0.3, max_tokens: 4096, messages, tools }),
+    // $web_search 要求关闭 thinking 模式（官方文档：k2.6 思考模式与内置联网搜索暂不兼容）。
+    body: JSON.stringify({
+      model: MODEL, temperature: 0.3, max_tokens: 4096, messages, tools,
+      thinking: { type: "disabled" },
+    }),
   });
   if (!res.ok) throw new Error(`Kimi API ${res.status}: ${await res.text()}`);
   return (await res.json()).choices[0];
@@ -132,33 +138,44 @@ async function updateDaily() {
   const sys = [
     "你是 AI Agent 行业观察站「AI Trends」的资深主编（产品经理视角）。",
     "任务：联网调研最近 24~48 小时全球 AI / AI Agent 行业动态，产出今天的一条行业日报。",
-    "硬性规范：1) 信息必须真实、多源交叉验证，禁止编造；拿不准的标注「待确认」。",
-    "2) 每条要闻必须有 what（发生了什么，客观）和 why（意味着什么，产品经理视角）。",
-    "3) region 与 tag 一一对应：海外=gl、中国=cn、开源=os、生态=eco。",
-    "4) 不要重复已有旧闻。已有最近标题：" + headlines.map((h) => `「${h}」`).join("、"),
+    "硬性规范：",
+    "1) 信息必须真实、多源交叉验证，禁止编造；拿不准的标注「待确认」。",
+    "2) 每条要闻必须有 what（发生了什么，客观，1~2句）、detail（展开详情：背景/具体数据/多方反应，120~220字，比 what 更丰富，不是同义重复）、why（意味着什么，产品经理视角）。",
+    "3) 每条要闻尽量给出 url：信息最权威的原文链接（官方博客/官方公告/权威媒体报道页面，真实存在，不要编造或猜测链接；确实找不到可靠链接就留空字符串）。",
+    "4) region 与 tag 一一对应：海外=gl、中国=cn、开源=os、生态=eco。",
+    "5) 额外检索学术圈：若最近 1~2 周内有真正重要的新论文/技术报告（arXiv、顶会 NeurIPS/ICML/ICLR/ACL，或 OpenAI/DeepMind/Anthropic/Google/Meta 等实验室的研究博客），挑 0~2 篇放进 papers；宁缺毋滥，找不到合适的就给空数组，禁止编造论文。每篇要给真实 url（如 arxiv.org 链接）。",
+    "6) 不要重复已有旧闻。已有最近标题：" + headlines.map((h) => `「${h}」`).join("、"),
     "只输出一个 JSON 对象（无任何额外文字、不要 markdown），结构：",
-    `{"headline":"今日主标题","tldr":"200字内导语，可含<b>…</b>","vane":[{"label":"风向标签","dir":"up或down","note":"简短理由"}],"items":[{"region":"海外","tag":"gl","title":"标题（结尾带日期如（6.15））","what":"…","why":"…"}]}`,
+    `{"headline":"今日主标题","tldr":"200字内导语，可含<b>…</b>","vane":[{"label":"风向标签","dir":"up或down","note":"简短理由"}],"items":[{"region":"海外","tag":"gl","title":"标题（结尾带日期如（6.15））","what":"…","detail":"…","why":"…","url":"https://…"}],"papers":[{"title":"论文标题","authors":"作者(简写，如 First Author et al.)","venue":"arXiv/NeurIPS等","date":"如2026.06","url":"https://arxiv.org/...","summary":"论文讲了什么","why":"对行业/产品意味着什么"}]}`,
     "vane 3~4 条；items 4~5 条按重要性排序，region 尽量覆盖 海外/中国/开源/生态。",
   ].join("\n");
   const obj = extractJSON(await research(sys, `今天是 ${NOW.date}（${NOW.weekday}）。请联网调研后输出今日日报 JSON。`));
   if (!obj.headline || !obj.tldr || !Array.isArray(obj.vane) || !Array.isArray(obj.items) || !obj.items.length)
     throw new Error("日报 JSON 字段不完整");
+  const papers = Array.isArray(obj.papers) ? obj.papers.filter((p) => p && p.title && p.summary && p.why) : [];
 
   const vane = obj.vane.map((v) => `      { label: ${q(v.label)}, dir: ${q(v.dir)}, note: ${q(v.note)} }`).join(",\n");
   const items = obj.items.map((it) => [
     "      {", `        region: ${q(it.region)}, tag: ${q(it.tag)},`,
-    `        title: ${q(it.title)},`, `        what: ${q(it.what)},`, `        why: ${q(it.why)}`, "      }",
+    `        title: ${q(it.title)},`, `        what: ${q(it.what)},`, `        detail: ${q(it.detail)},`,
+    `        why: ${q(it.why)}, url: ${q(it.url)}`, "      }",
   ].join("\n")).join(",\n");
+  const papersBlock = papers.length ? papers.map((p) => [
+    "      {", `        title: ${q(p.title)}, authors: ${q(p.authors)}, venue: ${q(p.venue)}, date: ${q(p.date)},`,
+    `        url: ${q(p.url)},`, `        summary: ${q(p.summary)},`, `        why: ${q(p.why)}`, "      }",
+  ].join("\n")).join(",\n") : "";
   const block = [
     "  {", `    date: ${q(NOW.date)}, vol: ${q(vol)}, weekday: ${q(NOW.weekday)},`,
     `    headline: ${q(obj.headline)},`, `    tldr: ${q(obj.tldr)},`,
-    "    vane: [", vane, "    ],", "    items: [", items, "    ]", "  }",
+    "    vane: [", vane, "    ],", "    items: [", items, "    ],",
+    "    papers: [", papersBlock, "    ]",
+    "  }",
   ].join("\n");
 
   const next = insertAfter(text, "window.AIT_REPORTS = [\n", block);
   validate(next, "AIT_REPORTS");
   write(F.reports, next);
-  console.log(`✓ 已写入日报「${obj.headline}」（${vol}，${obj.items.length} 条要闻）`);
+  console.log(`✓ 已写入日报「${obj.headline}」（${vol}，${obj.items.length} 条要闻，${papers.length} 篇论文）`);
   return true;
 }
 
