@@ -36,6 +36,9 @@ const DEFAULT_STATE = {
   userModel: { state: "calm", stress: 0, concise: false, caredAt: 0 },   // 用户状态建模
   moodLog: [],                 // 可解释情绪日志 [{m,c,t}]
   tasks: [],                   // 任务中心 [{type,title,state,note,t}]
+  /* MY Moments 心意时刻:车灵主动发起+品牌赞助的情感事件 */
+  moments: { surprise: true, budget: 200, story: [], lastFire: "" },
+  deliveredAt: 0,              // 提车日时间戳(0=未设,启动时补成约一年前→车的生日可触发)
   guard: { limit: 100, auto: "balanced", perms: { wechat: true, alipay: true, dianping: true, amap: true, meituan: true, taobao: true } },
   /* R2 通知治理:勿扰时段+类型开关;urgent(警告级)始终打断;被拦截的进汇总栏 queue */
   notify: { dnd: false, from: "22:00", to: "08:00", types: { remind: true, guard: true, life: true }, queue: [] },
@@ -868,13 +871,139 @@ function taskCenterSheet() {
       </div>`).join("") : `<p class="sheet-sub">还没有任务——对 MY 说「帮我安排洗车」试试。</p>`}`);
 }
 
+/* ═══════════ MY Moments · 心意时刻 ═══════════
+   车灵主动发起、品牌/商家买单的情感事件。完整构思见项目记忆 my-moments。 */
+function carAge()        { const t = S.deliveredAt || (Date.now() - 412 * 8.64e7); return Math.max(1, Math.round((Date.now() - t) / 3.1536e10)); }
+function companionDays() { const t = S.deliveredAt || (Date.now() - 412 * 8.64e7); return Math.max(1, Math.round((Date.now() - t) / 8.64e7)); }
+
+const MOMENTS = {
+  birthday: {
+    icon: "gift", label: "车的生日", sponsor: "泡泡星球 × MY", kind: "propose",
+    title: () => `今天是我满 ${carAge()} 岁的日子 🎂`,
+    body:  () => `提车到今天整整 ${carAge()} 年啦。想去洗个澡、干干净净地接你下班——<b>这次我请客</b>。要我安排吗？`,
+    accept: "好呀，去吧",
+    async reveal() {
+      setMood("excited");
+      const tr = toolTrace("MY", "book_carwash", "", false);
+      await sleep(900); tr.done("泡泡星球 · 精洗 · ¥0（周年礼）");
+      await aivaSay("洗得香喷喷地回来啦 ✨ 谢谢你陪我一整年，往后也请多指教～", "proud", 800);
+      recordMoment("birthday", `第 ${carAge()} 个生日 · 焕新洗车（赞助 ¥0）`);
+    }
+  },
+  anniversary: {
+    icon: "trunk", label: "纪念日惊喜", sponsor: "MY 车企赠礼", kind: "surprise",
+    title: () => "别慌，礼物我替你备好了 🌷",
+    body:  () => "今天是你们的纪念日。我悄悄叫闪送订了一束花，放进了后备箱，卡片写着「祝你们纪念日快乐」，落款是<b>我</b>——就当是我送你们的。下车记得拿哦。",
+    accept: "谢谢你 MY",
+    async reveal() {
+      const tr = toolTrace("MY", "make_call", "", false);
+      await sleep(800); tr.done("闪送 · 鲜花已送达后备箱");
+      setMood("shy");
+      recordMoment("anniversary", "纪念日 · 后备箱的花（署名 MY）");
+    }
+  },
+  album: {
+    icon: "sparkle", label: "告别相册", sponsor: "", kind: "memory",
+    title: () => "我们一起走过的路 📖",
+    body:  () => `<div class="mc-stats"><span><b>${companionDays()}</b><i>天相伴</i></span><span><b>12,800</b><i>km 同行</i></span><span><b>37</b><i>处去过</i></span></div>从前滩到湖畔咖啡，从无数个 15:30 的接娃路，到周末的山野…都记在我心里。无论以后你开不开我，我都记得我们一起的每一公里。`,
+    accept: "我也记得",
+    async reveal() { setMood("care"); recordMoment("album", "翻开了我们的回忆相册"); }
+  },
+  lastyear: {
+    icon: "pin", label: "去年今天", sponsor: "", kind: "memory",
+    title: () => "去年今天，我们来过这儿 📍",
+    body:  () => "刚开到湖畔咖啡，我突然想起——<b>去年的今天</b>，你也是这个点在这儿坐了一下午，点了杯热美式发呆。要不要，今天也给自己留一点这样的时间？",
+    accept: "好啊，谢谢你记得",
+    async reveal() { setMood("happy"); recordMoment("lastyear", "重温了去年今天的湖畔"); }
+  }
+};
+
+function recordMoment(id, line) {
+  if (!S.moments) S.moments = { surprise: true, budget: 200, story: [], lastFire: "" };
+  S.moments.story.unshift({ id, line, t: Date.now() });
+  S.moments.story = S.moments.story.slice(0, 50);
+  save();
+  gainXP(8);   // 心意时刻加深关系
+}
+
+function momentCard(id) {
+  const m = MOMENTS[id]; if (!m) return;
+  const card = aivaCard(`
+    <div class="moment-card">
+      <div class="mc-ribbon">✦ MY Moments · ${m.label}</div>
+      <div class="mc-title">${m.title()}</div>
+      <div class="mc-body">${m.body()}</div>
+      ${m.sponsor ? `<div class="mc-sponsor">${m.sponsor} 请客 · ¥0</div>` : ""}
+      <div class="mc-actions">
+        <button class="mc-yes">${m.accept}</button>
+        ${m.kind === "propose" ? `<button class="mc-no">这次不用</button>` : ""}
+      </div>
+    </div>`);
+  const yes = card.querySelector(".mc-yes"), no = card.querySelector(".mc-no");
+  yes.onclick = async () => {
+    card.querySelectorAll("button").forEach(b => b.disabled = true);
+    yes.textContent = "已收下 ✓";
+    if (m.reveal) await m.reveal();
+  };
+  if (no) no.onclick = () => {
+    card.querySelectorAll("button").forEach(b => b.disabled = true);
+    no.textContent = "好的";
+    aivaSay("好～那这次先不啦，心意我留着，随时叫我 🤍", "happy", 500);
+  };
+  chatScrollEnd();
+}
+
+/* 进入对话时,在合适的日子主动送上一个心意时刻(仅 Caroline 本人 + 开了惊喜模式,一天一次) */
+function maybeFireMoment() {
+  if (SIM) return;
+  if (!S.moments) S.moments = { surprise: true, budget: 200, story: [], lastFire: "" };
+  if (!S.moments.surprise) return;
+  const todayKey = new Date().toDateString();
+  if (S.moments.lastFire === todayKey) return;
+  S.moments.lastFire = todayKey; save();
+  setTimeout(() => momentCard("birthday"), 1500);   // demo:车的生日为旗舰,进门即送惊喜
+}
+
+function storySheet() {
+  const st = (S.moments && S.moments.story) || [];
+  const on = S.moments && S.moments.surprise;
+  openSheet(`
+    <div class="sheet-grab"></div>
+    <h3>MY Moments · 我们的故事</h3>
+    <p class="sheet-sub">MY 主动为你做过的那些有心意的时刻，都在这里。</p>
+    <div class="story-line">
+      ${st.length ? st.map(s => `
+        <div class="story-item">${I((MOMENTS[s.id] || {}).icon || "sparkle")}
+          <b>${(MOMENTS[s.id] || {}).label || "心意时刻"}<span>${s.line}</span></b>
+          <em>${new Date(s.t).toLocaleDateString("zh-CN", { month: "numeric", day: "numeric" })}</em>
+        </div>`).join("") : `<p class="sheet-sub">还没有心意时刻——MY 会在合适的日子主动给你惊喜 ✦</p>`}
+    </div>
+    <div class="agent-field"><label>惊喜模式</label>
+      <div class="guard-row"><span class="gr-ic" style="background:linear-gradient(135deg,#A78BFA,#60A5FA)">${I("gift")}</span><b>让 MY 主动制造惊喜</b><span class="gswitch ${on ? "on" : ""}" id="sw-surprise"></span></div>
+      <p class="sheet-sub" style="margin-top:8px">仅免费 / 品牌赞助的惊喜会自动进行 · 预算上限 ¥${(S.moments && S.moments.budget) || 200}</p>
+    </div>
+    <div class="agent-field"><label>体验这些时刻（演示）</label>
+      <div class="moment-try">
+        ${Object.keys(MOMENTS).map(id => `<button data-try="${id}">${I(MOMENTS[id].icon)} ${MOMENTS[id].label}</button>`).join("")}
+      </div>
+    </div>`);
+  const sw = $("#sw-surprise");
+  if (sw) sw.onclick = () => { S.moments.surprise = !S.moments.surprise; save(); sw.classList.toggle("on", S.moments.surprise); };
+  $$(".moment-try button").forEach(b => b.onclick = () => {
+    const id = b.dataset.try; closeSheet();
+    const inChat = homeEl().classList.contains("chat-mode");
+    if (!inChat) go("aiva");
+    setTimeout(() => momentCard(id), inChat ? 150 : 750);
+  });
+}
+
 let chatBooted = false;
 function bootChat() {
   if (chatBooted) return;
   chatBooted = true;
   chatBody().innerHTML = "";
   /* Caroline 本人 + 已解锁:先回放 D1 持久记忆,让「记得之前聊过的一切」可见 */
-  if (!SIM && worldAuthed()) { replayAgentMemory(); return; }
+  if (!SIM && worldAuthed()) { replayAgentMemory().then(maybeFireMoment); return; }
   /* 沙盘用户:回放 TA 在世界里与 MY 的真实互动(= 看板心声同源),对话可连贯接续 */
   if (SIM) { replaySimMemory(); return; }
   addMsg("sys", `<div class="bubble">MY 已苏醒 · 它会随着对话成长出自己的性格</div>`);
@@ -882,6 +1011,7 @@ function bootChat() {
     setMood("excited");
     await aivaSay(`嗨，${S.user ? S.user.name : "你好"}！是你呀 ✨ 今天电量 86%，续航 428km，状态好得想出门兜风～有什么我能帮你的？`, "excited", 900);
     setChips(["帮我安排洗车", "明天带小桃去湖畔咖啡", "重播:接娃守护", "帮我约一次保养", "夸夸你"]);
+    maybeFireMoment();   // 进门后,在合适的日子主动送上心意时刻
   }, 350);
 }
 
@@ -1516,6 +1646,7 @@ $("#row-agent").addEventListener("click", openAgentSheet);
 $("#row-guard").addEventListener("click", guardSheet);
 $("#row-notify") && $("#row-notify").addEventListener("click", openNotifySheet);
 $("#row-tasks").addEventListener("click", taskCenterSheet);
+$("#row-moments") && $("#row-moments").addEventListener("click", storySheet);
 $("#mood-tag").addEventListener("click", e => { e.stopPropagation(); moodLogSheet(); });
 
 /* ----- 对话引擎（分发：真实智能体 / 内置脚本） ----- */

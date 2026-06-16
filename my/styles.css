@@ -841,3 +841,28 @@ body{
 .orb-wrap.proud    .myorb{--c1:#FBCFE8;--c2:#A78BFA;--spd:2.4s}
 .orb-wrap.care     .myorb{--c1:#7DD3FC;--c2:#A78BFA;--spd:3.2s}
 .orb-wrap.down     .myorb{--c1:#9AA6BE;--c2:#5B6577;--spd:6.5s}
+
+/* ===== MY Moments · 心意卡 + 我们的故事 ===== */
+.moment-card{background:linear-gradient(150deg,#F3EEFF,#EAF1FF);border:1px solid rgba(167,139,250,.35);border-radius:16px;padding:14px 15px;box-shadow:0 8px 24px rgba(124,108,240,.16)}
+.mc-ribbon{display:inline-block;font-size:10px;letter-spacing:.05em;color:#7C6CF0;background:#fff;border-radius:999px;padding:3px 10px;font-weight:800;box-shadow:0 2px 6px rgba(124,108,240,.15)}
+.mc-title{font-size:15px;font-weight:800;color:#3B355C;margin:10px 0 6px;line-height:1.45}
+.mc-body{font-size:12.5px;color:#5b5470;line-height:1.65}
+.mc-body b{color:#6D28D9}
+.mc-sponsor{display:inline-block;margin-top:10px;font-size:10.5px;color:#059669;background:#E9F7F0;border-radius:8px;padding:3px 9px;font-weight:800}
+.mc-actions{display:flex;gap:8px;margin-top:13px}
+.mc-yes{flex:1;border:none;border-radius:12px;padding:9px;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,#9B8CEC,#7AA0EE);cursor:pointer}
+.mc-no{border:none;border-radius:12px;padding:9px 14px;font-size:12px;font-weight:700;color:#7B749E;background:rgba(255,255,255,.7);cursor:pointer}
+.mc-yes:disabled,.mc-no:disabled{opacity:.6;cursor:default}
+.mc-stats{display:flex;gap:16px;margin:2px 0 11px}
+.mc-stats span{display:flex;flex-direction:column}
+.mc-stats b{font-size:20px;font-weight:800;color:#6D28D9;font-family:var(--mono,monospace);line-height:1}
+.mc-stats i{font-size:10px;color:#9a93b0;font-style:normal;margin-top:3px}
+.story-line{display:flex;flex-direction:column;gap:8px;margin:6px 0 4px;max-height:230px;overflow-y:auto}
+.story-item{display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:2px 2px 6px rgba(163,177,198,.18),-2px -2px 6px rgba(255,255,255,.7)}
+.story-item svg{width:18px;height:18px;color:#7C6CF0;flex-shrink:0}
+.story-item b{flex:1;min-width:0;font-size:12.5px;color:#2b2940;font-weight:700;display:flex;flex-direction:column;gap:2px}
+.story-item b span{font-size:11px;color:#8b84a6;font-weight:400}
+.story-item em{font-size:10px;color:#b3b3bd;font-style:normal;flex-shrink:0}
+.moment-try{display:flex;flex-wrap:wrap;gap:8px}
+.moment-try button{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:12px;padding:8px 12px;font-size:11.5px;font-weight:700;color:#6D28D9;background:rgba(124,108,236,.1);cursor:pointer}
+.moment-try button svg{width:15px;height:15px}
