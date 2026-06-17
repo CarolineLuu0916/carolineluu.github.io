@@ -95,7 +95,7 @@ async function kimi(messages, tools) {
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
     // $web_search 要求关闭 thinking 模式（官方文档：k2.6 思考模式与内置联网搜索暂不兼容）。
     body: JSON.stringify({
-      model: MODEL, temperature: 0.3, max_tokens: 4096, messages, tools,
+      model: MODEL, temperature: 0.6, max_tokens: 4096, messages, tools,
       thinking: { type: "disabled" },
     }),
   });
