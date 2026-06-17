@@ -121,9 +121,16 @@ async function research(sys, user) {
   throw new Error("Kimi 工具循环超过上限仍未给出最终结果");
 }
 function extractJSON(raw) {
-  const s = raw.indexOf("{"), e = raw.lastIndexOf("}");
-  if (s < 0 || e < 0) throw new Error("Kimi 返回中找不到 JSON：\n" + raw.slice(0, 600));
-  return JSON.parse(raw.slice(s, e + 1));
+  // 去掉 markdown 代码围栏（```json ... ``` 或 ``` ... ```）
+  const stripped = raw.replace(/^```(?:json)?\s*/m, "").replace(/\s*```\s*$/m, "").trim();
+  const src = stripped || raw;
+  const s = src.indexOf("{"), e = src.lastIndexOf("}");
+  if (s < 0 || e < 0) throw new Error("Kimi 返回中找不到 JSON：\n" + src.slice(0, 800));
+  try {
+    return JSON.parse(src.slice(s, e + 1));
+  } catch (err) {
+    throw new Error("JSON 解析失败：" + err.message + "\n原始内容（前800字）：\n" + src.slice(0, 800));
+  }
 }
 
 /* ============ daily：日报（头部插入） ============ */
@@ -150,8 +157,11 @@ async function updateDaily() {
     "vane 3~4 条；items 4~5 条按重要性排序，region 尽量覆盖 海外/中国/开源/生态。",
   ].join("\n");
   const obj = extractJSON(await research(sys, `今天是 ${NOW.date}（${NOW.weekday}）。请联网调研后输出今日日报 JSON。`));
-  if (!obj.headline || !obj.tldr || !Array.isArray(obj.vane) || !Array.isArray(obj.items) || !obj.items.length)
+  if (!obj.headline || !obj.tldr || !Array.isArray(obj.vane) || !Array.isArray(obj.items) || !obj.items.length) {
+    console.error("日报 JSON 字段不完整，收到的对象顶层 key：", Object.keys(obj));
+    console.error("对象内容（前600字）：", JSON.stringify(obj).slice(0, 600));
     throw new Error("日报 JSON 字段不完整");
+  }
   const papers = Array.isArray(obj.papers) ? obj.papers.filter((p) => p && p.title && p.summary && p.why) : [];
 
   const vane = obj.vane.map((v) => `      { label: ${q(v.label)}, dir: ${q(v.dir)}, note: ${q(v.note)} }`).join(",\n");
