@@ -35,9 +35,10 @@ const F = {
 
 const SECTION = (process.argv[2] || "daily").toLowerCase();
 const API_KEY = process.env.KIMI_API_KEY;
-// kimi-k2.6：当前旗舰多模态推理模型，256k 上下文（moonshot-v1-32k 是旧代classic生成模型，
-// 检索整合能力弱很多）。官方文档明确推荐 k2.6 搭配 $web_search（上下文够大，扛得住搜索结果注入）。
-const MODEL = process.env.KIMI_MODEL || "kimi-k2.6";
+// moonshot-v1-128k：128k 上下文，是 v1 系列最大档，比之前的 32k 版可注入 4 倍搜索结果。
+// k2.6 的 $web_search 响应格式与我们的 tool 循环不兼容（search_result 元数据直接进 content），
+// 暂用 v1-128k；待 Moonshot 官方文档明确 k2.6 工具循环规范后再切换。
+const MODEL = process.env.KIMI_MODEL || "moonshot-v1-128k";
 const BASE = "https://api.moonshot.cn/v1";
 
 /* ---------- 通用工具 ---------- */
@@ -94,10 +95,7 @@ async function kimi(messages, tools) {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
     // $web_search 要求关闭 thinking 模式（官方文档：k2.6 思考模式与内置联网搜索暂不兼容）。
-    body: JSON.stringify({
-      model: MODEL, temperature: 0.6, max_tokens: 4096, messages, tools,
-      thinking: { type: "disabled" },
-    }),
+    body: JSON.stringify({ model: MODEL, temperature: 0.3, max_tokens: 4096, messages, tools }),
   });
   if (!res.ok) throw new Error(`Kimi API ${res.status}: ${await res.text()}`);
   return (await res.json()).choices[0];
