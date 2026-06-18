@@ -2,6 +2,50 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-18", vol: "VOL.008", weekday: "周四",
+    headline: "AI Agent行业竞争加剧与技术前沿并进（6.18）",
+    tldr: "AI Agent行业在2026年迎来激烈竞争和技术创新。科技巨头和初创公司在多条战线上展开竞争，市场整合和估值泡沫成为行业关注点。同时，AI Agent技术趋势指向多智能体协作和跨模态理解，预示着行业新的发展机遇。",
+    vane: [
+      { label: "竞争态势", dir: "up", note: "AI Agent领域的竞争正变得日益复杂，多条战线并进。" },
+      { label: "技术趋势", dir: "up", note: "多智能体协作和跨模态理解成为AI Agent技术发展的新趋势。" },
+      { label: "市场整合", dir: "up", note: "预计2026至2027年，AI Agent市场将迎来一波整合浪潮。" },
+      { label: "估值泡沫", dir: "down", note: "市场存在估值泡沫风险，可能导致资本从追逐概念转向寻求实际收入和成熟产品的公司。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent领域竞争加剧（6.18）",
+        what: "AI Agent领域的竞争正变得日益复杂，呈现出多条战线并进的态势。",
+        detail: "科技巨头如AWS、Databricks和Google等构建自己的智能体框架和解决方案，初创公司必须通过技术护城河、专有数据、独特行业工作流或开发者社区来避免被边缘化。同时，初创公司之间在垂直领域如AI医疗文书的竞争也在迅速加剧。",
+        why: "这意味着AI Agent行业的竞争格局变得更加复杂，初创公司需要在多个维度上构建竞争力，以应对来自科技巨头的挑战。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "阿里巴巴调整AI相关组织管理架构（6.18）",
+        what: "阿里巴巴宣布合并通义大模型事业部和未来生活实验室，成立Token Foundry事业部。",
+        detail: "阿里巴巴集团CEO吴泳铭直接负责新成立的Token Foundry事业部，周靖人将担任阿里巴巴首席科学家，牵头成立阿里巴巴AI未来研究院，专注前沿AI科技的探索与突破。",
+        why: "这一调整显示了阿里巴巴在AI领域的战略布局和对AI未来趋势的重视，将进一步推动公司在AI领域的研发和商业化进程。", url: "https://www.caixin.com/2026-06-11/102453037.html?originReferrer=kimi"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "开源力量在AI Agent领域不断涌现（6.18）",
+        what: "开源力量在AI Agent领域不断涌现，对商业产品构成压力。",
+        detail: "随着开源AI技术的快速发展，越来越多的开源项目和社区开始涌现，为AI Agent领域带来新的活力和竞争。这些开源项目不仅推动了技术的创新，也为商业产品带来了挑战。",
+        why: "开源项目的兴起为AI Agent行业带来了新的技术和解决方案，同时也加剧了行业的竞争，推动了技术的快速迭代和创新。", url: "https://mdnice.com/writing/0afe33f3a6714466aa894474a2c7f81b"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent技术趋势指向多智能体协作（6.18）",
+        what: "AI Agent技术趋势指向多智能体协作和跨模态理解。",
+        detail: "随着AI技术的发展，多智能体协作和跨模态理解成为新的技术趋势。这些技术的发展将大幅提升复杂任务处理能力，拓展实时应用场景，并加速产业数字化转型。",
+        why: "这一技术趋势预示着AI Agent行业将迎来新的发展机遇，同时也对行业参与者提出了更高的技术要求和挑战。", url: "https://mdnice.com/writing/0afe33f3a6714466aa894474a2c7f81b"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-17", vol: "VOL.007", weekday: "周三",
     headline: "AI Agent行业竞争加剧与技术前沿并进（6.17）",
     tldr: "随着AI Agent领域的竞争日益复杂，初创公司与科技巨头间的阵地战、初创公司间的垂直赛道竞争以及赢得用户信任的挑战成为行业焦点。同时，市场整合、估值泡沫风险和跨智能体协作技术成为未来发展的关键。",
