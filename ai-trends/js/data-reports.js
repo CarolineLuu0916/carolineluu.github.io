@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-19", vol: "VOL.009", weekday: "周五",
+    headline: "AI Agent行业动态：技术演进与商业模式创新并进（6.19）",
+    tldr: "过去24小时内，全球AI Agent行业呈现技术演进与商业模式创新并进的态势。全球电商市场增长放缓，AI Agent技术重塑内容生产；多模态能力成为新一代Agent框架的标配；RPA市场在Agent影响下孕育新商业模式。",
+    vane: [
+      { label: "gl", dir: "up", note: "全球AI Agent市场规模预计将在2030年突破470亿美元，技术范式实现从规则驱动到意图驱动的转变。" },
+      { label: "gl", dir: "up", note: "AI框架正从简单的任务执行向复杂决策、端到端、多模态方向演进，Agent框架技术持续进步。" },
+      { label: "gl", dir: "up", note: "RPA市场在Agent的深度影响下，正孕育出前所未有的商业模式，开启全新发展篇章。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "全球电商市场增长放缓AI Agent技术重塑内容生产（6.19）",
+        what: "全球电商市场正迈入增速放缓但门槛提高的长期结构性渗透阶段，预计2025年销售额将达6.86万亿美元，2027年有望突破8万亿。",
+        detail: "行业呈现三大新趋势：生成式AI重塑内容生产、移动电商贡献73%的交易额、社交电商成为主流转化路径。全球营销投放大盘显示，西欧与北美仍是核心投放市场；由于流量成本攀升，广告竞争已转向存量素材的深度经营，素材生命周期显著延长。品牌出海应关注履约效率与品牌长期化，通过移动优先体验与社交信任机制抢占全球增长红利。",
+        why: "这一趋势表明，AI Agent技术在电商领域的应用将进一步深化，推动内容生产方式的变革，为品牌出海提供新的增长点。", url: "https://www.huxiu.com/article/4829392.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI框架向复杂决策多模态方向演进（6.19）",
+        what: "智能体框架正从简单的任务执行向复杂决策、端到端、多模态方向演进。",
+        detail: "新一代Agent框架如Qwen-Agent正积极整合文本、图像、音频和视频处理能力，使智能体能够理解和生成多种媒体形式的内容。Google的Gemini 2.5系列已经在跨模态处理与响应速度方面取得显著提升，实现了统一嵌入表示与跨模态注意力机制。端到端训练方法直接将模型从问题训练到最终报告，错误率大幅降低76%。",
+        why: "这一演进趋势意味着AI Agent框架将能够处理更复杂的任务，提升性能和用户体验，为多模态应用提供更强大的技术支持。", url: "http://mp.weixin.qq.com/s?__biz=MzE5MTEwNjgxNw==&mid=2247484326&idx=4&sn=18abd0cdd2db6af1483dce94392b3074"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "RPA市场孕育新商业模式（6.19）",
+        what: "历经多年发展的RPA市场，在Agent的深度影响下，正孕育出前所未有的商业模式，开启全新的发展篇章。",
+        detail: "市场研究权威机构Gartner将Agentic AI列为2025年十大技术趋势之一，并预测到2028年，至少15%的日常工作决策将借助Agentic AI自主完成。从IDC报告中，我们能够敏锐洞察到Agent自主决策能力向高阶迈进、垂直化与专业化Agent加速融合、企业级Agent市场爆发式增长等诸多趋势已初露端倪。",
+        why: "RPA市场在Agent技术的影响下，将迎来新商业模式的孕育，推动企业智能化市场的快速发展。", url: "http://mp.weixin.qq.com/s?__biz=MzUyNDE4NDE1Mg==&mid=2247502458&idx=1&sn=ba84cdbc59f271f4200378c5636aee2e"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI交易员上线带火金融IT板块（6.19）",
+        what: "6月19日早盘，金融IT板块紧跟CPO板块领跑全市场。",
+        detail: "据分析原因可能是继私募基金上线AI基金经理之后，公募基金近日也正式推出了AI交易员新政。全球日前宣布旗下AI交易员正式上线，成为首家将AI技术应用于资金交易领域的基金公司。",
+        why: "AI交易员的上线不仅推动了金融IT板块的增长，也标志着AI技术在金融交易领域的应用迈入了新的阶段。", url: "https://www.xiaoyuzhoufm.com/episode/64906370932f350aae9e5204"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "全球50%以上Llama开发者转向DeepSeek（6.19）",
+        what: "全球50%以上Llama开发者转向DeepSeek，Meta被迫加速Llama 4研发。",
+        detail: "硬件依赖下降：低成本模型降低了对高端GPU的依赖，部分场景可用CPU替代。开源生态重构：全球50%以上Llama开发者转向DeepSeek，Meta被迫加速Llama 4研发。",
+        why: "这一转变表明DeepSeek在开源社区的影响力日益增强，可能会对Meta的Llama项目产生一定的竞争压力。", url: "http://mp.weixin.qq.com/s?__biz=Mjc1NjM3MjY2MA==&mid=2691557310&idx=1&sn=b67b1911d9c2597309056520f6464d8b"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-18", vol: "VOL.008", weekday: "周四",
     headline: "AI Agent行业竞争加剧与技术前沿并进（6.18）",
     tldr: "AI Agent行业在2026年迎来激烈竞争和技术创新。科技巨头和初创公司在多条战线上展开竞争，市场整合和估值泡沫成为行业关注点。同时，AI Agent技术趋势指向多智能体协作和跨模态理解，预示着行业新的发展机遇。",
