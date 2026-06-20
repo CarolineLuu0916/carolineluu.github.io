@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-20", vol: "VOL.010", weekday: "周六",
+    headline: "AI Agent行业动态：云服务商赋能企业构建AI智能体",
+    tldr: "云服务商如谷歌和亚马逊通过提供AI Agent Builder等工具，推动AI能力产品化、工具化，降低企业构建AI智能体的门槛。AI Agent行业正从实验室走向实际应用，成为全球科技竞争焦点。",
+    vane: [
+      { label: "云服务", dir: "up", note: "云服务商通过AI Agent Builder等工具赋能企业构建AI智能体，推动AI能力产品化、工具化。" },
+      { label: "AI Agent应用", dir: "up", note: "AI Agent从实验室走向实际应用，成为全球科技竞争焦点。" },
+      { label: "AI Agent商业化", dir: "up", note: "AI Agent在toB领域已实现商业化，toC领域突破尚需时间。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "谷歌Vertex AI Agent Builder赋能企业构建AI智能体（6.20）",
+        what: "谷歌Vertex AI Agent Builder代表了大型云服务商将先进AI能力产品化、工具化的趋势。",
+        detail: "谷歌Vertex AI Agent Builder为企业提供了一个强大且相对易用的平台，以利用生成式AI提升效率和创新业务。",
+        why: "这表明云服务商正在通过提供易用的工具和平台，推动AI能力的普及和应用，降低企业构建AI智能体的门槛。", url: "http://mp.weixin.qq.com/s?__biz=MzIxNTY4NzIyNw==&mid=2247501562&idx=1&sn=6d8ad1b1c7cd7323415abf6d5fa777c5"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "亚马逊推出Amazon Bedrock Agents降低AI应用门槛（6.20）",
+        what: "亚马逊云科技 (AWS) 提供的Amazon Bedrock Agents旨在帮助开发者轻松构建、部署和管理基于生成式AI的智能体。",
+        detail: "Amazon Bedrock Agents是Amazon Bedrock平台的一部分，提供对来自多家领先AI公司以及亚马逊自身的高性能基础模型的访问。",
+        why: "亚马逊通过Bedrock Agents进一步降低了企业利用生成式AI构建复杂应用的门槛，使开发者能够创建可以执行任务、回答问题并与企业数据和系统交互的AI智能体。", url: "http://mp.weixin.qq.com/s?__biz=MzUxNTM5NjUyNg==&mid=2247507433&idx=1&sn=46676dc1734a1d64f873b0790f3bada1"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "第四范式转型AI Agent服务商引领行业趋势（6.20）",
+        what: "第四范式从机器学习平台转型为AI Agent服务商，发布医疗行业AI智能体解决方案。",
+        detail: "第四范式提出'Agent负责沟通需求，世界模型解决垂直问题'的双核架构，通过'AI Agent+医疗行业模型'为医疗机构提供全方位智能升级。",
+        why: "第四范式的转型和业务迭代反映了AI Agent在垂直领域的商业化落地潜力，AI Agent能够针对固定场景进行深度优化，推动产业效率革命。", url: "http://mp.weixin.qq.com/s?__biz=MzU5NzEyMDMzNw==&mid=2247530569&idx=1&sn=c028476ac0d06c9921a8f7a1a4ee833a"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent成为AI落地的主力军（6.20）",
+        what: "2025年，AI Agent将成为AI落地的主力军，具备'感知-决策-行动-复盘'闭环能力的智能体将走进千行百业。",
+        detail: "AI Agent将成为AI落地的主力军，以具备闭环能力的智能体为代表，推动产业效率革命。未来用户会需要多个专业AI Agent，每个Agent针对不同场景和需求。",
+        why: "AI Agent将成为AI技术落地的关键载体，推动AI技术在各行各业的广泛应用，提升产业效率和智能化水平。", url: "http://mp.weixin.qq.com/s?__biz=MzU0OTA4MTc2NA==&mid=2247591036&idx=1&sn=ebdceca9815f17fd7c41708002add71a"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-19", vol: "VOL.009", weekday: "周五",
     headline: "AI Agent行业动态：技术演进与商业模式创新并进（6.19）",
     tldr: "过去24小时内，全球AI Agent行业呈现技术演进与商业模式创新并进的态势。全球电商市场增长放缓，AI Agent技术重塑内容生产；多模态能力成为新一代Agent框架的标配；RPA市场在Agent影响下孕育新商业模式。",
