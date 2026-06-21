@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-21", vol: "VOL.011", weekday: "周日",
+    headline: "AI Agent行业动态：技术与场景深度融合，头部效应加剧（6.21）",
+    tldr: "2026年6月21日，AI Agent行业呈现出技术与场景深度融合、头部效应加剧的趋势。Arcee.ai发布AFM-4.5B基础模型，注重实际性能与企业级应用。Adobe开源实时视频蒸馏模型Self-Forcing。vLLM项目GitHub星标突破5万。英伟达Vera CPU正式量产，专为Agentic AI时代设计。",
+    vane: [
+      { label: "技术融合", dir: "up", note: "AI技术与行业场景的深度融合，推动专业化、垂直化发展。" },
+      { label: "头部集中", dir: "up", note: "资本向顶尖玩家集中，头部效应加剧，形成'赢家通吃'格局。" },
+      { label: "开源生态", dir: "up", note: "开源项目如vLLM、Self-Forcing受到社区广泛认可，推动AI技术普及。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Arcee.ai发布AFM-4.5B基础模型，注重实际性能与企业级应用（6.21）",
+        what: "Arcee.ai宣布推出Arcee基础模型（AFM）家族，首款为AFM-4.5B。",
+        detail: "AFM-4.5B专为实际应用性能设计，号称GPU级结果，CPU级效率，注重企业隐私、合规及西方监管。模型经过后训练，擅长推理、代码、RAG和智能体任务，计划于7月以CC BY-NC许可证开放权重。",
+        why: "AFM-4.5B的发布，标志着AI基础模型向企业级应用的进一步拓展，有助于推动AI技术在企业核心场景的落地。", url: "https://www.zaowu.world/ai-daily/202606042205-1780581916.html"
+      },
+      {
+        region: "海外", tag: "os",
+        title: "Adobe开源实时视频蒸馏模型Self-Forcing（6.21）",
+        what: "Adobe开源了其从Wan 2.1蒸馏而来的实时视频模型Self-Forcing。",
+        detail: "Self-Forcing模型实现了实时视频生成，Hugging Face上已有用户构建了实时演示Demo。这标志着开源社区在实时视频生成能力上又迈进一步，为开发者提供了新的工具和研究基础。",
+        why: "开源实时视频蒸馏模型的发布，将进一步推动视频生成技术的普及和应用，为开发者提供更多创新可能。", url: "https://www.zaowu.world/ai-daily/202606042205-1780581916.html"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "vLLM项目GitHub星标突破5万（6.21）",
+        what: "vLLM项目在GitHub上获得了超过5万星标。",
+        detail: "vLLM项目致力于为用户提供便捷、快速且经济的LLM服务解决方案，其在GitHub上的高星标显示了其在LLM服务和推理优化领域的受欢迎程度和社区认可度。",
+        why: "vLLM项目的高星标，反映了开源社区对LLM服务和推理优化解决方案的强烈需求，将进一步推动相关技术的发展和应用。", url: "https://www.zaowu.world/ai-daily/202606042205-1780581916.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "英伟达Vera CPU正式量产，专为Agentic AI时代设计（6.21）",
+        what: "英伟达近日正式向多家顶级AI公司交付首批Vera CPU。",
+        detail: "Vera基于自研Olympus架构，集成88个自定义核心，支持1.8TB/s NVLink-C2C带宽和1.5TB系统内存，性能较上一代Grace提升50%，将成为Rubin平台核心组件。",
+        why: "Vera CPU的量产，标志着英伟达在Agentic AI时代的布局进一步深化，将为AI Agent行业提供更强大的硬件支持。", url: "https://www.aitrend.us/"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-20", vol: "VOL.010", weekday: "周六",
     headline: "AI Agent行业动态：云服务商赋能企业构建AI智能体",
     tldr: "云服务商如谷歌和亚马逊通过提供AI Agent Builder等工具，推动AI能力产品化、工具化，降低企业构建AI智能体的门槛。AI Agent行业正从实验室走向实际应用，成为全球科技竞争焦点。",
