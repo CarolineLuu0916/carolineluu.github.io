@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-22", vol: "VOL.012", weekday: "周一",
+    headline: "AI Agent行业动态：云服务商加速布局，开源生态持续升温（6.22）",
+    tldr: "云服务商加速布局AI Agent，开源生态持续升温，行业进入快速发展期。",
+    vane: [
+      { label: "云服务", dir: "up", note: "云服务商加速布局AI Agent，推动行业快速发展。" },
+      { label: "开源生态", dir: "up", note: "开源生态持续升温，促进AI技术交流与创新。" },
+      { label: "AI应用", dir: "up", note: "AI agent应用多点开花，B端商业化加速。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "云服务商加速布局AI Agent（6.22）",
+        what: "云服务商加速布局AI Agent，推动行业快速发展。",
+        detail: "腾讯云与沙特电信服务商联手推出走进沙特计划，打造新型云服务平台。华为云在埃及设立数据中心，发布千亿参数阿拉伯语大模型。阿里云宣布在韩国、马来西亚、菲律宾、泰国、墨西哥投资建设数据中心。",
+        why: "云服务商通过开拓海外市场，缓解国内竞争压力，提升品牌国际影响力。", url: "https://www.xiaoyuzhoufm.com/episode/66b4760078f788007aa283ed"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "开源生态持续升温（6.22）",
+        what: "开源生态持续升温，促进AI技术交流与创新。",
+        detail: "cloud MCP等agent链接协议火热，打通数据墙，提高数据流动效率。多个开源框架star逐步上涨，开发者积极探索。",
+        why: "开源生态的持续升温有助于AI技术的交流与创新，加速AI agent技术发展。", url: "https://www.xiaoyuzhoufm.com/episode/675afef01dac43ba8403ac3f"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI agent应用多点开花（6.22）",
+        what: "AI agent应用将在2025年多点开花，B端商业化加速。",
+        detail: "AI agent有望在B端率先商业化，电商营销、CRM、金融法律等场景快速落地。伴随国内外巨头大模型持续迭代，C端或迎来杀手级应用。",
+        why: "AI agent在B端的商业化加速，将推动AI技术在更多场景的应用落地。", url: "https://www.xiaoyuzhoufm.com/episode/67caf576e924d4525a02600e"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI大模型迭代加速AI应用场景落地（6.22）",
+        what: "国产大模型迭代加速，AI应用场景落地加速。",
+        detail: "KimiK2性能惊艳全球、通义千问3发布，智谱GLM4.5国产综合测批第一，豆包大模型AI编程日均tokens消耗量上半年增长8.4倍。",
+        why: "国产大模型的快速迭代加速了AI技术在广告、电商、游戏、影视、教育等音视频领域的应用落地。", url: "http://mp.weixin.qq.com/s?__biz=MzkwMjA4NTUyMg==&mid=2247550532&idx=2&sn=6cd197d7ffa2be95bbe39e747d568206"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-21", vol: "VOL.011", weekday: "周日",
     headline: "AI Agent行业动态：技术与场景深度融合，头部效应加剧（6.21）",
     tldr: "2026年6月21日，AI Agent行业呈现出技术与场景深度融合、头部效应加剧的趋势。Arcee.ai发布AFM-4.5B基础模型，注重实际性能与企业级应用。Adobe开源实时视频蒸馏模型Self-Forcing。vLLM项目GitHub星标突破5万。英伟达Vera CPU正式量产，专为Agentic AI时代设计。",
