@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-23", vol: "VOL.013", weekday: "周二",
+    headline: "AI Agent行业动态：AI投资与基建加速，技术应用场景扩展（6.23）",
+    tldr: "过去24小时内，AI Agent行业呈现政策推动、企业投资增加和应用场景扩展的趋势。美国政策推动AI出口与基建，Alphabet财报显示AI成为驱动力。同时，AI Agent在合规、云资源管理等领域的应用不断扩展，显示出AI技术在各行业的深度融合和应用。",
+    vane: [
+      { label: "政策推动", dir: "up", note: "美国政策推动AI出口与基建，布局全球供应链体系。" },
+      { label: "企业投资", dir: "up", note: "Alphabet财报显示AI已成为企业增长的驱动力。" },
+      { label: "技术应用", dir: "up", note: "AI Agent在合规、云资源管理等领域的应用不断扩展。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "美国跃升为AI出口与基建主推者（6.23）",
+        what: "美国政策端跃升为AI出口与基建的主推者，布局全球供应链体系。",
+        detail: "本周，美国政策端显示出对AI出口与基建的重视，意图在全球供应链体系中占据主导地位。这一政策动向不仅反映了AI技术的战略重要性，也预示着未来全球AI产业格局可能的变化。",
+        why: "这一政策动向意味着AI技术在全球范围内的扩散和应用将进一步加速，同时也可能引发其他国家在AI领域的竞争和合作。", url: "http://mp.weixin.qq.com/s?__biz=MzIxNjMzMTEyOQ==&mid=2247483919&idx=1&sn=0848b9646ba97a3c25371ba6e64c4e3d"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Alphabet财报证实AI成为企业增长驱动力（6.23）",
+        what: "Alphabet最新财报显示，AI已成为企业增长的重要驱动力。",
+        detail: "Alphabet的财报中提到，AI技术在提高效率、降低成本和创造新业务模式方面发挥了关键作用。这一趋势表明，AI技术已经成为企业竞争力的重要组成部分。",
+        why: "AI技术在企业中的应用不断深化，预示着未来企业将在AI领域投入更多资源，以保持竞争优势。", url: "http://mp.weixin.qq.com/s?__biz=MzIxNjMzMTEyOQ==&mid=2247483919&idx=1&sn=0848b9646ba97a3c25371ba6e64c4e3d"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "合合信息发布AI Agent跨平台云资源智能管理终端（6.23）",
+        what: "合合信息发布业内首个AI Agent跨平台云资源智能管理终端Chaterm。",
+        detail: "合合信息在2025亚马逊云科技中国峰会上发布了Chaterm，这是一个AI Agent跨平台云资源智能管理终端，通过自然语言交互实现云资源的智能化和规模化管理。该产品的发布，标志着AI技术在云资源管理领域的应用进一步深化。",
+        why: "Chaterm的发布为云计算从业人士提供了一个全新的工具，有助于提高云资源管理的效率和便捷性，推动AI技术在云计算领域的应用。", url: "http://mp.weixin.qq.com/s?__biz=MzU5MTgzMjQxMw==&mid=2247529135&idx=2&sn=74bf057721f55c4fca36f37d1b2d799b"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "亚马逊云科技发布集成开发环境Kiro（6.23）",
+        what: "亚马逊云科技推出Kiro预览版，专为AI Agent打造的集成开发环境。",
+        detail: "亚马逊云科技推出的Kiro预览版是一款集成开发环境（agentic IDE），旨在简化AI Agent的开发流程，帮助开发者从概念构想到生产部署的全过程。这一工具的推出，将进一步推动AI Agent技术的发展和应用。",
+        why: "Kiro的推出为AI Agent的开发提供了一个更加便捷的环境，有助于降低开发门槛，加速AI技术的创新和应用。", url: "http://mp.weixin.qq.com/s?__biz=MjM5OTAzMjc4MA==&mid=2650835716&idx=3&sn=4237bb4e1fb1959d6972eb7a1336eb2a"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI内容检测技术需求爆发（6.23）",
+        what: "AI内容检测技术需求爆发，ZeroGPT访问量增至2157万。",
+        detail: "随着AI生成内容的增加，检测技术的需求也随之增长。ZeroGPT等AI内容检测工具的访问量大幅增加，显示出市场对这类技术的高度关注。检测技术的准确率也在不断优化，以满足教育、媒体、企业合规等场景的需求。",
+        why: "AI内容检测技术的发展对于维护内容的真实性和安全性至关重要，这一趋势表明市场对此类技术的需求将持续增长。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-22", vol: "VOL.012", weekday: "周一",
     headline: "AI Agent行业动态：云服务商加速布局，开源生态持续升温（6.22）",
     tldr: "云服务商加速布局AI Agent，开源生态持续升温，行业进入快速发展期。",
