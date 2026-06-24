@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-24", vol: "VOL.014", weekday: "周三",
+    headline: "AI Agent行业动态：技术突破与应用场景拓展（6.24）",
+    tldr: "过去24小时，AI Agent行业迎来多维度技术突破与应用场景拓展。OpenAI宣布将Codex并入ChatGPT，打造超级Agent；Manus引领开源复现潮，激发开发者热情；AI Agent技术在游戏AI、自动驾驶等领域展现新进展。",
+    vane: [
+      { label: "技术融合", dir: "up", note: "AI技术与多模态、边缘计算等技术融合，推动AI Agent向具身智能进化。" },
+      { label: "应用场景", dir: "up", note: "AI Agent在游戏、自动驾驶等领域的应用场景不断拓展，商业化进程加速。" },
+      { label: "开源生态", dir: "up", note: "Manus引领开源复现潮，激发全球开发者对AI Agent的热情与创新。" },
+      { label: "企业服务", dir: "up", note: "OpenAI收购远程协作平台multi moti，扩展企业服务战略。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI将Codex并入ChatGPT打造超级Agent（6.24）",
+        what: "OpenAI宣布将Codex并入ChatGPT，合并后的超级应用将结合对话式AI与自主任务执行能力。",
+        detail: "OpenAI在'Intelligence at Work'虚拟活动上宣布将Codex并入ChatGPT，合并后的超级应用将结合对话式AI与自主任务执行能力，覆盖桌面端、移动端和浏览器。Codex周活跃用户已突破500万，其中知识工作者占比20%，增速是开发者的3倍。三大新功能同步发布：Agent Plugins（可定制插件）、Annotations（内联批注改进输出质量）、Sites（通过单一URL创建交互式网站）。",
+        why: "此次合并标志着AI Agent技术的重大突破，将极大地推动对话式AI与任务自动化的融合，为用户提供更智能、更便捷的服务体验。", url: "https://www.36kr.com/p/3836668227466630"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Manus引领AI Agent开源复现潮（6.24）",
+        what: "Manus火爆后，开源社区迅速行动，多个复现项目在GAIA基准上取得不错成绩。",
+        detail: "Manus火爆后，开源社区迅速行动。有团队在发布后的第0天就放出了复现项目OpenManus。CAMEL-AI团队则推出了项目OWL，整合了自研的大模型DeepSeek，实现多Agent协作。这些开源项目在GAIA基准上也取得了不错成绩，OWL的Level 1得分81.13%，已经超过OpenAI Deep Research，逼近Manus。GitHub趋势上，一时间Agent相关项目（如MetaGPT、AutoGPT）纷纷上榜，Agent工具库也备受关注。",
+        why: "Manus的成功不仅展示了AI Agent技术的潜力，还极大地激发了全球开发者的热情，推动了AI Agent技术的开源创新和生态构建。", url: "https://blog.csdn.net/yetzi1975/article/details/138372000"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "百度发布Comate AI IDE多模态开发环境（6.24）",
+        what: "百度发布Comate AI IDE多模态开发环境，支持多智能体协同自动组建'虚拟团队'。",
+        detail: "百度发布Comate AI IDE多模态开发环境，支持多智能体协同自动组建'虚拟团队'，文心快码占百度每日新增代码43%。该产品从辅助工具升级为操作系统级工具，抢占AI时代开发者生态入口。",
+        why: "Comate AI IDE的发布标志着百度在AI开发工具领域的进一步布局，有助于推动AI技术的创新和应用，构建更丰富的AI生态。", url: "http://mp.weixin.qq.com/s?__biz=Mzk0MjAyMTMwOA==&mid=2247488580&idx=1&sn=a27dff2f28217c5ade89f949085a5523"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI收购远程协作平台multi moti（6.24）",
+        what: "OpenAI在收购Brookside之后，又收购了一家远程协作平台multi moti。",
+        detail: "6月24日，OpenAI在收购Brookside之后，又收购了一家远程协作平台multi moti，自己的服务将会在7月24号关闭，他们大部分团队的成员也会加入到OpenAI的团队。Muti提供视频聊天、屏幕共享等等功能，最多支持十个人通过屏幕共享来进行协作。ChatGPT的企业用户目前已经接近60万，这次收购是OpenAI扩展企业服务战略的一部分。",
+        why: "此次收购进一步扩展了OpenAI在企业服务领域的布局，有助于提升其在远程协作和企业自动化解决方案的竞争力。", url: "https://www.xiaoyuzhoufm.com/episode/667ac8efc37399840c0eb958"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "LLMhop — 面向大语言模型的微型无状态路由器（6.24）",
+        what: "LLMhop是一个用Go编写的极简HTTP反向代理，可根据请求体中的model字段将OpenAI兼容的API请求路由到正确的推理后端。",
+        detail: "LLMhop是一个用Go编写的极简HTTP反向代理，可根据请求体中的model字段将OpenAI兼容的API请求路由到正确的推理后端。核心特性包括单二进制文件、零依赖（纯Go，无CGO），支持vLLM、sglang、Ollama、OpenRouter等所有兼容后端。安全方面采用Bearer Token认证和常量时间比较，支持通过环境变量和文件引用密钥，避免明文泄露。项目还提供NixOS模块，可自动管理llama.cpp、sglang和vLLM工作节点，通过rootless Podman容器运行，非常适合Homelab和多模型生产部署。",
+        why: "LLMhop的推出为大语言模型的部署和推理提供了一种轻量级、灵活的解决方案，有助于降低部署复杂性和提高效率。", url: "https://github.com/mirkolenz/llmhop"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-23", vol: "VOL.013", weekday: "周二",
     headline: "AI Agent行业动态：AI投资与基建加速，技术应用场景扩展（6.23）",
     tldr: "过去24小时内，AI Agent行业呈现政策推动、企业投资增加和应用场景扩展的趋势。美国政策推动AI出口与基建，Alphabet财报显示AI成为驱动力。同时，AI Agent在合规、云资源管理等领域的应用不断扩展，显示出AI技术在各行业的深度融合和应用。",
