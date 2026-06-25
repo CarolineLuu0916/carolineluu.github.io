@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-25", vol: "VOL.015", weekday: "周四",
+    headline: "AI Agent行业动态：市场整合与技术突破（6.25）",
+    tldr: "2026年6月25日，AI Agent行业迎来市场整合与技术突破。全球78%的组织已在日常运营中使用AI工具，85%的组织开始整合AI Agent。Manus作为全球首款通用AI Agent，引领开源复现与技术进步。",
+    vane: [
+      { label: "市场整合", dir: "up", note: "预计2026至2027年市场将迎来整合浪潮，大型基础模型公司和传统企业软件巨头将通过并购增强AI Agent能力。" },
+      { label: "技术突破", dir: "up", note: "Manus作为全球首款通用AI Agent，其开源复现项目和相关技术进展预示着AI Agent领域将迎来快速发展。" },
+      { label: "跨智能体协作", dir: "up", note: "下一个技术挑战和投资机遇将在于多智能体系统，即让来自不同供应商的专业智能体能够相互沟通、协调和合作。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "全球78%的组织在日常运营中使用AI工具（6.25）",
+        what: "全球已有78%的组织在日常运营中使用某种形式的AI工具，85%的组织开始整合AI Agent。",
+        detail: "这一数据表明AI Agent正在成为企业运营的标配，市场对AI Agent的需求和应用正在快速增长。",
+        why: "产品经理需要关注AI Agent在企业运营中的应用趋势，优化产品设计以满足市场需求。", url: "http://mp.weixin.qq.com/s?__biz=Mzk0NTYzNDQ5NQ==&mid=2247512331&idx=1&sn=2923f61175772513963f46a115a790d6"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Manus引领AI Agent技术突破（6.25）",
+        what: "Manus作为全球首款通用AI Agent，其开源复现项目和相关技术进展预示着AI Agent领域将迎来快速发展。",
+        detail: "Manus的成功带动了国内外资本和媒体对AI Agent的关注，有分析称中国团队在AI Agent上实现了弯道超车，证明中国在该领域的创新能力。",
+        why: "Manus的技术突破为AI Agent领域提供了新的发展路径，产品经理需要关注其技术进展和市场影响。", url: "http://mp.weixin.qq.com/s?__biz=MzI2NDYzNDMzNA==&mid=2247488079&idx=1&sn=06a4211b1d20cd9efc28b13c03b09669"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "市场整合在所难免，大型基础模型公司和传统企业软件巨头将通过并购增强AI Agent能力（6.25）",
+        what: "预计在2026至2027年，市场将迎来一波整合浪潮。大型基础模型公司可能会收购成功的垂直智能体公司，以快速获取行业知识和市场渠道。",
+        detail: "同时，像企业软件领军者ServiceNow 28.5亿美金收购企业级AI助手提供商Moveworks那样，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        why: "市场整合将推动AI Agent技术的快速发展和应用，产品经理需要关注市场动态，把握合作和竞争机会。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Manus开源复现项目OpenManus和OWL取得进展（6.25）",
+        what: "Manus火爆后，开源社区迅速行动，有团队在发布后的第0天就放出了复现项目OpenManus。CAMEL-AI团队则推出了项目OWL，整合了自研的大模型DeepSeek，实现多Agent协作。",
+        detail: "这些开源项目在GAIA基准上也取得了不错成绩，OWL的Level 1得分81.13%，已经超过OpenAI Deep Research，逼近Manus。GitHub趋势上，一时间Agent相关项目（如MetaGPT、AutoGPT）纷纷上榜，Agent工具库也备受关注。",
+        why: "开源项目的快速进展为AI Agent技术的普及和应用提供了有力支持，产品经理可以利用这些开源资源加速产品开发和创新。", url: "https://github.com/traverseda/Manus-Reimplementation"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "跨智能体协作成为下一个技术挑战和投资机遇（6.25）",
+        what: "下一个重大的技术挑战和投资机遇将在于多智能体系统（Multi-Agent Systems），即让来自不同供应商的专业智能体能够相互沟通、协调和合作，以完成更复杂的任务。",
+        detail: "这需要新的通信协议、编排平台和治理框架，为未来的创业公司开辟了广阔的“无人区”。",
+        why: "跨智能体协作将推动AI Agent技术向更高层次发展，产品经理需要关注相关技术进展和市场机会。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-24", vol: "VOL.014", weekday: "周三",
     headline: "AI Agent行业动态：技术突破与应用场景拓展（6.24）",
     tldr: "过去24小时，AI Agent行业迎来多维度技术突破与应用场景拓展。OpenAI宣布将Codex并入ChatGPT，打造超级Agent；Manus引领开源复现潮，激发开发者热情；AI Agent技术在游戏AI、自动驾驶等领域展现新进展。",
