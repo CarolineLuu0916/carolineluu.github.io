@@ -2,6 +2,50 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-26", vol: "VOL.016", weekday: "周五",
+    headline: "AI Agent行业动态：竞争加剧与技术演进（6.26）",
+    tldr: "AI Agent领域竞争加剧，初创公司与科技巨头争夺市场，同时Agent工程体系经历提示词、上下文到驾驭工程的演进。",
+    vane: [
+      { label: "竞争态势", dir: "up", note: "AI Agent领域的竞争正变得日益复杂，多条战线并进。" },
+      { label: "技术演进", dir: "up", note: "Agent工程体系经历提示词、上下文到驾驭工程的演进。" },
+      { label: "市场整合", dir: "up", note: "预计2026至2027年，市场将迎来一波整合浪潮。" },
+      { label: "跨智能体协作", dir: "up", note: "多智能体系统（Multi-Agent Systems）成为下一个技术挑战和投资机遇。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent领域竞争态势加剧（6.26）",
+        what: "AI Agent领域的竞争正变得日益复杂，初创公司与科技巨头争夺市场。",
+        detail: "科技巨头如AWS、Databricks和Google等平台级玩家都在构建自己的智能体框架和解决方案，初创公司必须通过构建深度的技术护城河、积累专有数据、打造独特的行业工作流或建立强大的开发者社区来避免被巨头的产品复刻或边缘化。",
+        why: "产品经理需要关注如何构建差异化竞争优势，并在巨头的阴影下寻找生存和发展的空间。", url: "https://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Agent工程体系经历技术演进（6.26）",
+        what: "Agent工程体系经历提示词工程、上下文工程到驾驭工程的演进。",
+        detail: "亚马逊全球副总裁储瑞松指出，Agent工程体系经历了三轮演进：最早是提示词工程，随后发展为上下文工程，而最近半年成为行业焦点的则是驾驭工程，即搭建模型执行框架，让智能体能够可靠地完成任务。",
+        why: "产品经理需要理解Agent工程体系的最新发展，以便更好地设计和优化AI Agent产品。", url: "https://www.caixin.com/2026-06-24/102457012.html?originReferrer=kimi"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "市场整合在所难免（6.26）",
+        what: "预计在2026至2027年，AI Agent市场将迎来一波整合浪潮。",
+        detail: "大型基础模型公司可能会收购成功的垂直智能体公司，以快速获取行业知识和市场渠道。同时，像企业软件领军者ServiceNow收购企业级AI助手提供商Moveworks那样，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        why: "产品经理需要关注市场整合趋势，把握并购机会，以及如何在整合中保持竞争力。", url: "https://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "跨智能体协作成为下一个前沿（6.26）",
+        what: "多智能体系统（Multi-Agent Systems）成为下一个重大的技术挑战和投资机遇。",
+        detail: "当前多数智能体仍是“单兵作战”。下一个重大的技术挑战和投资机遇将在于多智能体系统，即让来自不同供应商的专业智能体能够相互沟通、协调和合作，以完成更复杂的任务。这需要新的通信协议、编排平台和治理框架。",
+        why: "产品经理需要关注多智能体系统的发展，探索如何设计和实现跨智能体协作，以提升产品的功能和价值。", url: "https://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-25", vol: "VOL.015", weekday: "周四",
     headline: "AI Agent行业动态：市场整合与技术突破（6.25）",
     tldr: "2026年6月25日，AI Agent行业迎来市场整合与技术突破。全球78%的组织已在日常运营中使用AI工具，85%的组织开始整合AI Agent。Manus作为全球首款通用AI Agent，引领开源复现与技术进步。",
