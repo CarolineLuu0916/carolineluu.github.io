@@ -2,6 +2,55 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-29", vol: "VOL.019", weekday: "周一",
+    headline: "AI Agent行业动态：市场整合与技术挑战（6.29）",
+    tldr: "过去24至48小时内，AI Agent行业显示出市场整合趋势，大型基础模型公司和传统企业软件巨头通过并购增强AI Agent能力。同时，AI内容检测技术需求增长，检测准确率持续优化。<b>市场整合</b>和<b>技术挑战</b>成为行业关键词。",
+    vane: [
+      { label: "市场整合", dir: "up", note: "大型基础模型公司和传统企业软件巨头通过并购增强AI Agent能力" },
+      { label: "技术挑战", dir: "up", note: "AI内容检测技术需求增长，检测准确率持续优化" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent市场整合趋势明显（6.29）",
+        what: "预计在2026至2027年，AI Agent市场将迎来一波整合浪潮。",
+        detail: "大型基础模型公司可能会收购成功的垂直智能体公司，以快速获取行业知识和市场渠道。同时，像企业软件领军者ServiceNow收购企业级AI助手提供商Moveworks那样，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        why: "市场整合将加速AI Agent技术的应用和普及，有助于形成更完整的行业生态和解决方案。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI内容检测技术需求增长（6.29）",
+        what: "AI生成内容检测需求爆发，ZeroGPT访问量增至2157万。",
+        detail: "AI内容检测技术需求增长，检测准确率持续优化。市场阶段处于快速扩张期，覆盖教育、媒体、企业合规等场景。典型产品包括ZeroGPT、GPTZero、Originality、Compilatio等。",
+        why: "AI内容检测技术的发展有助于提升内容的真实性和可靠性，对于打击虚假信息和保护知识产权具有重要意义。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "甲骨文购买英伟达芯片扩展AI云计算服务（6.29）",
+        what: "甲骨文公司创始人Larry Ellison表示，甲骨文正在花费数十亿美元购买英伟达公司的芯片，来扩展AI浪潮下的云计算服务。",
+        detail: "甲骨文正在和亚马逊以及微软的云计算展开竞争，想要构建可以处理大量数据的快速网络。除了从英伟达购买GPU之外，甲骨文今年还将从AMD购买大量用于传统计算的CPU，这些芯片花费的资金可能是GPU的三倍。",
+        why: "这一举措显示了甲骨文在AI云计算服务领域的雄心，也反映了AI算力需求的快速增长。", url: "https://www.xiaoyuzhoufm.com/episode/64a353e6a0ac9467ebeca816"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国AI Agent行业应用场景拓展（6.29）",
+        what: "中国AI Agent行业在客户支持、人力资源和销售运营中应用广泛，工作流自动化成为主要应用场景。",
+        detail: "35%的组织在使用AI Agent后，通过自动化实现了成本节约。88%的高管表示，他们正在探索或扩大基于Agent的工作流应用。",
+        why: "中国AI Agent行业的快速发展，不仅推动了企业运营的效率与一致性，也为行业提供了新的增长点。", url: "http://mp.weixin.qq.com/s?__biz=Mzk0NTYzNDQ5NQ==&mid=2247512331&idx=1&sn=2923f61175772513963f46a115a790d6"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "AI辅助工具和自动化测试需求旺盛（6.29）",
+        what: "云端和AI增强工具崛起，Supabase访问量达955万，开发工具向全栈一体化演进。",
+        detail: "技术栈整合期，低代码和AI辅助工具快速发展。典型产品包括Supabase、Google AI for Developers、Weights & Biases、PyTorch等。",
+        why: "开源社区在AI辅助工具和自动化测试方面的需求增长，反映了AI技术在软件开发领域的广泛应用和重要性。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-28", vol: "VOL.018", weekday: "周日",
     headline: "AI Agent行业动态：技术突破与生态合作趋势（6.28）",
     tldr: "今日全球AI Agent领域动态密集，涉及技术突破、生态合作与市场竞争。<b>大模型竞争格局开启“一超多强”时代，开源模型与大公司的闭源模型相辅相成，形成动态平衡和互补的生态系统。</b>",
