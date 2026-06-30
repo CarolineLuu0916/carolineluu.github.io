@@ -2,6 +2,50 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-06-30", vol: "VOL.020", weekday: "周二",
+    headline: "全球 AI Agent 行业动态：技术突破与生态整合趋势（6.30）",
+    tldr: "2026年6月30日，全球AI Agent市场加速整合，开源生态持续扩张。海外AI Agent产业图谱中，框架与工具占主导，头部厂商聚焦大模型，加速Agent布局。国内则聚焦场景落地，头部模型厂商布局AI Agent平台建设，深耕垂直领域应用。",
+    vane: [
+      { label: "gl", dir: "up", note: "海外AI Agent产业图谱中，框架与工具占主导，头部厂商聚焦大模型，加速Agent布局。" },
+      { label: "cn", dir: "up", note: "国内聚焦场景落地，头部模型厂商布局AI Agent平台建设，深耕垂直领域应用。" },
+      { label: "os", dir: "up", note: "开源生态持续扩张，GeminiCLI在Github上拿下5万+颗星，热度攀升。" },
+      { label: "eco", dir: "up", note: "AI Agent行业生态正在逐步成型，形成了以底层大模型+各类工具+配套Agent Infra的产品技术架构。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "海外AI Agent产业图谱中框架与工具占主导（6.30）",
+        what: "海外AI Agent产业图谱中，框架与工具占主导，头部厂商聚焦大模型，加速Agent布局。",
+        detail: "截止7月初，GeminiCLI已在Github上拿下5万+颗星，热度攀升；OpenAI上半年持续加码Agent领域，相继推出多款专用工具，包括计算机操作工具Computer-UsingAgent、文件检索工具File Search Tool等，6月更在Github开源了完整的客服Agent解决方案'cs-demo'。",
+        why: "海外市场在AI Agent领域的布局显示出框架和工具的重要性，头部厂商通过聚焦大模型和加速Agent布局来巩固市场地位，推动技术发展和应用落地。", url: "https://www.xiaoyuzhoufm.com/episode/6766a52a15a5fd520e6c86a9"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "国内聚焦场景落地，头部模型厂商布局AI Agent平台建设（6.30）",
+        what: "国内则聚焦场景落地，头部模型厂商布局AI Agent平台建设，深耕垂直领域应用。",
+        detail: "Coze和天工超级智能体平台快速崛起，周均访问量维持在20-30万区间；Manus凭借海外用户基础保持400万左右的稳定用户规模。根据IDC发布的预测，2024年AI Agent全球市场规模约52.9亿美元。中国企业级AI Agent应用市场在2028年的保守规模将超过270亿美元，预计到2030年可增长至471亿美元。",
+        why: "国内AI Agent市场正通过聚焦具体应用场景和平台建设来推动行业的发展，头部模型厂商通过深耕垂直领域应用来拓展市场，显示出国内AI Agent市场的快速增长和巨大潜力。", url: "http://mp.weixin.qq.com/s?__biz=MzA5MjIzODA4NA==&mid=2650505045&idx=1&sn=eaf01cc1167bfa60581b947f68eccbf6"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "开源生态持续扩张，GeminiCLI热度攀升（6.30）",
+        what: "开源生态持续扩张，GeminiCLI在Github上拿下5万+颗星，热度攀升。",
+        detail: "GeminiCLI作为一个开源项目，在Github上的星标数量已经超过5万，显示出开源社区对于AI Agent相关项目的高度关注和积极参与。这种热度的攀升不仅反映了开源生态的活跃度，也表明了AI Agent技术的快速发展和广泛应用前景。",
+        why: "开源项目的流行度和社区参与度是衡量技术趋势和市场接受度的重要指标。GeminiCLI的热度攀升表明开源生态在AI Agent领域的影响力和推动力正在增强。", url: "https://github.com/GeminiCLI/GeminiCLI"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent行业生态逐步成型（6.30）",
+        what: "AI Agent行业生态正在逐步成型，形成了以底层大模型+各类工具+配套Agent Infra的产品技术架构。",
+        detail: "行业对于AI Agent在技术架构和产品形态层面正在逐步成型，形成了以底层大模型+各类工具+配套Agent Infra（环境、记忆、工具及内容接口、安全等）的产品技术架构。这种架构的形成有助于推动AI Agent技术的标准化和模块化，促进行业的健康发展。",
+        why: "AI Agent行业生态的逐步成型对于产品开发和市场拓展具有重要意义，它不仅能够促进技术创新，还能够提高行业效率，降低开发和应用成本。", url: "http://mp.weixin.qq.com/s?__biz=MzUxNTM5NjUyNg==&mid=2247508045&idx=1&sn=6d019bcd04c76975b9922839858d3f66"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-06-29", vol: "VOL.019", weekday: "周一",
     headline: "AI Agent行业动态：市场整合与技术挑战（6.29）",
     tldr: "过去24至48小时内，AI Agent行业显示出市场整合趋势，大型基础模型公司和传统企业软件巨头通过并购增强AI Agent能力。同时，AI内容检测技术需求增长，检测准确率持续优化。<b>市场整合</b>和<b>技术挑战</b>成为行业关键词。",
