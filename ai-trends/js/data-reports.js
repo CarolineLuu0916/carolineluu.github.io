@@ -2,6 +2,50 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-04", vol: "VOL.024", weekday: "周六",
+    headline: "AI Agent行业动态：技术突破与应用落地趋势（7.4）",
+    tldr: "过去24小时AI Agent行业动态聚焦于端侧AI基础设施化、AI工程师工具产品化、记忆系统成为Agent竞赛焦点、安全领域AI原生攻防工具的出现。",
+    vane: [
+      { label: "gl", dir: "up", note: "Google AI Edge发布LiteRT-LM和Gallery，形成端侧AI闭环生态。" },
+      { label: "gl", dir: "up", note: "Block的Goose和NousResearch的Hermes Agent双双爆发，AI工程师工具进入产品化阶段。" },
+      { label: "gl", dir: "up", note: "mem0、claude-mem、obsidian-skills同时升温，记忆系统成为Agent竞赛焦点。" },
+      { label: "gl", dir: "up", note: "AI安全领域出现AI原生攻防工具，如Shannon白盒AI渗透测试工具。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Google AI Edge发布LiteRT-LM和Gallery（7.4）",
+        what: "Google AI Edge同日发布LiteRT-LM（推理运行时）和Gallery（应用展示），形成端侧AI闭环生态。",
+        detail: "Google AI Edge通过LiteRT-LM和Gallery的发布，强化了端侧AI的基础设施，使得AI应用可以直接在设备上运行，而无需依赖云端。LiteRT-LM提供了优化的推理能力，而Gallery则作为应用展示平台，使得开发者能够快速部署和测试AI应用。",
+        why: "这一举措意味着AI应用的部署将更加灵活和高效，同时降低了对云端资源的依赖，对于提升用户体验和数据隐私保护具有重要意义。", url: "https://blog.google/innovation-and-ai/technology/developers-tools/quantization-aware-training-gemma-4"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Block开源Goose编程助手和NousResearch发布Hermes Agent（7.4）",
+        what: "Block的Goose和NousResearch的Hermes Agent双双爆发，标志着AI工程师工具进入产品化阶段。",
+        detail: "Block开源的Goose编程助手和NousResearch的Hermes Agent均获得了社区的广泛关注和快速增长的星标数。Goose强调全栈操作能力，而Hermes Agent突出随用户成长的自适应架构。这两个项目的成功表明，AI工程师工具正在从演示走向实际的工程实践。",
+        why: "这表明AI工具的实用性和成熟度正在提升，能够更好地辅助工程师完成复杂的开发任务，提高开发效率和质量。", url: "https://github.com/block/goose"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "记忆系统成为Agent竞赛焦点（7.4）",
+        what: "mem0、claude-mem、obsidian-skills同时升温，反映社区共识：没有持久记忆的Agent只是高级聊天机器人。",
+        detail: "mem0提供了通用记忆层，claude-mem专注于Claude Code记忆捕获，而obsidian-skills则将个人知识库Agent化。这些项目的发展表明，持久记忆系统正在成为AI Agent竞赛的焦点，且记忆架构正从简单向量检索向复合形态演进。",
+        why: "记忆系统的发展对于提升AI Agent的智能水平和自主性至关重要，能够使其更好地理解和处理复杂任务。", url: "https://github.com/NousResearch/hermes-agent"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI安全领域出现AI原生攻防工具（7.4）",
+        what: "安全领域出现AI原生攻防工具，如Shannon白盒AI渗透测试工具，标志着AI安全从检测漏洞演进为自主发现并利用漏洞。",
+        detail: "Shannon作为白盒AI渗透测试工具，能够自主发现并利用漏洞，这一方向可能随AI系统复杂度提升而持续升温。",
+        why: "AI原生攻防工具的出现，意味着安全领域将更加依赖于AI技术，同时也带来了新的安全挑战和伦理问题。", url: "https://github.com/KeygraphHQ/shannon"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-03", vol: "VOL.023", weekday: "周五",
     headline: "AI Agent行业动态：技术突破与生态整合趋势（7.3）",
     tldr: "近期AI Agent行业呈现多元化发展，技术突破与生态整合成为两大核心趋势。海外市场AI Agent与硬件融合加速，国内市场则聚焦于技术原创性与商业化潜力。同时，全球智能体生态峰会的宣布预示着行业生态的进一步成熟。",
