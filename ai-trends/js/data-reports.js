@@ -2,6 +2,48 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-05", vol: "VOL.025", weekday: "周日",
+    headline: "AI Agent行业动态：工程化与信任边界的深化（7.5）",
+    tldr: "过去24小时内，AI Agent行业继续聚焦于工程化与信任边界的深化。Anthropic与SpaceX合作获得顶级计算资源，微软披露基于代理的业务模型，标志着软件服务向结果导向转变。同时，GPT-5.5 Instant的全面推出和AI原生组织的实践评估显示，行业焦点从模型参数竞争转向深度工程实施和组织重构。",
+    vane: [
+      { label: "gl", dir: "up", note: "Anthropic与SpaceX合作获得顶级计算资源，微软披露基于代理的业务模型，标志着软件服务向结果导向转变。" },
+      { label: "gl", dir: "up", note: "GPT-5.5 Instant全面推出，AI原生组织的实践评估显示行业焦点从模型参数竞争转向深度工程实施和组织重构。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Anthropic与SpaceX合作获得顶级计算资源（7.5）",
+        what: "Anthropic与SpaceX合作，获得顶级计算资源，缓解大型模型训练瓶颈。",
+        detail: "Anthropic与SpaceX达成合作，确保了在大型模型训练和AI需求方面的顶级计算资源，这一合作显著改变了AI行业的计算能力格局，有助于缓解大型模型训练中的瓶颈问题。",
+        why: "这一合作意味着Anthropic在AI领域的竞争力得到加强，同时也显示了AI行业对于高性能计算资源的迫切需求。", url: "https://www.dundun0504.com/article/ai-daily-2026-05-07/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "微软披露基于代理的业务模型（7.5）",
+        what: "微软官方披露其基于代理的业务模型，标志着软件服务向结果导向转变。",
+        detail: "微软宣布其基于代理的业务模型，这一转变意味着软件服务将更加注重结果和效果，而不仅仅是功能和过程。这标志着微软在AI领域的进一步深化，也反映了整个行业向更加以结果为导向的服务模式转变。",
+        why: "微软的这一转变可能会推动整个行业向更加以结果为导向的服务模式发展，对产品经理而言，需要更多地考虑如何通过AI代理实现具体的业务目标。", url: "https://velog.io/@hyuckjin/ai-trends-ai-2026-05-07-en"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "GPT-5.5 Instant全面推出（7.5）",
+        what: "GPT-5.5 Instant全面推出，行业焦点从模型参数竞争转向深度工程实施和组织重构。",
+        detail: "随着GPT-5.5 Instant的全面推出，AI行业的焦点正在从单纯的模型参数竞争转向深度工程实施和组织重构。这一转变意味着行业更加注重AI技术的实用性和工程化，而不仅仅是模型的大小和复杂度。",
+        why: "这一转变对产品经理意味着需要更多地关注AI技术的工程化和实用性，而不仅仅是追求模型的参数规模。", url: "https://note.mowen.cn/detail/589TjiUwLnJj0at6gnLIa"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI原生组织的实践评估（7.5）",
+        what: "AI原生组织的实践评估显示行业焦点从模型参数竞争转向深度工程实施和组织重构。",
+        detail: "AI原生组织的实践评估显示，行业正从模型参数的竞争转向深度工程实施和组织重构。这表明企业越来越重视AI技术在实际业务中的应用和组织结构的优化，而不仅仅是模型的大小和复杂度。",
+        why: "这一趋势对产品经理意味着需要更多地关注AI技术在实际业务中的应用和组织结构的优化，以实现更好的业务效果。", url: "https://aiagentsdirectory.com/news/ai-agents-daily-digest-2026-05-07"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-04", vol: "VOL.024", weekday: "周六",
     headline: "AI Agent行业动态：技术突破与应用落地趋势（7.4）",
     tldr: "过去24小时AI Agent行业动态聚焦于端侧AI基础设施化、AI工程师工具产品化、记忆系统成为Agent竞赛焦点、安全领域AI原生攻防工具的出现。",
