@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-07", vol: "VOL.027", weekday: "周二",
+    headline: "AI Agent行业动态：技术突破与产业融合加速（7.7）",
+    tldr: "过去24小时，AI Agent行业迎来技术突破与产业融合的加速期。Anthropic发布Sonnet 5模型，性能接近Opus 4.8；Meta下线Llama API公共预览版，转向依赖第三方生态；AI Agent技术突破推动工作流自动化进入规模化落地阶段。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent技术突破推动工作流自动化进入规模化落地阶段" },
+      { label: "产业融合", dir: "up", note: "AI技术与实体产业融合加速，具身智能从实验室走向真实产线" },
+      { label: "市场整合", dir: "up", note: "预计市场将迎来一波整合浪潮，大型基础模型公司可能收购成功的垂直智能体公司" },
+      { label: "估值泡沫", dir: "down", note: "部分AI公司估值过高，若未能兑现承诺可能引发市场调整" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Anthropic发布Sonnet 5模型（7.7）",
+        what: "Anthropic发布了 Claude Sonnet 5 新版本，性能接近顶级的 Opus 4.8。",
+        detail: "Anthropic 发布了 Claude Sonnet 5 新版本，性能接近顶级的 Opus 4.8，但价格策略尚不明确。这是模型性能梯度优化的典型策略——在保持大部分性能的同时降低推理成本。对于开发者来说，需要仔细评估新模型在具体任务上的性价比，选择最合适的模型版本平衡成本与效果。",
+        why: "该事件意味着AI模型性能与成本的进一步优化，为开发者提供了更多选择，同时也加剧了市场竞争。", url: "https://www.36kr.com/p/3876285647499529"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Meta下线Llama API公共预览版（7.7）",
+        what: "Meta宣布将于2026年7月6日下线Llama API公共预览版。",
+        detail: "Meta宣布将于2026年7月6日下线Llama API公共预览版，建议用户迁移至第三方提供商，Llama模型本身不受影响。这一举措反映了Meta的模型分发策略从自建平台转向开源+合作伙伴模式。",
+        why: "Meta的这一转变意味着其更加重视与第三方生态的合作，可能会加速Llama模型的普及和应用。", url: "https://luojinping.com/ai-daily/2026-07-06"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI Agent技术突破推动工作流自动化（7.7）",
+        what: "AI Agent技术突破推动工作流自动化进入规模化落地阶段。",
+        detail: "7月国内外两大里程碑事件：月之暗夜开源模型Kimi K2与OpenAI发布ChatGPT Agent功能，标志AI从“问答交互”升级为“任务执行代理”，推动工作流自动化（如自动生成PPT/Excel报告、邮件处理）进入规模化落地阶段。技术关键点：Tool Use（工具使用）能力突破，使Agent可操作浏览器/计算机系统，结合强化学习提升推理效率，在编程、外贸（如焦点科技“AI麦可”）、消费电子（奥飞娱乐智能玩具）等领域验证产品-市场匹配（PMF）。",
+        why: "AI Agent技术突破将推动工作流自动化的快速发展，提升企业效率，同时为AI技术提供更广阔的应用场景。", url: "http://mp.weixin.qq.com/s?__biz=MzkxNTcxNzY4Ng==&mid=2247484425&idx=1&sn=33b927be7054e9dbbc824511cdabacbe"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "宁德时代与银河通用签署全球战略合作（7.7）",
+        what: "宁德时代与银河通用签署全球战略合作，重载机器人Galbot S1通过验收并融入电池产线。",
+        detail: "宁德时代作为产业“试金石”，其直接投资与验收标志着具身智能从实验室走向真实产线，为行业树立了可复制的交付标准。",
+        why: "这一合作标志着AI技术在实体产业的深度融合，将推动AI技术在更多产业场景中的应用。", url: "https://www.bwcliff.com/daily/33"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "观远数据发布AI原生决策智能平台DecideX（7.7）",
+        what: "观远数据发布AI原生决策智能平台DecideX，推动BI从数据驱动向决策驱动跃迁。",
+        detail: "将AI从“看懂数据”升级为“承接决策”，定义了企业级AI应用的新范式，对工具平台和开发者生态有直接示范效应。",
+        why: "这一平台的发布将推动企业级AI应用的发展，提升AI技术在企业决策中的作用和价值。", url: "https://www.bwcliff.com/daily/33"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-06", vol: "VOL.026", weekday: "周一",
     headline: "AI Agent行业动态：技术革新与应用深化（7.6）",
     tldr: "今日AI行业聚焦于技术革新与应用的深化。海外市场，谷歌AI团队宣布了其最新的自然语言处理模型，而中国市场则见证了AI在医疗领域的新进展。开源社区活跃，生态合作成为焦点。",
