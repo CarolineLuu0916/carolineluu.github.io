@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-08", vol: "VOL.028", weekday: "周三",
+    headline: "AI Agent行业动态：市场整合与自主性增强",
+    tldr: "过去24至48小时内，AI Agent行业显示出市场整合趋势和自主性增强的信号。一方面，市场预计将出现整合浪潮，大型基础模型公司和传统企业软件巨头通过并购增强AI Agent能力。另一方面，AI Agent的自主性正从任务执行者转变为自驱动的“数字员工”，预示着产品设计和企业战略的重大转变。",
+    vane: [
+      { label: "市场整合", dir: "up", note: "预计2026至2027年，AI Agent市场将迎来整合浪潮，大型基础模型公司和传统企业软件巨头将通过并购增强AI Agent能力。" },
+      { label: "自主性增强", dir: "up", note: "AI Agent正从任务执行者转变为自驱动的“数字员工”，能主动采取行动、做出决策，并完成多步骤任务。" },
+      { label: "估值泡沫风险", dir: "down", note: "市场存在估值泡沫风险，如果“明星”公司未能兑现承诺，可能引发市场情绪逆转和资本撤离。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent市场整合趋势明显（7.8）",
+        what: "预计2026至2027年，AI Agent市场将迎来整合浪潮。",
+        detail: "大型基础模型公司可能会收购成功的垂直智能体公司，以快速获取行业知识和市场渠道。同时，像企业软件领军者ServiceNow以28.5亿美金收购企业级AI助手提供商Moveworks那样，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        why: "市场整合将加速AI Agent技术的发展和应用，但也可能导致市场竞争减少，创新速度放缓。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent自主性增强趋势（7.8）",
+        what: "AI Agent正在从任务执行者转变为自驱动的“数字员工”。",
+        detail: "这种向自主智能体系统的转变意味着Agent能主动采取行动、做出决策，并完成多步骤任务，而不再需要持续的人类输入。当前能力包括多步骤推理、自我纠错、记忆能力和工具使用。",
+        why: "自主性增强将使AI Agent在企业运营中扮演更重要的角色，提高效率和一致性，但也要求更完善的安全与控制层。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI agent工具Minus国内业务调整（7.8）",
+        what: "AI agent工具Minus将对部分国内业务进行裁员，并且计划将核心技术人员迁往新加坡。",
+        detail: "Minus表示这次裁员是出于公司对经营效率的考虑。此前，Minus已经把总部从中国迁到了新加坡，并在加州和东京开设了办公室。美国的一系列AI初创公司想要避免像TikTok和Shin等公司一样，由于安全问题影响日常运营。",
+        why: "业务调整反映了中国AI行业的国际竞争环境和监管压力，可能影响国内AI人才的流动和行业布局。", url: "https://www.xiaoyuzhoufm.com/episode/686e49f160f8f77d40a932b4"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI内容检测工具需求增长（7.8）",
+        what: "AI生成内容检测需求爆发，ZeroGPT访问量增至2157万。",
+        detail: "AI内容检测市场快速扩张，覆盖教育、媒体、企业合规等场景。检测技术同质化严重，定制化检测（如学术、法律）需求旺盛。生成与检测一体化是未来方向。",
+        why: "AI内容检测工具的增长反映了AI生成内容的普及和监管需求，对内容安全和版权保护提出了新的挑战。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-07", vol: "VOL.027", weekday: "周二",
     headline: "AI Agent行业动态：技术突破与产业融合加速（7.7）",
     tldr: "过去24小时，AI Agent行业迎来技术突破与产业融合的加速期。Anthropic发布Sonnet 5模型，性能接近Opus 4.8；Meta下线Llama API公共预览版，转向依赖第三方生态；AI Agent技术突破推动工作流自动化进入规模化落地阶段。",
