@@ -2,6 +2,48 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-10", vol: "VOL.030", weekday: "周五",
+    headline: "AI Agent行业动态：监管趋严与技术进步并行（7.10）",
+    tldr: "近期AI Agent行业动态显示，监管趋严与技术进步并行。中国网信办整治AI应用乱象，阿里禁用Anthropic产品。同时，技术进步不断，如OpenAI发布ChatGPT Agent，Cursor发布Composer 2.5模型。",
+    vane: [
+      { label: "监管", dir: "up", note: "中国网信办整治AI应用乱象，阿里禁用Anthropic产品，显示监管趋严。" },
+      { label: "技术进步", dir: "up", note: "OpenAI发布ChatGPT Agent，Cursor发布Composer 2.5模型，技术进步显著。" }
+    ],
+    items: [
+      {
+        region: "中国", tag: "cn",
+        title: "网信办再次治理AI应用乱象（7.10）",
+        what: "中国网信办整治AI产品服务和应用程序违规行为。",
+        detail: "中国网信办将重点整治七类问题，包括AI产品服务和应用程序违规，违规行为包括提供色情陪聊、'一键脱衣'、AI算命等AI违规功能服务，或生成合成违法不良信息内容。",
+        why: "这表明中国对AI应用的监管趋严，将对相关AI产品服务和应用程序产生重大影响。", url: "https://www.caixin.com/2026-07-04/102460928.html?originReferrer=kimi"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "阿里禁用Anthropic产品（7.10）",
+        what: "阿里将要求其内部员工全面禁用Anthropic的模型和包括Claude Code在内的Agent产品。",
+        detail: "因存在植入后门风险，阿里将要求其内部员工全面禁用Claude Code，并将其列入高风险软件名单。禁令将于7月10日起正式生效，届时阿里全员将被要求卸载所有Anthropic的模型和包括Claude Code在内的Agent产品。",
+        why: "这显示了对外部AI产品的安全担忧，可能会影响Anthropic等公司在中国的业务。", url: "https://www.caixin.com/2026-07-03/102460433.html?originReferrer=kimi"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI发布ChatGPT Agent（7.10）",
+        what: "OpenAI正式发布ChatGPT Agent，整合了此前推出的Operator和Deep Research功能。",
+        detail: "ChatGPT Agent能够通过虚拟浏览器、终端和API访问，自主完成复杂任务，为用户节省时间并提升效率。",
+        why: "这标志着人工智能从对话助手向自主任务执行者的重大飞跃，将推动AI Agent技术的发展和应用。", url: "https://www.aitrend.us/"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Cursor发布Composer 2.5模型（7.10）",
+        what: "Cursor发布了Composer 2.5模型，重点提升长任务能力。",
+        detail: "Composer 2.5沿用Kimi K2.5基础模型并加强后训练，在基准测试中表现优异且保持低价，以应对Claude Code的竞争。",
+        why: "这显示了开源AI模型在性能和成本方面的竞争力，可能会推动更多企业采用开源AI解决方案。", url: "https://www.aitrend.us/"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-09", vol: "VOL.029", weekday: "周四",
     headline: "AI Agent行业动态：市场整合与自主性增强（7.9）",
     tldr: "2026年7月9日，AI Agent行业继续展现出市场整合与自主性增强的趋势。大型基础模型公司和传统企业软件巨头通过收购强化AI Agent能力，同时跨智能体协作成为技术发展的新前沿。",
