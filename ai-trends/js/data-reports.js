@@ -2,6 +2,55 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-11", vol: "VOL.031", weekday: "周六",
+    headline: "AI Agent行业动态：技能生态跨平台扩展与安全新挑战（7.11）",
+    tldr: "过去24小时，AI Agent行业在技能生态跨平台扩展和安全领域出现新动态。Google Cloud的Agent Gallery集成了Agent Marketplace，Flutter和Dart团队发布了官方Agent Skills，而安全领域出现摩尔斯电码提示词注入攻击。这些动态表明AI技能生态正在从单个工具演变为平台策展的市场，同时安全领域面临新挑战。",
+    vane: [
+      { label: "技能生态", dir: "up", note: "Google Cloud的Agent Gallery集成了Agent Marketplace，Flutter和Dart团队发布了官方Agent Skills，标志着技能生态的跨平台扩展。" },
+      { label: "安全挑战", dir: "up", note: "摩尔斯电码提示词注入攻击真实智能体，安全领域面临新挑战。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Google Cloud集成Agent Marketplace（7.11）",
+        what: "Google Cloud宣布其Gemini Enterprise中的Agent Gallery集成了Agent Marketplace。",
+        detail: "Agent Marketplace是一个统一入口，汇集了Google自建、企业内部和合作伙伴的智能体。这标志着首家在企业产品内部上线策展式智能体市场的大型云提供商。",
+        why: "产品经理需要关注这一变化，因为它可能影响智能体的发现、部署和管理方式，为企业提供更丰富的智能体选项和更好的集成体验。", url: "https://genisisiq.com/zh/twitter/ai-agent/2026-05-07/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Flutter和Dart发布官方Agent Skills（7.11）",
+        what: "Flutter和Dart团队发布了官方Agent Skills，从面向文档的技能转向了面向任务的技能。",
+        detail: "这标志着框架团队开始把智能体能力作为一等产出来打包，而非文档的附属品。这一转变可能会影响开发者如何利用Flutter和Dart进行智能体开发。",
+        why: "产品经理需要关注这一转变，因为它可能会改变智能体技能的开发和分发模式，为开发者提供更直接的任务驱动的智能体能力。", url: "https://genisisiq.com/zh/twitter/ai-agent/2026-05-07/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "摩尔斯电码提示词注入攻击真实智能体（7.11）",
+        what: "SlowMist Team记录了一起发生在Base链上的新型攻击：攻击者利用摩尔斯电码编码绕过AI智能体上基于文本的安全过滤器。",
+        detail: "这代表了一类新型提示词注入——利用编码格式假设的漏洞。攻击者诱导智能体输出转账指令，随后直接执行。这表明智能体安全必须覆盖格式多样性，而不仅仅是内容过滤。",
+        why: "产品经理需要关注这一安全挑战，因为它可能会影响智能体的安全性和可靠性，需要在设计和实施智能体时考虑更全面的安全措施。", url: "https://genisisiq.com/zh/reddit/ai-agent/2026-05-07/"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "火山引擎推出Agentic画质增强系统（7.11）",
+        what: "火山引擎推出Agentic画质增强系统，用Agent+生成式算子重构视频画质优化链条。",
+        detail: "该系统从固定流水线变为自主理解、调度、执行的动态系统，解读画质优化从还原走向创作，Agent自主判断任务并调用工具，本质是视频云基础设施的范式升级。",
+        why: "这一动态表明AI在视频处理领域的应用正在深化，产品经理需要关注如何利用Agentic范式提升视频处理的效率和效果。", url: "https://luojinping.com/ai-daily/2026-07-07"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Block的Goose项目登顶Trending（7.11）",
+        what: "Block的Goose项目以1523星登顶GitHub Trending。",
+        detail: "Goose是一个Rust构建的'AI工程师'工具，强调'超越代码建议'的全栈操作能力，成为Cursor/Codex开源替代的有力竞争者。",
+        why: "这一动态显示开源社区对AI工程师工具的高需求，产品经理可以关注Goose项目，探索如何将其集成到自己的产品或服务中。", url: "https://reinness.com/posts/349"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-10", vol: "VOL.030", weekday: "周五",
     headline: "AI Agent行业动态：监管趋严与技术进步并行（7.10）",
     tldr: "近期AI Agent行业动态显示，监管趋严与技术进步并行。中国网信办整治AI应用乱象，阿里禁用Anthropic产品。同时，技术进步不断，如OpenAI发布ChatGPT Agent，Cursor发布Composer 2.5模型。",
