@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-12", vol: "VOL.032", weekday: "周日",
+    headline: "AI Agent行业动态：监管趋严与技术突破并行（7.12）",
+    tldr: "<b>监管趋严与技术突破并行，AI Agent生态加速重构</b> 监管新规落地与AI技术突破并行，AI Agent生态面临重构。",
+    vane: [
+      { label: "监管", dir: "down", note: "AI监管新规落地，对AI服务商提出更高要求" },
+      { label: "技术", dir: "up", note: "AI技术持续突破，AI Agent应用场景不断拓展" },
+      { label: "市场", dir: "up", note: "AI Agent市场活跃度提升，企业投资加速" },
+      { label: "安全", dir: "down", note: "AI Agent安全问题凸显，引发行业关注" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI监管新规落地：陪伴AI“不能乱陪”（7.12）",
+        what: "国家网信办等五部门联合颁布《人工智能拟人化互动服务管理暂行办法》，将于7月15日正式施行。",
+        detail: "新规要求AI服务商在检测到用户极端情绪时必须及时介入，违规最高罚款20万元。舆论对此看法分歧：支持者认为这是保护心理健康的必要之举，反对者则担忧监管细则过于模糊、实际执行难度高。",
+        why: "AI监管新规的落地对AI服务商提出了更高的要求，可能会影响AI Agent产品的开发和运营。", url: "https://www.toutiao.com/w/1862168101508096/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI配音侵权风波持续发酵（7.12）",
+        what: "《哪吒2》太乙真人配音演员张珈铭公开控诉AI仿声侵权，已造成实际收入损失。",
+        detail: "多位知名配音演员联合声援，呼吁立法明确AI声音的版权边界。这场争议折射出AI技术对内容创作者生存空间的深度冲击。",
+        why: "AI仿声技术的侵权问题可能会影响AI Agent在内容创作领域的应用，需要明确的版权界定和法律保护。", url: "https://www.toutiao.com/w/1862168101508096/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "最强AI模型“降智”引争议（7.12）",
+        what: "Anthropic虽以Mythos模型刷新行业记录，但当前最广泛使用的旗舰编程模型Claude Opus 4.6却被大批开发者吐槽“降智”。",
+        detail: "基础常识题频频答错，引发技术圈对“发布未对齐版本”的强烈批评，部分观点认为厂商在商业压力下牺牲了模型质量的稳定性。",
+        why: "AI模型的质量问题可能会影响AI Agent的可靠性和用户体验，需要厂商在商业化和产品质量之间找到平衡。", url: "https://www.toutiao.com/w/1862168101508096/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI CEO遇袭，AI社会焦虑显现（7.12）",
+        what: "OpenAI CEO奥特曼旧金山豪宅遭燃烧弹袭击，嫌疑人随后被捕。",
+        detail: "事件背后，大量评论指向公众对AI替代就业、财富分配失衡的深层焦虑。分析人士认为，这已不只是一起个人安全事件，而是AI社会化普及引发社会撕裂情绪的信号弹。",
+        why: "AI技术的快速发展引发了社会层面的焦虑和冲突，AI Agent产品需要更加注重社会责任和伦理问题。", url: "https://www.toutiao.com/w/1862168101508096/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "巨头豪赌AI基础设施，芯片危机如影随形（7.12）",
+        what: "Alphabet承诺2026年投入1850亿美元于AI基础设施，亚马逊更放言未来十年累计投超1万亿美元。",
+        detail: "然而资本狂热背后，全球内存芯片价格较去年暴涨6倍，半导体短缺预计延续至2027年，成为掣肘AI扩张的最大隐患。",
+        why: "AI基础设施的大规模投资可能会推动AI Agent技术的发展，但芯片短缺问题可能会限制AI产品的大规模应用。", url: "https://www.toutiao.com/w/1862168101508096/"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-11", vol: "VOL.031", weekday: "周六",
     headline: "AI Agent行业动态：技能生态跨平台扩展与安全新挑战（7.11）",
     tldr: "过去24小时，AI Agent行业在技能生态跨平台扩展和安全领域出现新动态。Google Cloud的Agent Gallery集成了Agent Marketplace，Flutter和Dart团队发布了官方Agent Skills，而安全领域出现摩尔斯电码提示词注入攻击。这些动态表明AI技能生态正在从单个工具演变为平台策展的市场，同时安全领域面临新挑战。",
