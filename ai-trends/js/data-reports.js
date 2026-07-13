@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-13", vol: "VOL.033", weekday: "周一",
+    headline: "AI Agent行业动态：技术突破与监管挑战并行（7.13）",
+    tldr: "今日AI Agent行业动态聚焦于技术突破与监管挑战。OpenAI发布全新ChatGPT Agent，台积电利润激增，生成式AI在游戏开发中应用激增，普林斯顿发布开源数学定理证明模型。同时，监管方面，网信办整治AI应用乱象，千问上线Agent和Skill接入平台。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "OpenAI发布ChatGPT Agent，普林斯顿发布开源数学定理证明模型，技术突破持续推动行业发展。" },
+      { label: "监管挑战", dir: "up", note: "网信办整治AI应用乱象，监管趋严对行业规范化提出更高要求。" },
+      { label: "市场增长", dir: "up", note: "台积电利润激增，生成式AI在游戏开发中应用激增，市场对AI技术的需求持续增长。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI发布全新ChatGPT Agent（7.13）",
+        what: "OpenAI正式发布ChatGPT Agent，这款AI工具标志着人工智能从对话助手向自主任务执行者的重大飞跃。",
+        detail: "ChatGPT Agent整合了此前OpenAI推出的Operator和Deep Research功能，能够通过虚拟浏览器、终端和API访问，自主完成复杂任务，为用户节省时间并提升效率。",
+        why: "ChatGPT Agent的发布意味着AI技术在自动化和任务执行方面迈出了重要一步，将为AI Agent行业带来新的增长点和应用场景。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "台积电第二季度利润激增超60%（7.13）",
+        what: "台积电公布第二季度业绩，利润增长60.7%，创历史新高，并实现连续六个季度的利润增长。",
+        detail: "作为全球最大的芯片代工制造商，台积电在美股市值约1.23万亿美元，已经跻身全球前十。这一增长反映了全球对高性能芯片的强劲需求，尤其是在AI和高科技领域。",
+        why: "台积电的利润增长显示了全球对AI和高性能计算相关芯片的强劲需求，这将为AI Agent行业提供更多的硬件支持和技术创新基础。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "生成式AI在游戏开发中应用激增（7.13）",
+        what: "据Totally Human分析，Steam平台上使用生成式AI的游戏数量激增8倍，目前已有近8000款游戏说明使用了生成式AI。",
+        detail: "这些游戏占Steam总游戏库的7%，也占2025年已上线游戏总数的五分之一。这一增长显示了生成式AI在游戏开发中的广泛应用和巨大潜力。",
+        why: "生成式AI在游戏开发中的广泛应用将推动游戏行业的创新，为AI Agent行业提供新的应用场景和市场机会。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "os",
+        title: "普林斯顿发布最强开源数学定理证明模型（7.13）",
+        what: "普林斯顿团队发布最强开源数学定理证明模型，性能大幅超越前代SOTA DeepSeek 671B。",
+        detail: "该模型名为32B，其性能的显著提升将推动数学和逻辑推理领域的研究，对AI技术的发展具有重要意义。",
+        why: "这一开源模型的发布将进一步推动AI在数学和逻辑推理领域的应用，为AI Agent行业提供更强大的技术支撑。", url: "https://www.xiaoyuzhoufm.com/episode/64b477305fb4e83c9fb80127"
+      },
+      {
+        region: "中国", tag: "eco",
+        title: "千问上线Agent和Skill接入平台（7.13）",
+        what: "千问将上线Agent和Skill接入平台，企业可在千问App中运营品牌Agent，自定义Agent人设，以对话的形式为用户服务。",
+        detail: "Agent将具备记忆与主动规划能力，可在特定场景下主动提供行程提醒、权益到期、复购推荐等服务。这一平台的上线将进一步推动AI生活服务场景的发展。",
+        why: "千问的Agent和Skill接入平台将为AI Agent行业提供新的生态合作模式，促进行业生态的多元化和创新发展。", url: "https://database.caixin.com/2026-07-04/102460747.html?originReferrer=kimi"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-12", vol: "VOL.032", weekday: "周日",
     headline: "AI Agent行业动态：监管趋严与技术突破并行（7.12）",
     tldr: "<b>监管趋严与技术突破并行，AI Agent生态加速重构</b> 监管新规落地与AI技术突破并行，AI Agent生态面临重构。",
