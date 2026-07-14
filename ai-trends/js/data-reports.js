@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-14", vol: "VOL.034", weekday: "周二",
+    headline: "AI Agent行业动态：技术突破与应用拓展并行（7.14）",
+    tldr: "过去24小时，AI Agent行业迎来技术突破与应用拓展的双重进展。Manus AI内测邀请码价格飙升，ChatGPT Agent功能发布，标志着AI从问答交互升级为任务执行代理。技术层面，多模态融合与自主决策能力成为核心突破方向，安全治理体系日趋完善。应用层面，AI Agent将深度渗透各领域，市场规模预计突破520亿美元。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "多模态融合与自主决策能力成为AI Agent的核心突破方向" },
+      { label: "应用拓展", dir: "up", note: "AI Agent将在未来五年深度渗透各领域，市场规模预计突破520亿美元" },
+      { label: "安全治理", dir: "up", note: "安全治理体系日趋完善，重点包括身份管理、合规审计和生命周期策略" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Manus AI内测邀请码价格飙升至5万元（7.14）",
+        what: "中国首个通用Agent Manus AI的内测邀请码在黑市炒至5万元。",
+        detail: "Manus AI作为中国首个通用Agent，其内测邀请码在黑市价格飙升至5万元，显示出市场对其技术的极高期待和关注度。这一现象也反映了AI Agent技术的商业价值和市场潜力。",
+        why: "这一现象表明AI Agent技术受到市场的高度关注和期待，预示着AI Agent技术的商业化和应用前景广阔。", url: "https://mp.weixin.qq.com/s?__biz=MzE5MTMwMzg5MA==&mid=2247484152&idx=1&sn=7c3fa0a9f99ee09a019016badb5ae625"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "ChatGPT Agent功能发布，AI从问答交互升级为任务执行代理（7.14）",
+        what: "OpenAI发布ChatGPT Agent功能，标志着AI从问答交互升级为任务执行代理。",
+        detail: "OpenAI发布的ChatGPT Agent功能，使得AI能够从简单的问答交互升级为执行具体任务的代理，推动工作流自动化进入规模化落地阶段。这一技术突破将极大地拓展AI的应用场景和商业价值。",
+        why: "ChatGPT Agent功能的发布，使得AI能够执行更复杂的任务，推动AI技术在更多领域的应用和商业化。", url: "https://mp.weixin.qq.com/s?__biz=MzE5MTczNDc3Ng==&mid=2247483719&idx=1&sn=4bee4231665d5b2c29dde843a3fd05e3"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术突破：多模态融合与自主决策能力提升（7.14）",
+        what: "2025年AI Agent的技术突破主要体现在多模态融合能力和自主决策能力的提升。",
+        detail: "新一代AI Agent能够无缝处理文本、图像、音频、视频等多种模态数据，实现更自然的人机交互。同时，自主决策能力的提升让AI Agent从被动响应转向主动服务，如亚马逊云科技最新发布的Bedrock AgentCore提供的七大核心服务，全面覆盖Agent从开发到上线所需的系统能力。",
+        why: "多模态融合能力和自主决策能力的提升，使得AI Agent能够更好地理解和响应用户需求，推动AI技术在更多领域的应用。", url: "https://mp.weixin.qq.com/s?__biz=MzkxNTcxNzY4Ng==&mid=2247484425&idx=1&sn=33b927be7054e9dbbc824511cdabacbe"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "国产统一图像生成模型UniIGM 2.0在GitHub爆火（7.14）",
+        what: "一款名为UniIGM 2.0的国产统一图像生成模型在GitHub平台引发技术社区震动。",
+        detail: "UniIGM 2.0通过引入多模态语义对齐架构，在图像生成质量与语义理解能力上实现双重突破。其核心创新点「反思机制」成为行业关注焦点。技术团队透露，本次升级重点优化了模型的三层架构，底层采用动态对抗网络增强细节生成。",
+        why: "UniIGM 2.0的爆火显示出国产AI技术的进步和创新能力，有望推动图像生成领域的技术突破和应用拓展。", url: "https://mp.weixin.qq.com/s?__biz=MzU2MDE1MDk1Mw==&mid=2247484912&idx=1&sn=22eb55a6c1299c2dbd0c38e642c343bf"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent市场规模预计2026年将突破520亿美元（7.14）",
+        what: "据Gartner最新报告显示，全球AI Agent市场规模预计2026年将突破520亿美元。",
+        detail: "Gartner将'Agentic AI'列为2025年十大技术趋势首位，预测到2028年至少15%的日常工作决策将通过Agentic AI自主做出，33%的企业软件应用程序将包含Agentic AI。IDC预测到2026年50%的中国500强企业使用AI Agent实现数据自动化处理。",
+        why: "AI Agent市场规模的快速增长，显示出AI技术在各领域的深度渗透和广泛应用前景。", url: "https://mp.weixin.qq.com/s?__biz=MzU0Mjc3NzE2Nw==&mid=2247487318&idx=1&sn=433e7a31fc2f4b5ceb7d24ed418f00fd"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-13", vol: "VOL.033", weekday: "周一",
     headline: "AI Agent行业动态：技术突破与监管挑战并行（7.13）",
     tldr: "今日AI Agent行业动态聚焦于技术突破与监管挑战。OpenAI发布全新ChatGPT Agent，台积电利润激增，生成式AI在游戏开发中应用激增，普林斯顿发布开源数学定理证明模型。同时，监管方面，网信办整治AI应用乱象，千问上线Agent和Skill接入平台。",
