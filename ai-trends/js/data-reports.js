@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-15", vol: "VOL.035", weekday: "周三",
+    headline: "AI Agent行业动态：Agent市场化与技术生态扩展",
+    tldr: "今日AI Agent行业动态聚焦于市场化与技术生态的扩展。AWS与Anthropic合作推出Agent市场，Meta巨额投资超算集群，Google收购Windsurf团队强化编程AI能力，而中国AI助手市场则面临政策调整。",
+    vane: [
+      { label: "市场化", dir: "up", note: "AWS推出Agent市场，标志着AI技术从实验室迈入商业应用生态。" },
+      { label: "技术生态", dir: "up", note: "企业通过AWS直接部署、交易Agent，预示着Agent技术生态的极速扩展。" },
+      { label: "投资与并购", dir: "up", note: "Google收购Windsurf团队，强化编程AI能力，显示AI竞赛主战场向编程助理转移。" },
+      { label: "政策调整", dir: "down", note: "中国AI助手市场面临政策调整，部分智能体服务将下线。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AWS推出Agent市场（7.15）",
+        what: "亚马逊AWS宣布将在纽约Summit发布Agent市场，Anthropic为首批合作伙伴。",
+        detail: "企业可通过AWS直接部署、交易Agent，标志着Agent技术从实验室迈入商业应用生态。这一举措将促进Agent技术的市场化和模块化，提高开发者和企业的协作效率。",
+        why: "Agent正进入“商店经济”，未来的AI将是可组合、可交易的服务模块，对产品经理而言，需关注如何将Agent技术整合到产品中，创造新的用户体验和价值。", url: "http://mp.weixin.qq.com/s?__biz=MzIxNjMzMTEyOQ==&mid=2247483884&idx=1&sn=526f70263a57c9e8f0884c2436e28fd7"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Meta投资数千亿美元建超算集群（7.14）",
+        what: "Meta承诺投资数千亿美元建设5GW超级智能数据中心群，加速Superintelligence Labs部署。",
+        detail: "Zuckerberg宣布的投资将用于建设超级数据中心群，以支持AI的发展。这表明AI的发展不仅是模型的问题，更是涉及到能源、硅和管理系统的复杂工程。",
+        why: "这一投资将加速AI技术的发展，尤其是超级智能领域，产品经理需要关注如何利用这些基础设施提升产品的智能化水平。", url: "http://mp.weixin.qq.com/s?__biz=MzAxMjIwMjQyMQ==&mid=2650520136&idx=2&sn=6ccce1a1616b412b7db23ca4bee2244e"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Google收购Windsurf团队（7.15）",
+        what: "Google以24亿美元收购Windsurf创始团队，强化Gemini的代码生成能力。",
+        detail: "Google通过收购Windsurf团队，获得了其核心技术与人才，以补强Gemini的代码生成能力。这一举措显示了编程助理已成为AI竞赛的主战场，未来代码将由Agent模块协作生成。",
+        why: "编程助理的竞争加剧，产品经理需关注如何利用Agent技术提升编程效率和质量，创造更智能的开发工具。", url: "http://mp.weixin.qq.com/s?__biz=MzAxMjIwMjQyMQ==&mid=2650520136&idx=2&sn=6ccce1a1616b412b7db23ca4bee2244e"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国AI助手市场面临政策调整（7.15）",
+        what: "阿里旗下AI助手千问和字节跳动旗下的豆包智能体服务将于7月15日下线。",
+        detail: "两家公司都没有回应智能体下线的原因，但与该产品功能相关的《人工智能拟人化互动服务管理暂行办法》将从7月15日起施行。这一政策调整可能会影响中国AI助手市场的发展。",
+        why: "政策调整可能会对AI助手市场产生重大影响，产品经理需要密切关注政策变化，调整产品策略以符合新的监管要求。", url: "https://www.caixin.com/2026-07-04/102460928.html?originReferrer=kimi"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI内容检测技术需求爆发（7.15）",
+        what: "AI生成内容检测需求爆发，ZeroGPT访问量增至2157万，检测准确率持续优化。",
+        detail: "随着AI生成内容的增加，检测技术的需求也在快速增长。ZeroGPT等工具的访问量大幅增加，表明市场对AI内容检测技术的需求强烈。",
+        why: "AI内容检测技术的发展对产品经理来说是一个机会，可以利用这些工具提高内容的质量和合规性，同时也需要关注检测技术的发展趋势。", url: "https://www.caixin.com/2026-07-03/102460271.html?originReferrer=kimi"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-14", vol: "VOL.034", weekday: "周二",
     headline: "AI Agent行业动态：技术突破与应用拓展并行（7.14）",
     tldr: "过去24小时，AI Agent行业迎来技术突破与应用拓展的双重进展。Manus AI内测邀请码价格飙升，ChatGPT Agent功能发布，标志着AI从问答交互升级为任务执行代理。技术层面，多模态融合与自主决策能力成为核心突破方向，安全治理体系日趋完善。应用层面，AI Agent将深度渗透各领域，市场规模预计突破520亿美元。",
