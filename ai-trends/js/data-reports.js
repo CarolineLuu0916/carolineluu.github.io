@@ -2,6 +2,55 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-16", vol: "VOL.036", weekday: "周四",
+    headline: "AI Agent行业动态：市场整合与自主性趋势（7.16）",
+    tldr: "最近24-48小时内，AI Agent行业显示出市场整合趋势和自主性增强两大特点。一方面，大型基础模型公司和传统企业软件巨头通过收购增强AI Agent能力，预计市场将迎来整合浪潮。另一方面，AI Agent正从任务执行者转变为自驱动的“数字员工”，自主Agent系统成为产品设计和企业战略的新焦点。",
+    vane: [
+      { label: "市场整合", dir: "up", note: "大型基础模型公司和传统企业软件巨头通过收购增强AI Agent能力，预计市场将迎来整合浪潮。" },
+      { label: "自主性增强", dir: "up", note: "AI Agent正从任务执行者转变为自驱动的“数字员工”，自主Agent系统成为产品设计和企业战略的新焦点。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "市场整合趋势明显，AI Agent领域将迎来整合浪潮（7.16）",
+        what: "预计在2026至2027年，AI Agent市场将迎来一波整合浪潮，大型基础模型公司可能会收购成功的垂直智能体公司，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        detail: "当前AI Agent市场高度分散，充斥着大量初创公司。大型基础模型公司和传统企业软件巨头通过收购增强AI Agent能力，预计市场将迎来整合浪潮。例如，企业软件领军者ServiceNow以28.5亿美金收购企业级AI助手提供商Moveworks，增强自身的AI Agent能力。",
+        why: "市场整合将推动AI Agent技术的快速发展和广泛应用，加速行业知识和市场渠道的整合，为AI Agent技术的成熟和普及奠定基础。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent自主性增强，从任务执行者转变为自驱动的“数字员工”（7.16）",
+        what: "AI Agent正在从任务执行者转变为自驱动的“数字员工”，这种向自主智能体系统的转变，意味着Agent能主动采取行动、做出决策，并完成多步骤任务，而不再需要持续的人类输入。",
+        detail: "到2029年，预计80%的客户服务问题将完全由自主Agent解决，无需人工介入。到2028年，三分之一的企业软件工具将具备Agent自主能力，使系统能够基于目标而非仅仅命令采取行动。自主Agent已被用于外呼销售、代码重构、产品研究和工作流管理等任务。当前能力包括多步骤推理、自我纠错、记忆能力、工具使用等。",
+        why: "AI Agent自主性的增强将推动AI技术在更多领域的应用，提高工作效率和决策质量，同时也对安全、控制和伦理等方面提出了新的挑战。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "腾讯发布基座模型混元Hy3，强化Agent（智能体）能力（7.16）",
+        what: "7月6日，腾讯正式发布其基座模型混元Hy3，该版本是对4月23日发布并开源的混元Hy3 preview（预览版）的迭代，腾讯进一步提升了其后训练的算力规模，以及数据质量和多样性，并称混元3在各类任务上较预览版有所提升，重点强化了Agent（智能体）能力。",
+        detail: "腾讯混元Hy3 preview是混元重建后的第一个版本，在复杂推理、指令遵循、上下文学习、代码生成与智能体能力上较Hy2大幅提升，这也提升了腾讯的模型调用份额，腾讯称，4月预览版上线以来，其日均token（词元）消耗量增加了20倍。",
+        why: "腾讯混元Hy3的发布进一步强化了其在AI领域的竞争力，特别是在智能体能力方面，有望推动AI技术在更多领域的应用和创新。", url: "https://www.caixin.com/2026-07-06/102461425.html?originReferrer=kimi"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "云端和AI增强工具崛起，开发工具向全栈一体化演进（7.16）",
+        what: "功能趋势显示云端和AI增强工具崛起，Supabase访问量达955万，开发工具向全栈一体化演进。",
+        detail: "市场阶段处于技术栈整合期，低代码和AI辅助工具快速发展。典型产品包括Supabase、Google AI for Developers、Weights & Biases、PyTorch等。机会与挑战在于传统框架增长放缓，AI辅助工具和自动化测试需求旺盛。无代码/低代码平台是未来方向。",
+        why: "开发工具的全栈一体化和AI增强化将提高开发效率和质量，推动AI技术的快速发展和广泛应用。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI生成内容检测需求爆发，ZeroGPT访问量增至2157万（7.16）",
+        what: "AI生成内容检测需求爆发，ZeroGPT访问量增至2157万，检测准确率持续优化。",
+        detail: "市场阶段处于快速扩张期，覆盖教育、媒体、企业合规等场景。典型产品包括ZeroGPT、GPTZero、Originality、Compilatio等。机会与挑战在于检测技术同质化严重，定制化检测（如学术、法律）需求旺盛。生成与检测一体化是未来方向。",
+        why: "AI生成内容检测技术的发展将有助于提高内容的原创性和合规性，保护知识产权，促进AI技术的健康发展。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MzIyOTEzOA==&mid=2447678604&idx=1&sn=08ae053d3fa443ed40e76554f804552c"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-15", vol: "VOL.035", weekday: "周三",
     headline: "AI Agent行业动态：Agent市场化与技术生态扩展",
     tldr: "今日AI Agent行业动态聚焦于市场化与技术生态的扩展。AWS与Anthropic合作推出Agent市场，Meta巨额投资超算集群，Google收购Windsurf团队强化编程AI能力，而中国AI助手市场则面临政策调整。",
