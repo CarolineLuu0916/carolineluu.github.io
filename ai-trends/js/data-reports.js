@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-17", vol: "VOL.037", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与市场化进展（7.17）",
+    tldr: "2026年AI Agent行业迎来技术突破与市场化进展的双重加速。亚马逊云科技纽约峰会发布全新Agent全家桶，DeepMind推出新架构MoR提升推理速度，CrePal发布首个AI视频创作Agent。技术突破与生态构建成为行业焦点，推动AI Agent从概念验证走向规模化商业落地。",
+    vane: [
+      { label: "gl", dir: "up", note: "亚马逊云科技纽约峰会发布Agent全家桶，推动AI Agent技术生态扩展。" },
+      { label: "gl", dir: "up", note: "DeepMind新架构MoR实现两倍推理速度，提升AI Agent性能。" },
+      { label: "gl", dir: "up", note: "CrePal发布首个AI视频创作Agent，降低视频创作门槛。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "亚马逊云科技纽约峰会发布Agent全家桶（7.17）",
+        what: "7月17日，在亚马逊云科技纽约峰会上，亚马逊云科技面向AI Agent正式发布了一系列全新的能力与工具。",
+        detail: "亚马逊云科技推出了7大AI agents核心服务，包括运行时、记忆、身份验证等；推出Nova定制选项和Strands Agents V1.0，使agents开发更简单，实现多agents协同工作；发布Amazon S3 Vectors云对象存储，降低90%向量存储成本，并推出Kiro AI IDE简化开发者体验。",
+        why: "亚马逊云科技的这一系列动作，将进一步推动AI Agent技术生态的扩展和应用落地，降低开发门槛，提升AI Agent的协同工作能力。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "DeepMind推出新架构MoR实现两倍推理速度（7.17）",
+        what: "谷歌DeepMind推出新架构MoR，实现参数共享与自适应计算相结合。",
+        detail: "MoR架构以更少参数达到大模型性能；动态路由机制根据token复杂度分配不同递归深度，减少冗余计算并优化KV缓存；实验证明MoR推理吞吐量最高提升2.06倍，训练时间减少19%，峰值内存下降25%。",
+        why: "MoR架构的推出，将进一步提升AI Agent的推理效率和性能，降低计算成本，加速AI Agent的规模化应用。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "CrePal发布首个AI视频创作Agent（7.17）",
+        what: "CrePal发布首个AI视频创作Agent，通过一句话指令自动调度多种模型完成视频制作。",
+        detail: "CrePal的AI视频创作Agent能自动规划脚本、选择合适模型、生成画面、添加音效，解决传统AI视频创作门槛高的问题；创新之处在于改变创作流程，让用户专注创意表达而非技术操作，将分散工具整合为一体化智能任务。",
+        why: "CrePal的这一创新，将进一步降低视频创作的技术门槛，推动AI视频创作的普及和应用，为内容创作者提供更高效便捷的创作工具。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "国内AI应用现状与趋势分析（7.17）",
+        what: "国内AI应用现状与趋势分析，北森控股在HR场景取得积极成效。",
+        detail: "海外巨头在AI应用上具有先发优势，较早拿到OpenAI的大模型进行开发；此外，海外更早进入效果付费阶段，而国内目前仍聚焦在产品打磨阶段。但国内如北森控股在HR场景已取得积极成效，以及北京开发的一系列AI产品也展现出显著效果。",
+        why: "国内AI应用的快速发展，特别是在垂直领域如HR的应用，显示出国内AI技术的应用潜力和市场机会，为国内AI企业的发展提供了新的方向和动力。", url: "http://mp.weixin.qq.com/s?__biz=MzIzMTg0NDY4Nw==&mid=2247485699&idx=1&sn=b6164b7ea6eafbed8be41e03c073bce7"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "月之暗夜开源模型Kimi K2推动AI Agent能力跃迁（7.17）",
+        what: "7月国内外两大里程碑事件：月之暗夜开源模型Kimi K2与OpenAI发布ChatGPT Agent功能。",
+        detail: "月之暗夜开源模型Kimi K2与OpenAI发布ChatGPT Agent功能，标志AI从“问答交互”升级为“任务执行代理”，推动工作流自动化（如自动生成PPT/Excel报告、邮件处理）进入规模化落地阶段。",
+        why: "开源模型Kimi K2的推出，将进一步推动AI Agent技术的开放和共享，加速AI Agent在各行业的应用落地，促进AI技术的创新和发展。", url: "http://mp.weixin.qq.com/s?__biz=MzkxNTcxNzY4Ng==&mid=2247484425&idx=1&sn=33b927be7054e9dbbc824511cdabacbe"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-16", vol: "VOL.036", weekday: "周四",
     headline: "AI Agent行业动态：市场整合与自主性趋势（7.16）",
     tldr: "最近24-48小时内，AI Agent行业显示出市场整合趋势和自主性增强两大特点。一方面，大型基础模型公司和传统企业软件巨头通过收购增强AI Agent能力，预计市场将迎来整合浪潮。另一方面，AI Agent正从任务执行者转变为自驱动的“数字员工”，自主Agent系统成为产品设计和企业战略的新焦点。",
