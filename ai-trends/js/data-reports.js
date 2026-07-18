@@ -2,6 +2,48 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-18", vol: "VOL.038", weekday: "周六",
+    headline: "AI Agent行业动态：技术突破与市场整合（7.18）",
+    tldr: "过去24小时，AI Agent行业呈现技术突破与市场整合两大趋势。亚马逊云科技纽约峰会推出Agent全家桶，谷歌DeepMind发布新架构MoR提升推理速度。市场整合方面，大型基础模型公司和传统企业软件巨头可能通过收购增强AI Agent能力。<b>技术进步与市场整合将推动AI Agent行业快速发展。</b>",
+    vane: [
+      { label: "技术突破", dir: "up", note: "亚马逊云科技纽约峰会推出Agent全家桶，谷歌DeepMind发布新架构MoR提升推理速度。" },
+      { label: "市场整合", dir: "up", note: "大型基础模型公司和传统企业软件巨头可能通过收购增强AI Agent能力。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "亚马逊云科技纽约峰会推出Agent全家桶（7.18）",
+        what: "7月17日，在亚马逊云科技纽约峰会上，亚马逊云科技面向AI Agent正式发布了一系列全新的能力与工具。",
+        detail: "亚马逊云科技提供7大AI agents核心服务，包括运行时、记忆、身份验证等；推出Nova定制选项和Strands Agents V1.0，使agents开发更简单，实现多agents协同工作；发布Amazon S3 Vectors云对象存储，降低90%向量存储成本，并推出Kiro AI IDE简化开发者体验。",
+        why: "亚马逊云科技的Agent全家桶将进一步降低AI Agent的开发和使用门槛，推动AI Agent技术的普及和应用。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "谷歌DeepMind推出新架构MoR实现两倍推理速度（7.18）",
+        what: "谷歌DeepMind推出新架构MoR，实现参数共享与自适应计算相结合，以更少参数达到大模型性能。",
+        detail: "MoR架构动态路由机制根据token复杂度分配不同递归深度，减少冗余计算并优化KV缓存；实验证明MoR推理吞吐量最高提升2.06倍，训练时间减少19%，峰值内存下降25%。",
+        why: "MoR架构进一步提升了大模型的推理效率，有望推动AI模型在更多领域的应用。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485288&idx=1&sn=cb252194dbcb3dba2bf1fab2e4cd7a10"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "市场整合在所难免（7.18）",
+        what: "预计在2026至2027年，AI Agent市场将迎来一波整合浪潮。",
+        detail: "大型基础模型公司可能会收购成功的垂直智能体公司，以快速获取行业知识和市场渠道。同时，像企业软件领军者ServiceNow收购企业级AI助手提供商Moveworks那样，传统企业软件巨头也会通过并购来增强自身的AI Agent能力。",
+        why: "市场整合将推动AI Agent行业集中度提升，加速技术整合和应用落地。", url: "http://mp.weixin.qq.com/s?__biz=MzkxODcwNzIyMw==&mid=2247485466&idx=1&sn=44759522ea3bb247941098792cb84be1"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "DeepSeek上市爆火（7.18）",
+        what: "专注于大语言模型（LLM）及其相关技术的DeepSeek上市后爆火。",
+        detail: "DeepSeek的AI助手在140个市场中成为下载量最多的移动应用。根据Sensor Tower的数据，DeepSeek在发布后的前18天内获得了1600万次下载，约为OpenAI的ChatGPT发布时900万下载量的两倍，其中印度贡献了所有平台下载量的15.6%。",
+        why: "DeepSeek的成功上市和爆火，显示了中国AI Agent企业的强劲发展势头和全球竞争力。", url: "https://www.chinabaogao.com/pdf/14/62/741462.pdf"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-17", vol: "VOL.037", weekday: "周五",
     headline: "AI Agent行业动态：技术突破与市场化进展（7.17）",
     tldr: "2026年AI Agent行业迎来技术突破与市场化进展的双重加速。亚马逊云科技纽约峰会发布全新Agent全家桶，DeepMind推出新架构MoR提升推理速度，CrePal发布首个AI视频创作Agent。技术突破与生态构建成为行业焦点，推动AI Agent从概念验证走向规模化商业落地。",
