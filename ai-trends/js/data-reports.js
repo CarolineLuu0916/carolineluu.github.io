@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-19", vol: "VOL.039", weekday: "周日",
+    headline: "AI Agent行业动态：技术演进与市场应用加速（7.19）",
+    tldr: "随着AI技术的发展，AI Agent正从单一智能体向多智能体协作网络演进，全球78%的组织已在日常运营中使用AI工具，其中85%已将AI Agent整合进工作流程。AI Agent的自主性增强，预计将显著改变现有岗位角色，提升企业效率。",
+    vane: [
+      { label: "技术演进", dir: "up", note: "AI Agent技术从单一智能体向多智能体协作网络演进，提升AI解决复杂问题的能力。" },
+      { label: "市场应用", dir: "up", note: "全球78%的组织已在日常运营中使用AI工具，85%已将AI Agent整合进工作流程。" },
+      { label: "自主性增强", dir: "up", note: "AI Agent的自主性增强，预计将显著改变现有岗位角色，提升企业效率。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术演进（7.19）",
+        what: "AI Agent被视为继大模型之后的下一个技术浪潮，将AI的能力从“生成”扩展到“执行”。",
+        detail: "巴克莱银行的报告将2025-2026年定义为“AI代理时代”，认为AI Agent将能够自主完成复杂任务，从而大幅减少人类干预。Gartner更是将“代理型AI（Agentic AI）”列为2025年十大战略性技术趋势之首。未来，AI Agent的发展将呈现三大趋势：一是采用率显著增加，德勤预测到2027年，50%使用生成式AI的企业将部署AI Agent；二是多模态Agent增强用户体验，能够处理文本、图像、音频等多种输入，提供更丰富的交互；三是多Agent系统开始流行，多个具有不同专长的Agent将协同工作，处理跨部门的复杂工作流程。",
+        why: "AI Agent技术的发展将推动AI从单一智能体向多智能体协作网络演进，提升AI解决复杂问题的能力，对AI技术的发展和应用具有重要意义。", url: "http://mp.weixin.qq.com/s?__biz=Mzk2NDc2NzE0Mw==&mid=2247484108&idx=1&sn=a9c0314869608692871280e36b553c13"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "全球AI工具使用情况（7.19）",
+        what: "全球已有78%的组织在日常运营中使用某种形式的AI工具，其中85%的组织已将AI Agent整合进工作流程。",
+        detail: "88%的高管表示，他们正在试点或扩大自主智能体的应用。46%的领导者担心如果不能快速采用AI Agent技术，将会落后。在担心落后的领导者中，48%的公司计划增加招聘，以支持AI驱动的转型，尤其是AI运营经理、AI工作流分析师等岗位。67%的决策者认为，在未来2–3年内，基于Agent的工具会显著改变现有岗位角色。87%的人认同，AI Agent是对现有岗位的增强，而非替代。",
+        why: "全球范围内AI工具的使用情况显示，AI Agent正在被越来越多的组织所采用，这表明AI Agent技术正在快速普及，对AI技术的市场化应用具有重要意义。", url: "http://mp.weixin.qq.com/s?__biz=Mzk0NTYzNDQ5NQ==&mid=2247512331&idx=1&sn=2923f61175772513963f46a115a790d6"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent自主性增强（7.19）",
+        what: "AI Agent正在从任务执行者转变为自驱动的“数字员工”，预计将显著改变现有岗位角色。",
+        detail: "到2029年，预计80%的客户服务问题将完全由自主Agent解决，无需人工介入。到2028年，三分之一的企业软件工具将具备Agent自主能力，使系统能够基于目标而非仅仅命令采取行动。领先厂商正在构建能够处理长期目标、适应反馈并在失败时重新规划的Agent。当前能力包括多步骤推理、自我纠错、记忆能力、工具使用等。",
+        why: "AI Agent自主性的增强将推动Agent从任务执行者转变为自驱动的“数字员工”，预计将显著改变现有岗位角色，提升企业效率。", url: "http://mp.weixin.qq.com/s?__biz=MzkwNDcyNjY4Mg==&mid=2247483765&idx=1&sn=768365d587edcb57f6f5e20ba2ef5e0a"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "国产AI技术实力提升（7.19）",
+        what: "国产大模型调用量超美国两倍，Kimi K2.6和DeepSeek V4在排行榜上超越GPT-5，显示中国AI技术实力正在快速提升。",
+        detail: "国产大模型调用量超美国两倍，Kimi K2.6和DeepSeek V4在排行榜上超越GPT-5，显示中国AI技术实力正在快速提升。",
+        why: "国产AI技术实力的提升，将推动中国在全球AI技术竞争中占据更有利的位置，对国内AI技术的发展和应用具有重要意义。", url: "https://blog.csdn.net/haohaizi_liu/article/details/161221922"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent成为AI应用的新战场（7.19）",
+        what: "从浏览器智能体到个人AI助手，谷歌、Meta竞相布局，Agent正成为AI应用的下一个主战场。",
+        detail: "随着AI技术的发展，AI Agent正成为AI应用的下一个主战场。谷歌、Meta等科技巨头正在竞相布局，推动AI Agent技术的发展和应用。",
+        why: "AI Agent成为AI应用的新战场，表明AI Agent技术正在成为AI技术发展的重要方向，对AI技术的发展和应用具有重要意义。", url: "https://blog.csdn.net/haohaizi_liu/article/details/161221922"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-18", vol: "VOL.038", weekday: "周六",
     headline: "AI Agent行业动态：技术突破与市场整合（7.18）",
     tldr: "过去24小时，AI Agent行业呈现技术突破与市场整合两大趋势。亚马逊云科技纽约峰会推出Agent全家桶，谷歌DeepMind发布新架构MoR提升推理速度。市场整合方面，大型基础模型公司和传统企业软件巨头可能通过收购增强AI Agent能力。<b>技术进步与市场整合将推动AI Agent行业快速发展。</b>",
