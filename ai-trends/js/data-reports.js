@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-20", vol: "VOL.040", weekday: "周一",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（7.20）",
+    tldr: "2026年7月20日，AI Agent行业继续展现技术突破与应用场景的扩展。Manus AI内测邀请码价格飙升，ChatGPT Agent实现从问答到执行的跨越。技术突破的三大支柱包括推理能力升级、记忆体系革新和协议生态构建。应用场景落地方面，AI Agent在旅行规划和会议预定等场景中展现效率对比优势。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent技术突破的三大支柱包括推理能力升级、记忆体系革新和协议生态构建。" },
+      { label: "应用场景", dir: "up", note: "AI Agent在旅行规划和会议预定等场景中展现效率对比优势。" },
+      { label: "市场接受度", dir: "up", note: "Manus AI内测邀请码价格飙升至5万元，显示市场对AI Agent技术的高接受度。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Manus AI内测邀请码价格飙升至5万元（7.20）",
+        what: "中国首个通用Agent Manus AI的内测邀请码价格飙升至5万元。",
+        detail: "Manus AI作为中国首个通用Agent，其内测邀请码价格飙升至5万元，反映了市场对AI Agent技术的极高期待和接受度。这一现象也标志着AI Agent技术在中国市场的巨大潜力和快速发展。",
+        why: "这一现象表明AI Agent技术在中国市场的热度和市场接受度极高，预示着AI Agent技术在中国的快速发展和广泛应用前景。", url: "http://mp.weixin.qq.com/s?__biz=MzE5MTMwMzg5MA==&mid=2247484152&idx=1&sn=7c3fa0a9f99ee09a019016badb5ae625"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "ChatGPT Agent实现从问答到执行的跨越（7.20）",
+        what: "ChatGPT Agent实现从简单的问答到执行具体任务的跨越。",
+        detail: "ChatGPT Agent通过技术突破，实现了从简单的问答到执行具体任务的跨越，这标志着AI Agent技术在理解和执行复杂任务方面取得了重要进展。",
+        why: "这一进展意味着AI Agent技术在理解和执行复杂任务方面的能力得到显著提升，为AI Agent在更多应用场景中的落地提供了技术基础。", url: "http://mp.weixin.qq.com/s?__biz=MzE5MTMwMzg5MA==&mid=2247484152&idx=1&sn=7c3fa0a9f99ee09a019016badb5ae625"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术突破的三大支柱（7.20）",
+        what: "AI Agent技术突破的三大支柱包括推理能力升级、记忆体系革新和协议生态构建。",
+        detail: "推理能力升级方面，传统强化学习Agent向大模型驱动的自主进化Agent转变，关键进展是RFT技术实现“思考→行动”闭环。记忆体系革新方面，上下文窗口从4k token扩展到1000万token，长期记忆模块使Agent能够记录历史需求与项目进度。协议生态构建方面，MCP协议和A2A协议分别定义了模型与外部系统交互标准和Agent间协作语言。",
+        why: "这三大支柱的技术突破为AI Agent的进一步发展和应用提供了坚实的技术基础，推动AI Agent技术向更高层次的自主性和智能化发展。", url: "http://mp.weixin.qq.com/s?__biz=MzE5MTMwMzg5MA==&mid=2247484152&idx=1&sn=7c3fa0a9f99ee09a019016badb5ae625"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent在旅行规划和会议预定中的应用（7.20）",
+        what: "AI Agent在旅行规划和会议预定等场景中展现效率对比优势。",
+        detail: "在旅行规划场景中，AI Agent能够自动生成攻略并实时调整路线，而在会议预定场景中，AI Agent能够跨系统协调时间、场地、设备。与传统方式相比，AI Agent方案大幅提高了效率和便捷性。",
+        why: "AI Agent在这些场景中的应用展示了其在提高工作效率和优化资源配置方面的潜力，为AI Agent技术的进一步应用和推广提供了有力的案例支持。", url: "https://www.cnblogs.com/itech/p/20660953"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-19", vol: "VOL.039", weekday: "周日",
     headline: "AI Agent行业动态：技术演进与市场应用加速（7.19）",
     tldr: "随着AI技术的发展，AI Agent正从单一智能体向多智能体协作网络演进，全球78%的组织已在日常运营中使用AI工具，其中85%已将AI Agent整合进工作流程。AI Agent的自主性增强，预计将显著改变现有岗位角色，提升企业效率。",
