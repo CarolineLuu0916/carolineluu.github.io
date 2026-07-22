@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-22", vol: "VOL.042", weekday: "周三",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（7.22）",
+    tldr: "2026年7月22日，AI Agent技术持续取得突破，多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向均有进展。<b>智谱发布AutoGLM 2.0</b>，支持手机通用Agent，实现云端设备托管。<b>谷歌Veo 3</b>视频生成模型升级，支持多模态输入处理系统。",
+    vane: [
+      { label: "gl", dir: "up", note: "AI Agent技术全球范围内取得多项关键进展" },
+      { label: "cn", dir: "up", note: "中国AI Agent技术发展迅速，智谱AutoGLM 2.0引领行业" },
+      { label: "os", dir: "up", note: "开源社区积极响应，推动AI Agent技术快速迭代" },
+      { label: "eco", dir: "up", note: "AI Agent生态逐渐成熟，多Agent协作成为新趋势" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "智谱发布AutoGLM 2.0：手机通用Agent（7.22）",
+        what: "智谱科技发布AutoGLM 2.0，支持手机通用Agent，实现云端设备托管。",
+        detail: "智谱科技宣布推出AutoGLM 2.0，该产品支持手机通用Agent，首创“云端设备托管”模式，为每个用户分配专属云手机/云电脑，支持7×24小时离线任务执行，如自动抢票、数据监控等。在Device Use测试中超越ChatGPT Agent，实现跨设备、跨场景无缝协作。",
+        why: "AutoGLM 2.0的发布标志着AI Agent技术在移动设备领域的应用取得重要突破，为用户提供了更便捷、智能的服务体验。", url: "http://mp.weixin.qq.com/s?__biz=MzkxNjUwNTgyMg==&mid=2247491156&idx=2&sn=16aef0843f7eb2c62ea5a5049b0c7397"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "谷歌Veo 3视频生成模型升级（7.22）",
+        what: "谷歌研究院发布Veo 3视频生成模型，支持多模态输入处理系统。",
+        detail: "谷歌研究院最新发布的Veo 3视频生成模型已面向Workspace Pro和Ultra会员开放，该版本突破性地整合了多模态输入处理系统，用户现可通过上传静态照片直接生成15秒的4K分辨率视频片段。技术团队透露，该模型采用扩散模型与神经辐射场（NeRF）结合的创新架构，支持每秒60帧的动态渲染能力。",
+        why: "Veo 3的升级进一步扩展了AI在视频内容创作领域的应用，为用户提供了更丰富、高效的视频生成解决方案。", url: "https://k.sina.com.cn/article_7857201856_1d45362c001908cf42.html?from=tech"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国团队在AI Agent领域实现弯道超车（7.22）",
+        what: "中国团队在AI Agent领域取得显著进展，智谱AutoGLM 2.0引领行业发展。",
+        detail: "智谱科技发布的AutoGLM 2.0在Device Use测试中超越ChatGPT Agent，实现跨设备、跨场景无缝协作。Manus的成功还带动了国内外资本和媒体对AI Agent的关注。有分析称，中国团队在AI Agent上实现了弯道超车，证明中国在该领域的创新能力。",
+        why: "中国在AI Agent领域的快速发展，不仅提升了国内技术实力，也为全球AI技术进步做出了贡献。", url: "http://mp.weixin.qq.com/s?__biz=MzI2NDYzNDMzNA==&mid=2247488079&idx=1&sn=06a4211b1d20cd9efc28b13c03b09669"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "开源社区积极响应AI Agent技术（7.22）",
+        what: "开源社区迅速响应Manus的发布，推出多个复现项目。",
+        detail: "Manus火爆后，开源社区迅速行动。有团队在发布后的第0天就放出了复现项目OpenManus。CAMEL-AI团队则推出了项目OWL，整合了自研的大模型DeepSeek，实现多Agent协作。这些开源项目在GAIA基准上也取得了不错成绩，OWL的Level 1得分81.13%，已经超过OpenAI Deep Research，逼近Manus。",
+        why: "开源社区的积极响应推动了AI Agent技术的快速迭代和普及，为行业发展注入了新的活力。", url: "https://www.iedumedia.com/news/newsinfo/1645"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent生态逐渐成熟（7.22）",
+        what: "AI Agent生态逐渐成熟，多Agent协作成为新趋势。",
+        detail: "2026年，AI Agent（智能体）技术正经历从“被动响应”到“主动决策”的范式跃迁。本文梳理了当前AI Agent领域的最新技术进展，涵盖多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向，并结合实际案例探讨了这些技术突破对开发者生态的深远影响。",
+        why: "AI Agent生态的成熟为行业提供了更加丰富的技术选择和合作机会，推动了技术的创新和应用。", url: "https://gitcode.csdn.net/69fd39ac54b52172bc72540a.html"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-21", vol: "VOL.041", weekday: "周二",
     headline: "AI Agent行业动态：技术迭代与行业规范并进（7.21）",
     tldr: "AI Agent行业迎来技术迭代与行业规范的双重推进。OpenAI等巨头推出AGENTS.md标准，引领AI编程变革；国内18家大模型厂商联合发布AI行业自律标准，聚焦行业痛点。同时，AI技术突破不断，GPT-5.4版本在复杂逻辑推理任务上的准确率提升37%，国内多模态技术实现重大跨越。",
