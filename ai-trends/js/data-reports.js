@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-24", vol: "VOL.044", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（7.24）",
+    tldr: "过去24小时内，AI Agent行业呈现多模态融合、自主决策、端侧部署等技术突破，同时企业级Agent平台和多智能体协作系统成为应用热点。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "多模态Agent和自主决策技术取得显著进展。" },
+      { label: "应用场景", dir: "up", note: "企业级Agent平台和多智能体协作系统应用场景扩展。" },
+      { label: "市场规模", dir: "up", note: "全球AI智能体市场规模快速增长。" },
+      { label: "行业专用Agent", dir: "up", note: "行业专用Agent成为投资热点和应用主流。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "多模态Agent技术突破（7.24）",
+        what: "2026年的多模态Agent实现视觉、语音和文本信息的统一表示空间理解。",
+        detail: "关键突破包括视觉推理链技术，结合Whisper V4和新一代视觉编码器，Agent能实时看听并完成跨模态一致性校验。应用场景包括工业质检自动报告生成、医疗影像分析等。",
+        why: "产品经理需关注多模态Agent在提升用户体验和效率方面的潜力。", url: "https://juejin.cn/post/7662583562122166310"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "自主决策与自我进化的Agent（7.24）",
+        what: "2026年AI Agent进化为自主的思考者，具备推理模型、基于反馈的强化学习和经验回放机制。",
+        detail: "Agent可根据高层目标自行分解任务、规划步骤、选择工具、评估中间结果并动态调整策略，从每次执行中学习优化。",
+        why: "产品经理需考虑如何整合自主决策Agent以提升产品竞争力。", url: "https://juejin.cn/post/7662583562122166310"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "企业级Agent平台应用爆发（7.24）",
+        what: "B端成为AI Agent的主要落地场景，企业级Agent平台订单增长显著。",
+        detail: "微软通过Copilot Studio构建全球最大企业级AI Agent生态，谷歌推出AI Agent Space。典型数据显示，麦肯锡通过Agent节省90%会议筹备时间，某大型车企使用智能检修系统，任务处理效率提升数倍。",
+        why: "产品经理应关注企业级Agent平台在提升企业效率和降低成本方面的作用。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "国产统一图像生成模型UniIGM 2.0开源（7.24）",
+        what: "UniIGM 2.0通过引入多模态语义对齐架构，在图像生成质量与语义理解能力上实现双重突破。",
+        detail: "UniIGM 2.0开源首周即收获2000星标，其核心创新点「反思机制」成为行业关注焦点。底层采用动态对抗网络增强细节生成，技术团队透露将重点优化模型的三层架构。",
+        why: "产品经理需关注开源模型如何加速AI技术的创新和应用。", url: "https://mp.weixin.qq.com/s?__biz=MzU0Mjc3NzE2Nw==&mid=2247487318&idx=1&sn=433e7a31fc2f4b5ceb7d24ed418f00fd"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "多智能体协作系统（MAS）成熟（7.24）",
+        what: "2026年多Agent协作系统的成熟，复杂任务被分解并分配给不同的专家Agent。",
+        detail: "四种典型协作模式包括管道式、辩论式、分层式和市场式，一个完整的AI开发团队可以由多个专业Agent组成，实现端到端的软件开发。",
+        why: "产品经理需探索多智能体协作系统在提升团队效率和创新能力方面的应用。", url: "https://juejin.cn/post/7662583562122166310"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-23", vol: "VOL.043", weekday: "周四",
     headline: "AI Agent行业动态：技术迭代与行业渗透并行（7.23）",
     tldr: "2026年7月23日，AI Agent行业继续呈现技术迭代与行业渗透并行的态势。大模型驱动的推理能力突破、多模态融合与物理世界交互、边缘计算与去中心化部署成为技术演进的三大趋势。同时，智能体规模爆发、算力开支激增，预示着AI行业正迎来新的增长机遇。",
