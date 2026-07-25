@@ -2,6 +2,49 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-25", vol: "VOL.045", weekday: "周六",
+    headline: "AI Agent行业动态：规模化落地与技术迭代并行（7.25）",
+    tldr: "2026年7月25日，全球AI Agent行业继续在规模化落地与技术迭代方面取得进展。企业级AI Agent进入规模化交付期，金融、制造业等行业部署率显著提升。同时，AI技术在多个领域取得突破，如Meta发布Llama 3.1 405B开源AI模型，苹果公司推出AI驱动的新闻摘要功能等。",
+    vane: [
+      { label: "企业级AI Agent", dir: "up", note: "企业级AI Agent进入规模化交付期，金融、制造业等行业部署率显著提升。" },
+      { label: "AI技术迭代", dir: "up", note: "AI技术在多个领域取得突破，如Meta发布Llama 3.1 405B开源AI模型。" },
+      { label: "AI应用场景", dir: "up", note: "AI应用场景迅速扩展，包括自动化客户服务、智能数据分析等。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Meta发布Llama 3.1 405B开源AI模型（7.25）",
+        what: "Meta发布了其最大的开源AI模型——Llama 3.1 405B，参数量达到4050亿。",
+        detail: "尽管Llama 3.1 405B的参数量不及OpenAI和亚马逊的模型规模，但其在数据处理能力方面表现出色。这标志着Meta在AI领域的重要进展，进一步推动了开源AI模型的发展。",
+        why: "产品经理视角来看，Llama 3.1 405B的发布为AI应用开发提供了新的选择，尤其是在需要处理大规模数据的场景中。", url: "https://mp.weixin.qq.com/s?__biz=MzkyNzYxNzE2Mw==&mid=2247491880&idx=2&sn=35c42e2a843304185ac3efbdf457a077"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "企业级AI Agent进入规模化交付期（7.25）",
+        what: "企业级AI Agent进入规模化交付期，金融、制造业等行业部署率显著提升。",
+        detail: "据Gartner预测，到2026年底，全球40%的企业应用将嵌入具备任务执行能力的AI智能体，而这一比例在2025年尚不足5%。金融行业部署率达到67%，制造业部署率为45%。",
+        why: "这表明AI Agent正在从概念验证转向规模化商业落地，对产品经理而言，需要关注AI Agent在企业级应用中的部署和运营效率。", url: "https://finance.eastmoney.com/a/202607233819003463.html"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI应用场景迅速扩展（7.25）",
+        what: "AI Agent的应用场景正在迅速扩展，包括自动化客户服务、智能数据分析等。",
+        detail: "基于AI Agent框架和平台，自动化客户服务集成知识库和订单系统API，7x24小时自动回答用户问题、处理退款申请。智能数据分析自动从多个数据源获取数据，进行清洗、分析，并生成可视化报告。",
+        why: "产品经理需要关注AI Agent在不同场景下的应用效果和用户体验，以优化产品设计和提升用户满意度。", url: "http://mp.weixin.qq.com/s?__biz=MjM5NDU5NjI2MQ==&mid=2650688794&idx=1&sn=a576e543b8171da65c62215e68685825"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "苹果公司推出AI驱动的新闻摘要功能（7.25）",
+        what: "苹果公司发布了iOS 26 Beta 4，其中包含AI驱动的新闻摘要功能。",
+        detail: "用户可以通过这一功能快速获取新闻要点，提升信息获取效率。这一功能的推出，展示了AI技术在提升用户体验方面的潜力。",
+        why: "产品经理需要关注AI技术如何提升产品功能和用户体验，特别是在信息过载的当下，AI驱动的摘要功能可以为用户提供更便捷的信息获取方式。", url: "http://mp.weixin.qq.com/s?__biz=MzkyNzYxNzE2Mw==&mid=2247491880&idx=2&sn=35c42e2a843304185ac3efbdf457a077"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-24", vol: "VOL.044", weekday: "周五",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（7.24）",
     tldr: "过去24小时内，AI Agent行业呈现多模态融合、自主决策、端侧部署等技术突破，同时企业级Agent平台和多智能体协作系统成为应用热点。",
