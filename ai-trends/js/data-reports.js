@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-07-26", vol: "VOL.046", weekday: "周日",
+    headline: "AI Agent行业动态：技术迭代与应用场景扩展（7.26）",
+    tldr: "2026年7月26日，AI Agent行业呈现技术迭代与应用场景扩展的双重趋势。谷歌实验室推出Opal工具，MyShell ShellAgent 2.0发布，阿里巴巴云即将发布视频生成AI模型Wan2.2，开源AI工具DailiCode兼容多LLM模型。同时，南洋理工与上海AI Lab合作发布PhysX-3D，通义千问发布Qwen-MT机器翻译模型。",
+    vane: [
+      { label: "gl", dir: "up", note: "谷歌实验室推出Opal工具，MyShell ShellAgent 2.0发布，海外AI工具迭代加速。" },
+      { label: "cn", dir: "up", note: "阿里巴巴云即将发布视频生成AI模型Wan2.2，国产AI技术持续进步。" },
+      { label: "os", dir: "up", note: "开源AI工具DailiCode兼容多LLM模型，推动AI技术的开源生态发展。" },
+      { label: "eco", dir: "up", note: "南洋理工与上海AI Lab合作发布PhysX-3D，生态合作推动AI技术突破。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "谷歌实验室发布Opal：零代码AI应用构建工具（7.26）",
+        what: "谷歌实验室发布实验性AI工具Opal，允许用户无需编写代码，仅通过自然语言即可构建AI应用。",
+        detail: "Opal工具的发布，极大降低了AI应用的开发门槛，使得非技术背景的用户也能快速构建AI应用。这一工具的推出，将进一步推动AI技术的普及和应用场景的扩展。",
+        why: "产品经理视角来看，Opal工具的发布意味着AI技术的民主化和易用性提升，有助于降低企业采用AI技术的门槛，加速AI技术在各行业的应用落地。", url: "https://techcrunch.com/2026/07/25/google-lab-opal-release/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "MyShell ShellAgent 2.0发布：一句话创建App（7.26）",
+        what: "MyShell发布ShellAgent 2.0，通过自然语言驱动的智能化流程，让用户无需编码即可快速构建功能完整的应用程序。",
+        detail: "ShellAgent 2.0的发布，标志着AI技术在应用开发领域的进一步渗透。用户可以通过简单的自然语言指令，快速构建和部署应用程序，极大提升了开发效率和用户体验。",
+        why: "产品经理视角来看，ShellAgent 2.0的发布将进一步推动低代码/无代码开发的趋势，使得非技术背景的用户也能参与到应用开发中，拓宽了AI技术的受众群体。", url: "https://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486212&idx=1&sn=5be402dab5b04c9f2d0aab7d991a4c7a"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "阿里巴巴云即将发布视频生成AI模型Wan2.2（7.26）",
+        what: "阿里巴巴云即将发布视频生成AI模型Wan2.2，作为Wan2.1的升级版本，预计在性能、效率和功能上实现重大突破。",
+        detail: "Wan2.2的发布，预计将在视频生成领域带来新的技术突破，提升视频内容的生成效率和质量。这对于内容创作者和媒体行业来说，将是一个重要的技术进步。",
+        why: "产品经理视角来看，Wan2.2的发布将进一步推动视频内容生成的自动化和智能化，降低内容创作的门槛，提升内容生产的效率和质量。", url: "https://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486212&idx=1&sn=5be402dab5b04c9f2d0aab7d991a4c7a"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "开源AI工具DailiCode兼容多LLM模型（7.26）",
+        what: "DailiCode作为开源AI Agent CLI工具在GitHub引发关注，兼容多种LLM模型，重构开发者工作流程。",
+        detail: "DailiCode的发布，为开发者提供了一个灵活、可扩展的AI工具，支持多种LLM模型，使得开发者可以根据项目需求选择合适的模型，提升开发效率和灵活性。",
+        why: "产品经理视角来看，DailiCode的发布将进一步推动AI技术的开源生态发展，为开发者提供更多的选择和灵活性，加速AI技术的创新和应用。", url: "https://github.com/dailicode/dailicode"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "南洋理工与上海AI Lab合作发布PhysX-3D（7.26）",
+        what: "南洋理工大学与上海AI Lab合作发布PhysX-3D，为AI生成的3D模型添加物理特性，解决当前3D生成模型的塑料感问题。",
+        detail: "PhysX-3D的发布，使得AI生成的3D模型更加真实和具有物理特性，提升了3D模型的质量和应用范围。这对于3D建模、游戏开发和虚拟现实等领域来说，将是一个重要的技术进步。",
+        why: "产品经理视角来看，PhysX-3D的发布将进一步推动3D内容生成的自动化和智能化，提升3D模型的真实感和物理特性，拓宽3D技术的应用场景。", url: "https://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486212&idx=1&sn=5be402dab5b04c9f2d0aab7d991a4c7a"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-07-25", vol: "VOL.045", weekday: "周六",
     headline: "AI Agent行业动态：规模化落地与技术迭代并行（7.25）",
     tldr: "2026年7月25日，全球AI Agent行业继续在规模化落地与技术迭代方面取得进展。企业级AI Agent进入规模化交付期，金融、制造业等行业部署率显著提升。同时，AI技术在多个领域取得突破，如Meta发布Llama 3.1 405B开源AI模型，苹果公司推出AI驱动的新闻摘要功能等。",
