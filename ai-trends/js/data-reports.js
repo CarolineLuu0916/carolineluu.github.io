@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-02", vol: "VOL.053", weekday: "周日",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展",
+    tldr: "过去24小时，AI Agent行业迎来多项技术突破和应用场景扩展。OpenAI与Anthropic发布旗舰新品，推动AI编程竞赛白热化。AI Agent技术从自动化任务执行向自主智能演进，实现深度语言理解、知识推理与代码生成能力跃升。多模态交互、情境感知与主动服务成为AI Agent发展的新趋势。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent领域迎来三大突破，包括基座大模型持续进化、多智能体系统成为主流、开放协议落地。" },
+      { label: "应用场景", dir: "up", note: "AI Agent应用场景从智能客服、自动驾驶到机器人与自动化，技术演进带来新的可能性。" },
+      { label: "行业竞争", dir: "up", note: "OpenAI与Anthropic几乎同时发布旗舰新品，AI编程竞赛进入白热化阶段。" },
+      { label: "多模态交互", dir: "up", note: "AI Agent将同时处理语音、视觉、触觉等多种输入形式，并以最自然的方式给出反馈。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI与Anthropic发布旗舰新品（8.2）",
+        what: "2026年02月08日，OpenAI与Anthropic几乎同时发布旗舰新品，将AI编程这场军备竞赛推向白热化阶段。",
+        detail: "OpenAI发布了GPT-5.3-Codex，官方定位为迄今最强编程代理，展现出显著的自我改进能力。Anthropic发布了Claude Opus 4.6，多项指标刷新行业纪录，包括100万Token上下文窗口和128K最大输出容量。",
+        why: "这场竞争不仅是技术的较量，更预示着AI应用层的全面爆发，推动AI Agent技术向更深层次发展。", url: "https://xzhibot.com/964.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术突破与应用场景扩展（8.2）",
+        what: "AI Agent领域迎来三大突破，包括基座大模型持续进化、多智能体系统成为主流、开放协议落地。",
+        detail: "2025年，AI Agent领域迎来三大突破。一是基座大模型持续进化，以更强性能驱动智能提升。二是多智能体系统成为主流，从单体转向协同，应对现实复杂挑战。三是开放协议如模型上下文协议（Model Context Protocol，MCP）和智能体间协议（Agent-to-Agent Protocol，A2A）落地，为互联互通奠定标准基石，推动产业从探索迈向生态构建，支撑Agent互联网发展。",
+        why: "这些技术突破和协议的落地，为AI Agent的未来发展奠定了坚实的基础，推动产业从探索迈向生态构建，支撑Agent互联网发展。", url: "https://www.iedumedia.com/news/newsinfo/1645"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent应用场景解析（8.2）",
+        what: "AI Agent的应用场景从智能客服、自动驾驶到机器人与自动化，技术演进带来新的可能性。",
+        detail: "智能客服领域，AI Agent通过自然语言与客户交流，7×24小时在线服务。自动驾驶领域，AI Agent通过深度学习提升视觉理解能力，实现复杂路况下的决策与规划。机器人与自动化领域，AI Agent通过传感器融合定位、路径规划、运动控制算法等技术，实现更自然的人机交互。",
+        why: "AI Agent技术的进步正在推动各行业的数字化转型，为企业提供更高效、更智能的解决方案。", url: "http://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&mid=2247667900&idx=3&sn=a966a668c34f9c31871e8e52c76dc4ba"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent多模态交互技术演进（8.2）",
+        what: "AI Agent将同时处理语音、视觉、触觉等多种输入形式，并以最自然的方式给出反馈。",
+        detail: "2026年的AI Agent将实现跨模态语义对齐，例如将客户拍摄的产品照片与文字描述关联，或将语音情绪与文本内容综合分析。这要求底层技术实现多模态融合，例如美洽科技的AI语音客服系统展示了多模态技术的落地路径，采用真人声音复刻技术，结合实时意图分析与情绪检测，实现超低延时的自然对话。",
+        why: "多模态交互技术的发展，将使AI Agent能够更自然地理解和响应用户需求，提升用户体验。", url: "https://www.meiqia.com/blog/2026nian-ai-agentfa-zhan-qu-shi-5da-guan-jian-ji-zhu-yu-ying-yong-fang-xiang-yu-ce/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术范式收敛（8.2）",
+        what: "AI Agent在2024–2026年间出现了一个非常清晰的范式收敛，从“带工具调用的聊天模型”演进为“带会话、工具、记忆、审批、安全边界和评测闭环的运行时系统”。",
+        detail: "Anthropic将这一差别明确区分为workflow与agent：前者的控制流由代码预先定义，后者则允许模型动态决定下一步、选择工具并调整路径；OpenAI把agent定义为能够规划、调用工具、在专家之间协作并保持足够状态以完成多步工作的应用。这个定义收敛，基本解释了为什么近两年的工程重点已经从prompt本身转向“运行时+评测+安全”三个层面。",
+        why: "AI Agent的技术范式收敛标志着行业正从单次推理质量转向长时执行可靠性、可恢复性、可观测性与安全边界，这对于构建更可靠、更安全的AI Agent系统至关重要。", url: "https://www.datalearner.com/blog/advances-in-ai-agent-report-2026-05"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-01", vol: "VOL.052", weekday: "周六",
     headline: "AI Agent行业动态：技术融合与市场整合加速",
     tldr: "2026年8月1日，AI Agent行业迎来技术融合与市场整合的加速期。Meta计划推出角色化AI聊天机器人，AMD发布二季度业绩显示AI研发投入增加。技术趋势显示AI芯片领域、智能驾驶开发、存储成本控制和新能源汽车软件成为焦点。",
