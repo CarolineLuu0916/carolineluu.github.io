@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-03", vol: "VOL.054", weekday: "周一",
+    headline: "2026年8月3日 AI Agent行业动态：技术突破与市场整合加速",
+    tldr: "近期AI Agent行业经历了快速的技术演进和市场整合。OpenAI机器人负责人因伦理问题辞职，ChatGPT卸载量激增，而AI在多模态交互和情境感知方面取得进展，预示着AI Agent从工具向伙伴的跃迁。",
+    vane: [
+      { label: "伦理和合规", dir: "up", note: "OpenAI机器人负责人因伦理问题辞职，突显AI伦理问题对行业的影响。" },
+      { label: "市场整合", dir: "up", note: "AI Agent市场整合加速，技术突破和应用场景扩展带来新的市场机会。" },
+      { label: "多模态交互", dir: "up", note: "AI Agent在多模态交互方面取得进展，提升了用户体验和应用范围。" },
+      { label: "情境感知", dir: "up", note: "AI Agent的情境感知能力增强，推动了从被动响应到主动服务的转变。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "OpenAI Robotics Head Resigns Over Lethal Autonomous Weapons（8.3）",
+        what: "OpenAI的硬件和机器人部门负责人Caitlin Kalinowski因伦理问题辞职。",
+        detail: "Caitlin Kalinowski辞职是因为对大规模监控和无需人类授权即可杀人的自主AI武器的担忧。同时，ChatGPT的卸载量激增563%，失去了在英国应用商店的第一名位置，而Claude在16个国家领先，日活跃用户达到1130万，自1月以来增长了183%。",
+        why: "这一事件突显了AI伦理问题对行业的影响，可能会导致消费者对AI产品的接受度和信任度发生变化，产品经理需要考虑如何在产品设计中平衡功能和伦理。", url: "https://www.reuters.com/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "Transparent Tribe Launches 'Vibeware' — First Named Nation-State AI Malware Campaign（8.3）",
+        what: "巴基斯坦支持的APT36使用LLMs大规模生产多语言恶意软件。",
+        detail: "Bitdefender记录了APT36使用LLMs在7种语言（Nim、Zig、Crystal、Rust、Go、C#、.NET）中大规模生产恶意软件的行为，他们将这种策略称为“分布式拒绝检测”（DDoD），通过向目标发送大量一次性多语言二进制文件来压倒基于签名的检测。这是与CyberStrikeAI根本不同的，后者是使用现有工具进行AI增强攻击；而这是AI生成的攻击工具大规模生产。",
+        why: "这一事件标志着AI在网络安全领域的应用已经从辅助攻击转变为生成攻击工具，对产品经理来说，意味着需要更新安全防护策略，以应对AI生成的新型威胁。", url: "https://thehackernews.com/"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI Agent技术演进：从工具到伙伴的跃迁（8.3）",
+        what: "AI Agent技术正在从实验阶段进入规模化商用阶段。",
+        detail: "根据Gartner研究报告，2025年AI Agent市场规模达到428亿美元，预计2026年将突破620亿美元，年复合增长率达45%。企业级应用渗透率从2024年的32%跃升至2025年的58%，标志着AI Agent已从实验阶段进入规模化商用阶段。这一变革背后，是技术成熟度与业务需求的双重驱动。",
+        why: "AI Agent技术的成熟和商用化将推动产品经理重新思考产品的服务模式和用户体验，从简单的工具向更智能、更自主的伙伴转变。", url: "https://www.gartner.com/en/information-technology/glossary/ai-agent"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Karpathy Open-Sources AutoResearch — AI Agents Doing AI Research Overnight（8.3）",
+        what: "Andrej Karpathy发布了AutoResearch，一个AI Agent自主运行机器学习实验的系统。",
+        detail: "Andrej Karpathy发布了AutoResearch，一个630行无依赖系统，其中AI Agent可以在单个GPU上一夜之间自主运行约100个机器学习实验。人类只需要编辑一个Markdown指令文件；代理修改训练代码，评估验证损失，保留或丢弃更改，并以每小时约12个实验的速度迭代。",
+        why: "这一开源项目展示了AI Agent在自动化机器学习研究中的潜力，为产品经理提供了一个工具，以加速产品迭代和创新。", url: "https://github.com/karpathy/ar"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI2 Olmo Hybrid 7B — 2x Training Efficiency via Hybrid Architecture（8.3）",
+        what: "AI2发布了使用3:1 DeltaNet-to-attention的完全开放模型，训练效率提高了2倍。",
+        detail: "AI2发布了Olmo Hybrid 7B，这是一个完全开放的模型，使用3:1 DeltaNet-to-attention，与Olmo 3相比，训练效率提高了2倍，同时使用了更少的token。该模型在512个GPU上进行了训练，发布了全部权重、检查点和代码。",
+        why: "这一开放模型的发布为产品经理提供了新的工具，以提高AI产品的开发效率和性能，同时也推动了AI技术的开放和共享。", url: "https://ai2-thorium.github.io/"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-02", vol: "VOL.053", weekday: "周日",
     headline: "AI Agent行业动态：技术突破与应用场景扩展",
     tldr: "过去24小时，AI Agent行业迎来多项技术突破和应用场景扩展。OpenAI与Anthropic发布旗舰新品，推动AI编程竞赛白热化。AI Agent技术从自动化任务执行向自主智能演进，实现深度语言理解、知识推理与代码生成能力跃升。多模态交互、情境感知与主动服务成为AI Agent发展的新趋势。",
