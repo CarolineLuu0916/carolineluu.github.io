@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-04", vol: "VOL.055", weekday: "周二",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展",
+    tldr: "近期AI Agent行业在技术突破和应用场景扩展方面取得显著进展。海外英伟达和OpenAI分别在开源模型和具身智能领域发力，而国内阿里和阶跃星辰在多模态Agent和推理速度上实现突破。同时，行业技术底层突破聚焦降本增效，推动Agent和具身智能规模化普及。此外，AI Agent开始全面嵌入超级App，智能体能力从数字场景延伸至物理世界，开启AI第二增长曲线。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent行业在多模态理解和推理速度上取得技术突破，推动行业进步。" },
+      { label: "应用场景", dir: "up", note: "AI Agent应用场景从数字办公自动化延伸至家庭、物流等物理场景，开启AI第二增长曲线。" },
+      { label: "行业竞争", dir: "up", note: "中美在AI Agent领域的竞争格局逆转，差异化竞争格局成型。" },
+      { label: "产业落地", dir: "up", note: "AI技术创新聚焦降本增效、落地赋能，解决产业落地核心痛点。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "英伟达发力开源模型，OpenAI布局具身智能（8.4）",
+        what: "英伟达推出550B参数MoE开放模型Nemotron 3 Ultra，OpenAI重启机器人团队。",
+        detail: "英伟达推出550B参数MoE开放模型Nemotron 3 Ultra，跻身美国最强开源模型梯队，主打GPU软硬件生态适配，为企业AI部署提供样板工程。同时OpenAI重启机器人团队，将技术边界从软件交互延伸至物理世界，发力多模态+强化学习融合的具身智能。",
+        why: "这标志着全球模型竞争双向制衡格局的形成，以及AI技术从数字场景向物理世界的延伸。", url: "https://www.shopex.cn/news/archives/33356.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "阿里、阶跃星辰双维度突破，国产Agent落地提速（8.4）",
+        what: "阿里Qwen3.7-Plus上线，主打视觉理解、GUI界面操作能力；阶跃Step 3.7 Flash主打极致性价比。",
+        detail: "阿里Qwen3.7-Plus上线，主打视觉理解、GUI界面操作、桌面软件复刻能力，多模态Agent基座实力跻身全球前列。阶跃Step 3.7 Flash主打极致性价比，实现400 tokens/秒超高输出速度，针对Agent任务专项优化，推动中小企业规模化落地AI运营、客服、营销场景。",
+        why: "国内AI Agent在多模态理解和推理速度上实现双维度突破，加速国产Agent的产业落地。", url: "https://www.shopex.cn/news/archives/33356.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "KV-CAT新范式破解长上下文显存瓶颈（8.4）",
+        what: "牛津大学、英伟达等机构联合提出KV缓存压缩训练范式。",
+        detail: "牛津大学、英伟达等机构联合提出KV缓存压缩训练范式，让Transformer模型原生适配缓存压缩，大幅降低Agent多轮对话、长代码场景的显存占用，推动企业知识库、复杂流程Agent低成本落地。",
+        why: "这一技术突破有助于解决长上下文处理的显存瓶颈问题，推动AI Agent在更多场景的落地。", url: "https://www.shopex.cn/news/archives/33356.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "腾讯测试微信AI Agent，重塑大众AI入口（8.4）",
+        what: "腾讯启动微信AI Agent小规模内测。",
+        detail: "腾讯启动微信AI Agent小规模内测，依托微信聊天、支付、小程序、视频号、企业微信全生态，有望重构用户搜索、交易、内容分发、企业服务全流程。这标志着AI Agent的真正爆发点是超级平台内嵌，而非独立AI App。",
+        why: "微信AI Agent的内测有望重塑大众AI入口，推动AI Agent在消费端超级App的智能化改造。", url: "http://mp.weixin.qq.com/s?__biz=MjM5MjI0Nzk5NA==&mid=2650218127&idx=2&sn=b8c4db3015f56596b36428ffe23bdc0a"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "行业聚焦具身智能，AI走向物理世界（8.4）",
+        what: "OpenAI重启机器人团队，叠加清华开源机器人训练架构。",
+        detail: "OpenAI重启机器人团队，叠加清华开源机器人训练架构，行业共识明确：AI竞争下一阶段将从数字办公自动化，延伸至家庭、物流、制造、服务等物理场景，具身智能成为巨头战略新重心。",
+        why: "这表明AI行业正聚焦于具身智能的发展，推动AI从数字场景向物理世界的延伸，开启AI的第二增长曲线。", url: "https://www.sohu.com/a/878716836_121956424"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-03", vol: "VOL.054", weekday: "周一",
     headline: "2026年8月3日 AI Agent行业动态：技术突破与市场整合加速",
     tldr: "近期AI Agent行业经历了快速的技术演进和市场整合。OpenAI机器人负责人因伦理问题辞职，ChatGPT卸载量激增，而AI在多模态交互和情境感知方面取得进展，预示着AI Agent从工具向伙伴的跃迁。",
