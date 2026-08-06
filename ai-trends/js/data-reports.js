@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-06", vol: "VOL.057", weekday: "周四",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展",
+    tldr: "过去24小时内，AI Agent行业在技术突破和应用场景扩展方面取得显著进展。<b>JoyAgent-JDGenie</b>在GAIA评测基准中超越多个知名项目，展现了开源产品技术有效性。<b>清华IDEA团队</b>发布GUAVA框架，实现单张照片快速生成3D化身的技术突破。<b>谷歌搜索</b>新增AI Agent功能，提供餐厅预订与个性化服务。",
+    vane: [
+      { label: "gl", dir: "up", note: "海外AI Agent技术突破和应用场景扩展，推动行业快速发展。" },
+      { label: "cn", dir: "up", note: "国内AI Agent技术发展迅速，应用场景不断拓展。" },
+      { label: "os", dir: "up", note: "开源项目推动AI Agent技术发展和应用普及。" },
+      { label: "eco", dir: "up", note: "AI Agent生态构建加速，促进技术标准化和互联互通。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "JoyAgent-JDGenie在GAIA评测基准中超越多个知名项目（6.15）",
+        what: "JoyAgent-JDGenie在GAIA通用智能体评测基准中以75.15%的准确率超越CAMEL OWL、HuggingFace Smolagent等知名项目。",
+        detail: "JoyAgent-JDGenie的突破性在于提供独立运行的前后端交互界面、内置多智能体协作引擎，不依赖特定云生态，下载配置即可部署。在电商领域、办公场景、出行服务、教育领域等多个场景中展现出应用潜力。",
+        why: "作为轻量化开源产品，JoyAgent-JDGenie的技术有效性得到验证，对行业技术发展和开源生态构建具有重要意义。", url: "https://mp.weixin.qq.com/s?__biz=Mzg5ODkyOTkwOQ==&mid=2247491173&idx=2&sn=e39dcbfcb416b91a85e550caa9f097f1"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "清华IDEA团队发布GUAVA框架实现3D化身生成技术突破（6.15）",
+        what: "清华大学与粤港澳大湾区数字经济研究院联合研发的GUAVA框架在3D化身生成技术上实现重大突破。",
+        detail: "GUAVA框架能在0.1秒内通过单张照片生成高精度的3D化身模型，引入了创新性的3D高斯模型，提高了虚拟形象的表现力和细节呈现。开源精神推动了全球开发者基于GUAVA进行二次开发和创新应用。",
+        why: "GUAVA框架的技术突破为3D虚拟形象生成提供了全新解决方案，对元宇宙等领域的应用具有重要影响。", url: "http://mp.weixin.qq.com/s?__biz=MzIzNjg3NTUzOA==&mid=2247499691&idx=1&sn=3547caae9702201ab900280ce7091400"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "谷歌搜索新增AI Agent功能提供餐厅预订与个性化服务（6.15）",
+        what: "谷歌搜索引擎新增AI Agent功能，为用户提供更智能的搜索体验。",
+        detail: "该功能能够自动完成餐厅预订，并根据个人偏好定制搜索结果，极大简化了用户的预订流程。此外，AI Agent还支持与家人和朋友分享搜索灵感，提升了互动体验。目前，该功能已在180多个国家和地区推出，未来还将扩展到更多应用场景。",
+        why: "谷歌搜索新增AI Agent功能，进一步拓展了AI在搜索引擎中的应用场景，提升了用户体验和互动性。", url: "http://mp.weixin.qq.com/s?__biz=MzI0NzAzNTUwMQ==&mid=2652514168&idx=2&sn=4835aec6f468559e0e8689346587b087"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "算力小仓发布全新AI Agent智能报价系统降低企业成本25%（6.15）",
+        what: "算力小仓发布了升级版AI Agent智能报价系统，集成多款大模型，通过API中转平台实现统一调用。",
+        detail: "新系统支持复杂报价规则自动计算，响应速度提升35%，帮助制造业及服务业客户降低人工成本25%。系统结合算力小仓的高效算力服务，支持百万级别报价请求并发处理，保障业务连续性。",
+        why: "算力小仓全新AI Agent智能报价系统的发布，推动了企业数字化转型进程，提升了业务敏捷性和效率。", url: "https://www.suanlibox.com/news/archive/2026-W24.html"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "国产统一图像生成模型UniIGM 2.0在GitHub爆火新增自省机制实现质效突破（6.15）",
+        what: "一款名为UniIGM 2.0的国产统一图像生成模型在GitHub平台引发技术社区震动。",
+        detail: "UniIGM 2.0通过引入多模态语义对齐架构，在图像生成质量与语义理解能力上实现双重突破，其核心创新点「反思机制」更是成为行业关注焦点。技术团队透露，本次升级重点优化了模型的三层架构，包括底层采用动态对抗网络增强细节生成。",
+        why: "UniIGM 2.0的开源和技术创新，推动了国产AI技术的发展和应用，对图像生成领域具有重要意义。", url: "http://mp.weixin.qq.com/s?__biz=MzU0Mjc3NzE2Nw==&mid=2247487318&idx=1&sn=433e7a31fc2f4b5ceb7d24ed418f00fd"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-05", vol: "VOL.056", weekday: "周三",
     headline: "AI Agent行业动态：工程化与成本优化成为主线（8.5）",
     tldr: "今日行业动态聚焦于AI Agent的工程化实践和成本优化。GitHub发布token优化指南，Anthropic开源自主漏洞发现框架，Andon Labs揭示AI代理涌现行为，NVIDIA推出Agentic AI基础设施产品。",
