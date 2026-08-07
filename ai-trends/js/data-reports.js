@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-07", vol: "VOL.058", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.7）",
+    tldr: "过去24小时内，AI Agent行业动态聚焦于技术突破和应用场景的扩展。从Agentic AI十大趋势的发布，到AI原生动画院线电影的开机，再到AI代理编码提速，AI Agent正从单点工具进化为协作系统，重塑多个行业。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "Agentic AI十大趋势发布，显示技术突破与商业落地全景。" },
+      { label: "应用场景", dir: "up", note: "AI原生动画院线电影开机，AI Agent在娱乐行业应用场景扩展。" },
+      { label: "工程化", dir: "up", note: "AI代理编码提速，工程化与成本优化成为主线。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Agentic AI十大关键趋势发布（8.7）",
+        what: "2026年Agentic AI十大关键趋势发布，涵盖技术、应用与治理。",
+        detail: "2026年被业内公认为AI Agent商业元年，标志着AI从被动响应工具向主动决策执行者的根本性跨越。AI Agent技术层面实现多维度关键突破，包括自主操作能力、多模态融合与记忆机制、自主决策与规划能力。企业部署速度显著加快，市场规模快速增长。",
+        why: "这些趋势显示AI Agent技术与应用的快速发展，对产品经理而言，需要关注技术突破与市场需求的结合点，把握产品创新与市场机会。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI原生动画院线电影开机（8.7）",
+        what: "中国首批AI原生动画院线电影《神话事故应急处理办公室》正式开机。",
+        detail: "这部电影由阅合科技与掌阅科技联合打造，明略科技、浙江电视台民生休闲频道、清波致远联合出品。AI统筹明略科技进组，标志着AI Agent在娱乐行业应用场景的扩展。",
+        why: "AI Agent在电影制作中的应用，展示了AI技术在创意产业中的新应用场景，为产品经理提供了新的产品创新思路。", url: "https://www.mininglamp.com/news/"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI代理编码提速约1.5倍（8.7）",
+        what: "AI搜索公司Perplexity确认采用英伟达Vera CPU，AI代理编码提速约1.5倍。",
+        detail: "Perplexity企业基础设施副总裁Nate Kupp表示，Vera CPU在处理AI代理编码任务时速度约为传统CPU的1.5倍。英伟达将Vera定位为“首款AI Agent专用处理器”，预计本财年末带来200亿美元营收。",
+        why: "AI代理编码提速对产品经理意味着可以提供更快速的用户体验，同时降低成本，提高效率。", url: "https://juejin.cn/post/7634480263965065243"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "明略科技开源发布Octo（8.7）",
+        what: "明略科技正式发布Octo，构建人与AI Agent协作的新一代工作平台。",
+        detail: "Octo支持私有化部署，让数据与知识主权真正回归企业和用户。通过将孤立的AI Agent重构为可协同、可编排、可品鉴的组织级数字劳动力，Octo让每一次人机协作都成为组织资产复利积累的节点。",
+        why: "开源协作平台Octo的发布，为产品经理提供了新的工具和平台，以构建更加智能和高效的工作流程。", url: "https://www.asdfoffice.com/2026/07/08/ai-%E7%AE%80%E6%8A%A5-%C2%B7-2026-07-08/"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent应用服务商甄选参考发布（8.7）",
+        what: "AI Agent应用服务商甄选参考发布，从技术落地到商业闭环的行业观察。",
+        detail: "随着大模型技术的快速演进与端侧AI算力的普及，AI Agent已从概念验证阶段进入规模化商业落地阶段。企业客户对AI Agent应用服务商的选择标准日趋理性，关注技术的可落地性、行业场景适配度、数据闭环能力以及长期服务保障。",
+        why: "这份参考为产品经理在选择AI Agent应用服务商时提供了重要的考量维度，有助于构建更加稳健和有效的产品生态。", url: "https://m.chinapp.net.cn/pinpaidongtai/2026/0705/67239.html"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-06", vol: "VOL.057", weekday: "周四",
     headline: "AI Agent行业动态：技术突破与应用场景扩展",
     tldr: "过去24小时内，AI Agent行业在技术突破和应用场景扩展方面取得显著进展。<b>JoyAgent-JDGenie</b>在GAIA评测基准中超越多个知名项目，展现了开源产品技术有效性。<b>清华IDEA团队</b>发布GUAVA框架，实现单张照片快速生成3D化身的技术突破。<b>谷歌搜索</b>新增AI Agent功能，提供餐厅预订与个性化服务。",
