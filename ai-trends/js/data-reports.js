@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-09", vol: "VOL.060", weekday: "周日",
+    headline: "全球 AI Agent 领域迎来多项技术突破与应用落地",
+    tldr: "过去24小时内，全球AI Agent领域出现多项技术突破和应用场景扩展，多国政府与企业加速布局。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent技术持续进步，推理能力、编程能力提高，工具使用范围扩大。" },
+      { label: "应用场景", dir: "up", note: "AI应用落地速度加快，电商营销、CRM、金融法律等场景快速落地。" },
+      { label: "投资热度", dir: "up", note: "AI投资热度不减，预计到2025年投资将达到2320亿美元。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI应用落地新要件：幻觉减少、编程能力提高、计算机使用（8.9）",
+        what: "随着技术进展，AI应用落地速度加快，模型推理能力、编程能力提高，AI工具使用范围扩大。",
+        detail: "模型推理能力提升，如GPT-4和OY等模型发布，能规划和完成更复杂的任务。模型编程能力提高，使得编程领域和泛化编程领域执行任务能力增强。AI工具使用范围扩大，如从浏览器到其他软件，AI能用来解决任务。",
+        why: "AI技术的进步将推动AI应用在更多领域的快速落地，为行业带来技术创新和变革。", url: "https://www.xiaoyuzhoufm.com/episode/677a4bf115a5fd520e25cb43"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "沙特基金4亿美元重仓「智谱AI」，企业估值达30亿美元（8.9）",
+        what: "沙特基金投资4亿美元于智谱AI，企业估值达到30亿美元。",
+        detail: "智谱AI源自清华大学技术成果，专注于大模型算法研究开发，构建新一代认知智能大模型，为各行各业提供智能化解决方案。公司已推出开源百亿参数大模型GLM-130B，性能与GPT-3.5相媲美，迅速赢得市场青睐。基于GLM-130B推出了对话模型ChatGLM和开源单卡版模型ChatGLM-6B，并搭建了AIGC模型产品矩阵。",
+        why: "智谱AI的技术突破和市场认可，显示了AI大模型领域的投资热度和发展潜力。", url: "https://www.xiaoyuzhoufm.com/episode/6673a067b6a841272908da31"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI智能体（AI Agent）的涌现，AI领域超预期热点事件（8.9）",
+        what: "从年初DeepSeek的爆火到如今AI智能体（AI Agent）的涌现，AI领域出现超预期的热点事件。",
+        detail: "上半年模型推理性能转变，从追求retrain的scaling law转向post train的skin law。全球第一的agent团队可能来自中国或海外，如minus、vt dress park、flows fellow等。海外大厂也入局agent领域，OpenAI、cloudy都在发力。ChatGPT被视为包着语言模型的agent公司，国内fellow也被视为agent broker。赛道非常热。",
+        why: "AI智能体的涌现和大厂的入局，显示了AI领域竞争的白热化和快速发展。", url: "https://www.xiaoyuzhoufm.com/episode/6869e2f893fd2d72b8b98bfb"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "智谱AI发布基于千亿参数的对话模型ChatGLM和单卡开源版本ChatGLM6B（8.9）",
+        what: "智谱AI发布基于千亿参数的对话模型ChatGLM和单卡开源版本ChatGLM6B。",
+        detail: "智谱AI去年3月发布了基于千亿参数的对话模型ChatGLM和单卡开源版本ChatGLM6B，全球下载量超过800万次。下半年公司推出AI生成式助手质朴轻颜，成为国内首批通过备案的大模型产品，巩固了智谱AI在行业中的领先地位。",
+        why: "开源版本的发布有助于推动AI技术的普及和应用，加速AI技术的创新和发展。", url: "https://www.xiaoyuzhoufm.com/episode/6673a067b6a841272908da31"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI投资热度不减，预计到2025年投资将达到2320亿美元（8.9）",
+        what: "AI投资热度持续不减，预计到2025年投资将达到2320亿美元。",
+        detail: "根据中国信息化周报报道，毕马威报告预测到2025年人工智能、机器学习和机器人流程自动化技术的投资将达到2320亿美元。40%的投资高管预计将人工智能投资增加20%或更多。",
+        why: "AI投资的持续增长，反映了AI技术的商业价值和市场潜力，将进一步推动AI技术的发展和应用。", url: "https://www.xiaoyuzhoufm.com/episode/6673a067b6a841272908da31"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-08", vol: "VOL.059", weekday: "周六",
     headline: "AI行业动态：AI应用加速落地与Agent能力全面升级（8.8）",
     tldr: "2026年8月AI行业动态聚焦于AI应用的加速落地与Agent能力的全面升级。国内大模型进入白热化竞争，AI应用从聊天转向实际工作场景，Agent开始承担更多实际任务。同时，AI办公套件全面成熟，AI安全与监管框架成为关注焦点。",
