@@ -2,6 +2,48 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-12", vol: "VOL.063", weekday: "周三",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.12）",
+    tldr: "过去24小时，全球AI/Agent行业在技术突破和应用落地方面均有显著进展。商汤推出AI剧组工具Seko，英伟达发布机器人开发工具库与模型，昆仑元AI提出大模型应用新范式，阿里通义万相开源多模态视频生成模型。这些进展表明AI Agent技术正加速渗透到更多行业和场景中，推动产业智能化升级。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "多模态交互与大模型微调技术取得进展" },
+      { label: "应用落地", dir: "up", note: "AI Agent在医疗、金融等场景加速渗透" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "英伟达推出新的机器人开发工具库与模型（8.12）",
+        what: "英伟达宣布推出全新的NVIDIA Omniverse库和NVIDIA Cosmos世界基础模型（WFM），加速机器人解决方案的开发和部署。",
+        detail: "8月12日，英伟达推出NVIDIA Omniverse库和NVIDIA Cosmos WFM，由NVIDIA RTX PRO服务器和NVIDIA DGX Cloud提供支持，帮助开发者开发物理精确的数字孪生，在仿真中捕捉和重建现实世界，生成合成数据，并构建理解物理世界的AI智能体。",
+        why: "这一工具库和模型的推出将进一步推动机器人技术的发展，特别是在仿真训练和物理世界理解方面，为AI Agent在更多实体场景的应用提供技术支持。", url: "https://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485674&idx=1&sn=af754571e4a480235a0f40e21140f4f7"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "商汤推出AI剧组工具Seko（8.12）",
+        what: "商汤推出AI剧组工具Seko，为创作者提供全流程视频生成支持。",
+        detail: "商汤推出的AI剧组工具Seko基于Agent核心系统，用户只需用中文描述想法，系统即可自动完成剧本理解、镜头拆解、画面生成和台词配音，集成文生图、图生视频、图转图、分镜规划、角色驱动、对口型生成等功能。",
+        why: "Seko的推出将进一步推动AI技术在影视制作领域的应用，降低创作门槛，提高视频内容生成的效率和质量，为AI Agent在内容创作领域的发展提供新的可能性。", url: "https://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485674&idx=1&sn=af754571e4a480235a0f40e21140f4f7"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "阿里通义万相开源多模态视频生成模型（8.12）",
+        what: "阿里通义万相正式开源全新多模态视频生成模型通义万相Wan2.2-S2V。",
+        detail: "阿里通义万相开源的Wan2.2-S2V模型，用户仅需一张静态图片和一段音频，即可生成面部表情自然、口型一致、肢体动作丝滑的电影级数字人视频，单次生成的视频时长可达分钟级。",
+        why: "这一开源模型将进一步推动数字人视频生成技术的发展，提升视频创作效率，为AI Agent在数字人直播、影视制作等领域的应用提供新的动力。", url: "https://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485944&idx=1&sn=2004f8f2703d2227a703538f836f6ade"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "昆仑元AI提出大模型应用新范式（8.12）",
+        what: "昆仑元AI提出大模型应用新范式KunLunBaizeRAG，复杂问题推理能力大幅提升。",
+        detail: "昆仑元AI提出的KunLunBaizeRAG新范式，通过基于可训练残差连接与双尺度卷积Transformer的大语言模型训练方法，破解大语言模型开放域问答瓶颈，引领可信AI技术新范式。",
+        why: "这一新范式的提出将进一步推动大模型技术的发展，提升AI Agent在复杂问题推理方面的能力，为AI技术在更多领域的应用提供新的解决方案。", url: "https://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485973&idx=1&sn=6d606488fb82c549467a2eead7c9dd07"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-11", vol: "VOL.062", weekday: "周二",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（8.11）",
     tldr: "过去24小时内，AI Agent行业迎来多项技术进展与应用扩展。全球AI智能体市场规模快速增长，多模态感知、长期记忆机制、多Agent协作框架等方向取得关键突破。同时，AI Agent在自动驾驶、机器人自动化等领域的应用场景持续拓展。",
