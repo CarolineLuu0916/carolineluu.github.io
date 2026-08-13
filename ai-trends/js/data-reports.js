@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-13", vol: "VOL.064", weekday: "周四",
+    headline: "2026年AI Agent行业趋势：从工具使用到业务流程重构",
+    tldr: "2026年AI Agent行业正从单一工具调用向业务流程重构和数字执行系统转变。企业关注点从“能否调用工具”转向“能否长期、稳定、低成本并合规地完成业务任务”。<b>任务专用Agent</b>、<b>长任务能力</b>、<b>上下文工程</b>、<b>多Agent协作</b>、<b>交互边界拓展</b>成为主要趋势。",
+    vane: [
+      { label: "任务专用Agent", dir: "up", note: "企业应用集成任务专用Agent的比例将显著增加，因其明确的工具集合、完成条件和权限边界更容易建立评测集、控制风险并计算ROI。" },
+      { label: "长任务能力", dir: "up", note: "长任务Agent的能力持续提升，需要持久化运行机制，如计划、检查点、外部记忆和恢复机制来维持连续性。" },
+      { label: "上下文工程", dir: "up", note: "上下文工程代替单纯的提示词优化，关注每一轮推理时哪些信息应该进入模型的有限上下文。" },
+      { label: "多Agent协作", dir: "up", note: "多Agent系统将成为主流架构，实现自主分工、跨Agent任务交接与协同优化。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Gartner预测2026年AI Agent行业趋势（8.13）",
+        what: "Gartner在其2026年Agentic AI Hype Cycle中预测，企业将从部署单个AI Agent转向重构完整业务流程。",
+        detail: "Gartner的报告指出，2026年AI Agent行业最重要的变化不是智能体实现完全自治，而是行业开始把Agent视为需要长期运行、连接企业系统并接受治理的软件执行单元。模型能力仍在提高，但真正决定Agent能否落地的重点，已经转向任务边界、上下文工程、持久化状态、协议互联、安全控制、评测体系和业务流程重构。",
+        why: "产品经理需要关注AI Agent的技术发展和业务应用趋势，以便更好地整合Agent到企业业务流程中，提升效率和效果。", url: "https://juejin.cn/post/7670016345690488883"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "多Agent协作成为AI Agent行业新趋势（8.13）",
+        what: "多机构预测2026年将加速从单一AI Agent向多Agent协作编排转型。",
+        detail: "Gartner、Forbes等机构预测，2026年将加速从单一AI Agent向多Agent协作编排转型，多智能体能够分工协作、自主决策、实时调整复杂任务。IBM提出了super agent概念，认为企业软件将围绕agent构建交互和控制平面，届时智能体将能够跨场景、跨渠道执行复杂任务，并有统一控制平面和协调仪表盘。",
+        why: "产品经理需要考虑如何设计和实现多Agent协作系统，以支持更复杂的业务流程和任务。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国AI Agent行业应用案例分析（8.13）",
+        what: "中国AI Agent行业应用案例分析显示，AI Agent在关键领域的价值创造显著。",
+        detail: "中国AI Agent行业应用案例分析指出，AI Agent在制造业、零售、医疗健康等行业的应用展现出巨大的创新潜力和商业价值。例如，全球最大纸浆制造商Suzano使用AI Agent将自然语言问题转为SQL查询，数据查询时间缩短95%，覆盖5万名员工。",
+        why: "产品经理可以借鉴这些成功案例，探索AI Agent在不同行业的应用潜力，推动业务流程的数字化转型。", url: "https://www.cnblogs.com/ljt1412451704/p/19975892"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "MCP与A2A推动AI Agent互操作性（8.13）",
+        what: "MCP和A2A协议推动AI Agent互操作性，促进不同框架和厂商的Agent协作。",
+        detail: "MCP负责Agent与工具、资源之间的连接，A2A负责独立Agent之间的发现、任务委派和结果交换。两者不是竞争关系，而是分处不同层次。MCP采用Host、Client、Server架构，通过标准协议暴露Tools、Resources和Prompts。A2A 1.0规范通过Agent Card描述Agent的身份、技能、服务地址、输入输出模式和认证要求，通过Task管理长任务状态，通过Artifact交付文档、文件或结构化成果。",
+        why: "产品经理需要关注MCP和A2A协议的发展，以便更好地实现Agent之间的互操作性，拓展AI Agent的应用范围。", url: "https://juejin.cn/post/7670016345690488883"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent评测与可观测性成为基础设施（8.13）",
+        what: "AI Agent评测与可观测性从辅助功能变成基础设施。",
+        detail: "传统模型评测通常检查一次问答是否正确，Agent评测则需要检查整个执行轨迹。一次任务即使最终回答正确，中间也可能调用错误工具、越权读取数据或进行多余操作。因此评测对象需要从最终Output扩展为Trace。",
+        why: "产品经理需要重视AI Agent的评测与可观测性，确保Agent的可靠性和安全性，提升用户体验。", url: "https://juejin.cn/post/7670016345690488883"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-12", vol: "VOL.063", weekday: "周三",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（8.12）",
     tldr: "过去24小时，全球AI/Agent行业在技术突破和应用落地方面均有显著进展。商汤推出AI剧组工具Seko，英伟达发布机器人开发工具库与模型，昆仑元AI提出大模型应用新范式，阿里通义万相开源多模态视频生成模型。这些进展表明AI Agent技术正加速渗透到更多行业和场景中，推动产业智能化升级。",
