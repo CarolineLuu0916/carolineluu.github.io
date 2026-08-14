@@ -2,6 +2,56 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-14", vol: "VOL.065", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.14）",
+    tldr: "过去24小时，AI Agent行业迎来多项技术突破和应用拓展。Anthropic将Claude Code自动模式设为默认，标志AI编码工具向自主执行转变。腾讯云发布AI Agent产品全景图，全面抢占Agent时代制高点。AI Agent将在医疗、金融、教育等领域实现关键突破，拓展应用场景的广度与深度。",
+    vane: [
+      { label: "gl", dir: "up", note: "Anthropic将Claude Code自动模式设为默认，AI编码工具向自主执行转变" },
+      { label: "cn", dir: "up", note: "腾讯云发布AI Agent产品全景图，全面抢占Agent时代制高点" },
+      { label: "gl", dir: "up", note: "AI Agent将在医疗、金融、教育等领域实现关键突破" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Anthropic将Claude Code自动模式设为默认（8.14）",
+        what: "Anthropic宣布从8月14日起将Claude Code的自动模式（Auto Mode）设为Pro、Max和Team账户的默认选项。",
+        detail: "在自动模式下，Claude Code将不再逐步请求人工审批，而是自动执行除非操作被判定为“不可逆、破坏性或指向环境外部”。一项涉及1053名付费测试者的研究显示，自动模式捕获了89%的有害操作，而人工审核仅捕获13.6%。Anthropic同时新增了提示注入检测和可自定义的硬拒绝规则等安全功能。",
+        why: "这一变化标志着AI编码工具从“人机协作”向“自主执行”的重要转变，将加速AI Agent在编程领域的应用落地。", url: "https://techcrunch.com/2026/08/09/anthropic-is-turning-claude-codes-auto-mode-on-by-default"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "腾讯云发布AI Agent产品全景图（8.14）",
+        what: "腾讯云在上海城市峰会上首次发布AI Agent产品全景图，全面抢占Agent时代的制高点。",
+        detail: "腾讯已构建起覆盖个人、企业到开发者全场景的完整体系。面向个人用户，腾讯推出WorkBuddy与QClaw的“开箱即用”组合。面向企业市场，腾讯的布局更为系统。腾讯最大的差异化优势在于生态，其开放了涵盖微信、小程序、企业微信、QQ等在内的丰富技能生态。",
+        why: "腾讯云的这一举措，标志着其在AI Agent领域的全面布局，将进一步推动AI Agent在中国市场的快速发展和应用落地。", url: "https://www.chyxx.com/industry/1261556.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent在医疗、金融、教育等领域的应用拓展（8.14）",
+        what: "2026年AI Agent将在多模态交互、自主决策与跨领域协同方面实现关键突破，进一步拓展其应用场景的广度与深度。",
+        detail: "在医疗领域，具备多模态感知能力的AI Agent将能够整合患者语音描述、影像资料与生理数据，提供更精准的初步诊断建议；在金融行业，AI Agent将通过实时分析市场动态与用户行为，执行复杂的投资策略并提供个性化理财服务；在教育场景中，AI Agent将扮演“智能导师”角色，根据学生的学习节奏与情绪状态动态调整教学内容，实现真正意义上的因材施教。",
+        why: "AI Agent在医疗、金融、教育等领域的应用拓展，将进一步推动这些行业的数字化转型和智能化升级，为用户带来更高效、个性化的服务体验。", url: "https://www.showapi.com/news/article/695c1c9d4ddd79ab67225255"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Hermes Agent异军突起，GitHub狂揽4.8万星（8.14）",
+        what: "一款名为Hermes Agent的开源AI Agent工具在AI赛道中异军突起，累计斩获4.8万星标。",
+        detail: "Hermes Agent定位为完整的生产力工具链，引发产业界和财经圈共同关注。不同于OpenClaw，Hermes Agent以其强大的功能和易用性受到开发者的青睐，成为AI Agent领域的一匹黑马。",
+        why: "Hermes Agent的快速崛起，反映了开源AI Agent框架的强劲发展势头，将进一步推动AI Agent技术的创新和应用。", url: "https://www.qbitai.com/2026/08/468766.html"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "多Agent协作架构将成为主流（8.14）",
+        what: "Gartner、Forbes等多机构预测2026年将加速从单一AI Agent向多Agent协作编排转型。",
+        detail: "多智能体能够分工协作、自主决策、实时调整复杂任务（如供应链、R&D pipelines、客户旅程等），以协调复杂流程如供应链优化、研发自动执行等。在多Agent的基础上，一些机构从业务角度提出了相应的概念，如IBM提出的super agent（超级agent）概念，认为企业软件将不仅嵌入agents，还会围绕agent构建交互和控制平面。",
+        why: "多Agent协作架构将成为主流，标志着AI Agent从Level 1（工具使用）和Level 2（基础任务链）向Level 3（团队协作）的进化，将进一步推动AI Agent在复杂业务场景中的应用。", url: "https://www.meiqia.com/blog/2026nian-ai-agentfa-zhan-qu-shi-5da-guan-jian-ji-zhu-yu-ying-yong-fang-xiang-yu-ce/"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-13", vol: "VOL.064", weekday: "周四",
     headline: "2026年AI Agent行业趋势：从工具使用到业务流程重构",
     tldr: "2026年AI Agent行业正从单一工具调用向业务流程重构和数字执行系统转变。企业关注点从“能否调用工具”转向“能否长期、稳定、低成本并合规地完成业务任务”。<b>任务专用Agent</b>、<b>长任务能力</b>、<b>上下文工程</b>、<b>多Agent协作</b>、<b>交互边界拓展</b>成为主要趋势。",
