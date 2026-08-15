@@ -2,6 +2,62 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-15", vol: "VOL.066", weekday: "周六",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.15）",
+    tldr: "2026年AI Agent技术持续取得突破，多模态感知、长期记忆机制、多Agent协作等方向进步显著。企业级应用渗透率增长，行业专用Agent和人机协同成为新趋势。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "多模态感知、长期记忆机制、多Agent协作等方向取得关键进展。" },
+      { label: "应用场景", dir: "up", note: "AI Agent在IT运维、医疗、金融等行业应用深度落地。" },
+      { label: "企业级应用", dir: "up", note: "企业级AI Agent应用渗透率实现跨越式增长。" },
+      { label: "行业专用Agent", dir: "up", note: "市场从通用Agent转向为特定领域设计的专用系统。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术新突破：Kimi K2.5 Agent集群功能深度解析（8.15）",
+        what: "月之暗面科技发布Kimi K2.5模型，其Agent集群功能标志着AI从单体智能到群体协作的跨越。",
+        detail: "Kimi K2.5模型通过并行智能体强化学习（PARL）技术，实现了多智能体自主协作的突破。该技术无需人工预设角色与工作流，即可根据任务需求动态生成100个子Agent，并行处理高达1500个协调步骤，端到端效率提升4.5倍，运行时间缩短80%。",
+        why: "这一技术突破使得AI Agent能够更高效地处理复杂任务，降低使用门槛，提升并行处理能力，对产品经理而言，意味着可以构建更高效、更灵活的智能体应用。", url: "https://www.zhihu.com/pin/2005302310939680871"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI Agent在企业级应用中的渗透率跨越式增长（8.15）",
+        what: "2026年企业级AI Agent应用实现爆发式增长，多家权威机构预测数据印证了这一趋势。",
+        detail: "麦肯锡专项洞察数据显示，尽管2026年70%的企业将部署AI Agent覆盖客户服务、营销、运营等关键职能，但落地进程存在明显分层：39%的组织已启动AI Agent试验，仅23%的企业实现单一业务职能内的规模化扩展，全公司级规模化应用的企业占比不足7%。",
+        why: "企业级应用的渗透率增长表明AI Agent技术正在被更广泛地接受和应用，产品经理需要关注如何将AI Agent技术更好地融入企业现有工作流程，提升效率和效果。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "多模态AI Agent技术突破与应用场景扩展（8.15）",
+        what: "多模态大模型的快速迭代带来了多模态Agent，强化了推理与行动执行能力融入真实世界任务中。",
+        detail: "多模态Agent能够理解语音、图像、视频、手势等多输入类型，大幅提升自动化理解能力，进行更自然的人机交互和复杂环境理解，将在客服、医疗诊断、现场识别等场景中实现更佳的效果。",
+        why: "多模态AI Agent技术的进步为产品经理提供了更多创新应用的可能性，尤其是在需要复杂交互和环境理解的场景中，可以设计更智能、更自然的用户体验。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Model Context Protocol（MCP）成为AI Agent工具调用的事实标准（8.15）",
+        what: "Anthropic提出的Model Context Protocol（MCP）迅速成为AI Agent工具调用的行业共识。",
+        detail: "MCP定义了模型与外部工具之间的标准化通信接口，使得开发者不再需要为每个LLM单独适配工具调用格式。一个MCP Server可以同时服务于Claude、GPT、DeepSeek等多个模型，真正实现了一次开发，多端复用。",
+        why: "MCP协议的标准化对于产品经理来说意味着可以更便捷地集成和切换不同的AI模型，降低了开发和维护成本，提高了产品的灵活性和可扩展性。", url: "https://gitcode.csdn.net/69fd39ac54b52172bc72540a.html"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent行业专用Agent成为投资热点（8.15）",
+        what: "市场从通用Agent转向为特定领域和工作流设计的专用系统。",
+        detail: "2026年行业专用Agent将成为投资热点和应用主流，这些Agent对上下文、约束条件和成功标准有更清晰的理解。例如，编程领域Agent的发展快速迭代，快速发展出了vibe coding等模式的Agent产品与解决方案。",
+        why: "行业专用Agent的兴起意味着产品经理需要更深入地理解特定行业的痛点和需求，设计更加定制化的AI解决方案，以满足特定场景下的效率和效果要求。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      }
+    ],
+    papers: [
+      {
+        title: "累计推理：迈向新高度的探索", authors: "清华姚期智团队", venue: "arXiv", date: "2026.08",
+        url: "https://arxiv.org/pdf/2608.02286.pdf",
+        summary: "该论文提出了累计推理方法，在解决24点问题上展现出高达98%的成功率，为人工智能在更广泛领域的应用开辟了新的可能性。",
+        why: "累计推理方法的成功为AI Agent提供了新的技术路径，尤其是在需要复杂推理和决策的场景中，可以显著提升AI的推理能力和应用效果。"
+      }
+    ]
+  },
+  {
     date: "2026-08-14", vol: "VOL.065", weekday: "周五",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（8.14）",
     tldr: "过去24小时，AI Agent行业迎来多项技术突破和应用拓展。Anthropic将Claude Code自动模式设为默认，标志AI编码工具向自主执行转变。腾讯云发布AI Agent产品全景图，全面抢占Agent时代制高点。AI Agent将在医疗、金融、教育等领域实现关键突破，拓展应用场景的广度与深度。",
