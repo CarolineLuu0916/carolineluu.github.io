@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-18", vol: "VOL.069", weekday: "周二",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.18）",
+    tldr: "过去24小时内，AI Agent行业呈现技术突破与应用场景扩展的双重趋势。阿里开源Vivid-VR视频修复工具，GPT-5系统提示词泄露，苹果计划基于Gemini技术提升Siri，Meta获得Midjourney授权，华南师大发布国内首个法律AI大模型。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI视频修复、GPT-5提示词泄露、法律AI大模型等技术取得新进展" },
+      { label: "应用场景", dir: "up", note: "AI技术在视频修复、法律辅助等领域实现新应用" },
+      { label: "开源生态", dir: "up", note: "阿里开源Vivid-VR，MiniMax H3多模态生成模型开源" },
+      { label: "行业竞争", dir: "up", note: "Meta、苹果等巨头加大AI技术布局，竞争加剧" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "阿里开源Vivid-VR视频修复工具（8.18）",
+        what: "阿里云开源Vivid-VR生成式视频修复工具，提供出色的帧间一致性和修复效果。",
+        detail: "阿里云开源的Vivid-VR是一款AI视频修复工具，旨在提升视频内容的帧间一致性和修复效果，推动视频修复技术发展，为内容创作带来新突破。",
+        why: "产品经理视角来看，Vivid-VR的开源将进一步推动视频修复技术的发展和应用，降低内容创作的技术门槛，提升用户体验。", url: "http://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486296&idx=1&sn=ddec02777e2d53490036b3118133252d"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "GPT-5系统提示词泄露（8.18）",
+        what: "GPT-5系统提示词遭泄露，涉及15000个Token，曝光OpenAI模型调教的核心机制。",
+        detail: "GPT-5系统提示词泄露事件涉及15000个Token，曝光了OpenAI模型调教的核心机制，引发AI社区对模型安全和透明度的广泛讨论。",
+        why: "此次泄露事件对AI Agent产品的安全性和隐私保护提出了更高要求，产品经理需关注如何加强模型安全防护，避免核心数据泄露。", url: "http://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486296&idx=1&sn=ddec02777e2d53490036b3118133252d"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "苹果计划基于Gemini技术提升Siri（8.18）",
+        what: "苹果与谷歌讨论合作，拟基于Gemini技术定制AI模型，以增强Siri的智能能力。",
+        detail: "苹果正与谷歌洽谈，计划基于Gemini技术定制AI模型，以增强Siri的智能能力，标志着苹果在AI助手领域的重大升级。",
+        why: "此次合作有望进一步提升Siri的智能化水平，增强苹果在AI助手领域的竞争力，对产品经理而言，需关注如何整合新技术提升产品体验。", url: "http://mp.weixin.qq.com/s?__biz=MzU3MTc4NzI0Mg==&mid=2247486296&idx=1&sn=ddec02777e2d53490036b3118133252d"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "华南师大发布国内首个法律AI大模型（8.18）",
+        what: "华南师范大学发布国内首个法律领域垂直大模型，基于2亿裁判文书训练。",
+        detail: "华南师范大学发布国内首个法律领域垂直大模型，基于2亿裁判文书训练，提供智能法律辅助，推动法律科技发展。",
+        why: "该法律AI大模型的发布，为法律领域提供了新的智能化解决方案，产品经理需关注如何将AI技术与行业需求深度结合，创造更多应用场景。", url: "https://www.sohu.com/a/997741597_121106875"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "MiniMax H3多模态生成模型开源（8.18）",
+        what: "MiniMax新一代多模态生成模型H3开源，华为昇腾、AMD等完成Day 0适配。",
+        detail: "MiniMax新一代多模态生成模型H3开源，华为昇腾、AMD、HuggingFace、ComfyUI等芯片厂商及开发社区完成Day 0适配。",
+        why: "MiniMax H3模型的开源将进一步推动多模态技术的普及和应用，产品经理需关注如何利用开源资源加速产品创新。", url: "https://www.caixin.com/2026-08-07/102472273.html?originReferrer=kimi"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-17", vol: "VOL.068", weekday: "周一",
     headline: "全球AI Agent市场迎来技术突破与应用场景扩展（8.17）",
     tldr: "全球AI Agent市场在最近24小时内迎来新一波技术突破，多国政府与企业加大投入，推动行业向更复杂场景渗透。",
