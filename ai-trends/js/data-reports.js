@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-19", vol: "VOL.070", weekday: "周三",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.19）",
+    tldr: "AI Agent技术正从被动响应跃迁至主动决策，多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架及安全对齐等方向取得关键进展。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "AI Agent领域在多模态感知、工具调用标准化等方面取得突破。" },
+      { label: "应用场景", dir: "up", note: "AI Agent应用场景从智能客服扩展至自动驾驶、机器人自动化等领域。" },
+      { label: "开发者生态", dir: "up", note: "围绕AI Agent的开发者生态呈现爆发式增长。" },
+      { label: "安全与对齐", dir: "up", note: "AI Agent的安全对齐技术聚焦于行为边界约束、幻觉抑制和可解释性。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术进展概览（8.19）",
+        what: "2026年AI Agent技术正经历从被动响应到主动决策的范式跃迁。",
+        detail: "本文梳理了当前AI Agent领域的最新技术进展，涵盖多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向，并探讨了这些技术突破对开发者生态的影响。",
+        why: "产品经理需关注AI Agent技术的最新进展，以把握行业趋势并优化产品功能。", url: "https://gitcode.csdn.net/69fd39ac54b52172bc72540a.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "AI Agent市场规模及应用趋势（8.19）",
+        what: "AI Agent的市场规模正在快速增长，应用场景不断扩展。",
+        detail: "中商产业研究院数据显示，2025年全球AI智能体市场规模约113亿美元，2024年约为51亿美元。2025年中国AI智能体市场规模约69亿元，2024年约为28.73亿元。AI Agent的应用发展给了我们很多惊喜，也用实际数据展现了它的落地速度、发展潜力与应用前景。",
+        why: "AI Agent的市场规模和应用场景的快速增长，为产品经理提供了广阔的市场机遇和产品创新方向。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术范式跃迁（8.19）",
+        what: "AI Agent技术范式正从工具调用跃迁至具身智能。",
+        detail: "AI Agent的发展呈现多维度爆发态势，技术演进、行业渗透与生态重构并行。大模型驱动的推理能力突破，多模态融合与物理世界交互，边缘计算与去中心化部署成为主要技术趋势。",
+        why: "这一技术范式跃迁意味着AI Agent将更加智能化和自主化，产品经理需关注其对产品功能和用户体验的影响。", url: "http://mp.weixin.qq.com/s?__biz=Mzk4ODk3NTUwMg==&mid=2247483775&idx=1&sn=615e2566eaf71205fe2fc1e4ab8bb47e"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "AI Agent系统设计与技术进展研究报告（8.19）",
+        what: "最新AI Agent系统设计与技术进展研究报告发布。",
+        detail: "报告指出，AI Agent在2024–2026年间出现了一个非常清晰的范式收敛：从“带工具调用的聊天模型”演进为“带会话、工具、记忆、审批、安全边界和评测闭环的运行时系统”。这一定义收敛，基本解释了为什么近两年的工程重点已经从prompt本身转向“运行时+评测+安全”三个层面。",
+        why: "产品经理需关注AI Agent系统设计的演进趋势，以优化产品的系统架构和用户体验。", url: "https://www.datalearner.com/blog/advances-in-ai-agent-report-2026-05"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent三大类型深度解析（8.19）",
+        what: "AI Agent的三大类型包括Browser Agent、信息Agent和操作Action Agent。",
+        detail: "Browser Agent让AI操作网页，信息Agent扮演“大脑”角色，擅长知识整合与复杂分析，操作Action Agent扮演“眼和手”的角色，擅长环境交互与自动化操作。这些类型的AI Agent在实现方式上包括GUI Agent、API Agent和多Agent三种。",
+        why: "了解AI Agent的不同类型和实现方式，有助于产品经理根据不同场景选择合适的AI Agent产品。", url: "https://www.meta-intelligence.tech/insight-ai-agent-landscape-2026"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-18", vol: "VOL.069", weekday: "周二",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（8.18）",
     tldr: "过去24小时内，AI Agent行业呈现技术突破与应用场景扩展的双重趋势。阿里开源Vivid-VR视频修复工具，GPT-5系统提示词泄露，苹果计划基于Gemini技术提升Siri，Meta获得Midjourney授权，华南师大发布国内首个法律AI大模型。",
