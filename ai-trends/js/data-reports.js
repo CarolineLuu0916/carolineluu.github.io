@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-21", vol: "VOL.072", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与应用场景扩展（8.21）",
+    tldr: "2026年AI Agent技术持续突破，多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向进展显著。AI Agent正从被动响应向主动决策转变，重塑企业工作流和行业生态。",
+    vane: [
+      { label: "gl", dir: "up", note: "全球AI Agent技术快速发展，多模态感知、工具调用标准化等方向进展显著" },
+      { label: "cn", dir: "up", note: "中国AI Agent市场规模快速增长，应用场景加速落地" },
+      { label: "os", dir: "up", note: "开源社区积极参与AI Agent技术发展，推动多Agent协作框架和工具库建设" },
+      { label: "eco", dir: "up", note: "AI Agent开发者生态爆发式增长，围绕Agent基础设施的平台和框架不断涌现" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术突破与应用场景扩展（8.21）",
+        what: "2026年AI Agent技术经历从被动响应到主动决策的范式跃迁。",
+        detail: "本文梳理了当前AI Agent领域的最新技术进展，涵盖多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向，并结合实际案例探讨了这些技术突破对开发者生态的深远影响。",
+        why: "AI Agent技术突破推动行业从单点工具向协作系统转变，重塑企业工作流和行业生态。", url: "https://gitcode.csdn.net/69fd39ac54b52172bc72540a.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国AI智能体市场规模快速增长（8.21）",
+        what: "2025年中国AI智能体市场规模约69亿元，2024年约为28.73亿元。",
+        detail: "中商产业研究院数据显示，2025年中国AI智能体市场规模约69亿元，2024年约为28.73亿元。这个市场规模与增长速度，比预想的还要高一些。",
+        why: "中国AI智能体市场规模的快速增长，反映了AI Agent技术在中国的广泛应用和巨大潜力。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "Manus引领AI Agent开源复现潮（8.21）",
+        what: "Manus火爆后，开源社区迅速行动，多个复现项目和Agent工具库涌现。",
+        detail: "Manus的成功还带动了国内外资本和媒体对AI Agent的关注。有分析称，中国团队在AI Agent上实现了弯道超车，证明中国在该领域的创新能力。也有券商报告指出，DeepSeek模型的突破和Manus的进展，预示着可完成复杂任务的AI Agent正在快速发展，AI有望迎来新范式。",
+        why: "Manus引领的开源复现潮极大激发了开发者热情，推动了多Agent协作框架和工具库的建设。", url: "http://mp.weixin.qq.com/s?__biz=MzI2NDYzNDMzNA==&mid=2247488079&idx=1&sn=06a4211b1d20cd9efc28b13c03b09669"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent开发者生态呈现爆发式增长（8.21）",
+        what: "围绕AI Agent的开发者生态呈现爆发式增长。",
+        detail: "2026年，围绕AI Agent的开发者生态呈现爆发式增长：LangChain、CrewAI、AutoGen、Dify、Coze等平台和框架不断涌现，为开发者提供丰富的工具集成生态和低代码Agent平台。",
+        why: "AI Agent开发者生态的爆发式增长，为构建下一代智能应用提供了强大的基础设施支持。", url: "https://juejin.cn/post/7634480263965065243"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent在企业工作流中深入应用（8.21）",
+        what: "2026年AI Agent将深入企业工作流，行业专属应用加速落地。",
+        detail: "CB Insights报告指出，2026年AI Agent将深入企业工作流，行业专属应用加速落地。客户服务、软件开发、金融、医疗、零售等行业也在快速跟进。",
+        why: "AI Agent在企业工作流中的深入应用，标志着AI技术从实验性技术转变为企业生产中的基础设施。", url: "https://www.eet-china.com/mp/a485996.html"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-20", vol: "VOL.071", weekday: "周四",
     headline: "AI Agent行业动态：市场规模增长与技术应用深化（8.20）",
     tldr: "过去24小时全球AI Agent行业动态显示，市场规模迎来爆发式增长，技术应用持续深化。全球AI Agent市场规模预计突破320亿美元，年复合增长率达52%。企业自动化、个人助理、智能客服成为三大核心应用场景。",
