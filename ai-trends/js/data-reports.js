@@ -2,6 +2,50 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-22", vol: "VOL.073", weekday: "周六",
+    headline: "AI Agent行业动态：技术迭代与应用场景拓展（8.22）",
+    tldr: "2026年AI行业进入技术聚变与产业深耕的新阶段，AI技术与千行百业深度融合，形成完整产业链体系。全球市场规模将达9000亿美元，中国人工智能核心产业规模将突破万亿大关。AI Agent技术迭代升级，行业应用加速落地，多智能体系统成为关键基础设施，推动智能体从单点智能向协同智能升级。",
+    vane: [
+      { label: "市场规模", dir: "up", note: "全球人工智能市场规模在2026年将达到9000亿美元，中国人工智能核心产业规模将突破万亿大关。" },
+      { label: "技术突破", dir: "up", note: "AI技术从实验室走向产业一线，与千行百业深度融合，形成完整产业链体系。" },
+      { label: "行业应用", dir: "up", note: "AI技术已从基础设施建设转向应用落地与价值兑现的关键转型。" },
+      { label: "多智能体系统", dir: "up", note: "多智能体系统将成为复杂任务解决的关键基础设施，推动智能体从单点智能向协同智能升级。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "DeepSeek-V3.1发布，迈向Agent时代的第一步（8.22）",
+        what: "DeepSeek正式发布V3.1模型，采用混合推理架构同时支持思考与非思考模式。",
+        detail: "8月21日，DeepSeek发布V3.1模型，该模型在编程智能体测评SWE和搜索智能体测评上取得明显进步，并在保持性能的前提下减少20%-50%的输出token。新模型全面开源，采用UE8M0 FP8 Scale参数精度，API同步升级对Anthropic API格式的支持，上下文扩展至128K。",
+        why: "作为AI Agent领域的重要参与者，DeepSeek-V3.1的发布标志着AI Agent技术的进步和开源趋势的加强，为行业提供更高效、更灵活的智能体解决方案。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485839&idx=1&sn=89280e994192c44be5935aa08caa970f"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "字节首次开源推理模型，连夺7项第一（8.22）",
+        what: "字节跳动Seed团队开源三款模型，用12万亿tokens训练。",
+        detail: "字节跳动Seed团队开源三款模型：Seed-OSS-36B-Base（含合成数据和不含合成数据两个版本）和Seed-OSS-36B-Instruct。模型用12万亿tokens训练，采用Apache-2.0许可证，支持512K超长上下文窗口和灵活推理预算控制。在MMLU-Pro、MATH、AIME24等测试中表现突出，特别是Instruct版本在多个开源基准测试中创下新SOTA记录。",
+        why: "字节跳动的这一举措不仅推动了AI技术的开源和共享，也为AI Agent行业提供了强大的模型支持，有助于提升行业整体的技术水平和应用能力。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485839&idx=1&sn=89280e994192c44be5935aa08caa970f"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "港大和可灵提出场景一致的交互式视频世界模型（8.22）",
+        what: "港大和快手可灵团队推出Context as Memory技术。",
+        detail: "港大和快手可灵团队推出Context as Memory技术，在视频生成中实现长时间保持场景记忆力，效果媲美谷歌Genie 3且投稿时间更早。该技术创新性地将历史生成的上下文作为\"记忆\"，并设计基于相机轨迹视场的记忆检索机制，大幅提升计算效率。",
+        why: "这项技术的发展意味着AI Agent在视频内容生成和处理方面的能力得到了显著提升，为视频相关的行业应用提供了新的技术支撑。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485839&idx=1&sn=89280e994192c44be5935aa08caa970f"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "百度发布蒸汽机视频模型2.0四个版本（8.22）",
+        what: "百度发布蒸汽机（MuseSteamer）视频模型2.0四个版本。",
+        detail: "百度发布蒸汽机（MuseSteamer）视频模型2.0四个版本，进一步推动视频内容的智能化处理和生成。",
+        why: "百度在视频模型领域的持续投入和创新，为AI Agent在视频行业的应用提供了更多的想象空间，有助于推动视频内容的智能化和个性化发展。", url: "https://www.eet-china.com/mp/a485996.html"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-21", vol: "VOL.072", weekday: "周五",
     headline: "AI Agent行业动态：技术突破与应用场景扩展（8.21）",
     tldr: "2026年AI Agent技术持续突破，多模态感知、工具调用标准化、长期记忆机制、多Agent协作框架以及安全对齐等核心方向进展显著。AI Agent正从被动响应向主动决策转变，重塑企业工作流和行业生态。",
