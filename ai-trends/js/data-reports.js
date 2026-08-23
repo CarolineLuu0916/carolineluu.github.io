@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-23", vol: "VOL.074", weekday: "周日",
+    headline: "AI Agent行业动态：技术突破与应用场景深化（8.23）",
+    tldr: "近期AI Agent行业迎来多项技术突破和应用场景扩展。全球市场规模快速增长，技术架构从单体式向分布式智能体网络演进，多Agent协作成为主流。企业级应用渗透率跨越式增长，行业专用Agent深度渗透，AgentOps成为企业新刚需。",
+    vane: [
+      { label: "市场规模", dir: "up", note: "2025年全球AI智能体市场规模约113亿美元，中国约69亿元，增长速度超出预期。" },
+      { label: "技术架构", dir: "up", note: "从单体式应用向分布式智能体网络演进，Agent控制平面和多Agent仪表盘将出现。" },
+      { label: "多Agent协作", dir: "up", note: "多Agent协作架构成熟，从单一AI Agent向多Agent协作编排转型。" },
+      { label: "企业级应用", dir: "up", note: "企业级AI Agent应用实现爆发式增长，70%的企业将部署AI Agent覆盖关键职能。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent市场规模快速增长（8.23）",
+        what: "中商产业研究院数据显示，2025年全球AI智能体市场规模约113亿美元，中国约69亿元。",
+        detail: "2025年全球AI智能体市场规模约113亿美元，2024年约为51亿美元。2025年中国AI智能体市场规模约69亿元，2024年约为28.73亿元。这个市场规模与增长速度，比预想的还要高一些。",
+        why: "市场规模的快速增长表明AI Agent行业正迎来快速发展期，企业和社会对于AI智能体的需求日益增长。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术架构演进（8.23）",
+        what: "IBM预测2026年将出现Agent控制平面和多Agent仪表盘，用户从单一入口管理所有Agent任务。",
+        detail: "2026年AI Agent的系统架构将发生根本性变化，从单体式应用向分布式智能体网络演进。IBM预测2026年将出现Agent控制平面和多Agent仪表盘，用户从单一入口管理所有Agent任务。",
+        why: "技术架构的演进将使得AI Agent的管理更加集中和高效，为大规模部署和应用奠定基础。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "多Agent协作成为主流（8.23）",
+        what: "Gartner预测2026年将加速从单一AI Agent向多Agent协作编排转型。",
+        detail: "Gartner、Forbes等多机构预测2026年将加速从单一AI Agent向多Agent协作编排（multi-agent orchestration）转型，多智能体能够分工协作、自主决策、实时调整复杂任务（如供应链、R&D pipelines、客户旅程等），以协调复杂流程如供应链优化、研发自动执行等。",
+        why: "多Agent协作架构的成熟将使得AI Agent能够处理更加复杂的任务，提升整体的效率和效果。", url: "https://h5.ifeng.com/c/vivoArticle/v002PGfXb09NhT2jrEWfx3ppYB2XA2v0bh243dW01PWWIss__"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "企业级AI Agent应用渗透率跨越式增长（8.23）",
+        what: "麦肯锡调研数据显示，70%的企业将部署AI Agent覆盖客户服务、营销、运营等关键职能。",
+        detail: "麦肯锡专项洞察数据显示，尽管2026年70%的企业将部署AI Agent覆盖客户服务、营销、运营等关键职能，但落地进程存在明显分层：39%的组织已启动AI Agent试验，仅23%的企业实现单一业务职能内的规模化扩展，全公司级规模化应用的企业占比不足7%。",
+        why: "企业级应用的渗透率跨越式增长表明AI Agent正在成为企业数字化转型的重要工具，其应用范围和深度都在不断扩展。", url: "https://cloud.tencent.com/developer/article/2631820"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AgentOps成为企业新刚需（8.23）",
+        what: "一旦AI Agent真正进入企业核心流程，AgentOps（智能体运营）成为企业AI落地的新刚需。",
+        detail: "AgentOps（智能体运营）包含监控、审计、权限管理、异常处置等，正在催生一批新的企业软件公司，也是2026年值得关注的投资机会。",
+        why: "AgentOps的兴起意味着企业需要建立一套完整的AI智能体运营管理体系，以确保AI智能体的高效、安全运行。", url: "https://m.36kr.com/p/3518938465770373"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-22", vol: "VOL.073", weekday: "周六",
     headline: "AI Agent行业动态：技术迭代与应用场景拓展（8.22）",
     tldr: "2026年AI行业进入技术聚变与产业深耕的新阶段，AI技术与千行百业深度融合，形成完整产业链体系。全球市场规模将达9000亿美元，中国人工智能核心产业规模将突破万亿大关。AI Agent技术迭代升级，行业应用加速落地，多智能体系统成为关键基础设施，推动智能体从单点智能向协同智能升级。",
