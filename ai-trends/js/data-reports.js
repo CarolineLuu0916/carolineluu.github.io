@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-25", vol: "VOL.076", weekday: "周二",
+    headline: "AI Agent行业迎来技术与生态双重突破（8.25）",
+    tldr: "2026年AI Agent行业在技术层面实现多维度关键突破，企业部署速度显著加快，市场规模快速增长，行业专用Agent深度渗透，Agentic AI重构商业模式经济价值初显。",
+    vane: [
+      { label: "技术突破", dir: "up", note: "多模态交互与推理能力显著提升" },
+      { label: "市场扩容", dir: "up", note: "AI Agent市场规模快速增长" },
+      { label: "行业应用", dir: "up", note: "行业专用Agent深度渗透" },
+      { label: "商业模式", dir: "up", note: "Agentic AI重构商业模式经济价值初显" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent技术层面实现多维度关键突破（8.25）",
+        what: "2026年AI Agent技术层面实现多维度关键突破。",
+        detail: "自主操作能力实现质性进展，突破传统接口调用模式，GUI Agent路线走向成熟。多模态融合与记忆机制持续优化，主流AI Agent已实现文本+图像的多模态交互覆盖，在语音识别、视觉理解等基础能力上显著提升。自主决策与规划能力提升，AI Agent已具备明确的“感知-决策-执行”闭环能力，可应用于采购策略制定、贷款审批、工业设备操控等复杂场景。",
+        why: "技术突破将推动AI Agent在更多复杂场景的应用，提升产品竞争力和用户体验。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent的企业部署速度显著加快（8.25）",
+        what: "2026年AI Agent的企业部署速度显著加快。",
+        detail: "普华永道于2025年5月发布的一份涵盖1000名美国商业领袖的调查显示，79%的组织表示他们在某种程度上已经采用了AI Agent。Salesforce报告试数据显示，2025上半年AI agent创建与部署增长119%，完成的行动量环比增长约80%月增率。AI Agent的市场规模正在快速增长。中商产业研究院数据显示（不同机构的计算方法与数据不同），2025年全球AI智能体市场规模约113亿美元，2024年约为51亿美元。2025年中国AI智能体市场规模约69亿元，2024年约为28.73亿元。这个市场规模与增长速度，比预想的还要高一些。",
+        why: "企业部署速度的加快意味着AI Agent在商业领域的应用价值得到广泛认可，市场潜力巨大。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "行业专用Agent深度渗透（8.25）",
+        what: "2026年行业专用Agent将成为投资热点和应用主流。",
+        detail: "市场从通用Agent转向为特定领域和工作流设计的专用系统，这些Agent对上下文、约束条件和成功标准有更清晰的理解。编程领域Agent的发展就是一个很好的案例，极速迭代的新技术让编程Agent日新月异，快速发展出了vibe coding等模式的Agent产品与解决方案。在vibe coding的影响下，2025年还诞生了vibe workflow、vibe video等智能体概念，对应于Agentic Workflow、video等垂直领域。",
+        why: "行业专用Agent的深度渗透将推动AI技术在特定领域的应用，提升行业效率和创新能力。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "Agentic AI重构商业模式经济价值初显（8.25）",
+        what: "2026年智能体经济将进入深化期，成为智能体商业化的关键拐点。",
+        detail: "麦肯锡对智能体商业规模的预测显示，这一领域将迎来长期爆发：到2030年，仅美国B2C零售市场的智能体商业协调收入就可达1万亿美元，全球智能体商业市场规模将高达3-5万亿美元，其影响广度堪比web和移动商业革命，且发展速度更快。麦肯锡认为，生成式AI（含AI Agent）每年可为全球经济解锁4.4万亿美元及以上价值，软件企业将捕获其中10%-15%；仅营销和销售领域，AI Agent就将贡献60%以上的AI增量价值。",
+        why: "Agentic AI重构商业模式将为企业带来新的增长点和竞争优势，推动产业升级和经济转型。", url: "https://m.thepaper.cn/newsDetail_forward_32317179"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "AI安全平台成为企业保护AI投资的重要工具（8.25）",
+        what: "Gartner预测，到2028年，使用AI安全平台保护AI投资的企业比例将达到50%以上。",
+        detail: "AI安全平台为第三方及定制AI应用提供了统一防护机制，它能够进行集中监测、强制执行使用策略并有效防范AI特有风险，如提示注入、数据泄露、恶意代理行为等。此类平台可帮助CIO有力执行使用政策、监控AI活动并在全AI系统中建立统一防护边界。",
+        why: "AI安全平台的广泛应用将提升企业对AI技术的信任度和依赖度，促进AI技术的健康发展。", url: "https://www.gartner.com/cn/newsroom/press-releases/2026-top-strategic-tech-trends"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-24", vol: "VOL.075", weekday: "周一",
     headline: "AI行业动态：技术突破与资本涌动",
     tldr: "过去24小时内，AI行业呈现技术突破与资本活跃态势。中国AI调用量超越美国，显示规模化应用加速。同时，AI在垂直行业如生物医药领域吸金强劲，多家企业完成重要融资。",
