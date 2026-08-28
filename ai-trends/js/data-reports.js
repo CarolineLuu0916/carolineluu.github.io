@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-28", vol: "VOL.079", weekday: "周五",
+    headline: "AI Agent行业动态：技术突破与市场增长加速（8.28）",
+    tldr: "过去24小时内，AI Agent行业迎来多项技术突破和市场增长动态。Anthropic等公司在长期自主性与记忆机制方面取得进展，阿里巴巴发布数据分析Agent，华为云算力规模同比增长近250%，百度百舸AI计算平台5.0性能提升8倍。这些进展标志着AI Agent技术正从任务自动化转向战略影响，从单一功能试点转向跨功能部署，从渐进式效率提升转向工作方式的根本性变革。",
+    vane: [
+      { label: "gl", dir: "up", note: "全球AI Agent市场规模呈指数级增长，多元主体共建繁荣。" },
+      { label: "cn", dir: "up", note: "中国AI市场增速显著，技术突破后将主导AI Agent赛道。" },
+      { label: "os", dir: "up", note: "开源社区推动AI Agent技术标准化，如MCP协议成为行业共识。" },
+      { label: "eco", dir: "up", note: "AI Agent生态初步形成，加速行业应用速度并反哺生态壮大。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "Anthropic推动AI Agent长期自主性与记忆机制突破（8.28）",
+        what: "Anthropic等公司通过优化记忆机制与Context压缩算法，推动Agent实现数周级持续工作，保持任务目标不偏离、关键信息不遗忘。",
+        detail: "2026年AI Agent在长期自主性方面将实现关键突破，核心体现在记忆机制的根本性改进。这种持续学习能力使Agent能够在实际应用中不断改进，适应业务需求的动态变化。Gartner数据显示，2026年AI Agent将实现数周级任务连贯性，通过记忆机制优化与Context压缩算法解决长时记忆问题。模型处理能力提升10倍以上，将能够支持完整软件项目开发、跨部门业务流程等超大规模任务。",
+        why: "这一突破意味着AI Agent能够处理更复杂的任务，提升企业自动化水平，推动Agentic AI系统从概念走向产品化。", url: "https://m.ofweek.com/ai/2026-01/ART-201700-8420-30678222.html"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "阿里巴巴发布首个数据分析Agent（8.28）",
+        what: "阿里巴巴旗下的瓴羊发布首个数据分析Agent，Quick BI里的“智能小Q”升级为一名由问数、解读和报告三大核心Agent组成的“超级数据分析师”。",
+        detail: "8月28日，阿里巴巴旗下的瓴羊发布首个数据分析Agent，Quick BI里的“智能小Q”升级为一名由问数、解读和报告三大核心Agent组成的“超级数据分析师”，可以帮助用户快速获取数据、解读数据和输出洞察报告。企业可以根据自身需求和企业特性，组合使用不同的Agent，快速为业务部门提供数据决策依据。",
+        why: "这标志着AI Agent技术在数据分析领域的应用进一步深化，有助于提升企业数据驱动决策的效率和质量。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485973&idx=1&sn=6d606488fb82c549467a2eead7c9dd07"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "华为云算力规模同比增长近250%（8.28）",
+        what: "华为云的整体算力规模相比去年同期增长率接近250%，使用昇腾AI云服务的客户从去年的321家增长到今年的1714家。",
+        detail: "8月28日，在中国国际大数据产业博览会开幕式上，华为云计算CEO张平安表示，华为云的整体算力规模相比去年同期增长率接近250%，使用昇腾AI云服务的客户从去年的321家增长到今年的1714家。",
+        why: "这一增长反映了AI Agent及相关AI技术在云计算领域的快速应用和普及，为AI Agent提供强大的算力支持。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485973&idx=1&sn=6d606488fb82c549467a2eead7c9dd07"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "百度百舸AI计算平台5.0性能提升8倍（8.28）",
+        what: "百度智能云正式发布百度百舸AI计算平台5.0全新版本，性能提升8倍。",
+        detail: "8月28日，百度智能云正式发布百度百舸AI计算平台5.0全新版本。此次升级在网络、算力、推理系统及训推一体系统等四大方向实现全面能力提升。其中算力上，昆仑芯超节点上线，超级算力正式可用。升级后的百舸AI计算平台5.0，已经正式上线百度智能云的公有云服务。",
+        why: "这一升级将为AI Agent等AI应用提供更强大的算力支持，推动AI技术的进一步发展和应用。", url: "http://mp.weixin.qq.com/s?__biz=MzkzODk0MTExMA==&mid=2247485973&idx=1&sn=6d606488fb82c549467a2eead7c9dd07"
+      },
+      {
+        region: "开源", tag: "os",
+        title: "MCP协议成为AI Agent工具调用的事实标准（8.28）",
+        what: "Model Context Protocol（MCP）迅速成为AI Agent工具调用的事实标准。",
+        detail: "2025年底到2026年初，Model Context Protocol（MCP）迅速成为AI Agent工具调用的事实标准。Anthropic提出的这一开放协议，定义了模型与外部工具之间的标准化通信接口。",
+        why: "MCP协议的普及将推动AI Agent工具调用的标准化，降低开发门槛，促进AI Agent技术的快速发展和应用。", url: "https://blog.csdn.net/qq_39914918/article/details/160878221"
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-27", vol: "VOL.078", weekday: "周四",
     headline: "AI Agent行业动态：技术突破与生态进展",
     tldr: "过去24小时内，AI Agent行业在技术突破和生态构建方面取得显著进展。Anthropic的Claude 3.5 Opus在软件工程领域树立新标杆，Meta的Llama 4开源生态催生Agent领域的“安卓时刻”，DeepSeek-R1展现出惊人的成本优势。这些进展不仅推动了AI从被动响应工具向主动决策执行者的跨越，也为行业应用和商业模式创新提供了新动力。",
