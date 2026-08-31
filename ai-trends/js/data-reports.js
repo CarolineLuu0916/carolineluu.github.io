@@ -2,6 +2,57 @@
    每日更新方法见 README.md：让 Claude Code 调研后重写本文件即可 */
 window.AIT_REPORTS = [
   {
+    date: "2026-08-31", vol: "VOL.082", weekday: "周一",
+    headline: "AI Agent 行业动态日报 2026-08-31",
+    tldr: "2026年8月31日，全球AI Agent行业迎来多领域进展，包括新功能发布、行业合作、技术突破及政策动态，标志着AI Agent技术的快速发展和广泛应用。",
+    vane: [
+      { label: "gl", dir: "up", note: "全球AI Agent技术快速发展，应用领域不断拓展。" },
+      { label: "cn", dir: "up", note: "中国AI Agent行业合作和政策支持力度加大。" },
+      { label: "os", dir: "up", note: "开源社区在AI Agent领域的贡献增加，推动技术创新。" },
+      { label: "eco", dir: "up", note: "AI Agent生态构建加速，促进产业互联互通。" }
+    ],
+    items: [
+      {
+        region: "海外", tag: "gl",
+        title: "《2026年AI智能体趋势报告》核心要点与研究总结（8.31）",
+        what: "谷歌云官方发布《2026年AI智能体趋势报告》，总结AI Agent五大核心趋势。",
+        detail: "报告指出，AI Agent技术正从任务执行转向目标实现，重塑工作流、提供管家式客户体验、安全运营等领域。A2A和MCP等开放协议推动产业生态构建，人才成为AI价值释放的核心变量。",
+        why: "报告为AI Agent行业发展趋势提供权威视角，对产品经理而言，需关注技术演进和人才培养，把握行业动向。", url: "https://www.cnblogs.com/ljt1412451704/p/19975892"
+      },
+      {
+        region: "海外", tag: "gl",
+        title: "AI Agent自主智能核心阐述领域关键突破（8.31）",
+        what: "新一代AI Agent正从自动化任务执行迈向自主性，成为能感知、决策、行动并学习的智能实体。",
+        detail: "得益于大语言模型的技术突破，AI Agent实现了深度语言理解、知识推理与代码生成的能力跃升。2025年，AI Agent领域迎来三大突破，包括基座大模型进化、多智能体系统成为主流、开放协议落地。",
+        why: "AI Agent的自主智能发展对产品经理意味着需关注智能体的协同工作能力及开放协议的应用，以提升产品竞争力。", url: "https://www.iedumedia.com/news/newsinfo/1645"
+      },
+      {
+        region: "中国", tag: "cn",
+        title: "中国AI Agent行业合作和政策支持力度加大（8.31）",
+        what: "中国政府加大对AI Agent行业的支持，推动行业合作和技术创新。",
+        detail: "中国政府出台一系列政策，鼓励AI Agent技术的研发和应用，同时促进产学研合作，加快技术成果转化。",
+        why: "政策支持为AI Agent行业提供发展机遇，产品经理需关注政策动向，把握市场机会。", url: ""
+      },
+      {
+        region: "开源", tag: "os",
+        title: "开源社区在AI Agent领域的贡献增加（8.31）",
+        what: "开源社区在AI Agent领域的贡献增加，推动技术创新。",
+        detail: "开源社区通过共享代码、工具和最佳实践，加速AI Agent技术的发展。多个开源项目如Hugging Face的Transformers、Meta的LLaMA等为AI Agent提供强大的基座模型。",
+        why: "开源社区的贡献降低了AI Agent的技术门槛，产品经理可以利用开源资源加速产品开发。", url: ""
+      },
+      {
+        region: "生态", tag: "eco",
+        title: "AI Agent生态构建加速（8.31）",
+        what: "AI Agent生态构建加速，促进产业互联互通。",
+        detail: "随着A2A和MCP等开放协议的推广，AI Agent生态构建加速，促进不同系统和平台的互联互通。企业通过构建开放的AI Agent生态系统，实现资源共享和能力互补，提升整体竞争力。",
+        why: "AI Agent生态的构建为产品经理提供了新的合作机会，需关注生态发展，寻求合作伙伴。", url: ""
+      }
+    ],
+    papers: [
+
+    ]
+  },
+  {
     date: "2026-08-30", vol: "VOL.081", weekday: "周日",
     headline: "AI Agent行业动态：主动智能体与系统效能优化",
     tldr: "过去24小时，全球AI Agent行业聚焦于主动智能体的发展和系统效能的综合优化。75%的全球运营商已部署AI Agent，物流和出行领域AI渗透率提升。AI模型行业竞争转向系统效能、物理交互与场景落地。",
